@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="common" >
+  <sql id="If_Example_Conditon_Valid" >
+    <if test="condition.valid" >
+      <trim prefix="(" suffix=")" prefixOverrides="and" >
+        <foreach collection="condition.criterions" item="criterion" >
+          <choose >
+            <when test="criterion.noValue" >
+              and ${criterion.condition}
+            </when>
+            <when test="criterion.singleValue" >
+              and ${criterion.condition} #{criterion.value}
+            </when>
+            <when test="criterion.betweenValue" >
+              and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+            </when>
+            <when test="criterion.listValue" >
+              and ${criterion.condition}
+              <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                #{listItem}
+              </foreach>
+            </when>
+            <when test="criterion.dateValue" >
+              and ${criterion.condition} #{criterion.value,jdbcType=TIMESTAMP}
+            </when>
+          </choose>
+        </foreach>
+      </trim>
+    </if>
+  </sql>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="condition" separator="or" >
+        <include refid="common.If_Example_Conditon_Valid" />
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="condition" separator="or" >
+        <include refid="common.If_Example_Conditon_Valid" />
+      </foreach>
+    </where>
+  </sql>
+</mapper>

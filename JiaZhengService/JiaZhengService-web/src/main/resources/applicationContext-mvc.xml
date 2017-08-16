@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation=" 
+                http://www.springframework.org/schema/beans 
+                http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+                http://www.springframework.org/schema/mvc 
+                http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+                http://www.springframework.org/schema/context 
+                http://www.springframework.org/schema/context/spring-context-4.3.xsd
+                ">
+
+	<context:property-placeholder location="classpath*:/JiaZheng.properties"
+		ignore-resource-not-found="true" ignore-unresolvable="true" />
+
+	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
+	<mvc:annotation-driven />
+
+	<context:annotation-config />
+
+	<!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
+	<!-- spring mvc 扫描设置: 与spring容器分开加载 -->
+	<!-- 匹配 Controller使用的是context:include-filter包含筛选 -->
+	<context:component-scan base-package="com.platform.JiaZhengService"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="contentType" value="text/html; charset=UTF-8" />
+		<property name="suffix" value="${template.suffix}" />
+	</bean>
+
+	<bean id="freeMarkerConfigurer"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPaths" value="${template.loader_path}" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="defaultEncoding">UTF-8</prop>
+				<!-- <prop key="url_escaping_charset">${url_escaping_charset}</prop> -->
+				<!-- <prop key="locale">${locale}</prop> -->
+				<!-- <prop key="template_update_delay">${template.update_delay}</prop> -->
+				<!-- <prop key="tag_syntax">auto_detect</prop> -->
+				<!-- <prop key="whitespace_stripping">true</prop> -->
+				<!-- <prop key="classic_compatible">true</prop> -->
+				<!-- <prop key="number_format">${template.number_format}</prop> -->
+				<!-- <prop key="boolean_format">${template.boolean_format}</prop> -->
+				<!-- <prop key="datetime_format">${template.datetime_format}</prop> -->
+				<!-- <prop key="date_format">${template.date_format}</prop> -->
+				<!-- <prop key="time_format">${template.time_format}</prop> -->
+				<!-- <prop key="object_wrapper">freemarker.ext.beans.BeansWrapper</prop> -->
+			</props>
+		</property>
+		<!-- <property name="freemarkerVariables"> -->
+		<!-- <map> -->
+		<!-- <entry key="systemName" value="${system.name}" /> -->
+		<!-- <entry key="systemVersion" value="${system.version}" /> -->
+		<!-- <entry key="systemDescription" value="${system.description}" /> -->
+		<!-- <entry key="base" value="#{servletContext.contextPath}" /> -->
+		<!-- </map> -->
+		<!-- </property> -->
+	</bean>
+
+	<!-- 配置多文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!--1024*200即200k -->
+		<property name="maxUploadSize" value="99999999999" />
+		<property name="maxInMemorySize" value="1638400" />
+		<!--resolveLazily属性启用是为了推迟文件解析，以便在UploadAction 中捕获文件大小异常 -->
+		<property name="resolveLazily" value="true" />
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
+
+</beans>
