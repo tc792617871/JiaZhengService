@@ -39,29 +39,29 @@
 		<property name="templateLoaderPaths" value="${template.loader_path}" />
 		<property name="freemarkerSettings">
 			<props>
-				<prop key="defaultEncoding">UTF-8</prop>
-				<!-- <prop key="url_escaping_charset">${url_escaping_charset}</prop> -->
-				<!-- <prop key="locale">${locale}</prop> -->
-				<!-- <prop key="template_update_delay">${template.update_delay}</prop> -->
-				<!-- <prop key="tag_syntax">auto_detect</prop> -->
-				<!-- <prop key="whitespace_stripping">true</prop> -->
-				<!-- <prop key="classic_compatible">true</prop> -->
-				<!-- <prop key="number_format">${template.number_format}</prop> -->
-				<!-- <prop key="boolean_format">${template.boolean_format}</prop> -->
-				<!-- <prop key="datetime_format">${template.datetime_format}</prop> -->
-				<!-- <prop key="date_format">${template.date_format}</prop> -->
-				<!-- <prop key="time_format">${template.time_format}</prop> -->
-				<!-- <prop key="object_wrapper">freemarker.ext.beans.BeansWrapper</prop> -->
+				<prop key="defaultEncoding">${template.encoding}</prop>
+				<prop key="url_escaping_charset">${url_escaping_charset}</prop>
+				<prop key="locale">${locale}</prop>
+				<prop key="template_update_delay">${template.update_delay}</prop>
+				<prop key="tag_syntax">auto_detect</prop>
+				<prop key="whitespace_stripping">true</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="number_format">${template.number_format}</prop>
+				<prop key="boolean_format">${template.boolean_format}</prop>
+				<prop key="datetime_format">${template.datetime_format}</prop>
+				<prop key="date_format">${template.date_format}</prop>
+				<prop key="time_format">${template.time_format}</prop>
+				<prop key="object_wrapper">freemarker.ext.beans.BeansWrapper</prop>
 			</props>
 		</property>
-		<!-- <property name="freemarkerVariables"> -->
-		<!-- <map> -->
-		<!-- <entry key="systemName" value="${system.name}" /> -->
-		<!-- <entry key="systemVersion" value="${system.version}" /> -->
-		<!-- <entry key="systemDescription" value="${system.description}" /> -->
-		<!-- <entry key="base" value="#{servletContext.contextPath}" /> -->
-		<!-- </map> -->
-		<!-- </property> -->
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="systemName" value="${system.name}" />
+				<entry key="systemVersion" value="${system.version}" />
+				<entry key="systemDescription" value="${system.description}" />
+				<entry key="base" value="#{servletContext.contextPath}" />
+			</map>
+		</property>
 	</bean>
 
 	<!-- 配置多文件上传 -->
