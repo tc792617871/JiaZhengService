@@ -12,6 +12,7 @@
 		<param-value>
 	    	classpath*:/applicationContext.xml,
 	    	classpath*:/spring-mybatis.xml,
+	    	classpath*:/applicationContext-shiro.xml,
 	    	classpath*:/applicationContext-rest.xml
 	    </param-value>
 	</context-param>
@@ -26,7 +27,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>JiaZhengService</servlet-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.ct</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>JiaZhengService</servlet-name>
@@ -42,8 +43,52 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>*.ct</url-pattern>
 	</filter-mapping>
+
+	<filter>
+		<filter-name>siteStatusFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>siteStatusFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>siteStatusFilter</filter-name>
+		<url-pattern>*.ct</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>accessDeniedFilter</filter-name>
+		<filter-class>com.platform.JiaZhengService.filter.AccessDeniedFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>accessDeniedFilter</filter-name>
+		<url-pattern>/install/data/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>accessDeniedFilter</filter-name>
+		<url-pattern>/install/sample/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>accessDeniedFilter</filter-name>
+		<url-pattern>*.properties</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>accessDeniedFilter</filter-name>
+		<url-pattern>*.conf</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/console/*</url-pattern>
+	</filter-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -52,4 +97,9 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/console/common/resource_not_found.ct</location>
+	</error-page>
 </web-app>

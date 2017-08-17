@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TRoleAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TRoleAuthority" >
+    <result column="role" property="role" jdbcType="BIGINT" />
+    <result column="authorities" property="authorities" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    role, authorities
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_role_authority
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    delete from t_role_authority
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TRoleAuthority" >
+    insert into t_role_authority (role, authorities)
+    values (#{role,jdbcType=BIGINT}, #{authorities,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TRoleAuthority" >
+    insert into t_role_authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="authorities != null" >
+        authorities,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="role != null" >
+        #{role,jdbcType=BIGINT},
+      </if>
+      <if test="authorities != null" >
+        #{authorities,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from t_role_authority
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_role_authority
+    <set >
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=BIGINT},
+      </if>
+      <if test="record.authorities != null" >
+        authorities = #{record.authorities,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_role_authority
+    set role = #{record.role,jdbcType=BIGINT},
+      authorities = #{record.authorities,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

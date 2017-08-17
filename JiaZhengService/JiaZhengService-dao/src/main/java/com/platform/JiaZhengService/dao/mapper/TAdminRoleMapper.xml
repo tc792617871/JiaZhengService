@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TAdminRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TAdminRoleKey" >
+    <id column="admins" property="admins" jdbcType="BIGINT" />
+    <id column="roles" property="roles" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    admins, roles
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_admin_role
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TAdminRoleKey" >
+    delete from t_admin_role
+    where admins = #{admins,jdbcType=BIGINT}
+      and roles = #{roles,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    delete from t_admin_role
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TAdminRoleKey" >
+    insert into t_admin_role (admins, roles)
+    values (#{admins,jdbcType=BIGINT}, #{roles,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TAdminRoleKey" >
+    insert into t_admin_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="admins != null" >
+        admins,
+      </if>
+      <if test="roles != null" >
+        roles,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="admins != null" >
+        #{admins,jdbcType=BIGINT},
+      </if>
+      <if test="roles != null" >
+        #{roles,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from t_admin_role
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_admin_role
+    <set >
+      <if test="record.admins != null" >
+        admins = #{record.admins,jdbcType=BIGINT},
+      </if>
+      <if test="record.roles != null" >
+        roles = #{record.roles,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_admin_role
+    set admins = #{record.admins,jdbcType=BIGINT},
+      roles = #{record.roles,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

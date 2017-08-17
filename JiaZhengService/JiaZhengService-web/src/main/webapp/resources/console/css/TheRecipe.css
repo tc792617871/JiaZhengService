@@ -1,0 +1,297 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.recipe_table{
+		
+		border-bottom:1px solid rgb(236, 236, 236);
+		border-left:1px solid rgb(236, 236, 236);
+		
+		width:930px;
+		}
+	.recipe_table td{
+		border-top: 1px solid rgb(236, 236, 236);
+		border-right: 1px solid rgb(236, 236, 236);
+		text-align:center;
+		}
+	.date{
+		height:30px;
+		background:#e7eef8;
+		color:#003784;
+		}
+	/*星期*/	
+	.week{
+		height:30px;
+		}		
+	.breakfast_div{
+		width:120px;
+		height:120px;
+		margin:auto;
+		letter-spacing:2px;
+		line-height:30px;
+		
+		}
+	/*早餐*/	
+	.breakfast{
+		width:70px;
+		height:auto;
+		margin:auto;
+		letter-spacing:5px;
+		margin:20px 0 0 10px;
+	
+	/*加餐*/	
+	.snacks{
+		width:70px;
+		height:auto;
+		margin:auto;
+		letter-spacing:5px;
+	
+		}
+	.snacks_div{
+		width:120px;
+		height:autopx;
+		margin:auto;
+		letter-spacing:2px;
+		line-height:30px;
+		}
+	/*午餐*/	
+	.lunch{
+		width:70px;
+		height:auto;
+		margin:auto;
+		letter-spacing:5px;
+		
+		}
+	.lunch_div{
+		width:120px;
+		height:170px;
+		margin:auto;
+		letter-spacing:2px;
+		line-height:30px;
+		}
+	.snack{
+		width:70px;
+		height:auto;
+		margin:auto;
+		letter-spacing:5px;
+		
+		}
+	.snack_div{
+		width:120px;
+		height:40px;
+		margin:auto;
+		letter-spacing:2px;
+		line-height:30px;		
+		}
+		/*鼠标以上去变成小手*/
+	.dishes{
+		cursor:pointer;
+		position:relative;
+		color:#696B6E;
+		}	
+	.dinner{
+		width:70px;
+		height:auto;
+		margin:auto;
+		letter-spacing:5px;
+		
+		}
+	.dinner_div{
+		width:120px;
+		height:125px;
+		margin:auto;
+		letter-spacing:2px;
+		line-height:30px;
+		}	
+	
+	/*周期样式*/	
+	.cycle{
+		border:0px;
+		text-align:center;
+		font-size:16px;
+		width:230px;
+		background:#e7eef8;
+		}
+		.recipesToAdd{
+		width:930px;
+		border-top:1px solid #DDDADA;
+		border-right:1px solid #DDDADA;
+		border-bottom:1px solid #DDDADA;
+		}
+	.recipesToAdd_td{
+		border-left:1px solid #DDDADA;
+		text-align:center;
+		height:30px;
+		}
+	.recipesToAdd_bj{
+		background:rgba(144, 138, 138, 0.1);}		
+	.TimeToShow	{
+		width:210px;
+		border:0px;
+		margin-left:20px;
+		font-size:16px;
+		color:rgba(178,177,177,1.00);
+		}
+	.datehead{
+		border-left:1px solid #DDDADA;
+		height:50px;
+		
+		}
+	 .add_table{
+		 width:800px;
+		 height:180px;
+		 border:0px solid  #DDDADA;
+		 margin-top:5px;		
+		 }	
+	.add_table td{
+		height:30px;} 
+	/*添加按钮样式*/	
+	.AddAbutton{
+		width:100%;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:5px;
+		}
+	.AddAbutton_btn{
+		width:50px;
+		color:rgba(34,33,33,1.00);
+		font-size:16px;
+		}	
+	.addahidden{
+		margin-left:auto;
+		margin-right:auto;
+		display:none;
+		width:auto;
+		height:auto;
+		}	
+	/*编辑按钮样式*/		
+	.Edithidden{
+		margin-left:auto;
+		margin-right:auto;	
+		width:auto;
+		height:auto;
+		display:none;
+		}	
+	.Edithidden_btn{		
+		
+		}
+	/*删除样式*/		
+	.delete{
+		margin-left:65px;
+		}
+	/*保存按钮样式*/	
+	.save_btn{		
+		margin-left:40px;
+		}
+	/*取消按钮样式*/	
+   .cancel_btn{
+	   background:rgba(108, 217, 195, 1);
+	   margin-left:35px;
+	   }	
+	   /*餐段样式*/
+	.MealPeriod{
+		margin-left:－50px;
+		letter-spacing:30px;}
+	/*开始时间字体样式*/	
+	.start{
+		margin-left:20px;
+		}
+	.start_ip{
+		margin-left:18px;
+		}
+	.end-ip{
+		margin-left:40px;
+		}	
+	.start_div{
+		 width:520px; 
+		 float:right;
+		  margin-top:-45px;
+		  margin-right:25px;
+		}
+	/*下拉框餐段*/
+	.selects{		
+		width:150px;
+		font-size:50px;
+		margin-left:135px;
+		}	
+	.selects_div1{
+	
+		margin-left:15px; 
+		width:50px; 
+		margin-top:20px;
+	    letter-spacing:7px;
+		}	
+	.selects_div2{
+		margin-top:-20px;
+		margin-left:-75px;
+		}	
+	/*菜名input样式*/
+	.dishes{		
+		margin-left:12px;
+		width:170px;}		
+	.dishes2{		
+		margin-left:12px;
+		width:170px;}	
+	.dishes3{		
+		margin-left:12px;
+		width:170px;}
+	/*input控制*/	
+	.dishes_div{	
+		width:750px; 
+		float:right; 
+		margin-top:-40px;
+		}
+		/*菜名控制*/
+	.dishes_div1{
+		width:50px;
+		height:atuo;
+	
+		margin-left:15px; 
+		margin-top:10px;
+		letter-spacing:7px;}	
+	.dishes_div2{
+		width:750px; 
+		float:right; 
+		margin-top:10px;
+		}			  			
+    .timeColor{
+		color:rgba(169,167,167,0.74);}	
+	/*选择周显示日期*/		
+	.CycleShow{		
+		width:400px;
+		height:auto;
+		text-algin:center;
+		margin:0 auto 10px auto;
+		min-height: 60px;		
+	}
+	.daycolor{
+		color:rgba(243,154,89,0.89);
+		font-size:20px;
+	}	
+	.dateInput{
+		text-align: center;
+	  	border: none;
+	  	font-size: larger;
+	  	vertical-align: middle;
+	}
+	#listTable tr td{
+		  vertical-align: middle;
+	}
+	}
+	/*课节*/	
+	.lessonsDate{
+		width:15%;
+	}
+	.morningStyle{
+		text-align:center;
+		margin:0 auto;
+		width:20px;
+		height:auto;
+		line-height:50px;	
+	}		
+   .semester{
+   		margin:0 auto;
+   }
+
+   .lessonslessons{
+   		color:#696D71;
+   }		 

@@ -1,0 +1,59 @@
+{
+    "status": 1,
+    "msg": "",
+    "title": "JSON请求的相册",
+    "id": 8,
+    "start": 0,
+    "data": [
+        {
+            "name": "越来越喜欢观察微小的事物",
+            "pid": 109,
+            "src": "http://sentsin.qiniudn.com/sentsin_39101a660cf4671b7ec297a74cc652c74152104f.jpg",
+            "thumb": "",
+            "area": [
+                638,
+                851
+            ]
+        },
+        {
+            "name": "决定，意味着对与错的并存",
+            "pid": 110,
+            "src": "http://sentsin.qiniudn.com/sentsin_7dee4a4134214dd2d8ff390fbeb11333.jpg",
+            "thumb": "http://sentsin.qiniudn.com/sentsin_7dee4a4134214dd2d8ff390fbeb11333.jpg",
+            "area": [
+                638,
+                851
+            ]
+        },
+        {
+            "name": "给人姐姐般温暖的的邻家女孩",
+            "pid": 111,
+            "src": "http://www.neihanwa.com/upload/2014-5/75/1130439503690738.jpg",
+            "thumb": "http://www.neihanwa.com/upload/2014-5/75/1130439503729167.jpg",
+            "area": [
+                638,
+                851
+            ]
+        },
+        {
+            "name": "人与人关系图",
+            "pid": 112,
+            "src": "http://sentsin.qiniudn.com/sentsinren.jpg",
+            "thumb": "",
+            "area": [
+                638,
+                851
+            ]
+        },
+        {
+            "name": "那忧郁的眼神，含着一丝晶莹的泪花",
+            "pid": 113,
+            "src": "http://sentsin.qiniudn.com/sentsinsan01.jpg",
+            "thumb": "http://sentsin.qiniudn.com/sentsinsan01.jpg",
+            "area": [
+                638,
+                851
+            ]
+        }
+    ]
+}

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.entity.TUser;
 import com.platform.JiaZhengService.dao.mapper.TUserMapper;
-import com.platform.JiaZhengService.service.api.ITestService;
+import com.platform.JiaZhengService.service.api.TestService;
 
 @Service("testServiceImpl")
-public class TestServiceImpl extends BaseServiceImpl implements ITestService {
+public class TestServiceImpl extends BaseServiceImpl implements TestService {
 
 	@Autowired
 	private TUserMapper userMapper;

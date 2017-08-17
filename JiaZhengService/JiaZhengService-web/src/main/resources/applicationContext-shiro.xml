@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+	default-lazy-init="true">
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/console/login.jsp" />
+		<property name="successUrl" value="/console/common/main.ct" />
+		<property name="unauthorizedUrl" value="/console/common/unauthorized.ct" />
+		<property name="filterChainDefinitions">
+			<value>
+				/console/ = anon
+				/console/index.jsp = anon
+				/console/login.jsp = authc
+				/console/logout.jsp = logout
+				/console/common/captcha.ct = anon
+				
+				/console/role/** = perms["console:role"]
+
+				/console/** = authc
+			</value>
+		</property>
+		<property name="filters">
+			<map>
+				<entry key="authc" value-ref="authenticationFilter" />
+				<entry key="logout" value-ref="logoutFilter" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="authenticationRealm" />
+		<!-- <property name="cacheManager" ref="shiroCacheManager" /> -->
+	</bean>
+
+	<!-- 自定义Realm -->
+	<bean id="authenticationRealm" class="com.platform.JiaZhengService.filter.AuthenticationRealm">
+		<property name="authorizationCacheName" value="authorization" />
+	</bean>
+
+	<!-- 权限缓存 -->
+	<!-- <bean id="shiroCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"> -->
+	<!-- <property name="cacheManager" ref="ehCacheManager" /> -->
+	<!-- </bean> -->
+
+	<bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+		<property name="redirectUrl" value="/console/login.jsp" />
+	</bean>
+
+	<bean id="authenticationFilter"
+		class="com.platform.JiaZhengService.filter.AuthenticationFilter" />
+
+	<!-- <bean -->
+	<!-- class="org.springframework.beans.factory.config.MethodInvokingFactoryBean"> -->
+	<!-- <property name="staticMethod" -->
+	<!-- value="org.apache.shiro.SecurityUtils.setSecurityManager" /> -->
+	<!-- <property name="arguments" ref="securityManager" /> -->
+	<!-- </bean> -->
+
+</beans>

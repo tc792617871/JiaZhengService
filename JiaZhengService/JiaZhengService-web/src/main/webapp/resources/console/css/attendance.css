@@ -1,0 +1,37 @@
+.attendance_table_class{
+	text-align:center; /*设置水平居中*/
+    vertical-align:middle;/*设置垂直居中*/
+}
+#attendance_table tr td{
+	vertical-align:middle;/*设置垂直居中*/
+}
+.attendance_dialog{
+	position: absolute;
+ 	width: auto;
+ 	margin: 10px;
+  	top: 10%;
+  	left: 20%;
+  	
+}
+.hidediv{
+	display:none;
+}
+.closeX{
+	text-decoration: none;
+  	color: red;
+ 	font-size: 18px;
+  	float: right;
+  	margin-top: -5px;
+  	cursor: pointer;
+}
+.rightfloat{
+	float:right;
+	margin-right:5%;
+}
+.marginTop{
+	margin-top:20%;
+}
+.padding{
+	padding-left: 15px;
+  	padding-right: 15px;
+}

@@ -11,6 +11,9 @@
 	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.3.xsd"
 	default-lazy-init="true">
 
+	<context:property-placeholder location="classpath*:/JiaZheng.properties"
+		ignore-resource-not-found="true" ignore-unresolvable="true" />
+
 	<!--这个配置注意的是使用的是context:exclude-filter扫描除了Controller之外的注解 -->
 	<context:component-scan base-package="com.platform.JiaZhengService">
 		<context:exclude-filter type="annotation"
@@ -29,15 +32,79 @@
 	<!-- </task:scheduled-tasks> -->
 
 	<!-- ehcache 缓存集成配置 -->
-<!-- 	<bean id="ehCacheManager" -->
-<!-- 		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"> -->
-<!-- 		<property name="configLocation" value="classpath:ehcache.xml" /> -->
-<!-- 		<property name="shared" value="false" /> -->
-<!-- 	</bean> -->
+	<bean id="ehCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:ehcache.xml" />
+		<property name="shared" value="false" />
+	</bean>
 
-<!-- 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"> -->
-<!-- 		<property name="cacheManager" ref="ehCacheManager" /> -->
-<!-- 	</bean> -->
-<!-- 	<cache:annotation-driven cache-manager="cacheManager" /> -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
+	<cache:annotation-driven cache-manager="cacheManager" />
+
+	<!-- 验证码整合 -->
+	<bean id="imageCaptchaService"
+		class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+		<property name="captchaEngine">
+			<bean class="com.platform.JiaZhengService.captchaEngine.CaptchaEngine" />
+		</property>
+		<property name="minGuarantedStorageDelayInSeconds" value="3600" />
+	</bean>
+
+	<!-- 整合freemarker -->
+	<bean id="freeMarkerConfigurer"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPaths" value="${template.loader_path}" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="defaultEncoding">${template.encoding}</prop>
+				<prop key="url_escaping_charset">${url_escaping_charset}</prop>
+				<prop key="locale">${locale}</prop>
+				<prop key="template_update_delay">${template.update_delay}</prop>
+				<prop key="tag_syntax">auto_detect</prop>
+				<prop key="whitespace_stripping">true</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="number_format">${template.number_format}</prop>
+				<prop key="boolean_format">${template.boolean_format}</prop>
+				<prop key="datetime_format">${template.datetime_format}</prop>
+				<prop key="date_format">${template.date_format}</prop>
+				<prop key="time_format">${template.time_format}</prop>
+				<prop key="object_wrapper">freemarker.ext.beans.BeansWrapper</prop>
+			</props>
+		</property>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="systemName" value="${system.name}" />
+				<entry key="systemVersion" value="${system.version}" />
+				<entry key="systemDescription" value="${system.description}" />
+				<entry key="systemShowPowered" value="#{${system.show_powered}}" />
+				<entry key="base" value="#{servletContext.contextPath}" />
+				<entry key="locale" value="${locale}" />
+				<entry key="setting"
+					value="#{T(com.platform.JiaZhengService.common.util.SettingUtils).get()}" />
+				<entry key="message" value-ref="messageMethod" />
+			</map>
+		</property>
+	</bean>
+
+	<!-- 整合国际化 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="cacheSeconds" value="${message.cache_seconds}" />
+		<property name="useCodeAsDefaultMessage" value="true" />
+		<property name="basenames">
+			<list>
+				<value>${message.common_path}</value>
+				<value>${message.console_path}</value>
+				<value>${message.shop_path}</value>
+				<value>${message.weixin_path}</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
+		<property name="defaultLocale" value="${locale}" />
+	</bean>
 
 </beans>

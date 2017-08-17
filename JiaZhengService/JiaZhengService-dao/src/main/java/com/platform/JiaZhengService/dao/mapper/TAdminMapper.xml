@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TAdminMapper" >
+  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TAdmin" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+    <result column="is_locked" property="isLocked" jdbcType="BIT" />
+    <result column="locked_date" property="lockedDate" jdbcType="TIMESTAMP" />
+    <result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
+    <result column="login_failure_count" property="loginFailureCount" jdbcType="INTEGER" />
+    <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, modify_date, department, email, is_enabled, is_locked, locked_date, 
+    login_date, login_failure_count, login_ip, name, password, username
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_admin
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_admin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_admin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    delete from t_admin
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TAdmin" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_admin (create_date, modify_date, department, 
+      email, is_enabled, is_locked, 
+      locked_date, login_date, login_failure_count, 
+      login_ip, name, password, 
+      username)
+    values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{department,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{isEnabled,jdbcType=BIT}, #{isLocked,jdbcType=BIT}, 
+      #{lockedDate,jdbcType=TIMESTAMP}, #{loginDate,jdbcType=TIMESTAMP}, #{loginFailureCount,jdbcType=INTEGER}, 
+      #{loginIp,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TAdmin" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isLocked != null" >
+        is_locked,
+      </if>
+      <if test="lockedDate != null" >
+        locked_date,
+      </if>
+      <if test="loginDate != null" >
+        login_date,
+      </if>
+      <if test="loginFailureCount != null" >
+        login_failure_count,
+      </if>
+      <if test="loginIp != null" >
+        login_ip,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null" >
+        #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null" >
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null" >
+        #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from t_admin
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_admin
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.department != null" >
+        department = #{record.department,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnabled != null" >
+        is_enabled = #{record.isEnabled,jdbcType=BIT},
+      </if>
+      <if test="record.isLocked != null" >
+        is_locked = #{record.isLocked,jdbcType=BIT},
+      </if>
+      <if test="record.lockedDate != null" >
+        locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginDate != null" >
+        login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginFailureCount != null" >
+        login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginIp != null" >
+        login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_admin
+    set id = #{record.id,jdbcType=BIGINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      department = #{record.department,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      is_enabled = #{record.isEnabled,jdbcType=BIT},
+      is_locked = #{record.isLocked,jdbcType=BIT},
+      locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
+      login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+      login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TAdmin" >
+    update t_admin
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isLocked != null" >
+        is_locked = #{isLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null" >
+        locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null" >
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null" >
+        login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null" >
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TAdmin" >
+    update t_admin
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      department = #{department,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_locked = #{isLocked,jdbcType=BIT},
+      locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
