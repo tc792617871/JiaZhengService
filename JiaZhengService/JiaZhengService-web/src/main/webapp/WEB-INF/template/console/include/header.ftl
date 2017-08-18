@@ -10,7 +10,7 @@
                 <span class="m-r-sm text-muted welcome-message">
                 	<a href="${base}/console/common/main.ct" title="返回首页">
                  		<i class="fa fa-home"></i>
-                    	${message("console.login.PreschoolEducationPlatform")}
+                    	家政服务管理平台
                 	</a>
                 </span>
             </li>

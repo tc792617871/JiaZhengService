@@ -2,7 +2,8 @@ package com.platform.JiaZhengService.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.platform.JiaZhengService.dao.Criteria;
@@ -13,7 +14,7 @@ import com.platform.JiaZhengService.service.api.TestService;
 @Service("testServiceImpl")
 public class TestServiceImpl extends BaseServiceImpl implements TestService {
 
-	@Autowired
+	@Resource
 	private TUserMapper userMapper;
 
 	@Override

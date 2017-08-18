@@ -3,9 +3,11 @@ package com.platform.JiaZhengService.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,13 +27,13 @@ import com.platform.JiaZhengService.service.api.AdminService;
 @Service("adminServiceImpl")
 public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
 
-	@Autowired
+	@Resource
 	private TAdminMapper adminMapper;
 
-	@Autowired
+	@Resource
 	private TAdminRoleMapper adminRoleMapper;
 
-	@Autowired
+	@Resource
 	private TRoleAuthorityMapper roleAuthorityMapper;
 
 	@Override
@@ -112,8 +114,10 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public boolean update(TAdmin admin) {
-		return adminMapper.updateByPrimaryKeySelective(admin) > 0 ? true : false;
+	@Transactional
+	@CacheEvict(value = "authorization", allEntries = true)
+	public TAdmin update(TAdmin admin) {
+		adminMapper.updateByPrimaryKeySelective(admin);
+		return adminMapper.selectByPrimaryKey(admin.getId());
 	}
 }

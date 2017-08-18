@@ -63,6 +63,6 @@ public interface AdminService extends BaseService {
 	 * @param admin
 	 * @return
 	 */
-	boolean update(TAdmin admin);
+	TAdmin update(TAdmin admin);
 
 }
