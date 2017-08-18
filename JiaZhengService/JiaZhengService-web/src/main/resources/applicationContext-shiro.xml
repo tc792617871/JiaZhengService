@@ -33,7 +33,7 @@
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="authenticationRealm" />
-		<!-- <property name="cacheManager" ref="shiroCacheManager" /> -->
+		<property name="cacheManager" ref="shiroCacheManager" />
 	</bean>
 
 	<!-- 自定义Realm -->
@@ -42,9 +42,9 @@
 	</bean>
 
 	<!-- 权限缓存 -->
-	<!-- <bean id="shiroCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager"> -->
-	<!-- <property name="cacheManager" ref="ehCacheManager" /> -->
-	<!-- </bean> -->
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="ehCacheManager" />
+	</bean>
 
 	<bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
 		<property name="redirectUrl" value="/console/login.jsp" />

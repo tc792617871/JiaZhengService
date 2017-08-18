@@ -204,7 +204,13 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>${shiro.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
 
+		<!-- 用于RSA加密 -->
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
@@ -229,8 +235,6 @@
 			<artifactId>jcaptcha</artifactId>
 			<version>1.0</version>
 		</dependency>
-
-
 
 	</dependencies>
 </project>
