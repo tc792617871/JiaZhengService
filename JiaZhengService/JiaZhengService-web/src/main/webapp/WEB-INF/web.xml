@@ -27,7 +27,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>JiaZhengService</servlet-name>
-		<url-pattern>*.ct</url-pattern>
+		<url-pattern>*.jhtml</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>JiaZhengService</servlet-name>
@@ -43,7 +43,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
-		<url-pattern>*.ct</url-pattern>
+		<url-pattern>*.jhtml</url-pattern>
 	</filter-mapping>
 
 	<filter>
@@ -56,7 +56,7 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>siteStatusFilter</filter-name>
-		<url-pattern>*.ct</url-pattern>
+		<url-pattern>*.jhtml</url-pattern>
 	</filter-mapping>
 
 	<filter>
@@ -86,7 +86,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
-		<url-pattern>/console/*</url-pattern>
+		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
 
 	<welcome-file-list>
@@ -100,6 +100,6 @@
 	
 	<error-page>
 		<error-code>404</error-code>
-		<location>/console/common/resource_not_found.ct</location>
+		<location>/admin/common/resource_not_found.ct</location>
 	</error-page>
 </web-app>

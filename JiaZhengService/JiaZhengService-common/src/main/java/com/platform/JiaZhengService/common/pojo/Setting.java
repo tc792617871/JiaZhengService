@@ -23,7 +23,7 @@ public class Setting implements Serializable {
 		memberRegister,
 
 		/** 后台登录 */
-		consoleLogin,
+		adminLogin,
 
 		/** 找回密码 */
 		findPassword,
@@ -44,9 +44,7 @@ public class Setting implements Serializable {
 		member,
 
 		/** 管理员 */
-		admin,
-
-		console
+		admin
 	}
 
 	/** 缓存名称 */

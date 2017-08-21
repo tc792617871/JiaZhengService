@@ -7,20 +7,20 @@
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/console/login.jsp" />
-		<property name="successUrl" value="/console/common/main.ct" />
-		<property name="unauthorizedUrl" value="/console/common/unauthorized.ct" />
+		<property name="loginUrl" value="/admin/login.jsp" />
+		<property name="successUrl" value="/admin/common/main.jhtml" />
+		<property name="unauthorizedUrl" value="/admin/common/unauthorized.jhtml" />
 		<property name="filterChainDefinitions">
 			<value>
-				/console/ = anon
-				/console/index.jsp = anon
-				/console/login.jsp = authc
-				/console/logout.jsp = logout
-				/console/common/captcha.ct = anon
+				/admin/ = anon
+				/admin/index.jsp = anon
+				/admin/login.jsp = authc
+				/admin/logout.jsp = logout
+				/admin/common/captcha.jhtml = anon
 
-				/console/role/** = perms["console:role"]
+				/admin/role/** = perms["console:role"]
 
-				/console/** = authc
+				/admin/** = authc
 			</value>
 		</property>
 		<property name="filters">
@@ -47,7 +47,7 @@
 	</bean>
 
 	<bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
-		<property name="redirectUrl" value="/console/login.jsp" />
+		<property name="redirectUrl" value="/admin/login.jsp" />
 	</bean>
 
 	<bean id="authenticationFilter"

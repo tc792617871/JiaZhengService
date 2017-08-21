@@ -20,7 +20,7 @@
 							and ${criterion.condition}
 							<foreach collection="criterion.value" item="listItem"
 								open="(" close=")" separator=",">
-								#{listItem}
+								#{listItem} 
 							</foreach>
 						</when>
 						<when test="criterion.dateValue">

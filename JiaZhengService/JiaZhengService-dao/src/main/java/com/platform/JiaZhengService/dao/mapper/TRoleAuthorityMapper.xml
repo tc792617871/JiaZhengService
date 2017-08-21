@@ -12,7 +12,7 @@
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
 		select
-		<if test="distinct">
+		<if test="distinct"> 
 			distinct
 		</if>
 		<include refid="Base_Column_List" />

@@ -154,8 +154,8 @@ public class StaticServiceImpl implements StaticService, ServletContextAware {
 	@Transactional(readOnly = true)
 	public int buildOther() {
 		int buildCount = 0;
-		Template consoleCommonJsTemplate = templateService.get("consoleCommonJs");
-		buildCount += build(consoleCommonJsTemplate.getTemplatePath(), consoleCommonJsTemplate.getStaticPath());
+		Template adminCommonJsTemplate = templateService.get("adminCommonJs");
+		buildCount += build(adminCommonJsTemplate.getTemplatePath(), adminCommonJsTemplate.getStaticPath());
 		return buildCount;
 	}
 

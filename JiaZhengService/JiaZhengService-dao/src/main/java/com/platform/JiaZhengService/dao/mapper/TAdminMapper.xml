@@ -13,7 +13,7 @@
 		<result column="locked_date" property="lockedDate" jdbcType="TIMESTAMP" />
 		<result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
 		<result column="login_failure_count" property="loginFailureCount"
-			jdbcType="INTEGER" />
+			jdbcType="INTEGER" /> 
 		<result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />

@@ -56,7 +56,7 @@ public class AuthenticationRealm extends AuthorizingRealm {
 		String captchaId = authenticationToken.getCaptchaId();
 		String captcha = authenticationToken.getCaptcha();
 		String ip = authenticationToken.getHost();
-		if (!captchaService.isValid(CaptchaType.consoleLogin, captchaId, captcha)) {
+		if (!captchaService.isValid(CaptchaType.adminLogin, captchaId, captcha)) {
 			throw new UnsupportedTokenException();
 		}
 		if (username != null && password != null) {

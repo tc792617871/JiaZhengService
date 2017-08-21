@@ -14,7 +14,7 @@
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
-		select
+		select 
 		<if test="distinct">
 			distinct
 		</if>
