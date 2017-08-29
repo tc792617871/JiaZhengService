@@ -165,7 +165,7 @@ public final class SettingUtils {
 		try {
 			File preschoolEduXmlFile = new ClassPathResource(CommonAttributes.JIAZHENGSERVICE_XML_PATH).getFile();
 			Document document = new SAXReader().read(preschoolEduXmlFile);
-			List<Element> elements = document.selectNodes("/preschoolEdu/setting");
+			List<Element> elements = document.selectNodes("/jiaZhengService/setting");
 			for (Element element : elements) {
 				try {
 					String name = element.attributeValue("name");

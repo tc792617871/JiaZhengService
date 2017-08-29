@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Service - RSA安全
  */
-public interface RSAService {
+public interface RSAService extends BaseService {
 
 	/**
 	 * 生成密钥(添加私钥至Session并返回公钥)

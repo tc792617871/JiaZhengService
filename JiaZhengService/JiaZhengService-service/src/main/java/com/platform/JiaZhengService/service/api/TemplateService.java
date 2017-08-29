@@ -8,7 +8,7 @@ import com.platform.JiaZhengService.common.pojo.Template.Type;
 /**
  * Service - 模板
  */
-public interface TemplateService {
+public interface TemplateService extends BaseService {
 
 	/**
 	 * 获取所有模板

@@ -1,13 +1,13 @@
 /*
- * Copyright 2012-2014 福州盛云软件技术有限公司.com.cn. All rights reserved.
- * Support: http://www.福州盛云软件技术有限公司.com.cn
- * License: http://www.福州盛云软件技术有限公司.com.cn/license
+ * Copyright 2012-2014 广州爱帛服饰有限公司.com.cn. All rights reserved.
+ * Support: http://www.广州爱帛服饰有限公司.com.cn
+ * License: http://www.广州爱帛服饰有限公司.com.cn/license
  * 
  * JavaScript - Common
  * Version: 3.0
  */
 
-var preschoolEdu = {
+var moshop = {
 	base: "${base}",
 	locale: "${locale}"
 };
@@ -20,75 +20,51 @@ var setting = {
 	uploadImageExtension: "${setting.uploadImageExtension}",
 	uploadFlashExtension: "${setting.uploadFlashExtension}",
 	uploadMediaExtension: "${setting.uploadMediaExtension}",
-	uploadFileExtension: "${setting.uploadFileExtension}",
-	kineditorSite:"${setting.kineditorSite}"
+	uploadFileExtension: "${setting.uploadFileExtension}"
 };
 
 var messages = {
-	"console.message.success": "${message("console.message.success")}",
-	"console.message.error": "${message("console.message.error")}",
-	"console.dialog.ok": "${message("console.dialog.ok")}",
-	"console.dialog.cancel": "${message("console.dialog.cancel")}",
-	"console.dialog.deleteConfirm": "${message("console.dialog.deleteConfirm")}",
-	"console.dialog.clearConfirm": "${message("console.dialog.clearConfirm")}",
-	"console.browser.title": "${message("console.browser.title")}",
-	"console.browser.upload": "${message("console.browser.upload")}",
-	"console.browser.parent": "${message("console.browser.parent")}",
-	"console.browser.orderType": "${message("console.browser.orderType")}",
-	"console.browser.name": "${message("console.browser.name")}",
-	"console.browser.size": "${message("console.browser.size")}",
-	"console.browser.type": "${message("console.browser.type")}",
-	"console.browser.select": "${message("console.browser.select")}",
-	"console.upload.sizeInvalid": "${message("console.upload.sizeInvalid")}",
-	"console.upload.typeInvalid": "${message("console.upload.typeInvalid")}",
-	"console.upload.invalid": "${message("console.upload.invalid")}",
-	"console.validate.required": "${message("console.validate.required")}",
-	"console.validate.email": "${message("console.validate.email")}",
-	"console.validate.url": "${message("console.validate.url")}",
-	"console.validate.date": "${message("console.validate.date")}",
-	"console.validate.dateISO": "${message("console.validate.dateISO")}",
-	"console.validate.pointcard": "${message("console.validate.pointcard")}",
-	"console.validate.number": "${message("console.validate.number")}",
-	"console.validate.digits": "${message("console.validate.digits")}",
-	"console.validate.minlength": "${message("console.validate.minlength")}",
-	"console.validate.maxlength": "${message("console.validate.maxlength")}",
-	"console.validate.rangelength": "${message("console.validate.rangelength")}",
-	"console.validate.min": "${message("console.validate.min")}",
-	"console.validate.max": "${message("console.validate.max")}",
-	"console.validate.range": "${message("console.validate.range")}",
-	"console.validate.accept": "${message("console.validate.accept")}",
-	"console.validate.equalTo": "${message("console.validate.equalTo")}",
-	"console.validate.remote": "${message("console.validate.remote")}",
-	"console.validate.integer": "${message("console.validate.integer")}",
-	"console.validate.positive": "${message("console.validate.positive")}",
-	"console.validate.negative": "${message("console.validate.negative")}",
-	"console.validate.decimal": "${message("console.validate.decimal")}",
-	"console.validate.pattern": "${message("console.validate.pattern")}",
-	"console.validate.extension": "${message("console.validate.extension")}",
-	"console.dialog.archivedFirm":"${message("console.dialog.archivedFirm")}",
-	"console.attendance.status.normal":"${message("console.attendance.status.normal")}",
-	"console.attendance.status.late":"${message("console.attendance.status.late")}",
-	"console.attendance.status.early":"${message("console.attendance.status.early")}",
-	"console.attendance.status.leave":"${message("console.attendance.status.leave")}",
-	"console.attendance.sunday":"${message("console.attendance.sunday")}",
-	"console.attendance.monday":"${message("console.attendance.monday")}",
-	"console.attendance.tuesday":"${message("console.attendance.tuesday")}",
-	"console.attendance.wednesday":"${message("console.attendance.wednesday")}",
-	"console.attendance.thursday":"${message("console.attendance.thursday")}",
-	"console.attendance.friday":"${message("console.attendance.friday")}",
-	"console.attendance.saturday":"${message("console.attendance.saturday")}",
-	"console.attendance.morning":"${message("console.attendance.morning")}",
-	"console.attendance.noon":"${message("console.attendance.noon")}",
-	"console.attendance.afternoon":"${message("console.attendance.afternoon")}",
-	"console.attendance.night":"${message("console.attendance.night")}",
-	"console.attendance.IC":"${message("console.attendance.IC")}",
-	"console.attendance.QR":"${message("console.attendance.QR")}",
-	"console.attendance.BAR":"${message("console.attendance.BAR")}",
-	"console.OperatingSystem.android":"${message("console.OperatingSystem.android")}",
-	"console.OperatingSystem.ios":"${message("console.OperatingSystem.ios")}",
-	"console.OperatingSystem.hybird":"${message("console.OperatingSystem.hybird")}",
-	"console.OperatingSystem.hbuilder":"${message("console.OperatingSystem.hbuilder")}",
-	"upload.image.error":"${message("upload.image.error")}"
+	"admin.message.success": "${message("admin.message.success")}",
+	"admin.message.error": "${message("admin.message.error")}",
+	"admin.dialog.ok": "${message("admin.dialog.ok")}",
+	"admin.dialog.cancel": "${message("admin.dialog.cancel")}",
+	"admin.dialog.deleteConfirm": "${message("admin.dialog.deleteConfirm")}",
+	"admin.dialog.clearConfirm": "${message("admin.dialog.clearConfirm")}",
+	"admin.browser.title": "${message("admin.browser.title")}",
+	"admin.browser.upload": "${message("admin.browser.upload")}",
+	"admin.browser.parent": "${message("admin.browser.parent")}",
+	"admin.browser.orderType": "${message("admin.browser.orderType")}",
+	"admin.browser.name": "${message("admin.browser.name")}",
+	"admin.browser.size": "${message("admin.browser.size")}",
+	"admin.browser.type": "${message("admin.browser.type")}",
+	"admin.browser.select": "${message("admin.browser.select")}",
+	"admin.upload.sizeInvalid": "${message("admin.upload.sizeInvalid")}",
+	"admin.upload.typeInvalid": "${message("admin.upload.typeInvalid")}",
+	"admin.upload.invalid": "${message("admin.upload.invalid")}",
+	"admin.validate.required": "${message("admin.validate.required")}",
+	"admin.validate.email": "${message("admin.validate.email")}",
+	"admin.validate.url": "${message("admin.validate.url")}",
+	"admin.validate.date": "${message("admin.validate.date")}",
+	"admin.validate.dateISO": "${message("admin.validate.dateISO")}",
+	"admin.validate.pointcard": "${message("admin.validate.pointcard")}",
+	"admin.validate.number": "${message("admin.validate.number")}",
+	"admin.validate.digits": "${message("admin.validate.digits")}",
+	"admin.validate.minlength": "${message("admin.validate.minlength")}",
+	"admin.validate.maxlength": "${message("admin.validate.maxlength")}",
+	"admin.validate.rangelength": "${message("admin.validate.rangelength")}",
+	"admin.validate.min": "${message("admin.validate.min")}",
+	"admin.validate.max": "${message("admin.validate.max")}",
+	"admin.validate.range": "${message("admin.validate.range")}",
+	"admin.validate.accept": "${message("admin.validate.accept")}",
+	"admin.validate.equalTo": "${message("admin.validate.equalTo")}",
+	"admin.validate.remote": "${message("admin.validate.remote")}",
+	"admin.validate.integer": "${message("admin.validate.integer")}",
+	"admin.validate.positive": "${message("admin.validate.positive")}",
+	"admin.validate.negative": "${message("admin.validate.negative")}",
+	"admin.validate.decimal": "${message("admin.validate.decimal")}",
+	"admin.validate.pattern": "${message("admin.validate.pattern")}",
+	"admin.validate.extension": "${message("admin.validate.extension")}",
+	"admin.dialog.archivedFirm":"${message("admin.dialog.archivedFirm")}"
 };
 
 // 添加Cookie
@@ -167,7 +143,7 @@ function message(code) {
 
 (function($) {
 
-	var zIndex = 1600;
+	var zIndex = 100;
 	
 	// 消息框
 	var $message;
@@ -211,8 +187,8 @@ function message(code) {
 			width: 320,
 			height: "auto",
 			modal: true,
-			ok: message("console.dialog.ok"),
-			cancel: message("console.dialog.cancel"),
+			ok: message("admin.dialog.ok"),
+			cancel: message("admin.dialog.cancel"),
 			onShow: null,
 			onClose: null,
 			onOk: null,
@@ -244,10 +220,10 @@ function message(code) {
 			$dialogBottom = $('<div class="dialogBottom"><\/div>').appendTo($dialog);
 		}
 		if (settings.ok != null) {
-			$dialogOk = $('<input type="button" class="btn btn-primary" value="' + settings.ok + '" \/>').appendTo($dialogBottom);
+			$dialogOk = $('<input type="button" class="button" value="' + settings.ok + '" \/>').appendTo($dialogBottom);
 		}
 		if (settings.cancel != null) {
-			$dialogCancel = $('<input type="button" style="margin-left:3px;"class="btn btn-white" value="' + settings.cancel + '" \/>').appendTo($dialogBottom);
+			$dialogCancel = $('<input type="button" class="button" value="' + settings.cancel + '" \/>').appendTo($dialogBottom);
 		}
 		if (!window.XMLHttpRequest) {
 			$dialog.append('<iframe class="dialogIframe"><\/iframe>');
@@ -350,10 +326,10 @@ function message(code) {
 		browser: function(options) {
 			var settings = {
 				type: "image",
-				title: message("console.browser.title"),
+				title: message("admin.browser.title"),
 				isUpload: true,
-				browserUrl: preschoolEdu.base + "/console/file/browser.ct",
-				uploadUrl: preschoolEdu.base + "/console/file/upload.ct",
+				browserUrl: moshop.base + "/admin/file/browser.jhtml",
+				uploadUrl: moshop.base + "/admin/file/upload.jhtml",
 				callback: null
 			};
 			$.extend(settings, options);
@@ -377,12 +353,12 @@ function message(code) {
 					if (settings.isUpload) {
 						$browserFrame = $('<iframe id="' + browserFrameId + '" name="' + browserFrameId + '" style="display: none;"><\/iframe>').appendTo($browserBar);
 						$browserForm = $('<form action="' + settings.uploadUrl + '" method="post" encType="multipart/form-data" target="' + browserFrameId + '"><input type="hidden" name="token" value="' + token + '" \/><input type="hidden" name="fileType" value="' + settings.type + '" \/><\/form>').appendTo($browserBar);
-						$browserUploadButton = $('<a href="javascript:;" class="browserUploadButton button">' + message("console.browser.upload") + '<\/a>').appendTo($browserForm);
+						$browserUploadButton = $('<a href="javascript:;" class="browserUploadButton button">' + message("admin.browser.upload") + '<\/a>').appendTo($browserForm);
 						$browserUploadInput = $('<input type="file" name="file" \/>').appendTo($browserUploadButton);
 					}
-					$browserParentButton = $('<a href="javascript:;" class="button">' + message("console.browser.parent") + '<\/a>').appendTo($browserBar);
-					$browserBar.append(message("console.browser.orderType") + ": ");
-					$browserOrderType = $('<select name="orderType" class="browserOrderType"><option value="name">' + message("console.browser.name") + '<\/option><option value="size">' + message("console.browser.size") + '<\/option><option value="type">' + message("console.browser.type") + '<\/option><\/select>').appendTo($browserBar);
+					$browserParentButton = $('<a href="javascript:;" class="button">' + message("admin.browser.parent") + '<\/a>').appendTo($browserBar);
+					$browserBar.append(message("admin.browser.orderType") + ": ");
+					$browserOrderType = $('<select name="orderType" class="browserOrderType"><option value="name">' + message("admin.browser.name") + '<\/option><option value="size">' + message("admin.browser.size") + '<\/option><option value="type">' + message("admin.browser.type") + '<\/option><\/select>').appendTo($browserBar);
 					$browserLoadingIcon = $('<span class="loadingIcon" style="display: none;">&nbsp;<\/span>').appendTo($browserBar);
 					$browserList = $('<div class="browserList"><\/div>').appendTo($browser);
 	
@@ -428,13 +404,13 @@ function message(code) {
 							var iconUrl;
 							var title;
 							if (fileInfo.isDirectory) {
-								iconUrl = preschoolEdu.base + "/resources/console/images/folder_icon.gif";
+								iconUrl = moshop.base + "/resources/admin/images/folder_icon.gif";
 								title = fileInfo.name;
 							} else if (new RegExp("^\\S.*\\.(jpg|jpeg|bmp|gif|png)$", "i").test(fileInfo.name)) {
 								iconUrl = fileInfo.url;
 								title = fileInfo.name + " (" + Math.ceil(fileInfo.size / 1024) + "KB, " + new Date(fileInfo.lastModified).toLocaleString() + ")";
 							} else {
-								iconUrl = preschoolEdu.base + "/resources/console/images/file_icon.gif";
+								iconUrl = moshop.base + "/resources/admin/images/file_icon.gif";
 								title = fileInfo.name + " (" + Math.ceil(fileInfo.size / 1024) + "KB, " + new Date(fileInfo.lastModified).toLocaleString() + ")";
 							}
 							browserListHtml += '<div class="browserItem"><img src="' + iconUrl + '" title="' + title + '" url="' + fileInfo.url + '" isDirectory="' + fileInfo.isDirectory + '" \/><div>' + fileInfo.name + '<\/div><\/div>';
@@ -486,7 +462,7 @@ function message(code) {
 							allowedUploadExtensions = setting.uploadImageExtension;
 						}
 						if ($.trim(allowedUploadExtensions) == "" || !new RegExp("^\\S.*\\.(" + allowedUploadExtensions.replace(/,/g, "|") + ")$", "i").test($browserUploadInput.val())) {
-							$.message("warn", message("console.upload.typeInvalid"));
+							$.message("warn", message("admin.upload.typeInvalid"));
 							return false;
 						}
 						$browserLoadingIcon.show();
@@ -541,12 +517,12 @@ function message(code) {
 		var tokenStatus = request.getResponseHeader("tokenStatus");
 		
 		if (loginStatus == "accessDenied") {
-			$.message("warn", "${message("console.login.accessDenied")}");
+			$.message("warn", "${message("admin.login.accessDenied")}");
 			setTimeout(function() {
 				location.reload(true);
 			}, 2000);
 		} else if (loginStatus == "unauthorized") {
-			$.message("warn", "${message("console.unauthorized.message")}");
+			$.message("warn", "${message("admin.unauthorized.message")}");
 		} else if (tokenStatus == "accessDenied") {
 			var token = getCookie("token");
 			if (token != null) {
@@ -603,93 +579,3 @@ function tableRowSpan(tableId,tableColIndex){
            }  
        });   
    }  
-   
-/**
- * 合并单元格 (支持多列单元格合并)
- * @tbl  表格对象
- * @beginRow 开始行
- * @endRow 结束行
- * @colIdxes 需要合并的列
- */ 
-function mergeSameCell(tbl,beginRow,endRow,colIdxes){
-	var colIdx = colIdxes[0];
-	var newColIdxes = colIdxes.concat();
-	newColIdxes.splice(0,1)
-	var delRows = new Array();
-	var rs = tbl.rows;
-	//endRow为0的时候合并到最后一行，小于0时表示最后有-endRow行不合并
-	if(endRow === 0){
-		endRow = rs.length - 1;
-	}else if(endRow < 0){
-		endRow = rs.length - 1 + endRow;
-	}
-	var rowSpan = 1; //要设置的rowSpan的值
-	var rowIdx = beginRow; //要设置rowSpan的cell行下标
-	var cellValue; //存储单元格里面的内容
-	for(var i=beginRow; i<= endRow + 1; i++){
-		if(i === endRow + 1){//过了最后一行的时候合并前面的单元格
-			if(newColIdxes.length > 0){
-				mergeSameCell(tbl,rowIdx,endRow,newColIdxes);
-			}
-			rs[rowIdx].cells[colIdx].rowSpan = rowSpan;
-		}else{
-			var cell = rs[i].cells[colIdx];
-			if(i === beginRow){//第一行的时候初始化各个参数
-				cellValue = cell.innerHTML;
-				rowSpan = 1;
-				rowIdx = i;
-			}else if(cellValue != cell.innerHTML){//数据改变合并前面的单元格
-				cellValue = cell.innerHTML;
-				if(newColIdxes.length > 0){
-					mergeSameCell(tbl,rowIdx,i - 1,newColIdxes);
-				}
-				rs[rowIdx].cells[colIdx].rowSpan = rowSpan;
-				rowSpan = 1;
-				rowIdx = i;
-			}else if(cellValue === cell.innerHTML){//数据和前面的数据重复的时候删除单元格
-				rowSpan++;
-				delRows.push(i);
-			}
-		}
-	}
-	for(var j=0;j<delRows.length; j++){
-		rs[delRows[j]].deleteCell(colIdx);
-	}
-}
- 
-/*加载上传控件*/
-function loadUploadify($imageUpload,$imagePreview,$image){
-    $imageUpload.uploadify({  
-        'successTimeout' : 50000,
-        'height'        : 27,   
-        'width'         : 80,    
-        'buttonText'    : '浏览',  
-        'swf'           : '${base}/resources/console/uploadify/uploadify.swf',  
-        'uploader'      : '${base}/console/file/upload.ct?fileType=image',  
-        'auto'          : true,
-        'multi'          : true, //是否支持多文件上传  
-	    'simUploadLimit' : 1, //一次同步上传的文件数目     
-	    'sizeLimit'      : 19871202, //设置单个文件大小限制     
-	    'queueSizeLimit' : 1, //队列中同时存在的文件个数限制
-	    'fileObjName'    :  'file',
-	    'fileTypeDesc'  :  '*.jpg;*.gif;*.jpeg;*.png;*.bmp',//图片选择描述  
-        'fileTypeExts'  :  '*.jpg;*.gif;*.jpeg;*.png;*.bmp',//允许的格式      
-        'formData'      : {'token' : getCookie("token") },
-        //上传成功  
-        'onUploadSuccess' : function(file, data, response) {  
-            var dataJson = JSON.parse(data);
-            var contentImgFileUrl = dataJson['url'];
-            var messageContent = dataJson['message']['content'];
-            var messageType = dataJson['message']['type'];
-            if(messageType == 'success'){
-	            $imagePreview.attr("src",contentImgFileUrl);
-	            $image.val(contentImgFileUrl);
-            }else{
-                $.message("warn", messageContent);
-            }
-        },
-	    onError: function(event, queueID, fileObj) {     
-	        alert("文件:" + fileObj.name + "上传失败");     
-	    }
-    });
-}

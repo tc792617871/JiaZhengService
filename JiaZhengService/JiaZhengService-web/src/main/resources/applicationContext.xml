@@ -84,6 +84,9 @@
 				<entry key="setting"
 					value="#{T(com.platform.JiaZhengService.common.util.SettingUtils).get()}" />
 				<entry key="message" value-ref="messageMethod" />
+				<entry key="abbreviate" value-ref="abbreviateMethod" />
+				<entry key="flash_message" value-ref="flashMessageDirective" />
+				<entry key="pagination" value-ref="paginationDirective" />
 			</map>
 		</property>
 	</bean>
@@ -105,6 +108,13 @@
 	<bean id="localeResolver"
 		class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
 		<property name="defaultLocale" value="${locale}" />
+	</bean>
+	
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${task.core_pool_size}" />
+		<property name="maxPoolSize" value="${task.max_pool_size}" />
+		<property name="queueCapacity" value="${task.queue_capacity}" />
+		<property name="keepAliveSeconds" value="${task.keep_alive_seconds}" />
 	</bean>
 
 </beans>

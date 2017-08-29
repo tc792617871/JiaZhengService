@@ -1,15 +1,56 @@
 package com.platform.JiaZhengService.common.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * 系统设置
+ * 
  */
 public class Setting implements Serializable {
 
 	private static final long serialVersionUID = -1478999889661796840L;
+
+	/**
+	 * 水印位置
+	 */
+	public enum WatermarkPosition {
+
+		/** 无 */
+		no,
+
+		/** 左上 */
+		topLeft,
+
+		/** 右上 */
+		topRight,
+
+		/** 居中 */
+		center,
+
+		/** 左下 */
+		bottomLeft,
+
+		/** 右下 */
+		bottomRight
+	}
+
+	/**
+	 * 小数位精确方式
+	 */
+	public enum RoundType {
+
+		/** 四舍五入 */
+		roundHalfUp,
+
+		/** 向上取整 */
+		roundUp,
+
+		/** 向下取整 */
+		roundDown
+	}
 
 	/**
 	 * 验证码类型
@@ -24,6 +65,12 @@ public class Setting implements Serializable {
 
 		/** 后台登录 */
 		adminLogin,
+
+		/** 商品评论 */
+		review,
+
+		/** 商品咨询 */
+		consultation,
 
 		/** 找回密码 */
 		findPassword,
@@ -47,6 +94,48 @@ public class Setting implements Serializable {
 		admin
 	}
 
+	/**
+	 * 库存分配时间点
+	 */
+	public enum StockAllocationTime {
+
+		/** 下订单 */
+		order,
+
+		/** 订单支付 */
+		payment,
+
+		/** 订单发货 */
+		ship
+	}
+
+	/**
+	 * 评论权限
+	 */
+	public enum ReviewAuthority {
+
+		/** 任何访问者 */
+		anyone,
+
+		/** 注册会员 */
+		member,
+
+		/** 已购买会员 */
+		purchased
+	}
+
+	/**
+	 * 咨询权限
+	 */
+	public enum ConsultationAuthority {
+
+		/** 任何访问者 */
+		anyone,
+
+		/** 注册会员 */
+		member
+	}
+
 	/** 缓存名称 */
 	public static final String CACHE_NAME = "setting";
 
@@ -64,6 +153,9 @@ public class Setting implements Serializable {
 
 	/** logo */
 	private String logo;
+
+	/** 热门搜索 */
+	private String hotSearch;
 
 	/** 联系地址 */
 	private String address;
@@ -85,6 +177,54 @@ public class Setting implements Serializable {
 
 	/** 网站关闭消息 */
 	private String siteCloseMessage;
+
+	/** 商品图片(大)宽度 */
+	private Integer largeProductImageWidth;
+
+	/** 商品图片(大)高度 */
+	private Integer largeProductImageHeight;
+
+	/** 商品图片(中)宽度 */
+	private Integer mediumProductImageWidth;
+
+	/** 商品图片(中)高度 */
+	private Integer mediumProductImageHeight;
+
+	/** 商品缩略图宽度 */
+	private Integer thumbnailProductImageWidth;
+
+	/** 商品缩略图高度 */
+	private Integer thumbnailProductImageHeight;
+
+	/** 默认商品图片(大) */
+	private String defaultLargeProductImage;
+
+	/** 默认商品图片(小) */
+	private String defaultMediumProductImage;
+
+	/** 默认缩略图 */
+	private String defaultThumbnailProductImage;
+
+	/** 水印透明度 */
+	private Integer watermarkAlpha;
+
+	/** 水印图片 */
+	private String watermarkImage;
+
+	/** 水印位置 */
+	private WatermarkPosition watermarkPosition;
+
+	/** 价格精确位数 */
+	private Integer priceScale;
+
+	/** 价格精确方式 */
+	private RoundType priceRoundType;
+
+	/** 是否前台显示市场价 */
+	private Boolean isShowMarketPrice;
+
+	/** 默认市场价换算比例 */
+	private Double defaultMarketPriceScale;
 
 	/** 是否开放注册 */
 	private Boolean isRegisterEnabled;
@@ -158,8 +298,80 @@ public class Setting implements Serializable {
 	/** 文件上传路径 */
 	private String fileUploadPath;
 
+	/** 发件人邮箱 */
+	private String smtpFromMail;
+
+	/** SMTP服务器地址 */
+	private String smtpHost;
+
+	/** SMTP服务器端口 */
+	private Integer smtpPort;
+
+	/** SMTP用户名 */
+	private String smtpUsername;
+
+	/** SMTP密码 */
+	private String smtpPassword;
+
+	/** 信鸽 AccessId */
+	private Long xgAccessId;
+
+	/** 信鸽 SecretKey */
+	private String xgSecretKey;
+
+	/** 微信配置appId */
+	private String appId;
+
+	/** 微信配置appSecret */
+	private String appSecret;
+
+	/** 货币符号 */
+	private String currencySign;
+
+	/** 货币单位 */
+	private String currencyUnit;
+
+	/** 库存警告数 */
+	private Integer stockAlertCount;
+
+	/** 库存分配时间点 */
+	private StockAllocationTime stockAllocationTime;
+
+	/** 默认积分换算比例 */
+	private Double defaultPointScale;
+
+	/** 默认积分兑换订单现金换算比例 */
+	private Double defaultPointExchangeScale;
+
 	/** 是否开启开发模式 */
 	private Boolean isDevelopmentEnabled;
+
+	/** 是否开启评论 */
+	private Boolean isReviewEnabled;
+
+	/** 是否审核评论 */
+	private Boolean isReviewCheck;
+
+	/** 评论权限 */
+	private ReviewAuthority reviewAuthority;
+
+	/** 是否开启咨询 */
+	private Boolean isConsultationEnabled;
+
+	/** 是否审核咨询 */
+	private Boolean isConsultationCheck;
+
+	/** 咨询权限 */
+	private ConsultationAuthority consultationAuthority;
+
+	/** 是否开启发票功能 */
+	private Boolean isInvoiceEnabled;
+
+	/** 是否开启含税价 */
+	private Boolean isTaxPriceEnabled;
+
+	/** 税率 */
+	private Double taxRate;
 
 	/** Cookie路径 */
 	private String cookiePath;
@@ -167,14 +379,35 @@ public class Setting implements Serializable {
 	/** Cookie作用域 */
 	private String cookieDomain;
 
-	/** 是否开启推送通知发送短信通知 */
+	/** 快递100授权KEY */
+	private String kuaidi100Key;
+
+	/** 百度API */
+	private String baiduAPI4IPUrl;
+
+	/** 系统确认收货时间期限 */
+	private Integer receiptDeadline;
+
+	/** 系统完成订单期限 */
+	private Integer completeDeadline;
+
+	/** 是否开启刷新库存 */
+	private Boolean isRefreshStock;
+
+	/** 是否开启发送短信通知 */
 	private Boolean isMsgNotified;
 
-	/** 是否开启忘记密码发送短信通知 */
-	private Boolean isMsgNotifiedForVCode;
+	/** 短信账号API地址 */
+	private String smsUrl;
 
-	/** 是否开启考勤机心跳发送短信通知 */
-	private Boolean isMsgNotifiedForEquipment;
+	/** 短信账号 */
+	private String smsAccount;
+
+	/** 短信密码 */
+	private String smsPassword;
+
+	/** 短信签名 */
+	private String smsSignature;
 
 	/** 是否开启CNZZ统计 */
 	private Boolean isCnzzEnabled;
@@ -184,36 +417,6 @@ public class Setting implements Serializable {
 
 	/** CNZZ统计密码 */
 	private String cnzzPassword;
-
-	/** 请求验证码最大次数 */
-	private Integer validateCodeMaxNumber;
-
-	/** member初始密码 */
-	private String initPassword;
-
-	/** 默认图片 */
-	private String defaultImage;
-
-	/** kindeditor编辑器的图片站点 */
-	private String kineditorSite;
-
-	/** 育儿分类最多置顶数 */
-	private Integer parentingCategoryLimit;
-
-	/** Sms用户Id */
-	private String smsUserId;
-
-	/** Sms密码 */
-	private String smsPassword;
-
-	/** 上传图片裁减宽度 */
-	private int headPortraitWidth;
-
-	/** 上传图片裁减高度 */
-	private int headPortraitHeight;
-
-	/** 积分规则 */
-	private String pointRuler;
 
 	/**
 	 * 获取网站名称
@@ -270,6 +473,28 @@ public class Setting implements Serializable {
 	 */
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+
+	/**
+	 * 获取热门搜索
+	 * 
+	 * @return 热门搜索
+	 */
+	public String getHotSearch() {
+		return hotSearch;
+	}
+
+	/**
+	 * 设置热门搜索
+	 * 
+	 * @param hotSearch
+	 *            热门搜索
+	 */
+	public void setHotSearch(String hotSearch) {
+		if (hotSearch != null) {
+			hotSearch = hotSearch.replaceAll("[,\\s]*,[,\\s]*", ",").replaceAll("^,|,$", "");
+		}
+		this.hotSearch = hotSearch;
 	}
 
 	/**
@@ -403,6 +628,310 @@ public class Setting implements Serializable {
 	 */
 	public void setSiteCloseMessage(String siteCloseMessage) {
 		this.siteCloseMessage = siteCloseMessage;
+	}
+
+	/**
+	 * 获取商品图片(大)宽度
+	 * 
+	 * @return 商品图片(大)宽度
+	 */
+	public Integer getLargeProductImageWidth() {
+		return largeProductImageWidth;
+	}
+
+	/**
+	 * 设置商品图片(大)宽度
+	 * 
+	 * @param largeProductImageWidth
+	 *            商品图片(大)宽度
+	 */
+	public void setLargeProductImageWidth(Integer largeProductImageWidth) {
+		this.largeProductImageWidth = largeProductImageWidth;
+	}
+
+	/**
+	 * 获取商品图片(大)高度
+	 * 
+	 * @return 商品图片(大)高度
+	 */
+	public Integer getLargeProductImageHeight() {
+		return largeProductImageHeight;
+	}
+
+	/**
+	 * 设置商品图片(大)高度
+	 * 
+	 * @param largeProductImageHeight
+	 *            商品图片(大)高度
+	 */
+	public void setLargeProductImageHeight(Integer largeProductImageHeight) {
+		this.largeProductImageHeight = largeProductImageHeight;
+	}
+
+	/**
+	 * 获取商品图片(中)宽度
+	 * 
+	 * @return 商品图片(中)宽度
+	 */
+	public Integer getMediumProductImageWidth() {
+		return mediumProductImageWidth;
+	}
+
+	/**
+	 * 设置商品图片(中)宽度
+	 * 
+	 * @param mediumProductImageWidth
+	 *            商品图片(中)宽度
+	 */
+	public void setMediumProductImageWidth(Integer mediumProductImageWidth) {
+		this.mediumProductImageWidth = mediumProductImageWidth;
+	}
+
+	/**
+	 * 获取商品图片(中)高度
+	 * 
+	 * @return 商品图片(中)高度
+	 */
+	public Integer getMediumProductImageHeight() {
+		return mediumProductImageHeight;
+	}
+
+	/**
+	 * 设置商品图片(中)高度
+	 * 
+	 * @param mediumProductImageHeight
+	 *            商品图片(中)高度
+	 */
+	public void setMediumProductImageHeight(Integer mediumProductImageHeight) {
+		this.mediumProductImageHeight = mediumProductImageHeight;
+	}
+
+	/**
+	 * 获取商品缩略图宽度
+	 * 
+	 * @return 商品缩略图宽度
+	 */
+	public Integer getThumbnailProductImageWidth() {
+		return thumbnailProductImageWidth;
+	}
+
+	/**
+	 * 设置商品缩略图宽度
+	 * 
+	 * @param thumbnailProductImageWidth
+	 *            商品缩略图宽度
+	 */
+	public void setThumbnailProductImageWidth(Integer thumbnailProductImageWidth) {
+		this.thumbnailProductImageWidth = thumbnailProductImageWidth;
+	}
+
+	/**
+	 * 获取商品缩略图高度
+	 * 
+	 * @return 商品缩略图高度
+	 */
+	public Integer getThumbnailProductImageHeight() {
+		return thumbnailProductImageHeight;
+	}
+
+	/**
+	 * 设置商品缩略图高度
+	 * 
+	 * @param thumbnailProductImageHeight
+	 *            商品缩略图高度
+	 */
+	public void setThumbnailProductImageHeight(Integer thumbnailProductImageHeight) {
+		this.thumbnailProductImageHeight = thumbnailProductImageHeight;
+	}
+
+	/**
+	 * 获取默认商品图片(大)
+	 * 
+	 * @return 默认商品图片(大)
+	 */
+	public String getDefaultLargeProductImage() {
+		return defaultLargeProductImage;
+	}
+
+	/**
+	 * 设置默认商品图片(大)
+	 * 
+	 * @param defaultLargeProductImage
+	 *            默认商品图片(大)
+	 */
+	public void setDefaultLargeProductImage(String defaultLargeProductImage) {
+		this.defaultLargeProductImage = defaultLargeProductImage;
+	}
+
+	/**
+	 * 获取默认商品图片(小)
+	 * 
+	 * @return 默认商品图片(小)
+	 */
+	public String getDefaultMediumProductImage() {
+		return defaultMediumProductImage;
+	}
+
+	/**
+	 * 设置默认商品图片(小)
+	 * 
+	 * @param defaultMediumProductImage
+	 *            默认商品图片(小)
+	 */
+	public void setDefaultMediumProductImage(String defaultMediumProductImage) {
+		this.defaultMediumProductImage = defaultMediumProductImage;
+	}
+
+	/**
+	 * 获取默认缩略图
+	 * 
+	 * @return 默认缩略图
+	 */
+	public String getDefaultThumbnailProductImage() {
+		return defaultThumbnailProductImage;
+	}
+
+	/**
+	 * 设置默认缩略图
+	 * 
+	 * @param defaultThumbnailProductImage
+	 *            默认缩略图
+	 */
+	public void setDefaultThumbnailProductImage(String defaultThumbnailProductImage) {
+		this.defaultThumbnailProductImage = defaultThumbnailProductImage;
+	}
+
+	/**
+	 * 获取水印透明度
+	 * 
+	 * @return 水印透明度
+	 */
+	public Integer getWatermarkAlpha() {
+		return watermarkAlpha;
+	}
+
+	/**
+	 * 设置水印透明度
+	 * 
+	 * @param watermarkAlpha
+	 *            水印透明度
+	 */
+	public void setWatermarkAlpha(Integer watermarkAlpha) {
+		this.watermarkAlpha = watermarkAlpha;
+	}
+
+	/**
+	 * 获取水印图片
+	 * 
+	 * @return 水印图片
+	 */
+	public String getWatermarkImage() {
+		return watermarkImage;
+	}
+
+	/**
+	 * 设置水印图片
+	 * 
+	 * @param watermarkImage
+	 *            水印图片
+	 */
+	public void setWatermarkImage(String watermarkImage) {
+		this.watermarkImage = watermarkImage;
+	}
+
+	/**
+	 * 获取水印位置
+	 * 
+	 * @return 水印位置
+	 */
+	public WatermarkPosition getWatermarkPosition() {
+		return watermarkPosition;
+	}
+
+	/**
+	 * 设置水印位置
+	 * 
+	 * @param watermarkPosition
+	 *            水印位置
+	 */
+	public void setWatermarkPosition(WatermarkPosition watermarkPosition) {
+		this.watermarkPosition = watermarkPosition;
+	}
+
+	/**
+	 * 获取价格精确位数
+	 * 
+	 * @return 价格精确位数
+	 */
+	public Integer getPriceScale() {
+		return priceScale;
+	}
+
+	/**
+	 * 设置价格精确位数
+	 * 
+	 * @param priceScale
+	 *            价格精确位数
+	 */
+	public void setPriceScale(Integer priceScale) {
+		this.priceScale = priceScale;
+	}
+
+	/**
+	 * 获取价格精确方式
+	 * 
+	 * @return 价格精确方式
+	 */
+	public RoundType getPriceRoundType() {
+		return priceRoundType;
+	}
+
+	/**
+	 * 设置价格精确方式
+	 * 
+	 * @param priceRoundType
+	 *            价格精确方式
+	 */
+	public void setPriceRoundType(RoundType priceRoundType) {
+		this.priceRoundType = priceRoundType;
+	}
+
+	/**
+	 * 获取是否前台显示市场价
+	 * 
+	 * @return 是否前台显示市场价
+	 */
+	public Boolean getIsShowMarketPrice() {
+		return isShowMarketPrice;
+	}
+
+	/**
+	 * 设置是否前台显示市场价
+	 * 
+	 * @param isShowMarketPrice
+	 *            是否前台显示市场价
+	 */
+	public void setIsShowMarketPrice(Boolean isShowMarketPrice) {
+		this.isShowMarketPrice = isShowMarketPrice;
+	}
+
+	/**
+	 * 获取默认市场价换算比例
+	 * 
+	 * @return 默认市场价换算比例
+	 */
+	public Double getDefaultMarketPriceScale() {
+		return defaultMarketPriceScale;
+	}
+
+	/**
+	 * 设置默认市场价换算比例
+	 * 
+	 * @param defaultMarketPriceScale
+	 *            默认市场价换算比例
+	 */
+	public void setDefaultMarketPriceScale(Double defaultMarketPriceScale) {
+		this.defaultMarketPriceScale = defaultMarketPriceScale;
 	}
 
 	/**
@@ -913,6 +1442,215 @@ public class Setting implements Serializable {
 	}
 
 	/**
+	 * 获取发件人邮箱
+	 * 
+	 * @return 发件人邮箱
+	 */
+	public String getSmtpFromMail() {
+		return smtpFromMail;
+	}
+
+	/**
+	 * 设置发件人邮箱
+	 * 
+	 * @param smtpFromMail
+	 *            发件人邮箱
+	 */
+	public void setSmtpFromMail(String smtpFromMail) {
+		this.smtpFromMail = smtpFromMail;
+	}
+
+	/**
+	 * 获取SMTP服务器地址
+	 * 
+	 * @return SMTP服务器地址
+	 */
+	public String getSmtpHost() {
+		return smtpHost;
+	}
+
+	/**
+	 * 设置SMTP服务器地址
+	 * 
+	 * @param smtpHost
+	 *            SMTP服务器地址
+	 */
+	public void setSmtpHost(String smtpHost) {
+		this.smtpHost = smtpHost;
+	}
+
+	/**
+	 * 获取SMTP服务器端口
+	 * 
+	 * @return SMTP服务器端口
+	 */
+	public Integer getSmtpPort() {
+		return smtpPort;
+	}
+
+	/**
+	 * 设置SMTP服务器端口
+	 * 
+	 * @param smtpPort
+	 *            SMTP服务器端口
+	 */
+	public void setSmtpPort(Integer smtpPort) {
+		this.smtpPort = smtpPort;
+	}
+
+	/**
+	 * 获取SMTP用户名
+	 * 
+	 * @return SMTP用户名
+	 */
+	public String getSmtpUsername() {
+		return smtpUsername;
+	}
+
+	/**
+	 * 设置SMTP用户名
+	 * 
+	 * @param smtpUsername
+	 *            SMTP用户名
+	 */
+	public void setSmtpUsername(String smtpUsername) {
+		this.smtpUsername = smtpUsername;
+	}
+
+	/**
+	 * 获取SMTP密码
+	 * 
+	 * @return SMTP密码
+	 */
+	public String getSmtpPassword() {
+		return smtpPassword;
+	}
+
+	/**
+	 * 设置SMTP密码
+	 * 
+	 * @param smtpPassword
+	 *            SMTP密码
+	 */
+	public void setSmtpPassword(String smtpPassword) {
+		this.smtpPassword = smtpPassword;
+	}
+
+	/**
+	 * 获取货币符号
+	 * 
+	 * @return 货币符号
+	 */
+	public String getCurrencySign() {
+		return currencySign;
+	}
+
+	/**
+	 * 设置货币符号
+	 * 
+	 * @param currencySign
+	 *            货币符号
+	 */
+	public void setCurrencySign(String currencySign) {
+		this.currencySign = currencySign;
+	}
+
+	/**
+	 * 获取货币单位
+	 * 
+	 * @return 货币单位
+	 */
+	public String getCurrencyUnit() {
+		return currencyUnit;
+	}
+
+	/**
+	 * 设置货币单位
+	 * 
+	 * @param currencyUnit
+	 *            货币单位
+	 */
+	public void setCurrencyUnit(String currencyUnit) {
+		this.currencyUnit = currencyUnit;
+	}
+
+	/**
+	 * 获取库存警告数
+	 * 
+	 * @return 库存警告数
+	 */
+	public Integer getStockAlertCount() {
+		return stockAlertCount;
+	}
+
+	/**
+	 * 设置库存警告数
+	 * 
+	 * @param stockAlertCount
+	 *            库存警告数
+	 */
+	public void setStockAlertCount(Integer stockAlertCount) {
+		this.stockAlertCount = stockAlertCount;
+	}
+
+	/**
+	 * 获取库存分配时间点
+	 * 
+	 * @return 库存分配时间点
+	 */
+	public StockAllocationTime getStockAllocationTime() {
+		return stockAllocationTime;
+	}
+
+	/**
+	 * 设置库存分配时间点
+	 * 
+	 * @param stockAllocationTime
+	 *            库存分配时间点
+	 */
+	public void setStockAllocationTime(StockAllocationTime stockAllocationTime) {
+		this.stockAllocationTime = stockAllocationTime;
+	}
+
+	/**
+	 * 获取默认积分换算比例
+	 * 
+	 * @return 默认积分换算比例
+	 */
+	public Double getDefaultPointScale() {
+		return defaultPointScale;
+	}
+
+	/**
+	 * 设置默认积分换算比例
+	 * 
+	 * @param defaultPointScale
+	 *            默认积分换算比例
+	 */
+	public void setDefaultPointScale(Double defaultPointScale) {
+		this.defaultPointScale = defaultPointScale;
+	}
+
+	/**
+	 * 获取默认积分兑换订单现金换算比例
+	 * 
+	 * @return the defaultPointExchangeScale
+	 */
+	public Double getDefaultPointExchangeScale() {
+		return defaultPointExchangeScale;
+	}
+
+	/**
+	 * 设置默认积分兑换订单现金换算比例
+	 * 
+	 * @param defaultPointExchangeScale
+	 *            the defaultPointExchangeScale to set
+	 */
+	public void setDefaultPointExchangeScale(Double defaultPointExchangeScale) {
+		this.defaultPointExchangeScale = defaultPointExchangeScale;
+	}
+
+	/**
 	 * 获取是否开启开发模式
 	 * 
 	 * @return 是否开启开发模式
@@ -929,6 +1667,177 @@ public class Setting implements Serializable {
 	 */
 	public void setIsDevelopmentEnabled(Boolean isDevelopmentEnabled) {
 		this.isDevelopmentEnabled = isDevelopmentEnabled;
+	}
+
+	/**
+	 * 获取是否开启评论
+	 * 
+	 * @return 是否开启评论
+	 */
+	public Boolean getIsReviewEnabled() {
+		return isReviewEnabled;
+	}
+
+	/**
+	 * 设置是否开启评论
+	 * 
+	 * @param isReviewEnabled
+	 *            是否开启评论
+	 */
+	public void setIsReviewEnabled(Boolean isReviewEnabled) {
+		this.isReviewEnabled = isReviewEnabled;
+	}
+
+	/**
+	 * 获取是否审核评论
+	 * 
+	 * @return 是否审核评论
+	 */
+	public Boolean getIsReviewCheck() {
+		return isReviewCheck;
+	}
+
+	/**
+	 * 设置是否审核评论
+	 * 
+	 * @param isReviewCheck
+	 *            是否审核评论
+	 */
+	public void setIsReviewCheck(Boolean isReviewCheck) {
+		this.isReviewCheck = isReviewCheck;
+	}
+
+	/**
+	 * 获取评论权限
+	 * 
+	 * @return 评论权限
+	 */
+	public ReviewAuthority getReviewAuthority() {
+		return reviewAuthority;
+	}
+
+	/**
+	 * 设置评论权限
+	 * 
+	 * @param reviewAuthority
+	 *            评论权限
+	 */
+	public void setReviewAuthority(ReviewAuthority reviewAuthority) {
+		this.reviewAuthority = reviewAuthority;
+	}
+
+	/**
+	 * 获取是否开启咨询
+	 * 
+	 * @return 是否开启咨询
+	 */
+	public Boolean getIsConsultationEnabled() {
+		return isConsultationEnabled;
+	}
+
+	/**
+	 * 设置是否开启咨询
+	 * 
+	 * @param isConsultationEnabled
+	 *            是否开启咨询
+	 */
+	public void setIsConsultationEnabled(Boolean isConsultationEnabled) {
+		this.isConsultationEnabled = isConsultationEnabled;
+	}
+
+	/**
+	 * 获取是否审核咨询
+	 * 
+	 * @return 是否审核咨询
+	 */
+	public Boolean getIsConsultationCheck() {
+		return isConsultationCheck;
+	}
+
+	/**
+	 * 设置是否审核咨询
+	 * 
+	 * @param isConsultationCheck
+	 *            是否审核咨询
+	 */
+	public void setIsConsultationCheck(Boolean isConsultationCheck) {
+		this.isConsultationCheck = isConsultationCheck;
+	}
+
+	/**
+	 * 获取咨询权限
+	 * 
+	 * @return 咨询权限
+	 */
+	public ConsultationAuthority getConsultationAuthority() {
+		return consultationAuthority;
+	}
+
+	/**
+	 * 设置咨询权限
+	 * 
+	 * @param consultationAuthority
+	 *            咨询权限
+	 */
+	public void setConsultationAuthority(ConsultationAuthority consultationAuthority) {
+		this.consultationAuthority = consultationAuthority;
+	}
+
+	/**
+	 * 获取是否开启发票功能
+	 * 
+	 * @return 是否开启发票功能
+	 */
+	public Boolean getIsInvoiceEnabled() {
+		return isInvoiceEnabled;
+	}
+
+	/**
+	 * 设置是否开启发票功能
+	 * 
+	 * @param isInvoiceEnabled
+	 *            是否开启发票功能
+	 */
+	public void setIsInvoiceEnabled(Boolean isInvoiceEnabled) {
+		this.isInvoiceEnabled = isInvoiceEnabled;
+	}
+
+	/**
+	 * 获取是否开启含税价
+	 * 
+	 * @return 是否开启含税价
+	 */
+	public Boolean getIsTaxPriceEnabled() {
+		return isTaxPriceEnabled;
+	}
+
+	/**
+	 * 设置是否开启含税价
+	 * 
+	 * @param isTaxPriceEnabled
+	 *            是否开启含税价
+	 */
+	public void setIsTaxPriceEnabled(Boolean isTaxPriceEnabled) {
+		this.isTaxPriceEnabled = isTaxPriceEnabled;
+	}
+
+	/**
+	 * 获取税率
+	 * 
+	 * @return 税率
+	 */
+	public Double getTaxRate() {
+		return taxRate;
+	}
+
+	/**
+	 * 设置税率
+	 * 
+	 * @param taxRate
+	 *            税率
+	 */
+	public void setTaxRate(Double taxRate) {
+		this.taxRate = taxRate;
 	}
 
 	/**
@@ -973,114 +1882,22 @@ public class Setting implements Serializable {
 	}
 
 	/**
-	 * 获取禁用用户名
+	 * 获取快递100授权KEY
 	 * 
-	 * @return 禁用用户名
+	 * @return 快递100授权KEY
 	 */
-	public String[] getDisabledUsernames() {
-		return StringUtils.split(disabledUsername, SEPARATOR);
+	public String getKuaidi100Key() {
+		return kuaidi100Key;
 	}
 
 	/**
-	 * 获取允许上传图片扩展名
+	 * 设置快递100授权KEY
 	 * 
-	 * @return 允许上传图片扩展名
+	 * @param kuaidi100Key
+	 *            快递100授权KEY
 	 */
-	public String[] getUploadImageExtensions() {
-		return StringUtils.split(uploadImageExtension, SEPARATOR);
-	}
-
-	/**
-	 * 获取允许上传Flash扩展名
-	 * 
-	 * @return 允许上传Flash扩展名
-	 */
-	public String[] getUploadFlashExtensions() {
-		return StringUtils.split(uploadFlashExtension, SEPARATOR);
-	}
-
-	/**
-	 * 获取允许上传媒体扩展名
-	 * 
-	 * @return 允许上传媒体扩展名
-	 */
-	public String[] getUploadMediaExtensions() {
-		return StringUtils.split(uploadMediaExtension, SEPARATOR);
-	}
-
-	/**
-	 * 获取 serialversionuid
-	 * 
-	 * @return 返回 serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	/**
-	 * 获取允许上传文件扩展名
-	 * 
-	 * @return 允许上传文件扩展名
-	 */
-	public String[] getUploadFileExtensions() {
-		return StringUtils.split(uploadFileExtension, SEPARATOR);
-	}
-
-	/**
-	 * 获取是否短信通知 -- 推送通知
-	 * 
-	 * @return 是否短信通知
-	 */
-	public Boolean getIsMsgNotified() {
-		return isMsgNotified;
-	}
-
-	/**
-	 * 设置是否短信通知
-	 * 
-	 * @param isMsgNotified
-	 *            是否短信通知
-	 */
-	public void setIsMsgNotified(Boolean isMsgNotified) {
-		this.isMsgNotified = isMsgNotified;
-	}
-
-	/**
-	 * 获取是否短信通知 -- 验证码
-	 * 
-	 * @return 是否短信通知
-	 */
-	public Boolean getIsMsgNotifiedForVCode() {
-		return isMsgNotifiedForVCode;
-	}
-
-	/**
-	 * 设置是否短信通知 -- 验证码
-	 * 
-	 * @param isMsgNotified
-	 *            是否短信通知
-	 */
-	public void setIsMsgNotifiedForVCode(Boolean isMsgNotifiedForVCode) {
-		this.isMsgNotifiedForVCode = isMsgNotifiedForVCode;
-	}
-
-	/**
-	 * 获取是否短信通知 -- 考勤机心跳
-	 * 
-	 * @return 是否短信通知
-	 */
-	public Boolean getIsMsgNotifiedForEquipment() {
-		return isMsgNotifiedForEquipment;
-	}
-
-	/**
-	 * 设置是否短信通知 -- 考勤机心跳
-	 * 
-	 * @param isMsgNotified
-	 *            是否短信通知
-	 */
-	public void setIsMsgNotifiedForEquipment(Boolean isMsgNotifiedForEquipment) {
-		this.isMsgNotifiedForEquipment = isMsgNotifiedForEquipment;
+	public void setKuaidi100Key(String kuaidi100Key) {
+		this.kuaidi100Key = kuaidi100Key;
 	}
 
 	/**
@@ -1141,97 +1958,189 @@ public class Setting implements Serializable {
 	}
 
 	/**
-	 * 获取一天之中请求验证码最大次数
-	 */
-	public Integer getValidateCodeMaxNumber() {
-		return validateCodeMaxNumber;
-	}
-
-	/**
-	 * 设置一天之中请求验证码最大次数
+	 * 获取热门搜索关键词
 	 * 
-	 * @param validateCodeMaxNumber
+	 * @return 热门搜索关键词
 	 */
-	public void setValidateCodeMaxNumber(Integer validateCodeMaxNumber) {
-		this.validateCodeMaxNumber = validateCodeMaxNumber;
+	public String[] getHotSearches() {
+		return StringUtils.split(hotSearch, SEPARATOR);
 	}
 
 	/**
-	 * 获取初始密码
-	 */
-	public String getInitPassword() {
-		return initPassword;
-	}
-
-	/**
-	 * 设置初始密码
+	 * 获取禁用用户名
 	 * 
-	 * @param initPassword
+	 * @return 禁用用户名
 	 */
-	public void setInitPassword(String initPassword) {
-		this.initPassword = initPassword;
+	public String[] getDisabledUsernames() {
+		return StringUtils.split(disabledUsername, SEPARATOR);
 	}
 
 	/**
-	 * 获取默认图片
-	 */
-	public String getDefaultImage() {
-		return defaultImage;
-	}
-
-	/**
-	 * 设置默认图片
+	 * 获取允许上传图片扩展名
 	 * 
-	 * @param defaultImage
+	 * @return 允许上传图片扩展名
 	 */
-	public void setDefaultImage(String defaultImage) {
-		this.defaultImage = defaultImage;
+	public String[] getUploadImageExtensions() {
+		return StringUtils.split(uploadImageExtension, SEPARATOR);
 	}
 
 	/**
-	 * 获取kindeditor的图片站点
-	 */
-	public String getKineditorSite() {
-		return kineditorSite;
-	}
-
-	/**
-	 * 设置kindeditor的图片站点
+	 * 获取允许上传Flash扩展名
 	 * 
-	 * @param kineditorSite
+	 * @return 允许上传Flash扩展名
 	 */
-	public void setKineditorSite(String kineditorSite) {
-		this.kineditorSite = kineditorSite;
+	public String[] getUploadFlashExtensions() {
+		return StringUtils.split(uploadFlashExtension, SEPARATOR);
 	}
 
 	/**
-	 * 获取育儿分类最多置顶数
-	 */
-	public Integer getParentingCategoryLimit() {
-		return parentingCategoryLimit;
-	}
-
-	/**
-	 * 设置育儿分类最多置顶数
+	 * 获取允许上传媒体扩展名
 	 * 
-	 * @param parentingCategoryLimit
+	 * @return 允许上传媒体扩展名
 	 */
-	public void setParentingCategoryLimit(Integer parentingCategoryLimit) {
-		this.parentingCategoryLimit = parentingCategoryLimit;
+	public String[] getUploadMediaExtensions() {
+		return StringUtils.split(uploadMediaExtension, SEPARATOR);
 	}
 
 	/**
-	 * @return 返回 smsUserId
+	 * 获取 serialversionuid
+	 * 
+	 * @return 返回 serialversionuid
 	 */
-	public String getSmsUserId() {
-		return smsUserId;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	/**
-	 * @param 对smsUserId进行赋值
+	 * 获取允许上传文件扩展名
+	 * 
+	 * @return 允许上传文件扩展名
 	 */
-	public void setSmsUserId(String smsUserId) {
-		this.smsUserId = smsUserId;
+	public String[] getUploadFileExtensions() {
+		return StringUtils.split(uploadFileExtension, SEPARATOR);
+	}
+
+	/**
+	 * 设置精度
+	 * 
+	 * @param amount
+	 *            数值
+	 * @return 数值
+	 */
+	public BigDecimal setScale(BigDecimal amount) {
+		if (amount == null) {
+			return null;
+		}
+		int roundingMode;
+		if (getPriceRoundType() == RoundType.roundUp) {
+			roundingMode = BigDecimal.ROUND_UP;
+		} else if (getPriceRoundType() == RoundType.roundDown) {
+			roundingMode = BigDecimal.ROUND_DOWN;
+		} else {
+			roundingMode = BigDecimal.ROUND_HALF_UP;
+		}
+		return amount.setScale(getPriceScale(), roundingMode);
+	}
+
+	/**
+	 * 获取百度IP定位API
+	 * 
+	 * @return
+	 */
+	public String getBaiduAPI4IPUrl() {
+		return baiduAPI4IPUrl;
+	}
+
+	/**
+	 * 设置百度IP定位API
+	 * 
+	 * @param baiduAPI4IPUrl
+	 */
+	public void setBaiduAPI4IPUrl(String baiduAPI4IPUrl) {
+		this.baiduAPI4IPUrl = baiduAPI4IPUrl;
+	}
+
+	/**
+	 * 获取系统确认收货期限
+	 * 
+	 * @return
+	 */
+	public Integer getReceiptDeadline() {
+		return receiptDeadline;
+	}
+
+	/**
+	 * 设置系统确认收货期限
+	 * 
+	 * @param receiptDeadline
+	 */
+	public void setReceiptDeadline(Integer receiptDeadline) {
+		this.receiptDeadline = receiptDeadline;
+	}
+
+	/**
+	 * 获取系统完成订单期限
+	 * 
+	 * @return
+	 */
+	public Integer getCompleteDeadline() {
+		return completeDeadline;
+	}
+
+	/**
+	 * 设置系统完成订单期限
+	 * 
+	 * @param completeDeadline
+	 */
+	public void setCompleteDeadline(Integer completeDeadline) {
+		this.completeDeadline = completeDeadline;
+	}
+
+	/**
+	 * 获取是否短信通知
+	 * 
+	 * @return 是否短信通知
+	 */
+	public Boolean getIsMsgNotified() {
+		return isMsgNotified;
+	}
+
+	/**
+	 * 设置是否短信通知
+	 * 
+	 * @param isMsgNotified
+	 *            是否短信通知
+	 */
+	public void setIsMsgNotified(Boolean isMsgNotified) {
+		this.isMsgNotified = isMsgNotified;
+	}
+
+	/**
+	 * @return 返回 smsUrl
+	 */
+	public String getSmsUrl() {
+		return smsUrl;
+	}
+
+	/**
+	 * @param 对smsUrl进行赋值
+	 */
+	public void setSmsUrl(String smsUrl) {
+		this.smsUrl = smsUrl;
+	}
+
+	/**
+	 * @return 返回 smsAccount
+	 */
+	public String getSmsAccount() {
+		return smsAccount;
+	}
+
+	/**
+	 * @param 对smsAccount进行赋值
+	 */
+	public void setSmsAccount(String smsAccount) {
+		this.smsAccount = smsAccount;
 	}
 
 	/**
@@ -1249,50 +2158,77 @@ public class Setting implements Serializable {
 	}
 
 	/**
-	 * @return the headPortraitWidth
+	 * @return 返回 smsSignature
 	 */
-	public int getHeadPortraitWidth() {
-		return headPortraitWidth;
+	public String getSmsSignature() {
+		return smsSignature;
 	}
 
 	/**
-	 * @param headPortraitWidth
-	 *            the headPortraitWidth to set
+	 * @param 对smsSignature进行赋值
 	 */
-	public void setHeadPortraitWidth(int headPortraitWidth) {
-		this.headPortraitWidth = headPortraitWidth;
+	public void setSmsSignature(String smsSignature) {
+		this.smsSignature = smsSignature;
+	}
+
+	public Boolean getIsRefreshStock() {
+		return isRefreshStock;
+	}
+
+	public void setIsRefreshStock(Boolean isRefreshStock) {
+		this.isRefreshStock = isRefreshStock;
+	}
+
+	public String getAppId() {
+		return appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	public String getAppSecret() {
+		return appSecret;
+	}
+
+	public void setAppSecret(String appSecret) {
+		this.appSecret = appSecret;
 	}
 
 	/**
-	 * @return the headPortraitHeight
-	 */
-	public int getHeadPortraitHeight() {
-		return headPortraitHeight;
-	}
-
-	/**
-	 * @param headPortraitHeight
-	 *            the headPortraitHeight to set
-	 */
-	public void setHeadPortraitHeight(int headPortraitHeight) {
-		this.headPortraitHeight = headPortraitHeight;
-	}
-
-	/**
-	 * 获取积分规则
+	 * 获取信鸽 AccessId
 	 * 
-	 * @return 返回 pointRuler
+	 * @return 返回 xgAccessId
 	 */
-	public String getPointRuler() {
-		return pointRuler;
+	public Long getXgAccessId() {
+		return xgAccessId;
 	}
 
 	/**
-	 * 设置积分规则
+	 * 设置信鸽 AccessId
 	 * 
-	 * @param 对pointRuler进行赋值
+	 * @param 对xgAccessId进行赋值
 	 */
-	public void setPointRuler(String pointRuler) {
-		this.pointRuler = pointRuler;
+	public void setXgAccessId(Long xgAccessId) {
+		this.xgAccessId = xgAccessId;
 	}
+
+	/**
+	 * 获取信鸽 SecretKey
+	 * 
+	 * @return 返回 xgSecretKey
+	 */
+	public String getXgSecretKey() {
+		return xgSecretKey;
+	}
+
+	/**
+	 * 设置信鸽 SecretKey
+	 * 
+	 * @param 对xgSecretKey进行赋值
+	 */
+	public void setXgSecretKey(String xgSecretKey) {
+		this.xgSecretKey = xgSecretKey;
+	}
+
 }

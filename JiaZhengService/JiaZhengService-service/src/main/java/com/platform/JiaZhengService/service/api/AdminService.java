@@ -2,6 +2,7 @@ package com.platform.JiaZhengService.service.api;
 
 import java.util.List;
 
+import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
 
 /**
@@ -64,5 +65,42 @@ public interface AdminService extends BaseService {
 	 * @return
 	 */
 	TAdmin update(TAdmin admin);
+
+	/**
+	 * 保存管理员
+	 * 
+	 * @param admin
+	 */
+	void save(TAdmin admin);
+
+	/**
+	 * 根据ID获取管理员
+	 * 
+	 * @param id
+	 * @return
+	 */
+	TAdmin find(Long id);
+
+	/**
+	 * 获取当前管理员数量
+	 * 
+	 * @return
+	 */
+	int count();
+
+	/**
+	 * 批量删除管理员
+	 * 
+	 * @param ids
+	 */
+	void delete(Long[] ids);
+
+	/**
+	 * 查询管理员列表
+	 * 
+	 * @param c
+	 * @return
+	 */
+	List<TAdmin> queryAdminList(Criteria c);
 
 }

@@ -16,7 +16,7 @@ import com.platform.JiaZhengService.common.util.RSAUtils;
 import com.platform.JiaZhengService.service.api.RSAService;
 
 @Service("rsaServiceImpl")
-public class RSAServiceImpl implements RSAService {
+public class RSAServiceImpl extends BaseServiceImpl implements RSAService {
 
 	/** "私钥"参数名称 */
 	private static final String PRIVATE_KEY_ATTRIBUTE_NAME = "privateKey";

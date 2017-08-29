@@ -120,4 +120,39 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
 		adminMapper.updateByPrimaryKeySelective(admin);
 		return adminMapper.selectByPrimaryKey(admin.getId());
 	}
+
+	@Override
+	@Transactional
+	public void save(TAdmin admin) {
+		adminMapper.insertSelective(admin);
+	}
+
+	@Override
+	public TAdmin find(Long id) {
+		return adminMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int count() {
+		Criteria c = new Criteria();
+		List<TAdmin> admins = adminMapper.selectByExample(c);
+		return admins.size();
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long[] ids) {
+		if (ids != null && ids.length > 0) {
+			for (Long id : ids) {
+				adminMapper.deleteByPrimaryKey(id);
+			}
+		}
+	}
+
+	@Override
+	public List<TAdmin> queryAdminList(Criteria c) {
+		List<TAdmin> admins = adminMapper.selectByExample(c);
+
+		return admins;
+	}
 }

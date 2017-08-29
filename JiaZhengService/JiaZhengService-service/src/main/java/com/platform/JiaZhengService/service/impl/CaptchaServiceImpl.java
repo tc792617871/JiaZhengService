@@ -17,7 +17,7 @@ import com.platform.JiaZhengService.service.api.CaptchaService;
  * Service - 验证码
  */
 @Service("captchaServiceImpl")
-public class CaptchaServiceImpl implements CaptchaService {
+public class CaptchaServiceImpl extends BaseServiceImpl implements CaptchaService {
 
 	@Resource(name = "imageCaptchaService")
 	private com.octo.captcha.service.CaptchaService imageCaptchaService;

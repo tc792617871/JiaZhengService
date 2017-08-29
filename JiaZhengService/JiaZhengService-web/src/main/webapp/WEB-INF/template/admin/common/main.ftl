@@ -233,16 +233,6 @@ $().ready(function() {
 							<a href="../payment_method/list.jhtml" target="iframe">${message("admin.main.paymentMethod")}</a>
 						</dd>
 					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:shippingMethod"]
-						<dd>
-							<a href="../shipping_method/list.jhtml" target="iframe">${message("admin.main.shippingMethod")}</a>
-						</dd>
-					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:deliveryCorp"]
-						<dd>
-							<a href="../delivery_corp/list.jhtml" target="iframe">${message("admin.main.deliveryCorp")}</a>
-						</dd>
-					[/@shiro.hasPermission]
 					[@shiro.hasPermission name="admin:paymentPlugin"]
 						<dd>
 							<a href="../payment_plugin/list.jhtml" target="iframe">${message("admin.main.paymentPlugin")}</a>
@@ -276,21 +266,6 @@ $().ready(function() {
 					[@shiro.hasPermission name="admin:log"]
 						<dd>
 							<a href="../log/list.jhtml" target="iframe">${message("admin.main.log")}</a>
-						</dd>
-					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:customerService"]
-					    <dd>
-							<a href="http://services.mo-co.com/operator/login.php?locale=zh-cn" target="_blank">${message("admin.main.onlineChat")}</a>
-						</dd>
-					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:alipayService"]
-						<dd>
-							<a href="https://consumeprod.alipay.com/record/standard.htm" target="_blank">${message("admin.main.alipay")}</a>
-						</dd> 
-					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:mailSendService"]
-						<dd>
-							<a href="http://sendcloud.sohu.com/send_data.do" target="_blank">${message("admin.main.mail")}</a>
 						</dd>
 					[/@shiro.hasPermission]
 				</dl>

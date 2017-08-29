@@ -27,7 +27,7 @@ import com.platform.JiaZhengService.service.api.TemplateService;
  * 
  */
 @Service("staticServiceImpl")
-public class StaticServiceImpl implements StaticService, ServletContextAware {
+public class StaticServiceImpl extends BaseServiceImpl implements StaticService, ServletContextAware {
 
 	/** Sitemap最大地址数 */
 	private static final Integer SITEMAP_MAX_SIZE = 40000;

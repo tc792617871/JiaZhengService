@@ -1,7 +1,7 @@
-<input type="hidden" id="pageSize" name="pageSize" value="${page.pageSize}" />
-<input type="hidden" id="searchProperty" name="searchProperty" value="${page.searchProperty}" />
-<input type="hidden" id="orderProperty" name="orderProperty" value="${page.orderProperty}" />
-<input type="hidden" id="orderDirection" name="orderDirection" value="${page.orderDirection}" />
+<input type="hidden" id="pageSize" name="pageSize" value="${page.length}" />
+<input type="hidden" id="searchProperty" name="searchProperty" value="${pageable.searchProperty}" />
+<input type="hidden" id="orderProperty" name="orderProperty" value="${pageable.orderProperty}" />
+<input type="hidden" id="orderDirection" name="orderDirection" value="${pageable.orderDirection}" />
 [#if totalPages > 1]
 	<div class="pagination">
 		[#if isFirst]
@@ -38,7 +38,7 @@
 			<a class="lastPage" href="javascript: $.pageSkip(${lastPageNumber});">&nbsp;</a>
 		[/#if]
 		<span class="pageSkip">
-			${message("console.page.totalPages", totalPages)} ${message("console.page.pageNumber", '<input id="pageNumber" name="pageNumber" value="' + pageNumber + '" maxlength="9" onpaste="return false;" />')}<button type="submit">&nbsp;</button>
+			${message("admin.page.totalPages", total)} ${message("admin.page.pageNumber", '<input id="pageNumber" name="pageNumber" value="' + current + '" maxlength="9" onpaste="return false;" />')}<button type="submit">&nbsp;</button>
 		</span>
 	</div>
 [/#if]

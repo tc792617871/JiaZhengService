@@ -8,7 +8,7 @@ import com.platform.JiaZhengService.common.pojo.Setting.CaptchaType;
  * Service - 验证码
  * 
  */
-public interface CaptchaService {
+public interface CaptchaService extends BaseService {
 
 	/**
 	 * 生成验证码图片

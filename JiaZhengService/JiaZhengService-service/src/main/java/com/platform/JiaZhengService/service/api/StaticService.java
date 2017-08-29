@@ -4,11 +4,8 @@ import java.util.Map;
 
 /**
  * Service - 静态化
- * 
- * @author Sencloud Team
- * @version 3.0
  */
-public interface StaticService {
+public interface StaticService extends BaseService {
 
 	/**
 	 * 生成静态

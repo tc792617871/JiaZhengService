@@ -15,7 +15,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Ehcache;
 
 @Service("cacheServiceImpl")
-public class CacheServiceImpl implements CacheService {
+public class CacheServiceImpl extends BaseServiceImpl implements CacheService {
 
 	@Resource(name = "ehCacheManager")
 	private CacheManager cacheManager;

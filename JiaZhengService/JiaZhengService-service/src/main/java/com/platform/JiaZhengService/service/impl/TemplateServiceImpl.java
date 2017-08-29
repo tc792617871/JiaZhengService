@@ -24,12 +24,9 @@ import com.platform.JiaZhengService.service.api.TemplateService;
 
 /**
  * Service - 模板
- * 
- * @author Sencloud Team
- * @version 3.0
  */
 @Service("templateServiceImpl")
-public class TemplateServiceImpl implements TemplateService, ServletContextAware {
+public class TemplateServiceImpl extends BaseServiceImpl implements TemplateService, ServletContextAware {
 
 	/** servletContext */
 	private ServletContext servletContext;

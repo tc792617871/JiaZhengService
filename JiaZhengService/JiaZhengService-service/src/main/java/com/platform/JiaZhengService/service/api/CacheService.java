@@ -3,7 +3,7 @@ package com.platform.JiaZhengService.service.api;
 /**
  * Service - 缓存
  */
-public interface CacheService {
+public interface CacheService extends BaseService {
 
 	/**
 	 * 获取缓存存储路径
