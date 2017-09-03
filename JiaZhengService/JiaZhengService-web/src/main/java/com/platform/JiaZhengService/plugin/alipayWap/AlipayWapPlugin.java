@@ -52,12 +52,12 @@ public class AlipayWapPlugin extends PaymentPlugin {
 
 	@Override
 	public String getAuthor() {
-		return "Sencloud";
+		return "xxx";
 	}
 
 	@Override
 	public String getSiteUrl() {
-		return "http://www.sencloud.com.cn";
+		return "http://www.xxx.com.cn";
 	}
 
 	@Override

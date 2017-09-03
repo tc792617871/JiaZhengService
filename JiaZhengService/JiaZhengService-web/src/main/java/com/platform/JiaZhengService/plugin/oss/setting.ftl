@@ -26,7 +26,7 @@ $().ready(function() {
 			accessKey: "required",
 			bucketName: "required",
 			urlPrefix: "required",
-			order: "digits"
+			orders: "digits"
 		}
 	});
 	
@@ -76,7 +76,7 @@ $().ready(function() {
 					${message("admin.common.order")}:
 				</th>
 				<td>
-					<input type="text" name="order" class="text" value="${pluginConfig.order}" maxlength="9" />
+					<input type="text" name="orders" class="text" value="${pluginConfig.orders}" maxlength="9" />
 				</td>
 			</tr>
 			<tr>

@@ -8,11 +8,11 @@
 		<result column="age" property="age" jdbcType="INTEGER" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		userID, userName, password, age 
+		userID, userName, password, age
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
-		select 
+		select
 		<if test="distinct">
 			distinct
 		</if>

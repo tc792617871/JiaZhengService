@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.platform.JiaZhengService.dao.mapper.TAreaMapper">
-	<resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TArea">
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TPaymentMethodMapper">
+	<resultMap id="BaseResultMap"
+		type="com.platform.JiaZhengService.dao.entity.TPaymentMethod">
 		<id column="id" property="id" jdbcType="BIGINT" />
 		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
 		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
 		<result column="orders" property="orders" jdbcType="INTEGER" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="method" property="method" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="tree_path" property="treePath" jdbcType="VARCHAR" />
-		<result column="parent" property="parent" jdbcType="BIGINT" />
-		<result column="abbreviation" property="abbreviation" jdbcType="VARCHAR" />
-		<result column="phone_code" property="phoneCode" jdbcType="VARCHAR" />
-		<result column="zh_name" property="zhName" jdbcType="VARCHAR" />
+		<result column="timeout" property="timeout" jdbcType="INTEGER" />
 	</resultMap>
-	<resultMap id="ResultMapWithBLOBs" type="com.platform.JiaZhengService.dao.entity.TArea"
-		extends="BaseResultMap">
-		<result column="full_name" property="fullName" jdbcType="LONGVARCHAR" />
+	<resultMap id="ResultMapWithBLOBs"
+		type="com.platform.JiaZhengService.dao.entity.TPaymentMethod" extends="BaseResultMap">
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, orders, name, tree_path, parent,
-		abbreviation, phone_code,
-		zh_name
+		id, create_date, modify_date, orders, description, icon, method, name,
+		timeout
 	</sql>
 	<sql id="Blob_Column_List">
-		full_name
+		content
 	</sql>
 	<select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -34,7 +33,7 @@
 		<include refid="Base_Column_List" />
 		,
 		<include refid="Blob_Column_List" />
-		from t_area
+		from t_payment_method
 		<if test="_parameter != null">
 			<include refid="common.Example_Where_Clause" />
 		</if>
@@ -46,7 +45,7 @@
 			distinct
 		</if>
 		<include refid="Base_Column_List" />
-		from t_area
+		from t_payment_method
 		<if test="_parameter != null">
 			<include refid="common.Example_Where_Clause" />
 		</if>
@@ -57,41 +56,43 @@
 		<include refid="Base_Column_List" />
 		,
 		<include refid="Blob_Column_List" />
-		from t_area
+		from t_payment_method
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_area
+		delete from t_payment_method
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
-		delete from t_area
+		delete from t_payment_method
 		<if test="_parameter != null">
 			<include refid="common.Example_Where_Clause" />
 		</if>
 	</delete>
-	<insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TArea">
+	<insert id="insert"
+		parameterType="com.platform.JiaZhengService.dao.entity.TPaymentMethod">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into t_area (create_date, modify_date, orders,
-		name, tree_path, parent,
-		abbreviation, phone_code, zh_name,
-		full_name)
+		insert into t_payment_method (create_date, modify_date, orders,
+		description, icon, method,
+		name, timeout, content
+		)
 		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
 		#{orders,jdbcType=INTEGER},
-		#{name,jdbcType=VARCHAR}, #{treePath,jdbcType=VARCHAR}, #{parent,jdbcType=BIGINT},
-		#{abbreviation,jdbcType=VARCHAR}, #{phoneCode,jdbcType=VARCHAR},
-		#{zhName,jdbcType=VARCHAR},
-		#{fullName,jdbcType=LONGVARCHAR})
+		#{description,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{method,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR}, #{timeout,jdbcType=INTEGER},
+		#{content,jdbcType=LONGVARCHAR}
+		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TArea">
+	<insert id="insertSelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TPaymentMethod">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into t_area
+		insert into t_payment_method
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="createDate != null">
 				create_date,
@@ -102,26 +103,23 @@
 			<if test="orders != null">
 				orders,
 			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="method != null">
+				method,
+			</if>
 			<if test="name != null">
 				name,
 			</if>
-			<if test="treePath != null">
-				tree_path,
+			<if test="timeout != null">
+				timeout,
 			</if>
-			<if test="parent != null">
-				parent,
-			</if>
-			<if test="abbreviation != null">
-				abbreviation,
-			</if>
-			<if test="phoneCode != null">
-				phone_code,
-			</if>
-			<if test="zhName != null">
-				zh_name,
-			</if>
-			<if test="fullName != null">
-				full_name,
+			<if test="content != null">
+				content,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -134,38 +132,35 @@
 			<if test="orders != null">
 				#{orders,jdbcType=INTEGER},
 			</if>
+			<if test="description != null">
+				#{description,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="method != null">
+				#{method,jdbcType=INTEGER},
+			</if>
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
-			<if test="treePath != null">
-				#{treePath,jdbcType=VARCHAR},
+			<if test="timeout != null">
+				#{timeout,jdbcType=INTEGER},
 			</if>
-			<if test="parent != null">
-				#{parent,jdbcType=BIGINT},
-			</if>
-			<if test="abbreviation != null">
-				#{abbreviation,jdbcType=VARCHAR},
-			</if>
-			<if test="phoneCode != null">
-				#{phoneCode,jdbcType=VARCHAR},
-			</if>
-			<if test="zhName != null">
-				#{zhName,jdbcType=VARCHAR},
-			</if>
-			<if test="fullName != null">
-				#{fullName,jdbcType=LONGVARCHAR},
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
 			</if>
 		</trim>
 	</insert>
 	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
 		resultType="java.lang.Integer">
-		select count(*) from t_area
+		select count(*) from t_payment_method
 		<if test="_parameter != null">
 			<include refid="common.Example_Where_Clause" />
 		</if>
 	</select>
 	<update id="updateByExampleSelective" parameterType="map">
-		update t_area
+		update t_payment_method
 		<set>
 			<if test="record.id != null">
 				id = #{record.id,jdbcType=BIGINT},
@@ -179,26 +174,23 @@
 			<if test="record.orders != null">
 				orders = #{record.orders,jdbcType=INTEGER},
 			</if>
+			<if test="record.description != null">
+				description = #{record.description,jdbcType=VARCHAR},
+			</if>
+			<if test="record.icon != null">
+				icon = #{record.icon,jdbcType=VARCHAR},
+			</if>
+			<if test="record.method != null">
+				method = #{record.method,jdbcType=INTEGER},
+			</if>
 			<if test="record.name != null">
 				name = #{record.name,jdbcType=VARCHAR},
 			</if>
-			<if test="record.treePath != null">
-				tree_path = #{record.treePath,jdbcType=VARCHAR},
+			<if test="record.timeout != null">
+				timeout = #{record.timeout,jdbcType=INTEGER},
 			</if>
-			<if test="record.parent != null">
-				parent = #{record.parent,jdbcType=BIGINT},
-			</if>
-			<if test="record.abbreviation != null">
-				abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
-			</if>
-			<if test="record.phoneCode != null">
-				phone_code = #{record.phoneCode,jdbcType=VARCHAR},
-			</if>
-			<if test="record.zhName != null">
-				zh_name = #{record.zhName,jdbcType=VARCHAR},
-			</if>
-			<if test="record.fullName != null">
-				full_name = #{record.fullName,jdbcType=LONGVARCHAR},
+			<if test="record.content != null">
+				content = #{record.content,jdbcType=LONGVARCHAR},
 			</if>
 		</set>
 		<if test="_parameter != null">
@@ -206,40 +198,39 @@
 		</if>
 	</update>
 	<update id="updateByExampleWithBLOBs" parameterType="map">
-		update t_area
+		update t_payment_method
 		set id = #{record.id,jdbcType=BIGINT},
 		create_date = #{record.createDate,jdbcType=TIMESTAMP},
 		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
 		orders = #{record.orders,jdbcType=INTEGER},
+		description = #{record.description,jdbcType=VARCHAR},
+		icon = #{record.icon,jdbcType=VARCHAR},
+		method = #{record.method,jdbcType=INTEGER},
 		name = #{record.name,jdbcType=VARCHAR},
-		tree_path = #{record.treePath,jdbcType=VARCHAR},
-		parent = #{record.parent,jdbcType=BIGINT},
-		abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
-		phone_code = #{record.phoneCode,jdbcType=VARCHAR},
-		zh_name = #{record.zhName,jdbcType=VARCHAR},
-		full_name = #{record.fullName,jdbcType=LONGVARCHAR}
+		timeout = #{record.timeout,jdbcType=INTEGER},
+		content = #{record.content,jdbcType=LONGVARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
 	</update>
 	<update id="updateByExample" parameterType="map">
-		update t_area
+		update t_payment_method
 		set id = #{record.id,jdbcType=BIGINT},
 		create_date = #{record.createDate,jdbcType=TIMESTAMP},
 		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
 		orders = #{record.orders,jdbcType=INTEGER},
+		description = #{record.description,jdbcType=VARCHAR},
+		icon = #{record.icon,jdbcType=VARCHAR},
+		method = #{record.method,jdbcType=INTEGER},
 		name = #{record.name,jdbcType=VARCHAR},
-		tree_path = #{record.treePath,jdbcType=VARCHAR},
-		parent = #{record.parent,jdbcType=BIGINT},
-		abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
-		phone_code = #{record.phoneCode,jdbcType=VARCHAR},
-		zh_name = #{record.zhName,jdbcType=VARCHAR}
+		timeout = #{record.timeout,jdbcType=INTEGER}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
 	</update>
-	<update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TArea">
-		update t_area
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TPaymentMethod">
+		update t_payment_method
 		<set>
 			<if test="createDate != null">
 				create_date = #{createDate,jdbcType=TIMESTAMP},
@@ -250,55 +241,52 @@
 			<if test="orders != null">
 				orders = #{orders,jdbcType=INTEGER},
 			</if>
+			<if test="description != null">
+				description = #{description,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="method != null">
+				method = #{method,jdbcType=INTEGER},
+			</if>
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
-			<if test="treePath != null">
-				tree_path = #{treePath,jdbcType=VARCHAR},
+			<if test="timeout != null">
+				timeout = #{timeout,jdbcType=INTEGER},
 			</if>
-			<if test="parent != null">
-				parent = #{parent,jdbcType=BIGINT},
-			</if>
-			<if test="abbreviation != null">
-				abbreviation = #{abbreviation,jdbcType=VARCHAR},
-			</if>
-			<if test="phoneCode != null">
-				phone_code = #{phoneCode,jdbcType=VARCHAR},
-			</if>
-			<if test="zhName != null">
-				zh_name = #{zhName,jdbcType=VARCHAR},
-			</if>
-			<if test="fullName != null">
-				full_name = #{fullName,jdbcType=LONGVARCHAR},
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
 			</if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.platform.JiaZhengService.dao.entity.TArea">
-		update t_area
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.platform.JiaZhengService.dao.entity.TPaymentMethod">
+		update t_payment_method
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
 		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
 		orders = #{orders,jdbcType=INTEGER},
+		description = #{description,jdbcType=VARCHAR},
+		icon = #{icon,jdbcType=VARCHAR},
+		method = #{method,jdbcType=INTEGER},
 		name = #{name,jdbcType=VARCHAR},
-		tree_path = #{treePath,jdbcType=VARCHAR},
-		parent = #{parent,jdbcType=BIGINT},
-		abbreviation = #{abbreviation,jdbcType=VARCHAR},
-		phone_code = #{phoneCode,jdbcType=VARCHAR},
-		zh_name = #{zhName,jdbcType=VARCHAR},
-		full_name = #{fullName,jdbcType=LONGVARCHAR}
+		timeout = #{timeout,jdbcType=INTEGER},
+		content = #{content,jdbcType=LONGVARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TArea">
-		update t_area
+	<update id="updateByPrimaryKey"
+		parameterType="com.platform.JiaZhengService.dao.entity.TPaymentMethod">
+		update t_payment_method
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
 		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
 		orders = #{orders,jdbcType=INTEGER},
+		description = #{description,jdbcType=VARCHAR},
+		icon = #{icon,jdbcType=VARCHAR},
+		method = #{method,jdbcType=INTEGER},
 		name = #{name,jdbcType=VARCHAR},
-		tree_path = #{treePath,jdbcType=VARCHAR},
-		parent = #{parent,jdbcType=BIGINT},
-		abbreviation = #{abbreviation,jdbcType=VARCHAR},
-		phone_code = #{phoneCode,jdbcType=VARCHAR},
-		zh_name = #{zhName,jdbcType=VARCHAR}
+		timeout = #{timeout,jdbcType=INTEGER}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

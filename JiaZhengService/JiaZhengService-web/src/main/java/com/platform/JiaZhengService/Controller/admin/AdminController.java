@@ -85,7 +85,9 @@ public class AdminController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(Long id, ModelMap model) {
 		model.addAttribute("roles", roleService.findAll());
-		model.addAttribute("admin", adminService.find(id));
+		TAdmin admin = adminService.find(id);
+		admin.setRoles(adminService.findRolesByAdminID(id));
+		model.addAttribute("admin", admin);
 		return "/admin/admin/edit";
 	}
 

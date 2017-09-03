@@ -58,7 +58,7 @@ $().ready(function() {
 					${message("admin.common.order")}:
 				</th>
 				<td>
-					<input type="text" name="order" class="text" maxlength="9" />
+					<input type="text" name="orders" class="text" maxlength="9" />
 				</td>
 			</tr>
 			<tr>

@@ -34,13 +34,14 @@ $().ready(function() {
 	</div>
 	<form id="inputForm" action="update.jhtml" method="post">
 		<input type="hidden" name="id" value="${area.id}" />
+		<input type="hidden" name="parent" value="${area.parent}" />
 		<table class="input">
 			<tr>
 				<th>
 					${message("admin.area.parent")}:
 				</th>
 				<td>
-					[#if area.parent??]${area.parent.name}[#else]${message("admin.area.root")}[/#if]
+					[#if parent??]${parent.name}[#else]${message("admin.area.root")}[/#if]
 				</td>
 			</tr>
 			<tr>
@@ -56,7 +57,7 @@ $().ready(function() {
 					${message("admin.common.order")}:
 				</th>
 				<td>
-					<input type="text" name="order" class="text" value="${area.order}" maxlength="9" />
+					<input type="text" name="orders" class="text" value="${area.orders}" maxlength="9" />
 				</td>
 			</tr>
 			<tr>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.platform.JiaZhengService.common.pojo.JiaZhengServiceConstants;
 import com.platform.JiaZhengService.common.pojo.Message;
 import com.platform.JiaZhengService.dao.entity.TArea;
 import com.platform.JiaZhengService.service.api.AreaService;
@@ -37,6 +38,15 @@ public class AreaController extends AbstractController {
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(TArea area, Long parentId, RedirectAttributes redirectAttributes) {
+		TArea parent = areaService.find(parentId);
+		if (parent != null) {
+			area.setFullName(parent.getFullName() + area.getName());
+			area.setTreePath(parent.getTreePath() + parent.getId() + JiaZhengServiceConstants.TREE_PATH_SEPARATOR);
+		} else {
+			area.setFullName(area.getName());
+			area.setTreePath(JiaZhengServiceConstants.TREE_PATH_SEPARATOR);
+		}
+		area.setParent(parentId);
 		areaService.save(area);
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:list.jhtml";
@@ -47,7 +57,10 @@ public class AreaController extends AbstractController {
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(Long id, ModelMap model) {
-		model.addAttribute("area", areaService.find(id));
+		TArea area = areaService.find(id);
+		TArea parent = areaService.find(area.getParent());
+		model.addAttribute("area", area);
+		model.addAttribute("parent", parent);
 		return "/admin/area/edit";
 	}
 
@@ -58,6 +71,12 @@ public class AreaController extends AbstractController {
 	public String update(TArea area, RedirectAttributes redirectAttributes) {
 		if (!isValid(area)) {
 			return ERROR_VIEW;
+		}
+		TArea parent = areaService.find(area.getParent());
+		if (parent != null) {
+			area.setFullName(parent.getFullName() + area.getName());
+		} else {
+			area.setFullName(area.getName());
 		}
 		areaService.update(area);
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);

@@ -16,7 +16,6 @@ import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 
-import com.platform.JiaZhengService.AuthenticationToken;
 import com.platform.JiaZhengService.service.api.RSAService;
 
 /**

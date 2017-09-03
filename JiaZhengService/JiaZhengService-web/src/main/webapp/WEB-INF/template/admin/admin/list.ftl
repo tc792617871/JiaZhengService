@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>${message("admin.role.list")} - 家政服务管理平台</title>
+<title>${message("admin.admin.list")} - 家政服务管理平台</title>
 <meta name="author" content="xxx有限公司 Team" />
 <meta name="copyright" content="xxx有限公司" />
 <link href="${base}/resources/admin/css/common.css" rel="stylesheet" type="text/css" />
@@ -20,17 +20,17 @@ $().ready(function() {
 </head>
 <body>
 	<div class="path">
-		<a href="${base}/admin/common/index.jhtml">${message("admin.path.index")}</a> &raquo; ${message("admin.role.list")} <span>(${message("admin.page.total", page.count)})</span>
+		<a href="${base}/admin/common/index.jhtml">${message("admin.path.index")}</a> &raquo; ${message("admin.admin.list")} <span>(${message("admin.page.total", page.count)})</span>
 	</div>
 	<form id="listForm" action="list.jhtml" method="get">
 		<div class="bar">
-		[@shiro.hasPermission name = "admin:role_icon_addIcon"]
+		[@shiro.hasPermission name = "admin:admin_icon_addIcon"]
 			<a href="add.jhtml" class="iconButton">
 				<span class="addIcon">&nbsp;</span>${message("admin.common.add")}
 			</a>
 		[/@shiro.hasPermission]
 			<div class="buttonWrap">
-			[@shiro.hasPermission name = "admin:role_button_deleteButton"]
+			[@shiro.hasPermission name = "admin:admin_button_delteButton"]
 				<a href="javascript:;" id="deleteButton" class="iconButton disabled">
 					<span class="deleteIcon">&nbsp;</span>${message("admin.common.delete")}
 				</a>
@@ -70,7 +70,13 @@ $().ready(function() {
 				<div class="popupMenu">
 					<ul id="searchPropertyOption">
 						<li>
-							<a href="javascript:;"[#if pageable.searchProperty == "name"] class="current"[/#if] val="name">${message("Role.name")}</a>
+							<a href="javascript:;"[#if pageable.searchProperty == "username"] class="current"[/#if] val="username">${message("Admin.username")}</a>
+						</li>
+						<li>
+							<a href="javascript:;"[#if pageable.searchProperty == "email"] class="current"[/#if] val="email">${message("Admin.email")}</a>
+						</li>
+						<li>
+							<a href="javascript:;"[#if pageable.searchProperty == "name"] class="current"[/#if] val="name">${message("Admin.name")}</a>
 						</li>
 					</ul>
 				</div>
@@ -82,13 +88,25 @@ $().ready(function() {
 					<input type="checkbox" id="selectAll" />
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="name">${message("Role.name")}</a>
+					<a href="javascript:;" class="sort" name="username">${message("Admin.username")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="isSystem">${message("Role.isSystem")}</a>
+					<a href="javascript:;" class="sort" name="email">${message("Admin.email")}</a>
 				</th>
 				<th>
-					<span>${message("Role.description")}</span>
+					<a href="javascript:;" class="sort" name="name">${message("Admin.name")}</a>
+				</th>
+				<th>
+					<a href="javascript:;" class="sort" name="department">${message("Admin.department")}</a>
+				</th>
+				<th>
+					<a href="javascript:;" class="sort" name="loginDate">${message("Admin.loginDate")}</a>
+				</th>
+				<th>
+					<a href="javascript:;" class="sort" name="loginIp">${message("Admin.loginIp")}</a>
+				</th>
+				<th>
+					<span>${message("admin.admin.status")}</span>
 				</th>
 				<th>
 					<a href="javascript:;" class="sort" name="createDate">${message("admin.common.createDate")}</a>
@@ -97,28 +115,48 @@ $().ready(function() {
 					<span>${message("admin.common.handle")}</span>
 				</th>
 			</tr>
-			[#list content as role]
+			[#list content as admin]
 				<tr>
 					<td>
-						<input type="checkbox" name="ids"[#if role.isSystem] title="${message("admin.role.deleteSystemNotAllowed")}" disabled="disabled"[#else] value="${role.id}"[/#if] />
+						<input type="checkbox" name="ids" value="${admin.id}" />
 					</td>
 					<td>
-						${role.name}
+						${admin.username}
 					</td>
 					<td>
-						${message(role.isSystem?string('admin.common.true', 'admin.common.false'))}
+						${admin.email}
 					</td>
 					<td>
-						[#if role.description??]
-							<span title="${role.description}">${abbreviate(role.description, 50, "...")}</span>
+						${admin.name}
+					</td>
+					<td>
+						${admin.department}
+					</td>
+					<td>
+						[#if admin.loginDate??]
+							<span title="${admin.loginDate?string("yyyy-MM-dd HH:mm:ss")}">${admin.loginDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+						[#else]
+							-
 						[/#if]
 					</td>
 					<td>
-						<span title="${role.createDate?string("yyyy-MM-dd HH:mm:ss")}">${role.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+						${(admin.loginIp)!"-"}
 					</td>
 					<td>
-					[@shiro.hasPermission name = "admin:role_a_edit"]
-						<a href="edit.jhtml?id=${role.id}">[${message("admin.common.edit")}]</a>
+						[#if !admin.isEnabled]
+							<span class="red">${message("admin.admin.disabled")}</span>
+						[#elseif admin.isLocked]
+							<span class="red"> ${message("admin.admin.locked")} </span>
+						[#else]
+							<span class="green">${message("admin.admin.normal")}</span>
+						[/#if]
+					</td>
+					<td>
+						<span title="${admin.createDate?string("yyyy-MM-dd HH:mm:ss")}">${admin.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+					</td>
+					<td>
+					[@shiro.hasPermission name = "admin:admin_a_edit"]
+						<a href="edit.jhtml?id=${admin.id}">[${message("admin.common.edit")}]</a>
 					[/@shiro.hasPermission]
 					</td>
 				</tr>

@@ -12,38 +12,39 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.platform.JiaZhengService.common.pojo.Message;
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.Pageable;
-import com.platform.JiaZhengService.dao.entity.TRole;
-import com.platform.JiaZhengService.service.api.RoleService;
+import com.platform.JiaZhengService.dao.entity.TPaymentMethod;
+import com.platform.JiaZhengService.dao.entity.TPaymentMethod.Method;
+import com.platform.JiaZhengService.service.api.PaymentMethodService;
 
 /**
- * Controller - 角色
+ * Controller - 支付方式
  */
-@Controller("adminRoleController")
-@RequestMapping("/admin/role")
-public class RoleController extends AbstractController {
+@Controller("adminPaymentMethodController")
+@RequestMapping("/admin/payment_method")
+public class PaymentMethodController extends AbstractController {
 
-	@Resource(name = "roleServiceImpl")
-	private RoleService roleService;
+	@Resource(name = "paymentMethodServiceImpl")
+	private PaymentMethodService paymentMethodService;
 
 	/**
 	 * 添加
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public String add() {
-		return "/admin/role/add";
+	public String add(ModelMap model) {
+		model.addAttribute("methods", Method.values());
+		return "/admin/payment_method/add";
 	}
 
 	/**
 	 * 保存
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(TRole role, RedirectAttributes redirectAttributes) {
-		if (!isValid(role)) {
+	public String save(TPaymentMethod paymentMethod, Long[] shippingMethodIds, RedirectAttributes redirectAttributes) {
+		if (!isValid(paymentMethod)) {
 			return ERROR_VIEW;
 		}
-		role.setIsSystem(false);
-		role.setAdmins(null);
-		roleService.save(role);
+		paymentMethod.setOrders(null);
+		paymentMethodService.save(paymentMethod);
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:list.jhtml";
 	}
@@ -53,23 +54,21 @@ public class RoleController extends AbstractController {
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(Long id, ModelMap model) {
-		model.addAttribute("role", roleService.find(id));
-		return "/admin/role/edit";
+		model.addAttribute("methods", Method.values());
+		model.addAttribute("paymentMethod", paymentMethodService.find(id));
+		return "/admin/payment_method/edit";
 	}
 
 	/**
 	 * 更新
 	 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(TRole role, RedirectAttributes redirectAttributes) {
-		if (!isValid(role)) {
+	public String update(TPaymentMethod paymentMethod, Long[] shippingMethodIds,
+			RedirectAttributes redirectAttributes) {
+		if (!isValid(paymentMethod)) {
 			return ERROR_VIEW;
 		}
-		TRole pRole = roleService.find(role.getId());
-		if (pRole == null || pRole.getIsSystem()) {
-			return ERROR_VIEW;
-		}
-		roleService.update(role);
+		paymentMethodService.update(paymentMethod);
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:list.jhtml";
 	}
@@ -82,8 +81,8 @@ public class RoleController extends AbstractController {
 		Criteria c = createPaginationCriteria(pageable);
 		model.addAttribute("pageable", pageable);
 		model.addAttribute("page", c.getPage());
-		model.addAttribute("content", roleService.queryRoleList(c));
-		return "/admin/role/list";
+		model.addAttribute("content", paymentMethodService.queryPaymentMethodList(c));
+		return "/admin/payment_method/list";
 	}
 
 	/**
@@ -91,16 +90,10 @@ public class RoleController extends AbstractController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody Message delete(Long[] ids) {
-		if (ids != null) {
-			for (Long id : ids) {
-				TRole role = roleService.find(id);
-				role.setAdmins(roleService.findAdminsByRoleID(id));
-				if (role != null && (role.getIsSystem() || (role.getAdmins() != null && !role.getAdmins().isEmpty()))) {
-					return Message.error("admin.role.deleteExistNotAllowed", role.getName());
-				}
-			}
-			roleService.delete(ids);
+		if (ids.length >= paymentMethodService.count()) {
+			return Message.error("admin.common.deleteAllNotAllowed");
 		}
+		paymentMethodService.delete(ids);
 		return SUCCESS_MESSAGE;
 	}
 

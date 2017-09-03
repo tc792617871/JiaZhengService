@@ -1,8 +1,10 @@
 package com.platform.JiaZhengService.service.api;
 
 import java.util.List;
+import java.util.Set;
 
 import com.platform.JiaZhengService.dao.Criteria;
+import com.platform.JiaZhengService.dao.entity.TAdmin;
 import com.platform.JiaZhengService.dao.entity.TRole;
 
 /**
@@ -17,6 +19,8 @@ public interface RoleService extends BaseService {
 	void delete(Long id);
 
 	TRole find(Long id);
+
+	Set<TAdmin> findAdminsByRoleID(Long roleID);
 
 	void delete(Long[] ids);
 

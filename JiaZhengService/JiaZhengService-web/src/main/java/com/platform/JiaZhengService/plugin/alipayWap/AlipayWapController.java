@@ -66,7 +66,7 @@ public class AlipayWapController extends AbstractController {
 		TPluginConfig pluginConfig = alipayWapPlugin.getPluginConfig();
 		model.addAttribute("feeTypes", FeeType.values());
 		model.addAttribute("pluginConfig", pluginConfig);
-		return "/com/sencloud/plugin/alipayWap/setting";
+		return "/com/platform/JiaZhengService/plugin/alipayWap/setting";
 	}
 
 	/**

@@ -1,9 +1,11 @@
 package com.platform.JiaZhengService.service.api;
 
 import java.util.List;
+import java.util.Set;
 
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
+import com.platform.JiaZhengService.dao.entity.TRole;
 
 /**
  * Service - 管理员
@@ -102,5 +104,13 @@ public interface AdminService extends BaseService {
 	 * @return
 	 */
 	List<TAdmin> queryAdminList(Criteria c);
+
+	/**
+	 * 查找管理角色列表
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Set<TRole> findRolesByAdminID(Long id);
 
 }

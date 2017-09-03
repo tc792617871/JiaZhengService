@@ -37,9 +37,12 @@ public interface JiaZhengServiceConstants {
 	 * FORMAT_DateTime: 日期时间
 	 */
 	public static final String FORMAT_DateTime = "yyyy-MM-dd HH:mm:ss";
-	
+
 	public static final String SORT_ASC = " asc ";
 
 	public static final String SORT_DESC = " desc ";
+
+	/** 树路径分隔符 */
+	public static final String TREE_PATH_SEPARATOR = ",";
 
 }

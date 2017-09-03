@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>${message("admin.role.list")} - 家政服务管理平台</title>
+<title>${message("admin.paymentMethod.list")} - 家政服务平台</title>
 <meta name="author" content="xxx有限公司 Team" />
 <meta name="copyright" content="xxx有限公司" />
 <link href="${base}/resources/admin/css/common.css" rel="stylesheet" type="text/css" />
@@ -20,17 +20,17 @@ $().ready(function() {
 </head>
 <body>
 	<div class="path">
-		<a href="${base}/admin/common/index.jhtml">${message("admin.path.index")}</a> &raquo; ${message("admin.role.list")} <span>(${message("admin.page.total", page.count)})</span>
+		<a href="${base}/admin/common/index.jhtml">${message("admin.path.index")}</a> &raquo; ${message("admin.paymentMethod.list")} <span>(${message("admin.page.total", page.count)})</span>
 	</div>
 	<form id="listForm" action="list.jhtml" method="get">
 		<div class="bar">
-		[@shiro.hasPermission name = "admin:role_icon_addIcon"]
+		[@shiro.hasPermission name = "admin:paymentMethod_icon_addIcon"]
 			<a href="add.jhtml" class="iconButton">
 				<span class="addIcon">&nbsp;</span>${message("admin.common.add")}
 			</a>
 		[/@shiro.hasPermission]
 			<div class="buttonWrap">
-			[@shiro.hasPermission name = "admin:role_button_deleteButton"]
+			[@shiro.hasPermission name = "admin:paymentMethod_button_deleteButton"]
 				<a href="javascript:;" id="deleteButton" class="iconButton disabled">
 					<span class="deleteIcon">&nbsp;</span>${message("admin.common.delete")}
 				</a>
@@ -70,7 +70,7 @@ $().ready(function() {
 				<div class="popupMenu">
 					<ul id="searchPropertyOption">
 						<li>
-							<a href="javascript:;"[#if pageable.searchProperty == "name"] class="current"[/#if] val="name">${message("Role.name")}</a>
+							<a href="javascript:;"[#if pageable.searchProperty == "name"] class="current"[/#if] val="name">${message("PaymentMethod.name")}</a>
 						</li>
 					</ul>
 				</div>
@@ -82,43 +82,43 @@ $().ready(function() {
 					<input type="checkbox" id="selectAll" />
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="name">${message("Role.name")}</a>
+					<a href="javascript:;" class="sort" name="name">${message("PaymentMethod.name")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="isSystem">${message("Role.isSystem")}</a>
+					<a href="javascript:;" class="sort" name="method">${message("PaymentMethod.method")}</a>
 				</th>
 				<th>
-					<span>${message("Role.description")}</span>
+					<a href="javascript:;" class="sort" name="description">${message("PaymentMethod.description")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="createDate">${message("admin.common.createDate")}</a>
+					<a href="javascript:;" class="sort" name="order">${message("admin.common.order")}</a>
 				</th>
 				<th>
 					<span>${message("admin.common.handle")}</span>
 				</th>
 			</tr>
-			[#list content as role]
+			[#list content as paymentMethod]
 				<tr>
 					<td>
-						<input type="checkbox" name="ids"[#if role.isSystem] title="${message("admin.role.deleteSystemNotAllowed")}" disabled="disabled"[#else] value="${role.id}"[/#if] />
+						<input type="checkbox" name="ids" value="${paymentMethod.id}" />
 					</td>
 					<td>
-						${role.name}
+						${paymentMethod.name}
 					</td>
 					<td>
-						${message(role.isSystem?string('admin.common.true', 'admin.common.false'))}
+						${message("PaymentMethod.Method." + paymentMethod.method)}
 					</td>
 					<td>
-						[#if role.description??]
-							<span title="${role.description}">${abbreviate(role.description, 50, "...")}</span>
+						[#if paymentMethod.description??]
+							<span title="${paymentMethod.description}">${abbreviate(paymentMethod.description, 50, "...")}</span>
 						[/#if]
 					</td>
 					<td>
-						<span title="${role.createDate?string("yyyy-MM-dd HH:mm:ss")}">${role.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+						${paymentMethod.orders}
 					</td>
 					<td>
-					[@shiro.hasPermission name = "admin:role_a_edit"]
-						<a href="edit.jhtml?id=${role.id}">[${message("admin.common.edit")}]</a>
+					[@shiro.hasPermission name = "admin:paymentMethod_a_edit"]
+						<a href="edit.jhtml?id=${paymentMethod.id}">[${message("admin.common.edit")}]</a>
 					[/@shiro.hasPermission]
 					</td>
 				</tr>

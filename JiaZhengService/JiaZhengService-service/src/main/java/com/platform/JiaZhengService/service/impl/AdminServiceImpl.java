@@ -1,7 +1,10 @@
 package com.platform.JiaZhengService.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -18,10 +21,12 @@ import com.platform.JiaZhengService.dao.constants.TTAdminRole;
 import com.platform.JiaZhengService.dao.constants.TTRoleAuthority;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
 import com.platform.JiaZhengService.dao.entity.TAdminRoleKey;
+import com.platform.JiaZhengService.dao.entity.TRole;
 import com.platform.JiaZhengService.dao.entity.TRoleAuthority;
 import com.platform.JiaZhengService.dao.mapper.TAdminMapper;
 import com.platform.JiaZhengService.dao.mapper.TAdminRoleMapper;
 import com.platform.JiaZhengService.dao.mapper.TRoleAuthorityMapper;
+import com.platform.JiaZhengService.dao.mapper.TRoleMapper;
 import com.platform.JiaZhengService.service.api.AdminService;
 
 @Service("adminServiceImpl")
@@ -35,6 +40,9 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
 
 	@Resource
 	private TRoleAuthorityMapper roleAuthorityMapper;
+
+	@Resource
+	private TRoleMapper roleMapper;
 
 	@Override
 	public boolean usernameExists(String username) {
@@ -117,14 +125,41 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
 	@Transactional
 	@CacheEvict(value = "authorization", allEntries = true)
 	public TAdmin update(TAdmin admin) {
+		admin.setModifyDate(new Date());
 		adminMapper.updateByPrimaryKeySelective(admin);
+
+		Set<TRole> roles = admin.getRoles();
+		if (roles != null && !roles.isEmpty()) {
+			Criteria c = new Criteria();
+			c.createConditon().andEqualTo(TTAdminRole.ADMINS, admin.getId());
+			adminRoleMapper.deleteByExample(c);
+
+			for (TRole role : roles) {
+				TAdminRoleKey roleKey = new TAdminRoleKey();
+				roleKey.setAdmins(admin.getId());
+				roleKey.setRoles(role.getId());
+				adminRoleMapper.insert(roleKey);
+			}
+		}
+
 		return adminMapper.selectByPrimaryKey(admin.getId());
 	}
 
 	@Override
 	@Transactional
 	public void save(TAdmin admin) {
+		admin.setCreateDate(new Date());
+		admin.setModifyDate(new Date());
 		adminMapper.insertSelective(admin);
+		Set<TRole> roles = admin.getRoles();
+		if (roles != null && !roles.isEmpty()) {
+			for (TRole role : roles) {
+				TAdminRoleKey roleKey = new TAdminRoleKey();
+				roleKey.setAdmins(admin.getId());
+				roleKey.setRoles(role.getId());
+				adminRoleMapper.insert(roleKey);
+			}
+		}
 	}
 
 	@Override
@@ -152,7 +187,21 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
 	@Override
 	public List<TAdmin> queryAdminList(Criteria c) {
 		List<TAdmin> admins = adminMapper.selectByExample(c);
-
 		return admins;
+	}
+
+	@Override
+	public Set<TRole> findRolesByAdminID(Long id) {
+		Set<TRole> roles = new HashSet<>();
+		Criteria c = new Criteria();
+		c.createConditon().andEqualTo(TTAdminRole.ADMINS, id);
+		List<TAdminRoleKey> keys = adminRoleMapper.selectByExample(c);
+		if (keys != null && !keys.isEmpty()) {
+			for (TAdminRoleKey key : keys) {
+				TRole role = roleMapper.selectByPrimaryKey(key.getRoles());
+				roles.add(role);
+			}
+		}
+		return roles;
 	}
 }

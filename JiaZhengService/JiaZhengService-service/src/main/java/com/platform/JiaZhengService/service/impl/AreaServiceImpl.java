@@ -1,5 +1,6 @@
 package com.platform.JiaZhengService.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -53,6 +54,8 @@ public class AreaServiceImpl extends BaseServiceImpl implements AreaService {
 	@Transactional
 	@CacheEvict(value = "area", allEntries = true)
 	public void save(TArea area) {
+		area.setCreateDate(new Date());
+		area.setModifyDate(new Date());
 		areaMapper.insertSelective(area);
 	}
 
@@ -60,7 +63,8 @@ public class AreaServiceImpl extends BaseServiceImpl implements AreaService {
 	@Transactional
 	@CacheEvict(value = "area", allEntries = true)
 	public TArea update(TArea area) {
-		areaMapper.updateByPrimaryKeyWithBLOBs(area);
+		area.setModifyDate(new Date());
+		areaMapper.updateByPrimaryKeySelective(area);
 		return area;
 	}
 

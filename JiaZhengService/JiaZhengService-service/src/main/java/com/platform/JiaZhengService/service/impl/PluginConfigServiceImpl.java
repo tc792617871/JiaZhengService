@@ -1,5 +1,6 @@
 package com.platform.JiaZhengService.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +68,8 @@ public class PluginConfigServiceImpl extends BaseServiceImpl implements PluginCo
 	@Override
 	@Transactional
 	public boolean save(TPluginConfig pluginConfig) {
+		pluginConfig.setCreateDate(new Date());
+		pluginConfig.setModifyDate(new Date());
 		pluginConfigMapper.insertSelective(pluginConfig);
 		Map<String, String> attris = pluginConfig.getAttributes();
 		if (attris != null) {
@@ -84,6 +87,7 @@ public class PluginConfigServiceImpl extends BaseServiceImpl implements PluginCo
 	@Override
 	@Transactional
 	public boolean update(TPluginConfig pluginConfig) {
+		pluginConfig.setModifyDate(new Date());
 		pluginConfigMapper.updateByPrimaryKeySelective(pluginConfig);
 		Map<String, String> attris = pluginConfig.getAttributes();
 		if (attris != null) {

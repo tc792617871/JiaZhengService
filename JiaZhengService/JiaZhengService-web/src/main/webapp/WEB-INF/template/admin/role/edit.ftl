@@ -170,7 +170,7 @@ $().ready(function() {
 			
 			<!-- start 商品管理 -> 商品管理 -->
 			<tr class="productGroup">
-				<th  rowspan="10">
+				<th  rowspan="3">
 					<input type="button" class="btn btn-primary btn-xs" id="productGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
@@ -373,7 +373,7 @@ $().ready(function() {
 			
 			<!-- start 订单管理 -> 订单管理 -->
 			<tr class="orderGroup">
-				<th  rowspan="9">
+				<th  rowspan="3">
 					<input type="button" class="btn btn-primary btn-xs" id="orderGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
@@ -588,7 +588,7 @@ $().ready(function() {
 			
 			<!-- start 会员管理 -> 会员管理 -->
 			<tr class="memberGroup">
-				<th  rowspan="5">
+				<th  rowspan="1">
 					<input type="button" class="btn btn-primary btn-xs" id="memberGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
@@ -651,7 +651,7 @@ $().ready(function() {
 			
 			<!-- start 内容管理 -> 模板管理 -->
 			<tr class="contentGroup">
-				<th rowspan="10">
+				<th rowspan="4">
 					<input type="button" class="btn btn-primary btn-xs" id="contentGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
@@ -751,7 +751,7 @@ $().ready(function() {
 
 			<!-- start 营销管理 -> 优惠券管理 -->
 			<tr class="promotionGroup">
-				<th  rowspan="3">
+				<th  rowspan="1">
 					<input type="button" class="btn btn-primary btn-xs" id="promotionGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
@@ -814,7 +814,7 @@ $().ready(function() {
 			
 			<!-- start 系统设置 -> 系统设置 -->
 			<tr class="systemGroup">
-				<th  rowspan="15">
+				<th rowspan="10">
 					<input type="button" class="btn btn-primary btn-xs" id="systemGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
