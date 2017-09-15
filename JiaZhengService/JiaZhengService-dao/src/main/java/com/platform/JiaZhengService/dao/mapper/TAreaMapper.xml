@@ -18,7 +18,8 @@
 		<result column="full_name" property="fullName" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, orders, name, tree_path, parent,
+		id, create_date, modify_date, orders, name, tree_path,
+		parent,
 		abbreviation, phone_code,
 		zh_name
 	</sql>
@@ -76,12 +77,15 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_area (create_date, modify_date, orders,
-		name, tree_path, parent,
+		name, tree_path,
+		parent,
 		abbreviation, phone_code, zh_name,
 		full_name)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values
+		(#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
 		#{orders,jdbcType=INTEGER},
-		#{name,jdbcType=VARCHAR}, #{treePath,jdbcType=VARCHAR}, #{parent,jdbcType=BIGINT},
+		#{name,jdbcType=VARCHAR},
+		#{treePath,jdbcType=VARCHAR}, #{parent,jdbcType=BIGINT},
 		#{abbreviation,jdbcType=VARCHAR}, #{phoneCode,jdbcType=VARCHAR},
 		#{zhName,jdbcType=VARCHAR},
 		#{fullName,jdbcType=LONGVARCHAR})
@@ -208,16 +212,26 @@
 	<update id="updateByExampleWithBLOBs" parameterType="map">
 		update t_area
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		orders = #{record.orders,jdbcType=INTEGER},
-		name = #{record.name,jdbcType=VARCHAR},
-		tree_path = #{record.treePath,jdbcType=VARCHAR},
-		parent = #{record.parent,jdbcType=BIGINT},
-		abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
-		phone_code = #{record.phoneCode,jdbcType=VARCHAR},
-		zh_name = #{record.zhName,jdbcType=VARCHAR},
-		full_name = #{record.fullName,jdbcType=LONGVARCHAR}
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		orders =
+		#{record.orders,jdbcType=INTEGER},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		tree_path =
+		#{record.treePath,jdbcType=VARCHAR},
+		parent =
+		#{record.parent,jdbcType=BIGINT},
+		abbreviation =
+		#{record.abbreviation,jdbcType=VARCHAR},
+		phone_code =
+		#{record.phoneCode,jdbcType=VARCHAR},
+		zh_name =
+		#{record.zhName,jdbcType=VARCHAR},
+		full_name =
+		#{record.fullName,jdbcType=LONGVARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -225,15 +239,24 @@
 	<update id="updateByExample" parameterType="map">
 		update t_area
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		orders = #{record.orders,jdbcType=INTEGER},
-		name = #{record.name,jdbcType=VARCHAR},
-		tree_path = #{record.treePath,jdbcType=VARCHAR},
-		parent = #{record.parent,jdbcType=BIGINT},
-		abbreviation = #{record.abbreviation,jdbcType=VARCHAR},
-		phone_code = #{record.phoneCode,jdbcType=VARCHAR},
-		zh_name = #{record.zhName,jdbcType=VARCHAR}
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		orders =
+		#{record.orders,jdbcType=INTEGER},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		tree_path =
+		#{record.treePath,jdbcType=VARCHAR},
+		parent =
+		#{record.parent,jdbcType=BIGINT},
+		abbreviation =
+		#{record.abbreviation,jdbcType=VARCHAR},
+		phone_code =
+		#{record.phoneCode,jdbcType=VARCHAR},
+		zh_name =
+		#{record.zhName,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -275,29 +298,38 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.platform.JiaZhengService.dao.entity.TArea">
-		update t_area
+		update
+		t_area
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
 		orders = #{orders,jdbcType=INTEGER},
 		name = #{name,jdbcType=VARCHAR},
-		tree_path = #{treePath,jdbcType=VARCHAR},
+		tree_path =
+		#{treePath,jdbcType=VARCHAR},
 		parent = #{parent,jdbcType=BIGINT},
 		abbreviation = #{abbreviation,jdbcType=VARCHAR},
-		phone_code = #{phoneCode,jdbcType=VARCHAR},
+		phone_code =
+		#{phoneCode,jdbcType=VARCHAR},
 		zh_name = #{zhName,jdbcType=VARCHAR},
 		full_name = #{fullName,jdbcType=LONGVARCHAR}
-		where id = #{id,jdbcType=BIGINT}
+		where id =
+		#{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TArea">
 		update t_area
-		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		set
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
 		orders = #{orders,jdbcType=INTEGER},
 		name = #{name,jdbcType=VARCHAR},
-		tree_path = #{treePath,jdbcType=VARCHAR},
+		tree_path =
+		#{treePath,jdbcType=VARCHAR},
 		parent = #{parent,jdbcType=BIGINT},
 		abbreviation = #{abbreviation,jdbcType=VARCHAR},
-		phone_code = #{phoneCode,jdbcType=VARCHAR},
+		phone_code =
+		#{phoneCode,jdbcType=VARCHAR},
 		zh_name = #{zhName,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>

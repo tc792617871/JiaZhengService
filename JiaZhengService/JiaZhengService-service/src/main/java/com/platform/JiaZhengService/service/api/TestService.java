@@ -9,4 +9,6 @@ public interface TestService extends BaseService {
 
 	List<TUser> getUsers(Criteria c);
 
+	void insertUser();
+
 }

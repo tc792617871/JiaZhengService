@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.platform.JiaZhengService.dao.mapper.TSpecificationValueMapper">
+	<resultMap id="BaseResultMap"
+		type="com.platform.JiaZhengService.dao.entity.TSpecificationValue">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+		<result column="orders" property="orders" jdbcType="INTEGER" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="specification" property="specification"
+			jdbcType="BIGINT" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+		<result column="main_name" property="mainName" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date, modify_date, orders, image, name, specification, code,
+		memo, main_name
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_specification_value
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_specification_value
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_specification_value
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
+		delete from t_specification_value
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.platform.JiaZhengService.dao.entity.TSpecificationValue">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_specification_value (create_date, modify_date, orders,
+		image, name, specification,
+		code, memo, main_name
+		)
+		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		#{orders,jdbcType=INTEGER},
+		#{image,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{specification,jdbcType=BIGINT},
+		#{code,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR},
+		#{mainName,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TSpecificationValue">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_specification_value
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+			<if test="orders != null">
+				orders,
+			</if>
+			<if test="image != null">
+				image,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="specification != null">
+				specification,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="memo != null">
+				memo,
+			</if>
+			<if test="mainName != null">
+				main_name,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orders != null">
+				#{orders,jdbcType=INTEGER},
+			</if>
+			<if test="image != null">
+				#{image,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="specification != null">
+				#{specification,jdbcType=BIGINT},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				#{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="mainName != null">
+				#{mainName,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
+		resultType="java.lang.Integer">
+		select count(*) from t_specification_value
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_specification_value
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.createDate != null">
+				create_date = #{record.createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.modifyDate != null">
+				modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.orders != null">
+				orders = #{record.orders,jdbcType=INTEGER},
+			</if>
+			<if test="record.image != null">
+				image = #{record.image,jdbcType=VARCHAR},
+			</if>
+			<if test="record.name != null">
+				name = #{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.specification != null">
+				specification = #{record.specification,jdbcType=BIGINT},
+			</if>
+			<if test="record.code != null">
+				code = #{record.code,jdbcType=VARCHAR},
+			</if>
+			<if test="record.memo != null">
+				memo = #{record.memo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.mainName != null">
+				main_name = #{record.mainName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_specification_value
+		set id = #{record.id,jdbcType=BIGINT},
+		create_date = #{record.createDate,jdbcType=TIMESTAMP},
+		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+		orders = #{record.orders,jdbcType=INTEGER},
+		image = #{record.image,jdbcType=VARCHAR},
+		name = #{record.name,jdbcType=VARCHAR},
+		specification = #{record.specification,jdbcType=BIGINT},
+		code = #{record.code,jdbcType=VARCHAR},
+		memo = #{record.memo,jdbcType=VARCHAR},
+		main_name = #{record.mainName,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TSpecificationValue">
+		update t_specification_value
+		<set>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orders != null">
+				orders = #{orders,jdbcType=INTEGER},
+			</if>
+			<if test="image != null">
+				image = #{image,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="specification != null">
+				specification = #{specification,jdbcType=BIGINT},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				memo = #{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="mainName != null">
+				main_name = #{mainName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.platform.JiaZhengService.dao.entity.TSpecificationValue">
+		update t_specification_value
+		set create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		orders = #{orders,jdbcType=INTEGER},
+		image = #{image,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		specification = #{specification,jdbcType=BIGINT},
+		code = #{code,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		main_name = #{mainName,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

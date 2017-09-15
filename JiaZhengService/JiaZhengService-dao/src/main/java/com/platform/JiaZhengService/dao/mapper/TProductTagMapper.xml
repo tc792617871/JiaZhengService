@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TProductTagMapper">
+	<resultMap id="BaseResultMap"
+		type="com.platform.JiaZhengService.dao.entity.TProductTagKey">
+		<id column="products" property="products" jdbcType="BIGINT" />
+		<id column="tags" property="tags" jdbcType="BIGINT" />
+	</resultMap>
+	<resultMap id="TagtMap" type="com.platform.JiaZhengService.dao.entity.TTag">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+		<result column="orders" property="orders" jdbcType="INTEGER" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="mobile_cover" property="mobileCover" jdbcType="VARCHAR" />
+		<result column="ed_mobile_cover" property="edMobileCover"
+			jdbcType="VARCHAR" />
+		<result column="mo_mobile_cover" property="moMobileCover"
+			jdbcType="VARCHAR" />
+		<result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		products, tags
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_product_tag
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductTagKey">
+		delete from t_product_tag
+		where products = #{products,jdbcType=BIGINT}
+		and tags = #{tags,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
+		delete from t_product_tag
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductTagKey">
+		insert into t_product_tag (products, tags)
+		values (#{products,jdbcType=BIGINT}, #{tags,jdbcType=BIGINT})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductTagKey">
+		insert into t_product_tag
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="products != null">
+				products,
+			</if>
+			<if test="tags != null">
+				tags,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="products != null">
+				#{products,jdbcType=BIGINT},
+			</if>
+			<if test="tags != null">
+				#{tags,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
+		resultType="java.lang.Integer">
+		select count(*) from t_product_tag
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_product_tag
+		<set>
+			<if test="record.products != null">
+				products = #{record.products,jdbcType=BIGINT},
+			</if>
+			<if test="record.tags != null">
+				tags = #{record.tags,jdbcType=BIGINT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_product_tag
+		set products = #{record.products,jdbcType=BIGINT},
+		tags = #{record.tags,jdbcType=BIGINT}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<select id="selectByProductID" resultMap="TagtMap"
+		parameterType="java.lang.Long">
+		select
+		t.id, t.create_date, t.modify_date, t.orders, t.icon, t.memo, t.name,
+		t.type, t.mobile_cover, t.ed_mobile_cover,
+		t.mo_mobile_cover, t.is_enabled
+		from t_product_tag pt
+		left join t_tag t on pt.tags = t.id
+		where 1=1 and pt.products = #{productId,jdbcType=BIGINT}
+	</select>
+</mapper>

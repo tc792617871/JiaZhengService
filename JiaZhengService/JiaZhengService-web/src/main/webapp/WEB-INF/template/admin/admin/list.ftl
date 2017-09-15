@@ -100,16 +100,16 @@ $().ready(function() {
 					<a href="javascript:;" class="sort" name="department">${message("Admin.department")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="loginDate">${message("Admin.loginDate")}</a>
+					<a href="javascript:;" class="sort" name="login_date">${message("Admin.loginDate")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="loginIp">${message("Admin.loginIp")}</a>
+					<a href="javascript:;" class="sort" name="login_ip">${message("Admin.loginIp")}</a>
 				</th>
 				<th>
 					<span>${message("admin.admin.status")}</span>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="createDate">${message("admin.common.createDate")}</a>
+					<a href="javascript:;" class="sort" name="create_date">${message("admin.common.createDate")}</a>
 				</th>
 				<th>
 					<span>${message("admin.common.handle")}</span>

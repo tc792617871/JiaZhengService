@@ -61,7 +61,7 @@ $().ready(function() {
 			<th>
 				<div id="nav" class="nav">
 					<ul>
-						[#list ["admin:product", "admin:productCategory",  "admin:specification"] as permission]
+						[#list ["admin:product", "admin:productCategory"] as permission]
 							[@shiro.hasPermission name = permission]
 								<li>
 									<a href="#product">${message("admin.main.productNav")}</a>
@@ -85,7 +85,7 @@ $().ready(function() {
 								[#break /]
 							[/@shiro.hasPermission]
 						[/#list]
-						[#list ["admin:template", "admin:cache", "admin:static", "admin:index"] as permission]
+						[#list ["admin:tag", "admin:template", "admin:cache", "admin:static"] as permission]
 							[@shiro.hasPermission name = permission]
 								<li>
 									<a href="#content">${message("admin.main.contentNav")}</a>
@@ -122,7 +122,7 @@ $().ready(function() {
 		<tr>
 			<td id="menu" class="menu">
 				<dl id="product" class="default">
-					[#list ["admin:product", "admin:productCategory", "admin:specification"] as permission]
+					[#list ["admin:product", "admin:productCategory"] as permission]
 							[@shiro.hasPermission name = permission]
 								<dt>${message("admin.main.productGroup")}</dt>
 								[#break /]
@@ -136,11 +136,6 @@ $().ready(function() {
 					[@shiro.hasPermission name="admin:productCategory"]
 						<dd>
 							<a href="../product_category/list.jhtml" target="iframe">${message("admin.main.productCategory")}</a>
-						</dd>
-					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:specification"]
-						<dd>
-							<a href="../specification/list.jhtml" target="iframe">${message("admin.main.specification")}</a>
 						</dd>
 					[/@shiro.hasPermission]
 				</dl>
@@ -171,12 +166,17 @@ $().ready(function() {
 					[/@shiro.hasPermission]
 				</dl>
 				<dl id="content">
-					[#list ["admin:template", "admin:cache", "admin:static", "admin:index"] as permission]
+					[#list ["admin:tag", "admin:template", "admin:cache", "admin:static"] as permission]
 						[@shiro.hasPermission name = permission]
 							<dt>${message("admin.main.contentGroup")}</dt>
 							[#break /]
 						[/@shiro.hasPermission]
 					[/#list]
+					[@shiro.hasPermission name="admin:tag"]
+						<dd>
+							<a href="../tag/list.jhtml" target="iframe">${message("admin.main.tag")}</a>
+						</dd>
+					[/@shiro.hasPermission]
 					[@shiro.hasPermission name="admin:template"]
 						<dd>
 							<a href="../template/list.jhtml" target="iframe">${message("admin.main.template")}</a>
@@ -190,11 +190,6 @@ $().ready(function() {
 					[@shiro.hasPermission name="admin:static"]
 						<dd>
 							<a href="../static/build.jhtml" target="iframe">${message("admin.main.static")}</a>
-						</dd>
-					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:index"]
-						<dd>
-							<a href="../index/build.jhtml" target="iframe">${message("admin.main.index")}</a>
 						</dd>
 					[/@shiro.hasPermission]
 				</dl>

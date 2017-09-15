@@ -18,7 +18,8 @@
 		<result column="content" property="content" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, orders, description, icon, method, name,
+		id, create_date, modify_date, orders, description, icon,
+		method, name,
 		timeout
 	</sql>
 	<sql id="Blob_Column_List">
@@ -60,7 +61,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_payment_method
+		delete from
+		t_payment_method
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -79,9 +81,11 @@
 		description, icon, method,
 		name, timeout, content
 		)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values
+		(#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
 		#{orders,jdbcType=INTEGER},
-		#{description,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{method,jdbcType=INTEGER},
+		#{description,jdbcType=VARCHAR},
+		#{icon,jdbcType=VARCHAR}, #{method,jdbcType=INTEGER},
 		#{name,jdbcType=VARCHAR}, #{timeout,jdbcType=INTEGER},
 		#{content,jdbcType=LONGVARCHAR}
 		)
@@ -201,14 +205,22 @@
 		update t_payment_method
 		set id = #{record.id,jdbcType=BIGINT},
 		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		orders = #{record.orders,jdbcType=INTEGER},
-		description = #{record.description,jdbcType=VARCHAR},
-		icon = #{record.icon,jdbcType=VARCHAR},
-		method = #{record.method,jdbcType=INTEGER},
-		name = #{record.name,jdbcType=VARCHAR},
-		timeout = #{record.timeout,jdbcType=INTEGER},
-		content = #{record.content,jdbcType=LONGVARCHAR}
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		orders =
+		#{record.orders,jdbcType=INTEGER},
+		description =
+		#{record.description,jdbcType=VARCHAR},
+		icon =
+		#{record.icon,jdbcType=VARCHAR},
+		method =
+		#{record.method,jdbcType=INTEGER},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		timeout =
+		#{record.timeout,jdbcType=INTEGER},
+		content =
+		#{record.content,jdbcType=LONGVARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -217,13 +229,20 @@
 		update t_payment_method
 		set id = #{record.id,jdbcType=BIGINT},
 		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		orders = #{record.orders,jdbcType=INTEGER},
-		description = #{record.description,jdbcType=VARCHAR},
-		icon = #{record.icon,jdbcType=VARCHAR},
-		method = #{record.method,jdbcType=INTEGER},
-		name = #{record.name,jdbcType=VARCHAR},
-		timeout = #{record.timeout,jdbcType=INTEGER}
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		orders =
+		#{record.orders,jdbcType=INTEGER},
+		description =
+		#{record.description,jdbcType=VARCHAR},
+		icon =
+		#{record.icon,jdbcType=VARCHAR},
+		method =
+		#{record.method,jdbcType=INTEGER},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		timeout =
+		#{record.timeout,jdbcType=INTEGER}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -265,28 +284,38 @@
 	<update id="updateByPrimaryKeyWithBLOBs"
 		parameterType="com.platform.JiaZhengService.dao.entity.TPaymentMethod">
 		update t_payment_method
-		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		set create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
 		orders = #{orders,jdbcType=INTEGER},
 		description = #{description,jdbcType=VARCHAR},
-		icon = #{icon,jdbcType=VARCHAR},
+		icon =
+		#{icon,jdbcType=VARCHAR},
 		method = #{method,jdbcType=INTEGER},
-		name = #{name,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
 		timeout = #{timeout,jdbcType=INTEGER},
 		content = #{content,jdbcType=LONGVARCHAR}
-		where id = #{id,jdbcType=BIGINT}
+		where id =
+		#{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey"
 		parameterType="com.platform.JiaZhengService.dao.entity.TPaymentMethod">
 		update t_payment_method
-		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		set create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
 		orders = #{orders,jdbcType=INTEGER},
 		description = #{description,jdbcType=VARCHAR},
-		icon = #{icon,jdbcType=VARCHAR},
+		icon =
+		#{icon,jdbcType=VARCHAR},
 		method = #{method,jdbcType=INTEGER},
-		name = #{name,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
 		timeout = #{timeout,jdbcType=INTEGER}
-		where id = #{id,jdbcType=BIGINT}
+		where id
+		= #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

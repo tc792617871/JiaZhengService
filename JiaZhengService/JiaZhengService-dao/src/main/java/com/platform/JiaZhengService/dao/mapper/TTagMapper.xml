@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TTagMapper">
+	<resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TTag">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+		<result column="orders" property="orders" jdbcType="INTEGER" />
+		<result column="icon" property="icon" jdbcType="VARCHAR" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="mobile_cover" property="mobileCover" jdbcType="VARCHAR" />
+		<result column="ed_mobile_cover" property="edMobileCover"
+			jdbcType="VARCHAR" />
+		<result column="mo_mobile_cover" property="moMobileCover"
+			jdbcType="VARCHAR" />
+		<result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date, modify_date, orders, icon, memo, name, type,
+		mobile_cover, ed_mobile_cover,
+		mo_mobile_cover, is_enabled
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_tag
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_tag
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_tag
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
+		delete from t_tag
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TTag">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_tag (create_date, modify_date, orders,
+		icon, memo, name, type,
+		mobile_cover, ed_mobile_cover, mo_mobile_cover,
+		is_enabled)
+		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		#{orders,jdbcType=INTEGER},
+		#{icon,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{type,jdbcType=INTEGER},
+		#{mobileCover,jdbcType=VARCHAR}, #{edMobileCover,jdbcType=VARCHAR}, #{moMobileCover,jdbcType=VARCHAR},
+		#{isEnabled,jdbcType=BIT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TTag">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_tag
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+			<if test="orders != null">
+				orders,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+			<if test="memo != null">
+				memo,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="mobileCover != null">
+				mobile_cover,
+			</if>
+			<if test="edMobileCover != null">
+				ed_mobile_cover,
+			</if>
+			<if test="moMobileCover != null">
+				mo_mobile_cover,
+			</if>
+			<if test="isEnabled != null">
+				is_enabled,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orders != null">
+				#{orders,jdbcType=INTEGER},
+			</if>
+			<if test="icon != null">
+				#{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				#{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="mobileCover != null">
+				#{mobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="edMobileCover != null">
+				#{edMobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="moMobileCover != null">
+				#{moMobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="isEnabled != null">
+				#{isEnabled,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
+		resultType="java.lang.Integer">
+		select count(*) from t_tag
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_tag
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.createDate != null">
+				create_date = #{record.createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.modifyDate != null">
+				modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.orders != null">
+				orders = #{record.orders,jdbcType=INTEGER},
+			</if>
+			<if test="record.icon != null">
+				icon = #{record.icon,jdbcType=VARCHAR},
+			</if>
+			<if test="record.memo != null">
+				memo = #{record.memo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.name != null">
+				name = #{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.type != null">
+				type = #{record.type,jdbcType=INTEGER},
+			</if>
+			<if test="record.mobileCover != null">
+				mobile_cover = #{record.mobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="record.edMobileCover != null">
+				ed_mobile_cover = #{record.edMobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="record.moMobileCover != null">
+				mo_mobile_cover = #{record.moMobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isEnabled != null">
+				is_enabled = #{record.isEnabled,jdbcType=BIT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_tag
+		set id = #{record.id,jdbcType=BIGINT},
+		create_date = #{record.createDate,jdbcType=TIMESTAMP},
+		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+		orders = #{record.orders,jdbcType=INTEGER},
+		icon = #{record.icon,jdbcType=VARCHAR},
+		memo = #{record.memo,jdbcType=VARCHAR},
+		name = #{record.name,jdbcType=VARCHAR},
+		type = #{record.type,jdbcType=INTEGER},
+		mobile_cover = #{record.mobileCover,jdbcType=VARCHAR},
+		ed_mobile_cover = #{record.edMobileCover,jdbcType=VARCHAR},
+		mo_mobile_cover = #{record.moMobileCover,jdbcType=VARCHAR},
+		is_enabled = #{record.isEnabled,jdbcType=BIT}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TTag">
+		update t_tag
+		<set>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orders != null">
+				orders = #{orders,jdbcType=INTEGER},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="memo != null">
+				memo = #{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="mobileCover != null">
+				mobile_cover = #{mobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="edMobileCover != null">
+				ed_mobile_cover = #{edMobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="moMobileCover != null">
+				mo_mobile_cover = #{moMobileCover,jdbcType=VARCHAR},
+			</if>
+			<if test="isEnabled != null">
+				is_enabled = #{isEnabled,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TTag">
+		update t_tag
+		set create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		orders = #{orders,jdbcType=INTEGER},
+		icon = #{icon,jdbcType=VARCHAR},
+		memo = #{memo,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		type = #{type,jdbcType=INTEGER},
+		mobile_cover = #{mobileCover,jdbcType=VARCHAR},
+		ed_mobile_cover = #{edMobileCover,jdbcType=VARCHAR},
+		mo_mobile_cover = #{moMobileCover,jdbcType=VARCHAR},
+		is_enabled = #{isEnabled,jdbcType=BIT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

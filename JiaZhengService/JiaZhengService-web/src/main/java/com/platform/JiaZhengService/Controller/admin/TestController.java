@@ -27,6 +27,7 @@ public class TestController extends AbstractController {
 	 */
 	@RequestMapping(value = "/toTestUserList", method = RequestMethod.GET)
 	public String toTestUserList(ModelMap model) {
+		testService.insertUser();
 		return "/admin/test/userList";
 	}
 

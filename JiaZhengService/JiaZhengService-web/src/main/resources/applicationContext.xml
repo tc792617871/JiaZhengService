@@ -109,12 +109,18 @@
 		class="org.springframework.web.servlet.i18n.FixedLocaleResolver">
 		<property name="defaultLocale" value="${locale}" />
 	</bean>
-	
-	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<property name="corePoolSize" value="${task.core_pool_size}" />
 		<property name="maxPoolSize" value="${task.max_pool_size}" />
 		<property name="queueCapacity" value="${task.queue_capacity}" />
 		<property name="keepAliveSeconds" value="${task.keep_alive_seconds}" />
 	</bean>
+
+	<!-- Spring中引入其他配置文件 -->
+	<import resource="classpath*:/spring-mybatis.xml" />
+	<import resource="classpath*:/applicationContext-shiro.xml" />
+	<import resource="classpath*:/applicationContext-rest.xml" />
 
 </beans>

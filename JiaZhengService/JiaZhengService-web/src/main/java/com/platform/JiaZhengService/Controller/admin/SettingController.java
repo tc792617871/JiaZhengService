@@ -33,7 +33,7 @@ import com.platform.JiaZhengService.service.api.CacheService;
 import com.platform.JiaZhengService.service.api.FileService;
 import com.platform.JiaZhengService.service.api.StaticService;
 
-@Controller("setttingController")
+@Controller("settingController")
 @RequestMapping("/admin/setting")
 public class SettingController extends AbstractController {
 

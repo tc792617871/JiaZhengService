@@ -18,6 +18,12 @@
 				/admin/logout.jsp = logout
 				/admin/common/captcha.jhtml = anon
 
+				/admin/product/** = perms["admin:product"]
+				/admin/product_category/** = perms["admin:productCategory"]
+				/admin/specification/** = perms["admin:specification"]
+
+				/admin/tag/** = perms["admin:tag"]
+
 				/admin/setting/** = perms["admin:setting"]
 				/admin/area/** = perms["admin:area"]
 				/admin/payment_method/** = perms["admin:paymentMethod"]
@@ -25,7 +31,6 @@
 				/admin/storage_plugin/** = perms["admin:storagePlugin"]
 				/admin/admin/** = perms["admin:admin"]
 				/admin/role/** = perms["admin:role"]
-
 
 				/admin/** = authc
 			</value>

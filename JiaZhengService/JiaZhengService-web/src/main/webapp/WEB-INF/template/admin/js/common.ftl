@@ -1,13 +1,4 @@
-/*
- * Copyright 2012-2014 广州爱帛服饰有限公司.com.cn. All rights reserved.
- * Support: http://www.广州爱帛服饰有限公司.com.cn
- * License: http://www.广州爱帛服饰有限公司.com.cn/license
- * 
- * JavaScript - Common
- * Version: 3.0
- */
-
-var moshop = {
+var jiazhengservice = {
 	base: "${base}",
 	locale: "${locale}"
 };

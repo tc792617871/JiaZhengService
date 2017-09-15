@@ -10,10 +10,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-	    	classpath*:/applicationContext.xml,
-	    	classpath*:/spring-mybatis.xml,
-	    	classpath*:/applicationContext-shiro.xml,
-	    	classpath*:/applicationContext-rest.xml
+	    	classpath*:/applicationContext.xml
 	    </param-value>
 	</context-param>
 	<servlet>
@@ -97,7 +94,7 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-	
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/admin/common/resource_not_found.ct</location>

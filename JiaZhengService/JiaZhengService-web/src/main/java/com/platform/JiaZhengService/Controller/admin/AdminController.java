@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.platform.JiaZhengService.common.pojo.Message;
 import com.platform.JiaZhengService.dao.Criteria;
+import com.platform.JiaZhengService.dao.Criteria.Condition;
 import com.platform.JiaZhengService.dao.Pageable;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
 import com.platform.JiaZhengService.dao.entity.TRole;
@@ -128,6 +129,13 @@ public class AdminController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Pageable pageable, ModelMap model) {
 		Criteria c = createPaginationCriteria(pageable);
+		Condition con = c.createConditon();
+		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
+			con.andLike(pageable.getSearchProperty(), pageable.getSearchValue());
+		}
+		if (StringUtils.isNotEmpty(pageable.getOrderProperty()) && pageable.getOrderDirection() != null) {
+			c.setOrderByClause(pageable.getOrderProperty() + " " + pageable.getOrderDirection());
+		}
 		model.addAttribute("pageable", pageable);
 		model.addAttribute("page", c.getPage());
 		model.addAttribute("content", adminService.queryAdminList(c));

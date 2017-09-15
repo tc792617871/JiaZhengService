@@ -2,6 +2,7 @@ package com.platform.JiaZhengService.Controller.admin;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.platform.JiaZhengService.common.pojo.Message;
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.Pageable;
+import com.platform.JiaZhengService.dao.Criteria.Condition;
 import com.platform.JiaZhengService.dao.entity.TRole;
 import com.platform.JiaZhengService.service.api.RoleService;
 
@@ -80,6 +82,13 @@ public class RoleController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Pageable pageable, ModelMap model) {
 		Criteria c = createPaginationCriteria(pageable);
+		Condition con = c.createConditon();
+		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
+			con.andLike(pageable.getSearchProperty(), pageable.getSearchValue());
+		}
+		if (StringUtils.isNotEmpty(pageable.getOrderProperty()) && pageable.getOrderDirection() != null) {
+			c.setOrderByClause(pageable.getOrderProperty() + " " + pageable.getOrderDirection());
+		}
 		model.addAttribute("pageable", pageable);
 		model.addAttribute("page", c.getPage());
 		model.addAttribute("content", roleService.queryRoleList(c));
@@ -91,7 +100,7 @@ public class RoleController extends AbstractController {
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody Message delete(Long[] ids) {
-		if (ids != null) {
+		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
 				TRole role = roleService.find(id);
 				role.setAdmins(roleService.findAdminsByRoleID(id));

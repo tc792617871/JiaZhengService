@@ -91,7 +91,7 @@ $().ready(function() {
 					<a href="javascript:;" class="sort" name="description">${message("PaymentMethod.description")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="order">${message("admin.common.order")}</a>
+					<a href="javascript:;" class="sort" name="orders">${message("admin.common.order")}</a>
 				</th>
 				<th>
 					<span>${message("admin.common.handle")}</span>

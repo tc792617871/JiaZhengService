@@ -85,13 +85,13 @@ $().ready(function() {
 					<a href="javascript:;" class="sort" name="name">${message("Role.name")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="isSystem">${message("Role.isSystem")}</a>
+					<a href="javascript:;" class="sort" name="is_system">${message("Role.isSystem")}</a>
 				</th>
 				<th>
 					<span>${message("Role.description")}</span>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="createDate">${message("admin.common.createDate")}</a>
+					<a href="javascript:;" class="sort" name="create_date">${message("admin.common.createDate")}</a>
 				</th>
 				<th>
 					<span>${message("admin.common.handle")}</span>

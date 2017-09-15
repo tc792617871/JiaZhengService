@@ -1,0 +1,1472 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TProductMapper">
+	<resultMap id="BaseResultMap"
+		type="com.platform.JiaZhengService.dao.entity.TProduct">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+		<result column="allocated_stock" property="allocatedStock"
+			jdbcType="INTEGER" />
+		<result column="attribute_value0" property="attributeValue0"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value1" property="attributeValue1"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value10" property="attributeValue10"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value11" property="attributeValue11"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value12" property="attributeValue12"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value13" property="attributeValue13"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value14" property="attributeValue14"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value15" property="attributeValue15"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value16" property="attributeValue16"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value17" property="attributeValue17"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value18" property="attributeValue18"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value19" property="attributeValue19"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value2" property="attributeValue2"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value3" property="attributeValue3"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value4" property="attributeValue4"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value5" property="attributeValue5"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value6" property="attributeValue6"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value7" property="attributeValue7"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value8" property="attributeValue8"
+			jdbcType="VARCHAR" />
+		<result column="attribute_value9" property="attributeValue9"
+			jdbcType="VARCHAR" />
+		<result column="cost" property="cost" jdbcType="DECIMAL" />
+		<result column="full_name" property="fullName" jdbcType="VARCHAR" />
+		<result column="hits" property="hits" jdbcType="BIGINT" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="is_gift" property="isGift" jdbcType="BIT" />
+		<result column="is_list" property="isList" jdbcType="BIT" />
+		<result column="is_marketable" property="isMarketable"
+			jdbcType="BIT" />
+		<result column="is_top" property="isTop" jdbcType="BIT" />
+		<result column="keyword" property="keyword" jdbcType="VARCHAR" />
+		<result column="market_price" property="marketPrice" jdbcType="DECIMAL" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+		<result column="month_hits" property="monthHits" jdbcType="BIGINT" />
+		<result column="month_hits_date" property="monthHitsDate"
+			jdbcType="TIMESTAMP" />
+		<result column="month_sales" property="monthSales" jdbcType="BIGINT" />
+		<result column="month_sales_date" property="monthSalesDate"
+			jdbcType="TIMESTAMP" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="point" property="point" jdbcType="BIGINT" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="sales" property="sales" jdbcType="BIGINT" />
+		<result column="score" property="score" jdbcType="REAL" />
+		<result column="score_count" property="scoreCount" jdbcType="BIGINT" />
+		<result column="seo_description" property="seoDescription"
+			jdbcType="VARCHAR" />
+		<result column="seo_keywords" property="seoKeywords" jdbcType="VARCHAR" />
+		<result column="seo_title" property="seoTitle" jdbcType="VARCHAR" />
+		<result column="sn" property="sn" jdbcType="VARCHAR" />
+		<result column="stock" property="stock" jdbcType="INTEGER" />
+		<result column="stock_memo" property="stockMemo" jdbcType="VARCHAR" />
+		<result column="total_score" property="totalScore" jdbcType="BIGINT" />
+		<result column="unit" property="unit" jdbcType="VARCHAR" />
+		<result column="week_hits" property="weekHits" jdbcType="BIGINT" />
+		<result column="week_hits_date" property="weekHitsDate"
+			jdbcType="TIMESTAMP" />
+		<result column="week_sales" property="weekSales" jdbcType="BIGINT" />
+		<result column="week_sales_date" property="weekSalesDate"
+			jdbcType="TIMESTAMP" />
+		<result column="weight" property="weight" jdbcType="INTEGER" />
+		<result column="brand" property="brand" jdbcType="BIGINT" />
+		<result column="goods" property="goods" jdbcType="BIGINT" />
+		<result column="product_category" property="productCategory"
+			jdbcType="BIGINT" />
+		<result column="barcode" property="barcode" jdbcType="VARCHAR" />
+		<result column="color_image_thumbnail" property="colorImageThumbnail"
+			jdbcType="VARCHAR" />
+		<result column="merchant_number" property="merchantNumber"
+			jdbcType="VARCHAR" />
+		<result column="plu_image" property="pluImage" jdbcType="VARCHAR" />
+		<result column="archived" property="archived" jdbcType="VARCHAR" />
+		<result column="plu_code" property="pluCode" jdbcType="VARCHAR" />
+		<result column="timing_marketable_date" property="timingMarketableDate"
+			jdbcType="TIMESTAMP" />
+		<result column="is_square" property="isSquare" jdbcType="BIT" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs"
+		type="com.platform.JiaZhengService.dao.entity.TProductWithBLOBs"
+		extends="BaseResultMap">
+		<result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
+		<result column="component" property="component" jdbcType="LONGVARCHAR" />
+		<result column="matters_needing_attention" property="mattersNeedingAttention"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date, modify_date, allocated_stock, attribute_value0,
+		attribute_value1,
+		attribute_value10, attribute_value11, attribute_value12, attribute_value13,
+		attribute_value14,
+		attribute_value15, attribute_value16, attribute_value17, attribute_value18,
+		attribute_value19,
+		attribute_value2, attribute_value3, attribute_value4, attribute_value5,
+		attribute_value6,
+		attribute_value7, attribute_value8, attribute_value9, cost, full_name, hits, image,
+		is_gift, is_list, is_marketable, is_top, keyword, market_price, memo,
+		month_hits,
+		month_hits_date, month_sales, month_sales_date, name, point, price, sales, score,
+		score_count, seo_description, seo_keywords, seo_title, sn, stock,
+		stock_memo, total_score,
+		unit, week_hits, week_hits_date, week_sales, week_sales_date, weight,
+		brand, goods,
+		product_category, barcode, color_image_thumbnail, merchant_number, plu_image, archived,
+		plu_code, timing_marketable_date, is_square
+	</sql>
+	<sql id="p_Column_List">
+		p.id, p.create_date, p.modify_date, p.is_marketable, p.name,
+		p.product_category, p.is_square
+	</sql>
+	<sql id="Blob_Column_List">
+		introduction, component, matters_needing_attention
+	</sql>
+	<select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_product
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_product
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_product
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_product
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
+		delete from t_product
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductWithBLOBs">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_product (create_date, modify_date, allocated_stock,
+		attribute_value0, attribute_value1, attribute_value10,
+		attribute_value11, attribute_value12, attribute_value13,
+		attribute_value14, attribute_value15, attribute_value16,
+		attribute_value17, attribute_value18, attribute_value19,
+		attribute_value2, attribute_value3, attribute_value4,
+		attribute_value5, attribute_value6, attribute_value7,
+		attribute_value8, attribute_value9, cost,
+		full_name, hits, image,
+		is_gift, is_list, is_marketable, is_top,
+		keyword, market_price, memo,
+		month_hits, month_hits_date, month_sales,
+		month_sales_date, name, point,
+		price, sales, score, score_count,
+		seo_description, seo_keywords, seo_title,
+		sn, stock, stock_memo,
+		total_score, unit, week_hits,
+		week_hits_date, week_sales, week_sales_date,
+		weight, brand, goods,
+		product_category, barcode, color_image_thumbnail,
+		merchant_number, plu_image, archived,
+		plu_code, timing_marketable_date, is_square,
+		introduction, component, matters_needing_attention
+		)
+		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		#{allocatedStock,jdbcType=INTEGER},
+		#{attributeValue0,jdbcType=VARCHAR},
+		#{attributeValue1,jdbcType=VARCHAR},
+		#{attributeValue10,jdbcType=VARCHAR},
+		#{attributeValue11,jdbcType=VARCHAR},
+		#{attributeValue12,jdbcType=VARCHAR},
+		#{attributeValue13,jdbcType=VARCHAR},
+		#{attributeValue14,jdbcType=VARCHAR},
+		#{attributeValue15,jdbcType=VARCHAR},
+		#{attributeValue16,jdbcType=VARCHAR},
+		#{attributeValue17,jdbcType=VARCHAR},
+		#{attributeValue18,jdbcType=VARCHAR},
+		#{attributeValue19,jdbcType=VARCHAR},
+		#{attributeValue2,jdbcType=VARCHAR},
+		#{attributeValue3,jdbcType=VARCHAR},
+		#{attributeValue4,jdbcType=VARCHAR},
+		#{attributeValue5,jdbcType=VARCHAR},
+		#{attributeValue6,jdbcType=VARCHAR},
+		#{attributeValue7,jdbcType=VARCHAR},
+		#{attributeValue8,jdbcType=VARCHAR},
+		#{attributeValue9,jdbcType=VARCHAR}, #{cost,jdbcType=DECIMAL},
+		#{fullName,jdbcType=VARCHAR}, #{hits,jdbcType=BIGINT},
+		#{image,jdbcType=VARCHAR},
+		#{isGift,jdbcType=BIT}, #{isList,jdbcType=BIT}, #{isMarketable,jdbcType=BIT},
+		#{isTop,jdbcType=BIT},
+		#{keyword,jdbcType=VARCHAR}, #{marketPrice,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR},
+		#{monthHits,jdbcType=BIGINT}, #{monthHitsDate,jdbcType=TIMESTAMP},
+		#{monthSales,jdbcType=BIGINT},
+		#{monthSalesDate,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, #{point,jdbcType=BIGINT},
+		#{price,jdbcType=DECIMAL}, #{sales,jdbcType=BIGINT},
+		#{score,jdbcType=REAL}, #{scoreCount,jdbcType=BIGINT},
+		#{seoDescription,jdbcType=VARCHAR}, #{seoKeywords,jdbcType=VARCHAR},
+		#{seoTitle,jdbcType=VARCHAR},
+		#{sn,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, #{stockMemo,jdbcType=VARCHAR},
+		#{totalScore,jdbcType=BIGINT}, #{unit,jdbcType=VARCHAR},
+		#{weekHits,jdbcType=BIGINT},
+		#{weekHitsDate,jdbcType=TIMESTAMP}, #{weekSales,jdbcType=BIGINT}, #{weekSalesDate,jdbcType=TIMESTAMP},
+		#{weight,jdbcType=INTEGER}, #{brand,jdbcType=BIGINT},
+		#{goods,jdbcType=BIGINT},
+		#{productCategory,jdbcType=BIGINT}, #{barcode,jdbcType=VARCHAR}, #{colorImageThumbnail,jdbcType=VARCHAR},
+		#{merchantNumber,jdbcType=VARCHAR}, #{pluImage,jdbcType=VARCHAR},
+		#{archived,jdbcType=VARCHAR},
+		#{pluCode,jdbcType=VARCHAR}, #{timingMarketableDate,jdbcType=TIMESTAMP}, #{isSquare,jdbcType=BIT},
+		#{introduction,jdbcType=LONGVARCHAR},
+		#{component,jdbcType=LONGVARCHAR},
+		#{mattersNeedingAttention,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductWithBLOBs">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_product
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+			<if test="allocatedStock != null">
+				allocated_stock,
+			</if>
+			<if test="attributeValue0 != null">
+				attribute_value0,
+			</if>
+			<if test="attributeValue1 != null">
+				attribute_value1,
+			</if>
+			<if test="attributeValue10 != null">
+				attribute_value10,
+			</if>
+			<if test="attributeValue11 != null">
+				attribute_value11,
+			</if>
+			<if test="attributeValue12 != null">
+				attribute_value12,
+			</if>
+			<if test="attributeValue13 != null">
+				attribute_value13,
+			</if>
+			<if test="attributeValue14 != null">
+				attribute_value14,
+			</if>
+			<if test="attributeValue15 != null">
+				attribute_value15,
+			</if>
+			<if test="attributeValue16 != null">
+				attribute_value16,
+			</if>
+			<if test="attributeValue17 != null">
+				attribute_value17,
+			</if>
+			<if test="attributeValue18 != null">
+				attribute_value18,
+			</if>
+			<if test="attributeValue19 != null">
+				attribute_value19,
+			</if>
+			<if test="attributeValue2 != null">
+				attribute_value2,
+			</if>
+			<if test="attributeValue3 != null">
+				attribute_value3,
+			</if>
+			<if test="attributeValue4 != null">
+				attribute_value4,
+			</if>
+			<if test="attributeValue5 != null">
+				attribute_value5,
+			</if>
+			<if test="attributeValue6 != null">
+				attribute_value6,
+			</if>
+			<if test="attributeValue7 != null">
+				attribute_value7,
+			</if>
+			<if test="attributeValue8 != null">
+				attribute_value8,
+			</if>
+			<if test="attributeValue9 != null">
+				attribute_value9,
+			</if>
+			<if test="cost != null">
+				cost,
+			</if>
+			<if test="fullName != null">
+				full_name,
+			</if>
+			<if test="hits != null">
+				hits,
+			</if>
+			<if test="image != null">
+				image,
+			</if>
+			<if test="isGift != null">
+				is_gift,
+			</if>
+			<if test="isList != null">
+				is_list,
+			</if>
+			<if test="isMarketable != null">
+				is_marketable,
+			</if>
+			<if test="isTop != null">
+				is_top,
+			</if>
+			<if test="keyword != null">
+				keyword,
+			</if>
+			<if test="marketPrice != null">
+				market_price,
+			</if>
+			<if test="memo != null">
+				memo,
+			</if>
+			<if test="monthHits != null">
+				month_hits,
+			</if>
+			<if test="monthHitsDate != null">
+				month_hits_date,
+			</if>
+			<if test="monthSales != null">
+				month_sales,
+			</if>
+			<if test="monthSalesDate != null">
+				month_sales_date,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="point != null">
+				point,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="sales != null">
+				sales,
+			</if>
+			<if test="score != null">
+				score,
+			</if>
+			<if test="scoreCount != null">
+				score_count,
+			</if>
+			<if test="seoDescription != null">
+				seo_description,
+			</if>
+			<if test="seoKeywords != null">
+				seo_keywords,
+			</if>
+			<if test="seoTitle != null">
+				seo_title,
+			</if>
+			<if test="sn != null">
+				sn,
+			</if>
+			<if test="stock != null">
+				stock,
+			</if>
+			<if test="stockMemo != null">
+				stock_memo,
+			</if>
+			<if test="totalScore != null">
+				total_score,
+			</if>
+			<if test="unit != null">
+				unit,
+			</if>
+			<if test="weekHits != null">
+				week_hits,
+			</if>
+			<if test="weekHitsDate != null">
+				week_hits_date,
+			</if>
+			<if test="weekSales != null">
+				week_sales,
+			</if>
+			<if test="weekSalesDate != null">
+				week_sales_date,
+			</if>
+			<if test="weight != null">
+				weight,
+			</if>
+			<if test="brand != null">
+				brand,
+			</if>
+			<if test="goods != null">
+				goods,
+			</if>
+			<if test="productCategory != null">
+				product_category,
+			</if>
+			<if test="barcode != null">
+				barcode,
+			</if>
+			<if test="colorImageThumbnail != null">
+				color_image_thumbnail,
+			</if>
+			<if test="merchantNumber != null">
+				merchant_number,
+			</if>
+			<if test="pluImage != null">
+				plu_image,
+			</if>
+			<if test="archived != null">
+				archived,
+			</if>
+			<if test="pluCode != null">
+				plu_code,
+			</if>
+			<if test="timingMarketableDate != null">
+				timing_marketable_date,
+			</if>
+			<if test="isSquare != null">
+				is_square,
+			</if>
+			<if test="introduction != null">
+				introduction,
+			</if>
+			<if test="component != null">
+				component,
+			</if>
+			<if test="mattersNeedingAttention != null">
+				matters_needing_attention,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="allocatedStock != null">
+				#{allocatedStock,jdbcType=INTEGER},
+			</if>
+			<if test="attributeValue0 != null">
+				#{attributeValue0,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue1 != null">
+				#{attributeValue1,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue10 != null">
+				#{attributeValue10,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue11 != null">
+				#{attributeValue11,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue12 != null">
+				#{attributeValue12,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue13 != null">
+				#{attributeValue13,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue14 != null">
+				#{attributeValue14,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue15 != null">
+				#{attributeValue15,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue16 != null">
+				#{attributeValue16,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue17 != null">
+				#{attributeValue17,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue18 != null">
+				#{attributeValue18,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue19 != null">
+				#{attributeValue19,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue2 != null">
+				#{attributeValue2,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue3 != null">
+				#{attributeValue3,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue4 != null">
+				#{attributeValue4,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue5 != null">
+				#{attributeValue5,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue6 != null">
+				#{attributeValue6,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue7 != null">
+				#{attributeValue7,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue8 != null">
+				#{attributeValue8,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue9 != null">
+				#{attributeValue9,jdbcType=VARCHAR},
+			</if>
+			<if test="cost != null">
+				#{cost,jdbcType=DECIMAL},
+			</if>
+			<if test="fullName != null">
+				#{fullName,jdbcType=VARCHAR},
+			</if>
+			<if test="hits != null">
+				#{hits,jdbcType=BIGINT},
+			</if>
+			<if test="image != null">
+				#{image,jdbcType=VARCHAR},
+			</if>
+			<if test="isGift != null">
+				#{isGift,jdbcType=BIT},
+			</if>
+			<if test="isList != null">
+				#{isList,jdbcType=BIT},
+			</if>
+			<if test="isMarketable != null">
+				#{isMarketable,jdbcType=BIT},
+			</if>
+			<if test="isTop != null">
+				#{isTop,jdbcType=BIT},
+			</if>
+			<if test="keyword != null">
+				#{keyword,jdbcType=VARCHAR},
+			</if>
+			<if test="marketPrice != null">
+				#{marketPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="memo != null">
+				#{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="monthHits != null">
+				#{monthHits,jdbcType=BIGINT},
+			</if>
+			<if test="monthHitsDate != null">
+				#{monthHitsDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="monthSales != null">
+				#{monthSales,jdbcType=BIGINT},
+			</if>
+			<if test="monthSalesDate != null">
+				#{monthSalesDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="point != null">
+				#{point,jdbcType=BIGINT},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="sales != null">
+				#{sales,jdbcType=BIGINT},
+			</if>
+			<if test="score != null">
+				#{score,jdbcType=REAL},
+			</if>
+			<if test="scoreCount != null">
+				#{scoreCount,jdbcType=BIGINT},
+			</if>
+			<if test="seoDescription != null">
+				#{seoDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="seoKeywords != null">
+				#{seoKeywords,jdbcType=VARCHAR},
+			</if>
+			<if test="seoTitle != null">
+				#{seoTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				#{sn,jdbcType=VARCHAR},
+			</if>
+			<if test="stock != null">
+				#{stock,jdbcType=INTEGER},
+			</if>
+			<if test="stockMemo != null">
+				#{stockMemo,jdbcType=VARCHAR},
+			</if>
+			<if test="totalScore != null">
+				#{totalScore,jdbcType=BIGINT},
+			</if>
+			<if test="unit != null">
+				#{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="weekHits != null">
+				#{weekHits,jdbcType=BIGINT},
+			</if>
+			<if test="weekHitsDate != null">
+				#{weekHitsDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="weekSales != null">
+				#{weekSales,jdbcType=BIGINT},
+			</if>
+			<if test="weekSalesDate != null">
+				#{weekSalesDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="weight != null">
+				#{weight,jdbcType=INTEGER},
+			</if>
+			<if test="brand != null">
+				#{brand,jdbcType=BIGINT},
+			</if>
+			<if test="goods != null">
+				#{goods,jdbcType=BIGINT},
+			</if>
+			<if test="productCategory != null">
+				#{productCategory,jdbcType=BIGINT},
+			</if>
+			<if test="barcode != null">
+				#{barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="colorImageThumbnail != null">
+				#{colorImageThumbnail,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantNumber != null">
+				#{merchantNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="pluImage != null">
+				#{pluImage,jdbcType=VARCHAR},
+			</if>
+			<if test="archived != null">
+				#{archived,jdbcType=VARCHAR},
+			</if>
+			<if test="pluCode != null">
+				#{pluCode,jdbcType=VARCHAR},
+			</if>
+			<if test="timingMarketableDate != null">
+				#{timingMarketableDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isSquare != null">
+				#{isSquare,jdbcType=BIT},
+			</if>
+			<if test="introduction != null">
+				#{introduction,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="component != null">
+				#{component,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="mattersNeedingAttention != null">
+				#{mattersNeedingAttention,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
+		resultType="java.lang.Integer">
+		select count(*) from t_product
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_product
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.createDate != null">
+				create_date = #{record.createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.modifyDate != null">
+				modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.allocatedStock != null">
+				allocated_stock = #{record.allocatedStock,jdbcType=INTEGER},
+			</if>
+			<if test="record.attributeValue0 != null">
+				attribute_value0 = #{record.attributeValue0,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue1 != null">
+				attribute_value1 = #{record.attributeValue1,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue10 != null">
+				attribute_value10 = #{record.attributeValue10,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue11 != null">
+				attribute_value11 = #{record.attributeValue11,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue12 != null">
+				attribute_value12 = #{record.attributeValue12,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue13 != null">
+				attribute_value13 = #{record.attributeValue13,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue14 != null">
+				attribute_value14 = #{record.attributeValue14,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue15 != null">
+				attribute_value15 = #{record.attributeValue15,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue16 != null">
+				attribute_value16 = #{record.attributeValue16,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue17 != null">
+				attribute_value17 = #{record.attributeValue17,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue18 != null">
+				attribute_value18 = #{record.attributeValue18,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue19 != null">
+				attribute_value19 = #{record.attributeValue19,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue2 != null">
+				attribute_value2 = #{record.attributeValue2,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue3 != null">
+				attribute_value3 = #{record.attributeValue3,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue4 != null">
+				attribute_value4 = #{record.attributeValue4,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue5 != null">
+				attribute_value5 = #{record.attributeValue5,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue6 != null">
+				attribute_value6 = #{record.attributeValue6,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue7 != null">
+				attribute_value7 = #{record.attributeValue7,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue8 != null">
+				attribute_value8 = #{record.attributeValue8,jdbcType=VARCHAR},
+			</if>
+			<if test="record.attributeValue9 != null">
+				attribute_value9 = #{record.attributeValue9,jdbcType=VARCHAR},
+			</if>
+			<if test="record.cost != null">
+				cost = #{record.cost,jdbcType=DECIMAL},
+			</if>
+			<if test="record.fullName != null">
+				full_name = #{record.fullName,jdbcType=VARCHAR},
+			</if>
+			<if test="record.hits != null">
+				hits = #{record.hits,jdbcType=BIGINT},
+			</if>
+			<if test="record.image != null">
+				image = #{record.image,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isGift != null">
+				is_gift = #{record.isGift,jdbcType=BIT},
+			</if>
+			<if test="record.isList != null">
+				is_list = #{record.isList,jdbcType=BIT},
+			</if>
+			<if test="record.isMarketable != null">
+				is_marketable = #{record.isMarketable,jdbcType=BIT},
+			</if>
+			<if test="record.isTop != null">
+				is_top = #{record.isTop,jdbcType=BIT},
+			</if>
+			<if test="record.keyword != null">
+				keyword = #{record.keyword,jdbcType=VARCHAR},
+			</if>
+			<if test="record.marketPrice != null">
+				market_price = #{record.marketPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="record.memo != null">
+				memo = #{record.memo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.monthHits != null">
+				month_hits = #{record.monthHits,jdbcType=BIGINT},
+			</if>
+			<if test="record.monthHitsDate != null">
+				month_hits_date = #{record.monthHitsDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.monthSales != null">
+				month_sales = #{record.monthSales,jdbcType=BIGINT},
+			</if>
+			<if test="record.monthSalesDate != null">
+				month_sales_date = #{record.monthSalesDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.name != null">
+				name = #{record.name,jdbcType=VARCHAR},
+			</if>
+			<if test="record.point != null">
+				point = #{record.point,jdbcType=BIGINT},
+			</if>
+			<if test="record.price != null">
+				price = #{record.price,jdbcType=DECIMAL},
+			</if>
+			<if test="record.sales != null">
+				sales = #{record.sales,jdbcType=BIGINT},
+			</if>
+			<if test="record.score != null">
+				score = #{record.score,jdbcType=REAL},
+			</if>
+			<if test="record.scoreCount != null">
+				score_count = #{record.scoreCount,jdbcType=BIGINT},
+			</if>
+			<if test="record.seoDescription != null">
+				seo_description = #{record.seoDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="record.seoKeywords != null">
+				seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
+			</if>
+			<if test="record.seoTitle != null">
+				seo_title = #{record.seoTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sn != null">
+				sn = #{record.sn,jdbcType=VARCHAR},
+			</if>
+			<if test="record.stock != null">
+				stock = #{record.stock,jdbcType=INTEGER},
+			</if>
+			<if test="record.stockMemo != null">
+				stock_memo = #{record.stockMemo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.totalScore != null">
+				total_score = #{record.totalScore,jdbcType=BIGINT},
+			</if>
+			<if test="record.unit != null">
+				unit = #{record.unit,jdbcType=VARCHAR},
+			</if>
+			<if test="record.weekHits != null">
+				week_hits = #{record.weekHits,jdbcType=BIGINT},
+			</if>
+			<if test="record.weekHitsDate != null">
+				week_hits_date = #{record.weekHitsDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.weekSales != null">
+				week_sales = #{record.weekSales,jdbcType=BIGINT},
+			</if>
+			<if test="record.weekSalesDate != null">
+				week_sales_date = #{record.weekSalesDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.weight != null">
+				weight = #{record.weight,jdbcType=INTEGER},
+			</if>
+			<if test="record.brand != null">
+				brand = #{record.brand,jdbcType=BIGINT},
+			</if>
+			<if test="record.goods != null">
+				goods = #{record.goods,jdbcType=BIGINT},
+			</if>
+			<if test="record.productCategory != null">
+				product_category = #{record.productCategory,jdbcType=BIGINT},
+			</if>
+			<if test="record.barcode != null">
+				barcode = #{record.barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.colorImageThumbnail != null">
+				color_image_thumbnail =
+				#{record.colorImageThumbnail,jdbcType=VARCHAR},
+			</if>
+			<if test="record.merchantNumber != null">
+				merchant_number = #{record.merchantNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="record.pluImage != null">
+				plu_image = #{record.pluImage,jdbcType=VARCHAR},
+			</if>
+			<if test="record.archived != null">
+				archived = #{record.archived,jdbcType=VARCHAR},
+			</if>
+			<if test="record.pluCode != null">
+				plu_code = #{record.pluCode,jdbcType=VARCHAR},
+			</if>
+			<if test="record.timingMarketableDate != null">
+				timing_marketable_date =
+				#{record.timingMarketableDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.isSquare != null">
+				is_square = #{record.isSquare,jdbcType=BIT},
+			</if>
+			<if test="record.introduction != null">
+				introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="record.component != null">
+				component = #{record.component,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="record.mattersNeedingAttention != null">
+				matters_needing_attention =
+				#{record.mattersNeedingAttention,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExampleWithBLOBs" parameterType="map">
+		update t_product
+		set id = #{record.id,jdbcType=BIGINT},
+		create_date = #{record.createDate,jdbcType=TIMESTAMP},
+		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+		allocated_stock = #{record.allocatedStock,jdbcType=INTEGER},
+		attribute_value0 = #{record.attributeValue0,jdbcType=VARCHAR},
+		attribute_value1 = #{record.attributeValue1,jdbcType=VARCHAR},
+		attribute_value10 = #{record.attributeValue10,jdbcType=VARCHAR},
+		attribute_value11 = #{record.attributeValue11,jdbcType=VARCHAR},
+		attribute_value12 = #{record.attributeValue12,jdbcType=VARCHAR},
+		attribute_value13 = #{record.attributeValue13,jdbcType=VARCHAR},
+		attribute_value14 = #{record.attributeValue14,jdbcType=VARCHAR},
+		attribute_value15 = #{record.attributeValue15,jdbcType=VARCHAR},
+		attribute_value16 = #{record.attributeValue16,jdbcType=VARCHAR},
+		attribute_value17 = #{record.attributeValue17,jdbcType=VARCHAR},
+		attribute_value18 = #{record.attributeValue18,jdbcType=VARCHAR},
+		attribute_value19 = #{record.attributeValue19,jdbcType=VARCHAR},
+		attribute_value2 = #{record.attributeValue2,jdbcType=VARCHAR},
+		attribute_value3 = #{record.attributeValue3,jdbcType=VARCHAR},
+		attribute_value4 = #{record.attributeValue4,jdbcType=VARCHAR},
+		attribute_value5 = #{record.attributeValue5,jdbcType=VARCHAR},
+		attribute_value6 = #{record.attributeValue6,jdbcType=VARCHAR},
+		attribute_value7 = #{record.attributeValue7,jdbcType=VARCHAR},
+		attribute_value8 = #{record.attributeValue8,jdbcType=VARCHAR},
+		attribute_value9 = #{record.attributeValue9,jdbcType=VARCHAR},
+		cost = #{record.cost,jdbcType=DECIMAL},
+		full_name = #{record.fullName,jdbcType=VARCHAR},
+		hits = #{record.hits,jdbcType=BIGINT},
+		image = #{record.image,jdbcType=VARCHAR},
+		is_gift = #{record.isGift,jdbcType=BIT},
+		is_list = #{record.isList,jdbcType=BIT},
+		is_marketable = #{record.isMarketable,jdbcType=BIT},
+		is_top = #{record.isTop,jdbcType=BIT},
+		keyword = #{record.keyword,jdbcType=VARCHAR},
+		market_price = #{record.marketPrice,jdbcType=DECIMAL},
+		memo = #{record.memo,jdbcType=VARCHAR},
+		month_hits = #{record.monthHits,jdbcType=BIGINT},
+		month_hits_date = #{record.monthHitsDate,jdbcType=TIMESTAMP},
+		month_sales = #{record.monthSales,jdbcType=BIGINT},
+		month_sales_date = #{record.monthSalesDate,jdbcType=TIMESTAMP},
+		name = #{record.name,jdbcType=VARCHAR},
+		point = #{record.point,jdbcType=BIGINT},
+		price = #{record.price,jdbcType=DECIMAL},
+		sales = #{record.sales,jdbcType=BIGINT},
+		score = #{record.score,jdbcType=REAL},
+		score_count = #{record.scoreCount,jdbcType=BIGINT},
+		seo_description = #{record.seoDescription,jdbcType=VARCHAR},
+		seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
+		seo_title = #{record.seoTitle,jdbcType=VARCHAR},
+		sn = #{record.sn,jdbcType=VARCHAR},
+		stock = #{record.stock,jdbcType=INTEGER},
+		stock_memo = #{record.stockMemo,jdbcType=VARCHAR},
+		total_score = #{record.totalScore,jdbcType=BIGINT},
+		unit = #{record.unit,jdbcType=VARCHAR},
+		week_hits = #{record.weekHits,jdbcType=BIGINT},
+		week_hits_date = #{record.weekHitsDate,jdbcType=TIMESTAMP},
+		week_sales = #{record.weekSales,jdbcType=BIGINT},
+		week_sales_date = #{record.weekSalesDate,jdbcType=TIMESTAMP},
+		weight = #{record.weight,jdbcType=INTEGER},
+		brand = #{record.brand,jdbcType=BIGINT},
+		goods = #{record.goods,jdbcType=BIGINT},
+		product_category = #{record.productCategory,jdbcType=BIGINT},
+		barcode = #{record.barcode,jdbcType=VARCHAR},
+		color_image_thumbnail = #{record.colorImageThumbnail,jdbcType=VARCHAR},
+		merchant_number = #{record.merchantNumber,jdbcType=VARCHAR},
+		plu_image = #{record.pluImage,jdbcType=VARCHAR},
+		archived = #{record.archived,jdbcType=VARCHAR},
+		plu_code = #{record.pluCode,jdbcType=VARCHAR},
+		timing_marketable_date = #{record.timingMarketableDate,jdbcType=TIMESTAMP},
+		is_square = #{record.isSquare,jdbcType=BIT},
+		introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+		component = #{record.component,jdbcType=LONGVARCHAR},
+		matters_needing_attention = #{record.mattersNeedingAttention,jdbcType=LONGVARCHAR}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_product
+		set id = #{record.id,jdbcType=BIGINT},
+		create_date = #{record.createDate,jdbcType=TIMESTAMP},
+		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+		allocated_stock = #{record.allocatedStock,jdbcType=INTEGER},
+		attribute_value0 = #{record.attributeValue0,jdbcType=VARCHAR},
+		attribute_value1 = #{record.attributeValue1,jdbcType=VARCHAR},
+		attribute_value10 = #{record.attributeValue10,jdbcType=VARCHAR},
+		attribute_value11 = #{record.attributeValue11,jdbcType=VARCHAR},
+		attribute_value12 = #{record.attributeValue12,jdbcType=VARCHAR},
+		attribute_value13 = #{record.attributeValue13,jdbcType=VARCHAR},
+		attribute_value14 = #{record.attributeValue14,jdbcType=VARCHAR},
+		attribute_value15 = #{record.attributeValue15,jdbcType=VARCHAR},
+		attribute_value16 = #{record.attributeValue16,jdbcType=VARCHAR},
+		attribute_value17 = #{record.attributeValue17,jdbcType=VARCHAR},
+		attribute_value18 = #{record.attributeValue18,jdbcType=VARCHAR},
+		attribute_value19 = #{record.attributeValue19,jdbcType=VARCHAR},
+		attribute_value2 = #{record.attributeValue2,jdbcType=VARCHAR},
+		attribute_value3 = #{record.attributeValue3,jdbcType=VARCHAR},
+		attribute_value4 = #{record.attributeValue4,jdbcType=VARCHAR},
+		attribute_value5 = #{record.attributeValue5,jdbcType=VARCHAR},
+		attribute_value6 = #{record.attributeValue6,jdbcType=VARCHAR},
+		attribute_value7 = #{record.attributeValue7,jdbcType=VARCHAR},
+		attribute_value8 = #{record.attributeValue8,jdbcType=VARCHAR},
+		attribute_value9 = #{record.attributeValue9,jdbcType=VARCHAR},
+		cost = #{record.cost,jdbcType=DECIMAL},
+		full_name = #{record.fullName,jdbcType=VARCHAR},
+		hits = #{record.hits,jdbcType=BIGINT},
+		image = #{record.image,jdbcType=VARCHAR},
+		is_gift = #{record.isGift,jdbcType=BIT},
+		is_list = #{record.isList,jdbcType=BIT},
+		is_marketable = #{record.isMarketable,jdbcType=BIT},
+		is_top = #{record.isTop,jdbcType=BIT},
+		keyword = #{record.keyword,jdbcType=VARCHAR},
+		market_price = #{record.marketPrice,jdbcType=DECIMAL},
+		memo = #{record.memo,jdbcType=VARCHAR},
+		month_hits = #{record.monthHits,jdbcType=BIGINT},
+		month_hits_date = #{record.monthHitsDate,jdbcType=TIMESTAMP},
+		month_sales = #{record.monthSales,jdbcType=BIGINT},
+		month_sales_date = #{record.monthSalesDate,jdbcType=TIMESTAMP},
+		name = #{record.name,jdbcType=VARCHAR},
+		point = #{record.point,jdbcType=BIGINT},
+		price = #{record.price,jdbcType=DECIMAL},
+		sales = #{record.sales,jdbcType=BIGINT},
+		score = #{record.score,jdbcType=REAL},
+		score_count = #{record.scoreCount,jdbcType=BIGINT},
+		seo_description = #{record.seoDescription,jdbcType=VARCHAR},
+		seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
+		seo_title = #{record.seoTitle,jdbcType=VARCHAR},
+		sn = #{record.sn,jdbcType=VARCHAR},
+		stock = #{record.stock,jdbcType=INTEGER},
+		stock_memo = #{record.stockMemo,jdbcType=VARCHAR},
+		total_score = #{record.totalScore,jdbcType=BIGINT},
+		unit = #{record.unit,jdbcType=VARCHAR},
+		week_hits = #{record.weekHits,jdbcType=BIGINT},
+		week_hits_date = #{record.weekHitsDate,jdbcType=TIMESTAMP},
+		week_sales = #{record.weekSales,jdbcType=BIGINT},
+		week_sales_date = #{record.weekSalesDate,jdbcType=TIMESTAMP},
+		weight = #{record.weight,jdbcType=INTEGER},
+		brand = #{record.brand,jdbcType=BIGINT},
+		goods = #{record.goods,jdbcType=BIGINT},
+		product_category = #{record.productCategory,jdbcType=BIGINT},
+		barcode = #{record.barcode,jdbcType=VARCHAR},
+		color_image_thumbnail = #{record.colorImageThumbnail,jdbcType=VARCHAR},
+		merchant_number = #{record.merchantNumber,jdbcType=VARCHAR},
+		plu_image = #{record.pluImage,jdbcType=VARCHAR},
+		archived = #{record.archived,jdbcType=VARCHAR},
+		plu_code = #{record.pluCode,jdbcType=VARCHAR},
+		timing_marketable_date = #{record.timingMarketableDate,jdbcType=TIMESTAMP},
+		is_square = #{record.isSquare,jdbcType=BIT}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductWithBLOBs">
+		update t_product
+		<set>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="allocatedStock != null">
+				allocated_stock = #{allocatedStock,jdbcType=INTEGER},
+			</if>
+			<if test="attributeValue0 != null">
+				attribute_value0 = #{attributeValue0,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue1 != null">
+				attribute_value1 = #{attributeValue1,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue10 != null">
+				attribute_value10 = #{attributeValue10,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue11 != null">
+				attribute_value11 = #{attributeValue11,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue12 != null">
+				attribute_value12 = #{attributeValue12,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue13 != null">
+				attribute_value13 = #{attributeValue13,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue14 != null">
+				attribute_value14 = #{attributeValue14,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue15 != null">
+				attribute_value15 = #{attributeValue15,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue16 != null">
+				attribute_value16 = #{attributeValue16,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue17 != null">
+				attribute_value17 = #{attributeValue17,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue18 != null">
+				attribute_value18 = #{attributeValue18,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue19 != null">
+				attribute_value19 = #{attributeValue19,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue2 != null">
+				attribute_value2 = #{attributeValue2,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue3 != null">
+				attribute_value3 = #{attributeValue3,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue4 != null">
+				attribute_value4 = #{attributeValue4,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue5 != null">
+				attribute_value5 = #{attributeValue5,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue6 != null">
+				attribute_value6 = #{attributeValue6,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue7 != null">
+				attribute_value7 = #{attributeValue7,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue8 != null">
+				attribute_value8 = #{attributeValue8,jdbcType=VARCHAR},
+			</if>
+			<if test="attributeValue9 != null">
+				attribute_value9 = #{attributeValue9,jdbcType=VARCHAR},
+			</if>
+			<if test="cost != null">
+				cost = #{cost,jdbcType=DECIMAL},
+			</if>
+			<if test="fullName != null">
+				full_name = #{fullName,jdbcType=VARCHAR},
+			</if>
+			<if test="hits != null">
+				hits = #{hits,jdbcType=BIGINT},
+			</if>
+			<if test="image != null">
+				image = #{image,jdbcType=VARCHAR},
+			</if>
+			<if test="isGift != null">
+				is_gift = #{isGift,jdbcType=BIT},
+			</if>
+			<if test="isList != null">
+				is_list = #{isList,jdbcType=BIT},
+			</if>
+			<if test="isMarketable != null">
+				is_marketable = #{isMarketable,jdbcType=BIT},
+			</if>
+			<if test="isTop != null">
+				is_top = #{isTop,jdbcType=BIT},
+			</if>
+			<if test="keyword != null">
+				keyword = #{keyword,jdbcType=VARCHAR},
+			</if>
+			<if test="marketPrice != null">
+				market_price = #{marketPrice,jdbcType=DECIMAL},
+			</if>
+			<if test="memo != null">
+				memo = #{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="monthHits != null">
+				month_hits = #{monthHits,jdbcType=BIGINT},
+			</if>
+			<if test="monthHitsDate != null">
+				month_hits_date = #{monthHitsDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="monthSales != null">
+				month_sales = #{monthSales,jdbcType=BIGINT},
+			</if>
+			<if test="monthSalesDate != null">
+				month_sales_date = #{monthSalesDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="point != null">
+				point = #{point,jdbcType=BIGINT},
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL},
+			</if>
+			<if test="sales != null">
+				sales = #{sales,jdbcType=BIGINT},
+			</if>
+			<if test="score != null">
+				score = #{score,jdbcType=REAL},
+			</if>
+			<if test="scoreCount != null">
+				score_count = #{scoreCount,jdbcType=BIGINT},
+			</if>
+			<if test="seoDescription != null">
+				seo_description = #{seoDescription,jdbcType=VARCHAR},
+			</if>
+			<if test="seoKeywords != null">
+				seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
+			</if>
+			<if test="seoTitle != null">
+				seo_title = #{seoTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				sn = #{sn,jdbcType=VARCHAR},
+			</if>
+			<if test="stock != null">
+				stock = #{stock,jdbcType=INTEGER},
+			</if>
+			<if test="stockMemo != null">
+				stock_memo = #{stockMemo,jdbcType=VARCHAR},
+			</if>
+			<if test="totalScore != null">
+				total_score = #{totalScore,jdbcType=BIGINT},
+			</if>
+			<if test="unit != null">
+				unit = #{unit,jdbcType=VARCHAR},
+			</if>
+			<if test="weekHits != null">
+				week_hits = #{weekHits,jdbcType=BIGINT},
+			</if>
+			<if test="weekHitsDate != null">
+				week_hits_date = #{weekHitsDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="weekSales != null">
+				week_sales = #{weekSales,jdbcType=BIGINT},
+			</if>
+			<if test="weekSalesDate != null">
+				week_sales_date = #{weekSalesDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="weight != null">
+				weight = #{weight,jdbcType=INTEGER},
+			</if>
+			<if test="brand != null">
+				brand = #{brand,jdbcType=BIGINT},
+			</if>
+			<if test="goods != null">
+				goods = #{goods,jdbcType=BIGINT},
+			</if>
+			<if test="productCategory != null">
+				product_category = #{productCategory,jdbcType=BIGINT},
+			</if>
+			<if test="barcode != null">
+				barcode = #{barcode,jdbcType=VARCHAR},
+			</if>
+			<if test="colorImageThumbnail != null">
+				color_image_thumbnail = #{colorImageThumbnail,jdbcType=VARCHAR},
+			</if>
+			<if test="merchantNumber != null">
+				merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="pluImage != null">
+				plu_image = #{pluImage,jdbcType=VARCHAR},
+			</if>
+			<if test="archived != null">
+				archived = #{archived,jdbcType=VARCHAR},
+			</if>
+			<if test="pluCode != null">
+				plu_code = #{pluCode,jdbcType=VARCHAR},
+			</if>
+			<if test="timingMarketableDate != null">
+				timing_marketable_date = #{timingMarketableDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="isSquare != null">
+				is_square = #{isSquare,jdbcType=BIT},
+			</if>
+			<if test="introduction != null">
+				introduction = #{introduction,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="component != null">
+				component = #{component,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="mattersNeedingAttention != null">
+				matters_needing_attention =
+				#{mattersNeedingAttention,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductWithBLOBs">
+		update t_product
+		set create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		allocated_stock = #{allocatedStock,jdbcType=INTEGER},
+		attribute_value0 = #{attributeValue0,jdbcType=VARCHAR},
+		attribute_value1 = #{attributeValue1,jdbcType=VARCHAR},
+		attribute_value10 = #{attributeValue10,jdbcType=VARCHAR},
+		attribute_value11 = #{attributeValue11,jdbcType=VARCHAR},
+		attribute_value12 = #{attributeValue12,jdbcType=VARCHAR},
+		attribute_value13 = #{attributeValue13,jdbcType=VARCHAR},
+		attribute_value14 = #{attributeValue14,jdbcType=VARCHAR},
+		attribute_value15 = #{attributeValue15,jdbcType=VARCHAR},
+		attribute_value16 = #{attributeValue16,jdbcType=VARCHAR},
+		attribute_value17 = #{attributeValue17,jdbcType=VARCHAR},
+		attribute_value18 = #{attributeValue18,jdbcType=VARCHAR},
+		attribute_value19 = #{attributeValue19,jdbcType=VARCHAR},
+		attribute_value2 = #{attributeValue2,jdbcType=VARCHAR},
+		attribute_value3 = #{attributeValue3,jdbcType=VARCHAR},
+		attribute_value4 = #{attributeValue4,jdbcType=VARCHAR},
+		attribute_value5 = #{attributeValue5,jdbcType=VARCHAR},
+		attribute_value6 = #{attributeValue6,jdbcType=VARCHAR},
+		attribute_value7 = #{attributeValue7,jdbcType=VARCHAR},
+		attribute_value8 = #{attributeValue8,jdbcType=VARCHAR},
+		attribute_value9 = #{attributeValue9,jdbcType=VARCHAR},
+		cost = #{cost,jdbcType=DECIMAL},
+		full_name = #{fullName,jdbcType=VARCHAR},
+		hits = #{hits,jdbcType=BIGINT},
+		image = #{image,jdbcType=VARCHAR},
+		is_gift = #{isGift,jdbcType=BIT},
+		is_list = #{isList,jdbcType=BIT},
+		is_marketable = #{isMarketable,jdbcType=BIT},
+		is_top = #{isTop,jdbcType=BIT},
+		keyword = #{keyword,jdbcType=VARCHAR},
+		market_price = #{marketPrice,jdbcType=DECIMAL},
+		memo = #{memo,jdbcType=VARCHAR},
+		month_hits = #{monthHits,jdbcType=BIGINT},
+		month_hits_date = #{monthHitsDate,jdbcType=TIMESTAMP},
+		month_sales = #{monthSales,jdbcType=BIGINT},
+		month_sales_date = #{monthSalesDate,jdbcType=TIMESTAMP},
+		name = #{name,jdbcType=VARCHAR},
+		point = #{point,jdbcType=BIGINT},
+		price = #{price,jdbcType=DECIMAL},
+		sales = #{sales,jdbcType=BIGINT},
+		score = #{score,jdbcType=REAL},
+		score_count = #{scoreCount,jdbcType=BIGINT},
+		seo_description = #{seoDescription,jdbcType=VARCHAR},
+		seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
+		seo_title = #{seoTitle,jdbcType=VARCHAR},
+		sn = #{sn,jdbcType=VARCHAR},
+		stock = #{stock,jdbcType=INTEGER},
+		stock_memo = #{stockMemo,jdbcType=VARCHAR},
+		total_score = #{totalScore,jdbcType=BIGINT},
+		unit = #{unit,jdbcType=VARCHAR},
+		week_hits = #{weekHits,jdbcType=BIGINT},
+		week_hits_date = #{weekHitsDate,jdbcType=TIMESTAMP},
+		week_sales = #{weekSales,jdbcType=BIGINT},
+		week_sales_date = #{weekSalesDate,jdbcType=TIMESTAMP},
+		weight = #{weight,jdbcType=INTEGER},
+		brand = #{brand,jdbcType=BIGINT},
+		goods = #{goods,jdbcType=BIGINT},
+		product_category = #{productCategory,jdbcType=BIGINT},
+		barcode = #{barcode,jdbcType=VARCHAR},
+		color_image_thumbnail = #{colorImageThumbnail,jdbcType=VARCHAR},
+		merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+		plu_image = #{pluImage,jdbcType=VARCHAR},
+		archived = #{archived,jdbcType=VARCHAR},
+		plu_code = #{pluCode,jdbcType=VARCHAR},
+		timing_marketable_date = #{timingMarketableDate,jdbcType=TIMESTAMP},
+		is_square = #{isSquare,jdbcType=BIT},
+		introduction = #{introduction,jdbcType=LONGVARCHAR},
+		component = #{component,jdbcType=LONGVARCHAR},
+		matters_needing_attention = #{mattersNeedingAttention,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TProduct">
+		update t_product
+		set create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		allocated_stock = #{allocatedStock,jdbcType=INTEGER},
+		attribute_value0 = #{attributeValue0,jdbcType=VARCHAR},
+		attribute_value1 = #{attributeValue1,jdbcType=VARCHAR},
+		attribute_value10 = #{attributeValue10,jdbcType=VARCHAR},
+		attribute_value11 = #{attributeValue11,jdbcType=VARCHAR},
+		attribute_value12 = #{attributeValue12,jdbcType=VARCHAR},
+		attribute_value13 = #{attributeValue13,jdbcType=VARCHAR},
+		attribute_value14 = #{attributeValue14,jdbcType=VARCHAR},
+		attribute_value15 = #{attributeValue15,jdbcType=VARCHAR},
+		attribute_value16 = #{attributeValue16,jdbcType=VARCHAR},
+		attribute_value17 = #{attributeValue17,jdbcType=VARCHAR},
+		attribute_value18 = #{attributeValue18,jdbcType=VARCHAR},
+		attribute_value19 = #{attributeValue19,jdbcType=VARCHAR},
+		attribute_value2 = #{attributeValue2,jdbcType=VARCHAR},
+		attribute_value3 = #{attributeValue3,jdbcType=VARCHAR},
+		attribute_value4 = #{attributeValue4,jdbcType=VARCHAR},
+		attribute_value5 = #{attributeValue5,jdbcType=VARCHAR},
+		attribute_value6 = #{attributeValue6,jdbcType=VARCHAR},
+		attribute_value7 = #{attributeValue7,jdbcType=VARCHAR},
+		attribute_value8 = #{attributeValue8,jdbcType=VARCHAR},
+		attribute_value9 = #{attributeValue9,jdbcType=VARCHAR},
+		cost = #{cost,jdbcType=DECIMAL},
+		full_name = #{fullName,jdbcType=VARCHAR},
+		hits = #{hits,jdbcType=BIGINT},
+		image = #{image,jdbcType=VARCHAR},
+		is_gift = #{isGift,jdbcType=BIT},
+		is_list = #{isList,jdbcType=BIT},
+		is_marketable = #{isMarketable,jdbcType=BIT},
+		is_top = #{isTop,jdbcType=BIT},
+		keyword = #{keyword,jdbcType=VARCHAR},
+		market_price = #{marketPrice,jdbcType=DECIMAL},
+		memo = #{memo,jdbcType=VARCHAR},
+		month_hits = #{monthHits,jdbcType=BIGINT},
+		month_hits_date = #{monthHitsDate,jdbcType=TIMESTAMP},
+		month_sales = #{monthSales,jdbcType=BIGINT},
+		month_sales_date = #{monthSalesDate,jdbcType=TIMESTAMP},
+		name = #{name,jdbcType=VARCHAR},
+		point = #{point,jdbcType=BIGINT},
+		price = #{price,jdbcType=DECIMAL},
+		sales = #{sales,jdbcType=BIGINT},
+		score = #{score,jdbcType=REAL},
+		score_count = #{scoreCount,jdbcType=BIGINT},
+		seo_description = #{seoDescription,jdbcType=VARCHAR},
+		seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
+		seo_title = #{seoTitle,jdbcType=VARCHAR},
+		sn = #{sn,jdbcType=VARCHAR},
+		stock = #{stock,jdbcType=INTEGER},
+		stock_memo = #{stockMemo,jdbcType=VARCHAR},
+		total_score = #{totalScore,jdbcType=BIGINT},
+		unit = #{unit,jdbcType=VARCHAR},
+		week_hits = #{weekHits,jdbcType=BIGINT},
+		week_hits_date = #{weekHitsDate,jdbcType=TIMESTAMP},
+		week_sales = #{weekSales,jdbcType=BIGINT},
+		week_sales_date = #{weekSalesDate,jdbcType=TIMESTAMP},
+		weight = #{weight,jdbcType=INTEGER},
+		brand = #{brand,jdbcType=BIGINT},
+		goods = #{goods,jdbcType=BIGINT},
+		product_category = #{productCategory,jdbcType=BIGINT},
+		barcode = #{barcode,jdbcType=VARCHAR},
+		color_image_thumbnail = #{colorImageThumbnail,jdbcType=VARCHAR},
+		merchant_number = #{merchantNumber,jdbcType=VARCHAR},
+		plu_image = #{pluImage,jdbcType=VARCHAR},
+		archived = #{archived,jdbcType=VARCHAR},
+		plu_code = #{pluCode,jdbcType=VARCHAR},
+		timing_marketable_date = #{timingMarketableDate,jdbcType=TIMESTAMP},
+		is_square = #{isSquare,jdbcType=BIT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<select id="selectMutilTableByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		distinct
+		<include refid="p_Column_List" />
+		from t_product p
+		left join t_product_tag pt
+		on pt.products = p.id
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+</mapper>

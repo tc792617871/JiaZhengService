@@ -170,7 +170,7 @@ $().ready(function() {
 			
 			<!-- start 商品管理 -> 商品管理 -->
 			<tr class="productGroup">
-				<th rowspan="3">
+				<th rowspan="2">
 					<input type="button" class="btn btn-primary btn-xs" id="productGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
@@ -213,51 +213,9 @@ $().ready(function() {
 							</label>
 						</li>
 						<li>
-							<input type="checkbox" name="authorities" id="productExportButton" value="admin:product_button_exportButton"/>
-							<label for="productExportButton">
-								${message("admin.common.export")}
-							</label>
-						</li>
-						<li>
 							<input type="checkbox" name="authorities" id="productEdit" value="admin:product_a_edit"/>
 							<label for="productEdit">
 								${message("admin.common.edit")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="productConllocation" value="admin:product_a_conllocation"/>
-							<label for="productConllocation">
-								${message("admin.common.conllocation")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="productExportStackOutButton" value="admin:product_button_exportStackOutButton"/>
-							<label for="productExportStackOutButton">
-								${message("admin.order.productOutOfStock")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="productAdd_OnSale" value="admin:product_icon_add_OnSale"/>
-							<label for="productAdd_OnSale">
-								${message("+ On sale")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="productDelete_OnSale" value="admin:product_icon_delete_OnSale"/>
-							<label for="productDelete_OnSale">
-								${message("- On sale")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="productRefresh_NewArrival" value="admin:product_icon_refresh_NewArrival"/>
-							<label for="productRefresh_NewArrival">
-								${message("New Arrival")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="productRefresh_BestSeller" value="admin:product_icon_refresh_BestSeller"/>
-							<label for="productRefresh_BestSeller">
-								${message("Best Seller")}
 							</label>
 						</li>
 					</ul>
@@ -304,58 +262,6 @@ $().ready(function() {
 				</td>
 			</tr>
 			<!-- end 商品管理 -> 商品分类管理 -->
-			
-			<!-- start 商品管理 -> 规格管理 -->
-			<tr class="productGroup">
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleSpecification" name="authorities" value="admin:specification" />
-							<label for="consoleSpecification">
-								${message("admin.role.specification")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					<ul class="authorities">
-						<li>
-							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="specificationAdd"  value="admin:specification_icon_addIcon"/>
-							<label for="specificationAdd">
-								${message("admin.common.add")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="specificationDelete" value="admin:specification_button_deleteButton" />
-							<label for="specificationDelete">
-								${message("admin.common.delete")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="specificationEdit"  value="admin:specification_a_edit"/>
-							<label for="specificationEdit">
-								${message("admin.common.edit")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="specificationSyncSize" value="admin:specification_button_syncSizeButton"/>
-							<label for="specificationSyncSize">
-								${message("admin.specification.syncSize")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="specificationSyncColor" value="admin:specification_button_syncColorButton"/>
-							<label for="specificationSyncColor">
-								${message("admin.specification.syncColor")}
-							</label>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<!-- end 商品管理 -> 规格管理 -->
 			<!-- end 商品管理 -->
 			
 			<!-- start 订单管理 -->
@@ -680,6 +586,40 @@ $().ready(function() {
 			</tr>
 			<!-- end 内容管理 -> 模板管理 -->
 			
+			<!-- start 内容管理 -> 标签管理 -->
+			<tr class="contentGroup">
+				<td>
+					<ul>
+						<li>
+							<input type="checkbox" id="consoleTag" name="authorities" value="admin:tag" />
+							<label for="consoleTag">
+								${message("admin.role.tag")}
+							</label>
+						</li>
+					</ul>
+				</td>
+				<td>
+					<ul class="authorities">
+						<li>
+							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
+						</li>
+						<li>
+							<input type="checkbox" name="authorities" id="tagAdd"  value="admin:tag_icon_addIcon"/>
+							<label for="tagAdd">
+								${message("admin.common.add")}
+							</label>
+						</li>
+						<li>
+							<input type="checkbox" name="authorities" id="tagEdit" value="admin:tag_a_edit" />
+							<label for="tagEdit">
+								${message("admin.common.edit")}
+							</label>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<!-- end 内容管理 -> 标签管理 -->
+			
 			<!-- start 内容管理 -> 缓存管理 -->
 			<tr class="contentGroup">
 				<td>
@@ -715,24 +655,6 @@ $().ready(function() {
 				</td>
 			</tr>
 			<!-- end 内容管理 -> 静态化管理 -->
-			
-			<!-- start 内容管理 -> 索引管理 -->
-			<tr class="contentGroup">
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleIndex" name="authorities" value="admin:index" />
-							<label for="consoleIndex">
-								${message("admin.role.index")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					
-				</td>
-			</tr>
-			<!-- end 内容管理 -> 索引管理 -->
 			<!-- end 内容管理 -->
 			
 			<!-- start 营销管理 -->

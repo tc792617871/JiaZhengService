@@ -25,4 +25,10 @@
 		overflowToDisk="true" />
 	<cache name="area" maxElementsInMemory="500" timeToIdleSeconds="3600"
 		timeToLiveSeconds="86400" eternal="false" overflowToDisk="true" />
+	<cache name="product" maxElementsInMemory="500"
+		timeToIdleSeconds="3600" timeToLiveSeconds="86400" eternal="false"
+		overflowToDisk="true" />
+	<cache name="productCategory" maxElementsInMemory="500"
+		timeToIdleSeconds="3600" timeToLiveSeconds="86400" eternal="false"
+		overflowToDisk="true" />
 </ehcache>

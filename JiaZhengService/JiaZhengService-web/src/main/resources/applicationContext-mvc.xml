@@ -22,13 +22,13 @@
 	<!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
 	<!-- spring mvc 扫描设置: 与spring容器分开加载 -->
 	<!-- 匹配 Controller使用的是context:include-filter包含筛选 -->
-	<context:component-scan base-package="com.platform.JiaZhengService"
-		use-default-filters="false">
-		<context:include-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+	<context:component-scan base-package="com.platform.JiaZhengService">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
 
-	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
 		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
 

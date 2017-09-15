@@ -33,7 +33,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_plugin_config_attribute
+		delete from
+		t_plugin_config_attribute
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -50,7 +51,8 @@
 		</selectKey>
 		insert into t_plugin_config_attribute (plugin_config, attributes, name
 		)
-		values (#{pluginConfig,jdbcType=BIGINT}, #{attributes,jdbcType=VARCHAR},
+		values (#{pluginConfig,jdbcType=BIGINT},
+		#{attributes,jdbcType=VARCHAR},
 		#{name,jdbcType=VARCHAR}
 		)
 	</insert>
@@ -115,8 +117,10 @@
 		update t_plugin_config_attribute
 		set id = #{record.id,jdbcType=BIGINT},
 		plugin_config = #{record.pluginConfig,jdbcType=BIGINT},
-		attributes = #{record.attributes,jdbcType=VARCHAR},
-		name = #{record.name,jdbcType=VARCHAR}
+		attributes =
+		#{record.attributes,jdbcType=VARCHAR},
+		name =
+		#{record.name,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -140,9 +144,12 @@
 	<update id="updateByPrimaryKey"
 		parameterType="com.platform.JiaZhengService.dao.entity.TPluginConfigAttribute">
 		update t_plugin_config_attribute
-		set plugin_config = #{pluginConfig,jdbcType=BIGINT},
-		attributes = #{attributes,jdbcType=VARCHAR},
+		set plugin_config =
+		#{pluginConfig,jdbcType=BIGINT},
+		attributes =
+		#{attributes,jdbcType=VARCHAR},
 		name = #{name,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=BIGINT}
+		where id
+		= #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

@@ -27,7 +27,6 @@ import com.platform.JiaZhengService.common.pojo.Setting;
 import com.platform.JiaZhengService.common.util.SettingUtils;
 import com.platform.JiaZhengService.common.util.SpringUtils;
 import com.platform.JiaZhengService.dao.Criteria;
-import com.platform.JiaZhengService.dao.Criteria.Condition;
 import com.platform.JiaZhengService.dao.Page;
 import com.platform.JiaZhengService.dao.Pageable;
 import com.platform.JiaZhengService.template.directive.FlashMessageDirective;
@@ -81,10 +80,6 @@ public class AbstractController {
 		Integer begin = (pageable.getPageNumber() - 1) * pageable.getPageSize();
 		Integer length = pageable.getPageSize();
 		Criteria c = new Criteria(new Page(begin, length));
-		Condition con = c.createConditon();
-		if (StringUtils.isNotEmpty(pageable.getSearchProperty()) && StringUtils.isNotEmpty(pageable.getSearchValue())) {
-			con.andLike(pageable.getSearchProperty(), pageable.getSearchValue());
-		}
 		return c;
 	}
 

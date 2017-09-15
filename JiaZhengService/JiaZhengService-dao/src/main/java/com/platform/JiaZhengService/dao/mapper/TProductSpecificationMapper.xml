@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.platform.JiaZhengService.dao.mapper.TProductSpecificationMapper">
+	<resultMap id="BaseResultMap"
+		type="com.platform.JiaZhengService.dao.entity.TProductSpecificationKey">
+		<id column="products" property="products" jdbcType="BIGINT" />
+		<id column="specifications" property="specifications" jdbcType="BIGINT" />
+	</resultMap>
+	<resultMap id="SpecificationMap"
+		type="com.platform.JiaZhengService.dao.entity.TSpecification">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+		<result column="orders" property="orders" jdbcType="INTEGER" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="DECIMAL" />
+		<result column="min_num" property="minNum" jdbcType="DOUBLE" />
+		<result column="max_num" property="maxNum" jdbcType="DOUBLE" />
+		<result column="is_enable" property="isEnable" jdbcType="BIT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		products, specifications
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_product_specification
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationKey">
+		delete from t_product_specification
+		where products = #{products,jdbcType=BIGINT}
+		and specifications = #{specifications,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
+		delete from t_product_specification
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationKey">
+		insert into t_product_specification (products, specifications)
+		values (#{products,jdbcType=BIGINT}, #{specifications,jdbcType=BIGINT})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationKey">
+		insert into t_product_specification
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="products != null">
+				products,
+			</if>
+			<if test="specifications != null">
+				specifications,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="products != null">
+				#{products,jdbcType=BIGINT},
+			</if>
+			<if test="specifications != null">
+				#{specifications,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
+		resultType="java.lang.Integer">
+		select count(*) from t_product_specification
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_product_specification
+		<set>
+			<if test="record.products != null">
+				products = #{record.products,jdbcType=BIGINT},
+			</if>
+			<if test="record.specifications != null">
+				specifications = #{record.specifications,jdbcType=BIGINT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_product_specification
+		set products = #{record.products,jdbcType=BIGINT},
+		specifications = #{record.specifications,jdbcType=BIGINT}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<select id="selectByProductID" resultMap="SpecificationMap"
+		parameterType="java.lang.Long">
+		select
+		distinct
+		s.id, s.create_date, s.modify_date, s.orders, s.memo, s.name, s.type,
+		s.code, s.price, s.min_num, s.max_num,
+		s.is_enable
+		from t_product_specification ps
+		left join t_specification s on ps.specifications = s.id
+		where 1=1 and ps.products = #{productId,jdbcType=BIGINT}
+		order by s.orders
+	</select>
+</mapper>

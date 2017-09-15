@@ -1,38 +1,21 @@
 package com.platform.JiaZhengService.service;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import com.platform.JiaZhengService.service.api.TestService;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
+public class AppTest {
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
+	private static TestService service;
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	public static void main(String[] args) {
+		ApplicationContext ctx = new FileSystemXmlApplicationContext(
+				new String[] { "classpath*:applicationContext.xml" });
+		service = (TestService) ctx.getBean(TestService.class);
+		service.insertUser();
+	}
 }

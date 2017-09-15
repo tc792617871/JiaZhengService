@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.platform.JiaZhengService.dao.mapper.TProductProductImageMapper">
+	<resultMap id="BaseResultMap"
+		type="com.platform.JiaZhengService.dao.entity.TProductProductImage">
+		<id column="product" property="product" jdbcType="BIGINT" />
+		<id column="source" property="source" jdbcType="VARCHAR" />
+		<result column="large" property="large" jdbcType="VARCHAR" />
+		<result column="medium" property="medium" jdbcType="VARCHAR" />
+		<result column="orders" property="orders" jdbcType="INTEGER" />
+		<result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		product, source, large, medium, orders, thumbnail, title
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_product_product_image
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImageKey">
+		select
+		<include refid="Base_Column_List" />
+		from t_product_product_image
+		where product = #{product,jdbcType=BIGINT}
+		and source = #{source,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImageKey">
+		delete from t_product_product_image
+		where product = #{product,jdbcType=BIGINT}
+		and source = #{source,jdbcType=VARCHAR}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
+		delete from t_product_product_image
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImage">
+		insert into t_product_product_image (product, source, large,
+		medium, orders, thumbnail,
+		title)
+		values (#{product,jdbcType=BIGINT}, #{source,jdbcType=VARCHAR},
+		#{large,jdbcType=VARCHAR},
+		#{medium,jdbcType=VARCHAR}, #{orders,jdbcType=INTEGER}, #{thumbnail,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImage">
+		insert into t_product_product_image
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="product != null">
+				product,
+			</if>
+			<if test="source != null">
+				source,
+			</if>
+			<if test="large != null">
+				large,
+			</if>
+			<if test="medium != null">
+				medium,
+			</if>
+			<if test="orders != null">
+				orders,
+			</if>
+			<if test="thumbnail != null">
+				thumbnail,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="product != null">
+				#{product,jdbcType=BIGINT},
+			</if>
+			<if test="source != null">
+				#{source,jdbcType=VARCHAR},
+			</if>
+			<if test="large != null">
+				#{large,jdbcType=VARCHAR},
+			</if>
+			<if test="medium != null">
+				#{medium,jdbcType=VARCHAR},
+			</if>
+			<if test="orders != null">
+				#{orders,jdbcType=INTEGER},
+			</if>
+			<if test="thumbnail != null">
+				#{thumbnail,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
+		resultType="java.lang.Integer">
+		select count(*) from t_product_product_image
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_product_product_image
+		<set>
+			<if test="record.product != null">
+				product = #{record.product,jdbcType=BIGINT},
+			</if>
+			<if test="record.source != null">
+				source = #{record.source,jdbcType=VARCHAR},
+			</if>
+			<if test="record.large != null">
+				large = #{record.large,jdbcType=VARCHAR},
+			</if>
+			<if test="record.medium != null">
+				medium = #{record.medium,jdbcType=VARCHAR},
+			</if>
+			<if test="record.orders != null">
+				orders = #{record.orders,jdbcType=INTEGER},
+			</if>
+			<if test="record.thumbnail != null">
+				thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
+			</if>
+			<if test="record.title != null">
+				title = #{record.title,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_product_product_image
+		set product = #{record.product,jdbcType=BIGINT},
+		source = #{record.source,jdbcType=VARCHAR},
+		large = #{record.large,jdbcType=VARCHAR},
+		medium = #{record.medium,jdbcType=VARCHAR},
+		orders = #{record.orders,jdbcType=INTEGER},
+		thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
+		title = #{record.title,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImage">
+		update t_product_product_image
+		<set>
+			<if test="large != null">
+				large = #{large,jdbcType=VARCHAR},
+			</if>
+			<if test="medium != null">
+				medium = #{medium,jdbcType=VARCHAR},
+			</if>
+			<if test="orders != null">
+				orders = #{orders,jdbcType=INTEGER},
+			</if>
+			<if test="thumbnail != null">
+				thumbnail = #{thumbnail,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where product = #{product,jdbcType=BIGINT}
+		and source = #{source,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImage">
+		update t_product_product_image
+		set large = #{large,jdbcType=VARCHAR},
+		medium = #{medium,jdbcType=VARCHAR},
+		orders = #{orders,jdbcType=INTEGER},
+		thumbnail = #{thumbnail,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR}
+		where product = #{product,jdbcType=BIGINT}
+		and source = #{source,jdbcType=VARCHAR}
+	</update>
+</mapper>
