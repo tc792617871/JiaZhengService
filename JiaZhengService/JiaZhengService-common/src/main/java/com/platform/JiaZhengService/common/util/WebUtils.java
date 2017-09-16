@@ -18,9 +18,6 @@ import com.platform.JiaZhengService.common.pojo.Setting;
 
 /**
  * Utils - Web
- * 
- * @author Sencloud Team
- * @version 3.0
  */
 public final class WebUtils {
 

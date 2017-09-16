@@ -1,0 +1,877 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TMember" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="attribute_value0" property="attributeValue0" jdbcType="VARCHAR" />
+    <result column="attribute_value1" property="attributeValue1" jdbcType="VARCHAR" />
+    <result column="attribute_value2" property="attributeValue2" jdbcType="VARCHAR" />
+    <result column="attribute_value3" property="attributeValue3" jdbcType="VARCHAR" />
+    <result column="attribute_value4" property="attributeValue4" jdbcType="VARCHAR" />
+    <result column="attribute_value5" property="attributeValue5" jdbcType="VARCHAR" />
+    <result column="attribute_value6" property="attributeValue6" jdbcType="VARCHAR" />
+    <result column="attribute_value7" property="attributeValue7" jdbcType="VARCHAR" />
+    <result column="attribute_value8" property="attributeValue8" jdbcType="VARCHAR" />
+    <result column="attribute_value9" property="attributeValue9" jdbcType="VARCHAR" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="birth" property="birth" jdbcType="TIMESTAMP" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+    <result column="is_locked" property="isLocked" jdbcType="BIT" />
+    <result column="locked_date" property="lockedDate" jdbcType="TIMESTAMP" />
+    <result column="login_date" property="loginDate" jdbcType="TIMESTAMP" />
+    <result column="login_failure_count" property="loginFailureCount" jdbcType="INTEGER" />
+    <result column="login_ip" property="loginIp" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="vip_code" property="vipCode" jdbcType="VARCHAR" />
+    <result column="vip_number" property="vipNumber" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="BIGINT" />
+    <result column="register_ip" property="registerIp" jdbcType="VARCHAR" />
+    <result column="safe_key_expire" property="safeKeyExpire" jdbcType="TIMESTAMP" />
+    <result column="safe_key_value" property="safeKeyValue" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="BIGINT" />
+    <result column="member_rank" property="memberRank" jdbcType="BIGINT" />
+    <result column="validate_code" property="validateCode" jdbcType="VARCHAR" />
+    <result column="card_number" property="cardNumber" jdbcType="VARCHAR" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="language_preference" property="languagePreference" jdbcType="BIGINT" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="bust" property="bust" jdbcType="DOUBLE" />
+    <result column="hip" property="hip" jdbcType="DOUBLE" />
+    <result column="waist" property="waist" jdbcType="DOUBLE" />
+    <result column="occupation" property="occupation" jdbcType="BIGINT" />
+    <result column="member_label" property="memberLabel" jdbcType="VARCHAR" />
+    <result column="we_chat_open_id" property="weChatOpenId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, modify_date, address, amount, attribute_value0, attribute_value1, 
+    attribute_value2, attribute_value3, attribute_value4, attribute_value5, attribute_value6, 
+    attribute_value7, attribute_value8, attribute_value9, balance, birth, email, gender, 
+    is_enabled, is_locked, locked_date, login_date, login_failure_count, login_ip, mobile, 
+    name, password, vip_code, vip_number, phone, point, register_ip, safe_key_expire, 
+    safe_key_value, username, zip_code, area, member_rank, validate_code, card_number, 
+    country, language_preference, height, weight, bust, hip, waist, occupation, member_label, 
+    we_chat_open_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_member
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_member
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    delete from t_member
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TMember" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_member (create_date, modify_date, address, 
+      amount, attribute_value0, attribute_value1, 
+      attribute_value2, attribute_value3, attribute_value4, 
+      attribute_value5, attribute_value6, attribute_value7, 
+      attribute_value8, attribute_value9, balance, 
+      birth, email, gender, 
+      is_enabled, is_locked, locked_date, 
+      login_date, login_failure_count, login_ip, 
+      mobile, name, password, 
+      vip_code, vip_number, phone, 
+      point, register_ip, safe_key_expire, 
+      safe_key_value, username, zip_code, 
+      area, member_rank, validate_code, 
+      card_number, country, language_preference, 
+      height, weight, bust, 
+      hip, waist, occupation, 
+      member_label, we_chat_open_id)
+    values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{attributeValue0,jdbcType=VARCHAR}, #{attributeValue1,jdbcType=VARCHAR}, 
+      #{attributeValue2,jdbcType=VARCHAR}, #{attributeValue3,jdbcType=VARCHAR}, #{attributeValue4,jdbcType=VARCHAR}, 
+      #{attributeValue5,jdbcType=VARCHAR}, #{attributeValue6,jdbcType=VARCHAR}, #{attributeValue7,jdbcType=VARCHAR}, 
+      #{attributeValue8,jdbcType=VARCHAR}, #{attributeValue9,jdbcType=VARCHAR}, #{balance,jdbcType=DECIMAL}, 
+      #{birth,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{isEnabled,jdbcType=BIT}, #{isLocked,jdbcType=BIT}, #{lockedDate,jdbcType=TIMESTAMP}, 
+      #{loginDate,jdbcType=TIMESTAMP}, #{loginFailureCount,jdbcType=INTEGER}, #{loginIp,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{vipCode,jdbcType=VARCHAR}, #{vipNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{point,jdbcType=BIGINT}, #{registerIp,jdbcType=VARCHAR}, #{safeKeyExpire,jdbcType=TIMESTAMP}, 
+      #{safeKeyValue,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR}, 
+      #{area,jdbcType=BIGINT}, #{memberRank,jdbcType=BIGINT}, #{validateCode,jdbcType=VARCHAR}, 
+      #{cardNumber,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{languagePreference,jdbcType=BIGINT}, 
+      #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, #{bust,jdbcType=DOUBLE}, 
+      #{hip,jdbcType=DOUBLE}, #{waist,jdbcType=DOUBLE}, #{occupation,jdbcType=BIGINT}, 
+      #{memberLabel,jdbcType=VARCHAR}, #{weChatOpenId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TMember" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="attributeValue0 != null" >
+        attribute_value0,
+      </if>
+      <if test="attributeValue1 != null" >
+        attribute_value1,
+      </if>
+      <if test="attributeValue2 != null" >
+        attribute_value2,
+      </if>
+      <if test="attributeValue3 != null" >
+        attribute_value3,
+      </if>
+      <if test="attributeValue4 != null" >
+        attribute_value4,
+      </if>
+      <if test="attributeValue5 != null" >
+        attribute_value5,
+      </if>
+      <if test="attributeValue6 != null" >
+        attribute_value6,
+      </if>
+      <if test="attributeValue7 != null" >
+        attribute_value7,
+      </if>
+      <if test="attributeValue8 != null" >
+        attribute_value8,
+      </if>
+      <if test="attributeValue9 != null" >
+        attribute_value9,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isLocked != null" >
+        is_locked,
+      </if>
+      <if test="lockedDate != null" >
+        locked_date,
+      </if>
+      <if test="loginDate != null" >
+        login_date,
+      </if>
+      <if test="loginFailureCount != null" >
+        login_failure_count,
+      </if>
+      <if test="loginIp != null" >
+        login_ip,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="vipCode != null" >
+        vip_code,
+      </if>
+      <if test="vipNumber != null" >
+        vip_number,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="registerIp != null" >
+        register_ip,
+      </if>
+      <if test="safeKeyExpire != null" >
+        safe_key_expire,
+      </if>
+      <if test="safeKeyValue != null" >
+        safe_key_value,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="zipCode != null" >
+        zip_code,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="memberRank != null" >
+        member_rank,
+      </if>
+      <if test="validateCode != null" >
+        validate_code,
+      </if>
+      <if test="cardNumber != null" >
+        card_number,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="languagePreference != null" >
+        language_preference,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="bust != null" >
+        bust,
+      </if>
+      <if test="hip != null" >
+        hip,
+      </if>
+      <if test="waist != null" >
+        waist,
+      </if>
+      <if test="occupation != null" >
+        occupation,
+      </if>
+      <if test="memberLabel != null" >
+        member_label,
+      </if>
+      <if test="weChatOpenId != null" >
+        we_chat_open_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="attributeValue0 != null" >
+        #{attributeValue0,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue1 != null" >
+        #{attributeValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue2 != null" >
+        #{attributeValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue3 != null" >
+        #{attributeValue3,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue4 != null" >
+        #{attributeValue4,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue5 != null" >
+        #{attributeValue5,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue6 != null" >
+        #{attributeValue6,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue7 != null" >
+        #{attributeValue7,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue8 != null" >
+        #{attributeValue8,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue9 != null" >
+        #{attributeValue9,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isLocked != null" >
+        #{isLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null" >
+        #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null" >
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null" >
+        #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null" >
+        #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="vipCode != null" >
+        #{vipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vipNumber != null" >
+        #{vipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=BIGINT},
+      </if>
+      <if test="registerIp != null" >
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="safeKeyExpire != null" >
+        #{safeKeyExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="safeKeyValue != null" >
+        #{safeKeyValue,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=BIGINT},
+      </if>
+      <if test="memberRank != null" >
+        #{memberRank,jdbcType=BIGINT},
+      </if>
+      <if test="validateCode != null" >
+        #{validateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null" >
+        #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="languagePreference != null" >
+        #{languagePreference,jdbcType=BIGINT},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="bust != null" >
+        #{bust,jdbcType=DOUBLE},
+      </if>
+      <if test="hip != null" >
+        #{hip,jdbcType=DOUBLE},
+      </if>
+      <if test="waist != null" >
+        #{waist,jdbcType=DOUBLE},
+      </if>
+      <if test="occupation != null" >
+        #{occupation,jdbcType=BIGINT},
+      </if>
+      <if test="memberLabel != null" >
+        #{memberLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="weChatOpenId != null" >
+        #{weChatOpenId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from t_member
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_member
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.attributeValue0 != null" >
+        attribute_value0 = #{record.attributeValue0,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue1 != null" >
+        attribute_value1 = #{record.attributeValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue2 != null" >
+        attribute_value2 = #{record.attributeValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue3 != null" >
+        attribute_value3 = #{record.attributeValue3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue4 != null" >
+        attribute_value4 = #{record.attributeValue4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue5 != null" >
+        attribute_value5 = #{record.attributeValue5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue6 != null" >
+        attribute_value6 = #{record.attributeValue6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue7 != null" >
+        attribute_value7 = #{record.attributeValue7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue8 != null" >
+        attribute_value8 = #{record.attributeValue8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attributeValue9 != null" >
+        attribute_value9 = #{record.attributeValue9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.birth != null" >
+        birth = #{record.birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.isEnabled != null" >
+        is_enabled = #{record.isEnabled,jdbcType=BIT},
+      </if>
+      <if test="record.isLocked != null" >
+        is_locked = #{record.isLocked,jdbcType=BIT},
+      </if>
+      <if test="record.lockedDate != null" >
+        locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginDate != null" >
+        login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginFailureCount != null" >
+        login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.loginIp != null" >
+        login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vipCode != null" >
+        vip_code = #{record.vipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vipNumber != null" >
+        vip_number = #{record.vipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null" >
+        point = #{record.point,jdbcType=BIGINT},
+      </if>
+      <if test="record.registerIp != null" >
+        register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safeKeyExpire != null" >
+        safe_key_expire = #{record.safeKeyExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.safeKeyValue != null" >
+        safe_key_value = #{record.safeKeyValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipCode != null" >
+        zip_code = #{record.zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=BIGINT},
+      </if>
+      <if test="record.memberRank != null" >
+        member_rank = #{record.memberRank,jdbcType=BIGINT},
+      </if>
+      <if test="record.validateCode != null" >
+        validate_code = #{record.validateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardNumber != null" >
+        card_number = #{record.cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.languagePreference != null" >
+        language_preference = #{record.languagePreference,jdbcType=BIGINT},
+      </if>
+      <if test="record.height != null" >
+        height = #{record.height,jdbcType=DOUBLE},
+      </if>
+      <if test="record.weight != null" >
+        weight = #{record.weight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bust != null" >
+        bust = #{record.bust,jdbcType=DOUBLE},
+      </if>
+      <if test="record.hip != null" >
+        hip = #{record.hip,jdbcType=DOUBLE},
+      </if>
+      <if test="record.waist != null" >
+        waist = #{record.waist,jdbcType=DOUBLE},
+      </if>
+      <if test="record.occupation != null" >
+        occupation = #{record.occupation,jdbcType=BIGINT},
+      </if>
+      <if test="record.memberLabel != null" >
+        member_label = #{record.memberLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weChatOpenId != null" >
+        we_chat_open_id = #{record.weChatOpenId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_member
+    set id = #{record.id,jdbcType=BIGINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      address = #{record.address,jdbcType=VARCHAR},
+      amount = #{record.amount,jdbcType=DECIMAL},
+      attribute_value0 = #{record.attributeValue0,jdbcType=VARCHAR},
+      attribute_value1 = #{record.attributeValue1,jdbcType=VARCHAR},
+      attribute_value2 = #{record.attributeValue2,jdbcType=VARCHAR},
+      attribute_value3 = #{record.attributeValue3,jdbcType=VARCHAR},
+      attribute_value4 = #{record.attributeValue4,jdbcType=VARCHAR},
+      attribute_value5 = #{record.attributeValue5,jdbcType=VARCHAR},
+      attribute_value6 = #{record.attributeValue6,jdbcType=VARCHAR},
+      attribute_value7 = #{record.attributeValue7,jdbcType=VARCHAR},
+      attribute_value8 = #{record.attributeValue8,jdbcType=VARCHAR},
+      attribute_value9 = #{record.attributeValue9,jdbcType=VARCHAR},
+      balance = #{record.balance,jdbcType=DECIMAL},
+      birth = #{record.birth,jdbcType=TIMESTAMP},
+      email = #{record.email,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=INTEGER},
+      is_enabled = #{record.isEnabled,jdbcType=BIT},
+      is_locked = #{record.isLocked,jdbcType=BIT},
+      locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
+      login_date = #{record.loginDate,jdbcType=TIMESTAMP},
+      login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+      login_ip = #{record.loginIp,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      vip_code = #{record.vipCode,jdbcType=VARCHAR},
+      vip_number = #{record.vipNumber,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=BIGINT},
+      register_ip = #{record.registerIp,jdbcType=VARCHAR},
+      safe_key_expire = #{record.safeKeyExpire,jdbcType=TIMESTAMP},
+      safe_key_value = #{record.safeKeyValue,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      zip_code = #{record.zipCode,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=BIGINT},
+      member_rank = #{record.memberRank,jdbcType=BIGINT},
+      validate_code = #{record.validateCode,jdbcType=VARCHAR},
+      card_number = #{record.cardNumber,jdbcType=VARCHAR},
+      country = #{record.country,jdbcType=VARCHAR},
+      language_preference = #{record.languagePreference,jdbcType=BIGINT},
+      height = #{record.height,jdbcType=DOUBLE},
+      weight = #{record.weight,jdbcType=DOUBLE},
+      bust = #{record.bust,jdbcType=DOUBLE},
+      hip = #{record.hip,jdbcType=DOUBLE},
+      waist = #{record.waist,jdbcType=DOUBLE},
+      occupation = #{record.occupation,jdbcType=BIGINT},
+      member_label = #{record.memberLabel,jdbcType=VARCHAR},
+      we_chat_open_id = #{record.weChatOpenId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TMember" >
+    update t_member
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="attributeValue0 != null" >
+        attribute_value0 = #{attributeValue0,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue1 != null" >
+        attribute_value1 = #{attributeValue1,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue2 != null" >
+        attribute_value2 = #{attributeValue2,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue3 != null" >
+        attribute_value3 = #{attributeValue3,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue4 != null" >
+        attribute_value4 = #{attributeValue4,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue5 != null" >
+        attribute_value5 = #{attributeValue5,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue6 != null" >
+        attribute_value6 = #{attributeValue6,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue7 != null" >
+        attribute_value7 = #{attributeValue7,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue8 != null" >
+        attribute_value8 = #{attributeValue8,jdbcType=VARCHAR},
+      </if>
+      <if test="attributeValue9 != null" >
+        attribute_value9 = #{attributeValue9,jdbcType=VARCHAR},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=TIMESTAMP},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isLocked != null" >
+        is_locked = #{isLocked,jdbcType=BIT},
+      </if>
+      <if test="lockedDate != null" >
+        locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginDate != null" >
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginFailureCount != null" >
+        login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      </if>
+      <if test="loginIp != null" >
+        login_ip = #{loginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="vipCode != null" >
+        vip_code = #{vipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="vipNumber != null" >
+        vip_number = #{vipNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=BIGINT},
+      </if>
+      <if test="registerIp != null" >
+        register_ip = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="safeKeyExpire != null" >
+        safe_key_expire = #{safeKeyExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="safeKeyValue != null" >
+        safe_key_value = #{safeKeyValue,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=BIGINT},
+      </if>
+      <if test="memberRank != null" >
+        member_rank = #{memberRank,jdbcType=BIGINT},
+      </if>
+      <if test="validateCode != null" >
+        validate_code = #{validateCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNumber != null" >
+        card_number = #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="languagePreference != null" >
+        language_preference = #{languagePreference,jdbcType=BIGINT},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="bust != null" >
+        bust = #{bust,jdbcType=DOUBLE},
+      </if>
+      <if test="hip != null" >
+        hip = #{hip,jdbcType=DOUBLE},
+      </if>
+      <if test="waist != null" >
+        waist = #{waist,jdbcType=DOUBLE},
+      </if>
+      <if test="occupation != null" >
+        occupation = #{occupation,jdbcType=BIGINT},
+      </if>
+      <if test="memberLabel != null" >
+        member_label = #{memberLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="weChatOpenId != null" >
+        we_chat_open_id = #{weChatOpenId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TMember" >
+    update t_member
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=DECIMAL},
+      attribute_value0 = #{attributeValue0,jdbcType=VARCHAR},
+      attribute_value1 = #{attributeValue1,jdbcType=VARCHAR},
+      attribute_value2 = #{attributeValue2,jdbcType=VARCHAR},
+      attribute_value3 = #{attributeValue3,jdbcType=VARCHAR},
+      attribute_value4 = #{attributeValue4,jdbcType=VARCHAR},
+      attribute_value5 = #{attributeValue5,jdbcType=VARCHAR},
+      attribute_value6 = #{attributeValue6,jdbcType=VARCHAR},
+      attribute_value7 = #{attributeValue7,jdbcType=VARCHAR},
+      attribute_value8 = #{attributeValue8,jdbcType=VARCHAR},
+      attribute_value9 = #{attributeValue9,jdbcType=VARCHAR},
+      balance = #{balance,jdbcType=DECIMAL},
+      birth = #{birth,jdbcType=TIMESTAMP},
+      email = #{email,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_locked = #{isLocked,jdbcType=BIT},
+      locked_date = #{lockedDate,jdbcType=TIMESTAMP},
+      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+      login_ip = #{loginIp,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      vip_code = #{vipCode,jdbcType=VARCHAR},
+      vip_number = #{vipNumber,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      point = #{point,jdbcType=BIGINT},
+      register_ip = #{registerIp,jdbcType=VARCHAR},
+      safe_key_expire = #{safeKeyExpire,jdbcType=TIMESTAMP},
+      safe_key_value = #{safeKeyValue,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      zip_code = #{zipCode,jdbcType=VARCHAR},
+      area = #{area,jdbcType=BIGINT},
+      member_rank = #{memberRank,jdbcType=BIGINT},
+      validate_code = #{validateCode,jdbcType=VARCHAR},
+      card_number = #{cardNumber,jdbcType=VARCHAR},
+      country = #{country,jdbcType=VARCHAR},
+      language_preference = #{languagePreference,jdbcType=BIGINT},
+      height = #{height,jdbcType=DOUBLE},
+      weight = #{weight,jdbcType=DOUBLE},
+      bust = #{bust,jdbcType=DOUBLE},
+      hip = #{hip,jdbcType=DOUBLE},
+      waist = #{waist,jdbcType=DOUBLE},
+      occupation = #{occupation,jdbcType=BIGINT},
+      member_label = #{memberLabel,jdbcType=VARCHAR},
+      we_chat_open_id = #{weChatOpenId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

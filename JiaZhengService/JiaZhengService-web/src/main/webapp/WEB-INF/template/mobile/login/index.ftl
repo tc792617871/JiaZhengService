@@ -1,0 +1,91 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<title>登录/注册</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="icon" href="${base}/favicon.ico" type="image/x-icon" />
+<link href="${base}/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${base}/resources/mobile/js/jquery.min.js"></script>
+<script type="text/javascript" src="${base}/resources/shop/js/jsbn.js"></script>
+<script type="text/javascript" src="${base}/resources/shop/js/prng4.js"></script>
+<script type="text/javascript" src="${base}/resources/shop/js/rng.js"></script>
+<script type="text/javascript" src="${base}/resources/shop/js/rsa.js"></script>
+<script type="text/javascript" src="${base}/resources/shop/js/base64.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/common.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/mobile.js?v=2015092901"></script>
+
+<script type="text/javascript">
+$().ready(function() {
+	var $loginSubmit = $("#loginSubmit");
+	var $loginForm = $("#loginForm");
+	m$.header.titleContent.setTitle('登录/注册');
+	 
+	setInterval(function() {
+	    m$.ui.fixed.fixedTop($('#header'));
+	},
+	500);
+	
+	setInterval(function() {
+	     m$.ui.fixed.fixedBody($('#bdmg'));
+	},
+	500);
+	setInterval(function() {
+	    m$.ui.fixed.fixedWatch($('#footer'));
+	},
+	500);
+	
+	$loginSubmit.click(function(){
+	    var redirectUrl = "${redirectUrl}";
+		m$.business.login.loginSubmit(redirectUrl);
+	});
+	
+	$loginForm.keydown(function(event){
+    	if(event.keyCode == 13){ 
+		   var redirectUrl = "${redirectUrl}";
+		   m$.business.login.loginSubmit(redirectUrl);
+    	}
+    });
+});
+</script>
+
+</head>
+<body class="body_margin" id='bdmg'>
+	<div class="fullscreen">
+		<!-- header -->
+		[#include "/mobile/include/header.ftl" /]
+		<!-- /header -->	
+			<div class="moMobileContent">
+			    <form id="loginForm" action="${base}/mobile/login/loginSubmit.jhtml" method="post">
+					<div class="already-registered">
+						<span>我已注册</span>
+					</div>
+					<div class="box">
+					    <input type="hidden" id="openId" name="openId" value="${openId}"/>
+						<input type="text" id= "username" name="username" placeholder="&nbsp;&nbsp;电子邮箱/手机号码" class="box_input"/>
+					</div>
+					<div class="box">
+						<input type="password" id= "password" name="password" placeholder="&nbsp;&nbsp;密码" class="box_input"/>
+					</div>
+					<div class="box">
+					    <button type="button" id="loginSubmit">登录</button>
+					</div>
+					<div class="box">
+					    <a style="color: #BBB5B5; text-decoration: underline;font-size: 12px;" href="${base}/mobile/login/forgetPwd.jhtml">忘记密码？</a>
+					</div>
+				</form>
+				<div style="margin-bottom:10px;margin-top: 50px;">
+					<span class="box-span">我要注册</span>
+				</div>
+				<div class="box">
+					<button  onClick="location.href='${base}/mobile/register/index.jhtml'">创建用户名</button>
+				</div>
+			</div>
+		<!-- footer -->
+	   [#include "/mobile/include/footer.ftl" /]
+      <!-- /footer -->
+	</div>
+</body>
+</html>

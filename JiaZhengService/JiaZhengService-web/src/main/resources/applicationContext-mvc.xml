@@ -14,11 +14,6 @@
 	<context:property-placeholder location="classpath*:/JiaZheng.properties"
 		ignore-resource-not-found="true" ignore-unresolvable="true" />
 
-	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
-	<mvc:annotation-driven />
-
-	<context:annotation-config />
-
 	<!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
 	<!-- spring mvc 扫描设置: 与spring容器分开加载 -->
 	<!-- 匹配 Controller使用的是context:include-filter包含筛选 -->
@@ -26,6 +21,34 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
+
+	<!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
+	<mvc:annotation-driven validator="validator" />
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/order/**" />
+			<mvc:mapping path="/member/**" />
+			<mvc:mapping path="/mobile/member/**" />
+			<bean id="memberInterceptor"
+				class="com.platform.JiaZhengService.interceptor.MemberInterceptor" />
+		</mvc:interceptor>
+		<!-- 为了防止CSRF攻击，MOSHOP对所有post请求进行了令牌验证，可以在applicationContext-mvc.xml配置文件中禁用部分url的请求验证 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/payment/**" />
+			<!-- start 手机端接口 -->
+			<mvc:exclude-mapping path="/service/**" />
+			<!-- end 手机端接口 -->
+			<bean id="tokenInterceptor"
+				class="com.platform.JiaZhengService.interceptor.TokenInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<bean id="executeTimeInterceptor"
+				class="com.platform.JiaZhengService.interceptor.ExecuteTimeInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 	<bean id="validator"
 		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
