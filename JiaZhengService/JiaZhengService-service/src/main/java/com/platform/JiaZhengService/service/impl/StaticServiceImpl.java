@@ -155,7 +155,9 @@ public class StaticServiceImpl extends BaseServiceImpl implements StaticService,
 	public int buildOther() {
 		int buildCount = 0;
 		Template adminCommonJsTemplate = templateService.get("adminCommonJs");
+		Template mobileCommonJsTemplate = templateService.get("mobileCommonJs");
 		buildCount += build(adminCommonJsTemplate.getTemplatePath(), adminCommonJsTemplate.getStaticPath());
+		buildCount += build(mobileCommonJsTemplate.getTemplatePath(), mobileCommonJsTemplate.getStaticPath());
 		return buildCount;
 	}
 

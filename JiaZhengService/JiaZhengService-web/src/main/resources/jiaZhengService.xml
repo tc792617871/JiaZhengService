@@ -96,5 +96,6 @@
 	<setting name="cnzzPassword" value="6014779044"/> 
 	
 	<template id="adminCommonJs" type="page" name="admin_common_js" templatePath="/admin/js/common.ftl" staticPath="/resources/admin/js/common.js"/>
+	<template id="mobileCommonJs" type="page" name="mobile_common_js" templatePath="/mobile/js/common.ftl" staticPath="/resources/mobile/js/common.js"/>
 	
 </jiaZhengService>
