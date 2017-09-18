@@ -24,4 +24,3 @@
 	     <em></em>
 	 </a>
 </nav>
-[#include "/mobile/include/statistics.ftl" /]

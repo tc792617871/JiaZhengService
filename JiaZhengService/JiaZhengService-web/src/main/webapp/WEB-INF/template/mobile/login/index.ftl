@@ -9,13 +9,13 @@
 <link rel="icon" href="${base}/favicon.ico" type="image/x-icon" />
 <link href="${base}/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/mobile/js/jquery.min.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/jsbn.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/prng4.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/rng.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/rsa.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/base64.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/jsbn.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/prng4.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/rng.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/rsa.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/base64.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/common.js"></script>
-<script type="text/javascript" src="${base}/resources/mobile/js/mobile.js?v=2015092901"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/mobile.js"></script>
 
 <script type="text/javascript">
 $().ready(function() {

@@ -7,7 +7,7 @@
  * Version: 3.0
  */
 
-var moshop = {
+var jiazhengservice = {
 	base: "${base}",
 	locale: "${locale}"
 };
@@ -203,7 +203,7 @@ function message(code) {
 
 	// 跳转登录
 	$.redirectLogin = function (redirectUrl, message) {
-		var href = moshop.base + "/mobile/login/index.jhtml";
+		var href = jiazhengservice.base + "/mobile/login/index.jhtml";
 		if (redirectUrl != null) {
 			href += "?redirectUrl=" + encodeURIComponent(redirectUrl);
 		}
