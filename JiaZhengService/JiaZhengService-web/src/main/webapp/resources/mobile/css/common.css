@@ -94,7 +94,7 @@ input, input[type="submit"], input[type="reset"], input[type="button"],
 	height: auto;
 	bottom: 0;
 	text-align: -webkit-auto;
-	padding: 0 5px 73px 5px
+/* 	padding: 0 5px 73px 5px */
 }
 
 img {
@@ -398,7 +398,8 @@ ul {
 .myaccount-img {
 	float: right;
 	padding-top: 13px;
-	width: 10px
+	width: 7px;
+	margin-right: 11px;
 }
 
 .myaccount-btn {
@@ -2093,13 +2094,16 @@ end 璁㈠��璇����
 /*end 浜у�����绫�*/
 .personalInfo {
 	text-align: center;
-	margin: 0 auto
+	margin: 0 auto;
+/* 	padding: 5px 0; */
+	background: #fff;
+	margin-bottom: 15px;
 }
 
 .personalInfo li {
 	text-align: center;
 	line-height: 40px;
-	border-bottom: 1px solid #000
+	border-bottom: 1px solid #E0E0E0;
 }
 
 .personalInfo table {
