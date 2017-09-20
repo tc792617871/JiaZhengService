@@ -1,707 +1,191 @@
 <!DOCTYPE html>
 <html>
 <head>
-[@seo type = "productContent"]
-	<title>[#if product.seoTitle??]${product.seoTitle}[#elseif seo.title??][@seo.title?interpret /][/#if]</title>
-	[#if product.seoKeywords??]
-		<meta name="keywords" content="${product.seoKeywords}" />
-	[#elseif seo.keywords??]
-		<meta name="keywords" content="[@seo.keywords?interpret /]" />
-	[/#if]
-	[#if product.seoDescription??]
-		<meta name="description" content="${product.seoDescription}" />
-	[#elseif seo.description??]
-		<meta name="description" content="[@seo.description?interpret /]" />
-	[/#if]
-[/@seo]
+<title>${setting.siteName}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="icon" href="${base}/favicon.ico" type="image/x-icon" />
 <link href="${base}/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
+<link href="${base}/resources/mobile/css/product.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/mobile/js/jquery.min.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/common.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/mobile.js"></script>
 <style>
-html {
-  height: 100%;
-}
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 13px;
-  line-height: 1.5;
-  position: relative;
-  height: 100%;
-}
-
-.fullscreen {
-	position: relative;
-	width: 100%;
-	margin: 0 auto;
-	padding: 0 0 0px;
-	background-color: #ffffff;
-	overflow: hidden;
-}
 </style>
 
 <script type="text/javascript">
-$().ready(function() {
-	var $specification = $("#sys_item_specpara");
-	var $specificationTitle = $("#specification div");
-	var $quantity = $("#quantity");
-	var $increase = $("#increase");
-	var $decrease = $("#decrease");
-	var $addCart = $("#addCart");
-	var $currentProductId = $("#currentProductId");
-	var $parameterContent = $(".parameterContent");
-	var $parameterTitle = $(".parameterTitle");
-	var productMap = {};
-	var $addFavorite = $("#addFavorite");
-	var $buyNow = $("#buyNow");
-	//数量初始值
-	$quantity.val(1);
-	[@compress single_line = true]
-	    var availableStock = 0;
-	    if (${product.stock} != null && ${product.allocatedStock} != null) {
-			availableStock = ${product.stock} - ${product.allocatedStock};
-			if (availableStock < 0) {
-				availableStock = 0;
-			}
-		}
-		var productImagesArray = new Array();
-		[#if product.productImages??]
-		    [#list product.productImages as productImage]
-		       var productImageArray = new Array();
-		       productImageArray.push("${productImage.large}");
-		       productImageArray.push(${productImage.order});
-		       productImagesArray.push(productImageArray);
-		    [/#list]
-		[/#if]
-		productMap[${product.id}] = {
-		    id:"${product.id}",
-		    stockNum:availableStock,
-			isMarketable:"${product.isMarketable}",
-			colorThumb:"${product.colorImageThumbnail}",
-			productImages:productImagesArray,
-			specificationValues: [
-				[#list product.specificationValues as specificationValue]
-					"${specificationValue.id}"[#if specificationValue_has_next],[/#if]
-				[/#list]
-			]
-		};
-	[#list product.siblings as product]
-	    var availableStockS = 0;
-	    if (${product.stock} != null && ${product.allocatedStock} != null) {
-			availableStockS = ${product.stock} - ${product.allocatedStock};
-			if (availableStockS < 0) {
-				availableStockS = 0;
-			}
-		}
-		var productImagesArray = new Array();
-		[#if product.productImages??]
-		    [#list product.productImages as productImage]
-		       var productImageArray = new Array();
-		       productImageArray.push("${productImage.large}");
-		       productImageArray.push(${productImage.order});
-		       productImagesArray.push(productImageArray);
-		    [/#list]
-		[/#if]
-		productImagesArray.sort(function(x,y){
-		    return x[1] - y[1];
-		});
-		productMap[${product.id}] = {
-		    id:"${product.id}",
-		    stockNum:availableStockS,
-			isMarketable:"${product.isMarketable}",
-			colorThumb:"${product.colorImageThumbnail}",
-			productImages:productImagesArray,
-			specificationValues: [
-				[#list product.specificationValues as specificationValue]
-					"${specificationValue.id}"[#if specificationValue_has_next],[/#if]
-				[/#list]
-			]
-		};
-	[/#list]
-	[/@compress]
-	
-	// 购买数量
-	$quantity.keypress(function(event) {
-		var key = event.keyCode ? event.keyCode : event.which;
-		if ((key >= 48 && key <= 57) || key==8) {
-			return true;
-		} else {
-			return false;
-		}
+	$().ready(function() {
+		m$.header.titleContent.setTitle('星级.钟点保洁');
 	});
-	
-	// 增加购买数量
-	$increase.click(function() {
-		 m$.business.cart.increase();
-	});
-	
-	// 减少购买数量
-	$decrease.click(function() {
-	    
-	     m$.business.cart.decrease();
-	});
-	
-	// 加入购物车
-	$addCart.click(function() {
-         // 限购商品
-		[#if product.goods.purchase]
-		    var $quantity = $("#quantity");
-            var quantity = $quantity.val();
-		    var purchaseCount = '${product.goods.purchaseCount}';
-		    if(!checkPurchaseCount($currentProductId.val(),purchaseCount,quantity)){
-		        return false;
-		    }
-		[/#if]
-		
-	    m$.business.cart.addCart(${product.specificationValues?size},$currentProductId);
-	});
-	
-	// 点击数
-	m$.business.cart.hits(${product.id});
-	
-	var $specificationValue = $("#sys_item_specpara dl a");
-	
-	//尺码的集合
-	var sizeMap = new Array();
-	//颜色的集合
-	var colorMap = new Array();
-	$.each(productMap, function(i, product) {
-		var color_id = product.specificationValues[0];
-		var size_id = product.specificationValues[1];
-		if(product.isMarketable){
-			sizeMap.push(size_id);
-		    colorMap.push(color_id);
-		}
-	});
-	//尺码颜色值去重
-	var sizeMapUnique = $.unique(sizeMap);
-	var colorMapUnique = $.unique(colorMap);
-	
-	/** 点击商品 */
-	$(".sys_item_specpara").each(function(){
-		var $this=$(this);
-		var $specificationLi=$this.find("ul>li");
-		var id=$(this).attr("id");
-		var p=$(".sys_item_specpara").filter("[id!='"+ id +"']");
-		var i=p.find("ul>li");
-		$specificationLi.click(function(){
-				if(!!$(this).hasClass("locked")){
-					return;
-				}else{
-				if(!!$(this).hasClass("selected")){
-					$(this).removeClass("selected");
-					i.each(function(){
-						$(this).removeClass("locked");
-					});
-				}else{
-					$(this).addClass("selected").siblings("li").removeClass("selected");
-					i.each(function(){
-						$(this).removeClass("locked");
-					});
-					var tempSpecifications = new Array();
-					if($(this).attr("data-code")=="color"){
-						tempSpecifications[parseInt($this.attr("data-sid"))-1] = $(this).attr("data-aid");
-						$.each(productMap, function(i, product) {
-							sizeMapUnique.forEach(function(e){
-							tempSpecifications[1] = e;
-							if((product.specificationValues.toString() == tempSpecifications.toString()) && product.stockNum <= 0){
-							     $("li[data-aid='"+ e +"']").addClass("locked"); 
-							     return false;
-							}
-							});
-						});
-					}else{
-						tempSpecifications[parseInt($this.attr("data-sid"))-1] = $(this).attr("data-aid");
-						$.each(productMap, function(i, product) {
-							colorMapUnique.forEach(function(e){
-							tempSpecifications[0] = e;
-							if((product.specificationValues.toString() == tempSpecifications.toString()) && product.stockNum <= 0){
-							     $("li[data-aid='"+ e +"']").addClass("locked");
-							     return false;
-							}
-							});
-						});
-					}
-					$this.attr("data-attrval",$(this).attr("data-aid"))
-				}
-			}
-			
-			var $specificationValue = $(".sys_item_specpara li");
-			[#if product.specifications?has_content]
-				var specificationValueIds = new Array();
-				$specificationValue.filter(".selected").each(function(i) {
-					specificationValueIds[i] = $(this).attr("data-aid");
-				});
-				
-				$.each(productMap, function(i, product) {
-					if(product.specificationValues.toString() == specificationValueIds.toString()){
-					     $currentProductId.val(product.id); 
-					     return false;
-					}
-				});
-				
-				$.each(productMap, function(i, product) {
-					if(product.specificationValues.toString() == specificationValueIds.toString()){
-					     $currentProductId.val(product.id); 
-					     return false;
-					}
-				});
-			[/#if]
-		});
-	});
-	
-	//设置颜色缩略图
-	$.each(productMap, function(i, product) {
-	    var color_id = product.specificationValues[0];
-		var size_id = product.specificationValues[1];
-		var stock_number = product.stockNum;
-		var isMarketable = product.product;
-	    if(product.isMarketable){
-		    $(".productColorThumbImage").each(function(){
-	            if($(this).attr('data-aid') == color_id.replace("\"","")){
-	                $(this).find('img').attr('src',product.colorThumb);
-	            }
-		     });
-	    }else{
-	        notMarketableSizeMap.push(color_id + "_" + size_id);
-	    }
-	});
-	
-	//初始化面料成分，对于没有属性值得面料成分不展示标题
-	$parameterContent.each(function(){
-	    if($(this).has("span").length == 0){
-	         $(this).siblings(".parameterTitle").each(function(){
-	             $(this).text("");
-	             $(this).parent('.parameter_title_content').css({'margin-bottom':'0'});
-	         });
-	    }
-	});
-	
-	// 添加商品收藏
-    $addFavorite.click(function() {
-        m$.business.cart.favorites(${product.id})
-    });
-	
-	// 立即购买
-	$buyNow.click(function() {
-	     // 限购商品
-		[#if product.goods.purchase]
-		    var $quantity = $("#quantity");
-            var quantity = $quantity.val();
-		    var purchaseCount = '${product.goods.purchaseCount}';
-		    if(!checkPurchaseCount($currentProductId.val(),purchaseCount,quantity)){
-		        return false;
-		    }
-		[/#if]
-	    buyNow(${product.specificationValues?size},$currentProductId);
-	});
-	
-});
-
-function buyNow(specificationValuesSize,$currentProductId) {
-        	var $specificationValue = $(".sys_item_specpara li");
-    	    var $specificationsTitle = $(".specificationsTitle");
-    		var specificationValueIds = new Array();
-    		$specificationValue.filter(".selected").each(function(i) {
-    			specificationValueIds[i] = $(this).attr("data-aid");
-    		});
-    		if (specificationValueIds.length != specificationValuesSize) {
-    			$specificationsTitle.show();
-    			return false;
-    		}else{
-    		    $specificationsTitle.hide();
-    		}
-    		var $quantity = $("#quantity");
-    		var quantity = $quantity.val();
-			if (/^\d*[1-9]\d*$/.test(quantity) && parseInt(quantity) > 0) {
-				$.ajax({
-					url: moshop.base + "/cart/add.jhtml",
-					type: "POST",
-					data: {id: $currentProductId.val() , quantity: quantity},
-					dataType: "json",
-					cache: false,
-					success: function(message) {
-					    if(message['type'] == 'success'){
-			                        document.location.href = moshop.base + '/mobile/member/order/info.jhtml';
-					    }else{
-						    m$.ui.dialog.dialogShow({
-				                'title': '提示',
-				                'content': message['content']
-				            },
-				            [{
-				                'text': '确定'
-				            }])
-					    }
-					}
-				});
-			} else {
-				 m$.ui.dialog.dialogShow({
-	                'title': '错误',
-	                'content': '购买数量必须为正整数'
-	            },
-	            [{
-	                'text': '确定'
-	            }])
-			}
-        }
 </script>
 
 </head>
 <body>
-<div class="fullscreen swiper-container" >
-<!-- start 图片切换区域 -->
-	<div class="swiper-wrapper">
-        [#if productImages ?has_content]
-			[#list productImages as productImage]
-				 <div class="swiper-slide">
-				      [#if product.goods.purchase]
-					      <img src="${productImage.image}@640w_100Q_1x.jpg" onclick="javascript:getImgUrl('http://images.mo-co.com/upload/image/201508/0d396d9d-b55d-4bed-a840-7c4d5411cb71.jpg');" title="${productImage.title}"/>
-					  [#else]
-					      <img src="${productImage.image}@640w_100Q_1x.jpg"  title="${productImage.title}"/>
-					  [/#if]
-		        </div>
-			[/#list]
-		[#else]
-		 <div class="swiper-slide">
-		    <img src="${base}/resources/shop/images/default_thumbnail.png" width="320px"/>
-		 </div>
-		[/#if]
-	</div>
-	<!--
-	<div class="productName">
-	    <ul>
-            <li>
-               <h3 style="word-wrap: break-word;"> ${product.name} </h3>
-            </li>
-        </ul>
-	</div>
-	-->
-	<div class="choiceAndBuyProduct">
-        <ul>
-        <!--
-            <li>
-                <label for="merchantNumber">${message("mobile.product.merchantNumber")}</label>
-                <span id="merchantNumber">${product.goods.merchantNumber}</span>
-            </li>
-           -->
-            <li>
-                <button class="md-trigger plusInfoButton" data-modal="plusInfoModal" />
-            </li>
-        </ul>
-	</div>
-<!-- end 图片切换区域 -->
-<!-- start 尺码选择区 和 商品详情区 -->
-<div class="md-modal md-plusInfoModal" id="plusInfoModal">
-	<div class="md-content"> 
+<div class="fullscreen" >
+	[#include "/mobile/include/header_2.ftl" /]
+	<div class="product_content">
 		<div>
-			<ul style="padding: 0px 0px 0px 0px;" id="specification">
-			    <li>
-			        <h4>${product.name}</h4>
-			        <label for="merchantNumber">${message("mobile.product.merchantNumber")}</label>
-                    <span id="merchantNumber">${product.goods.merchantNumber}</span>
-                    <br />
-                   <!-- <label for="productPrice">￥</label>-->
-                    <span id="productPrice">
-					 [#if product.validPromotions?? && product.validPromotions?size>0]
-						        [#if product.effectivePrice == 0]
-							        ${currency(product.price, true)}
-							    [#else]
-							        ${currency(product.effectivePrice, true)}
-							    [/#if] 
-					[#else]
-					     ${currency(product.price, true)}
-					[/#if] 
-				    
-				    [#if (setting.isShowMarketPrice && product.price != product.marketPrice) ||( product.validPromotions?? && product.validPromotions?size>0 )]
-				          [#if product.effectivePrice != 0]
-						     - <del style="color:#9a9a9a">${currency(product.marketPrice, true)}</del>
-						  [/#if] 
-					[/#if]
-                    </span>
-			    </li>
-				<li>
-				    <div class="plusLinkInfo">
-				         <ul>
-				             <li>
-				                 <button class="md-trigger plusInfoOtherButton" data-modal="compositionAndMaintenanceModal">成分和保养</button>
-				             </li>
-				              <li>
-				                 |
-				             </li>
-				              <li>
-				                 <button class="md-trigger plusInfoOtherButton" data-modal="sizeGuideModal">尺码</button>
-				             </li>
-				             <li>
-				                 |
-				             </li>
-				             <li>
-				                <button class="md-trigger plusInfoOtherButton" data-modal="sendModal">寄送</button>
-				             </li>
-				             <li>
-				                 |
-				             </li>
-				             <li>
-				                 <button class="md-trigger plusInfoOtherButton" data-modal="returnGoodsModal">退货</button>
-				             </li>
-				             [#if product.validPromotions?has_content]
-					             <li>
-					                 |
-					             </li>
-					              <li>
-					                  <button class="md-trigger plusInfoOtherButton" data-modal="promotionModal">促销</button>
-					             </li>
-				             [/#if]
-				         </ul>
-				    </div>
-				</li>
-				<li>
-				   <div class="specificationsTitle">请选择您要的商品信息</div>
-				   <input type="hidden" id="currentProductId" value="" />
-                  <!--颜色-->
-					<dl id="productColor" class="clearfix iteminfo_parameter sys_item_specpara" data-sid="1">
-						<dt>${message("颜色")}</dt>
-						<dd>
-								[#if !product.isGift]
-								    [#if product.specifications?has_content]
-								        [#assign specificationValues = product.goods.specificationValues /]
-								            [#list product.specifications as specification]
-								                ${specification.key}
-											    [#if specification.code == 'color']
-											        <ul class="sys_spec_img" style="padding: 0 0 0px 0px;">
-											        [#list specification.specificationValues as specificationValue]
-											            [#if specificationValues?seq_contains(specificationValue)]
-															 <li class="productColorThumbImage" data-aid="${specificationValue.id}" data-code="${specification.code}">
-															     <a href="javascript:;" title="${specificationValue.name}">
-															         <img src="" alt="${specificationValue.name}" />
-															     </a>
-															     <i></i>
-															</li>
-														 [/#if]
-							                         [/#list]
-													</ul>
-											        [/#if]
-										[/#list]	        
-								    [/#if]
-								[/#if]
-						</dd>
-					</dl>
-				</li>
-				
-				<li>
-                     <!--尺码-->
-					<dl id="productSize" class="clearfix iteminfo_parameter sys_item_specpara" data-sid="2">
-						<dt>${message("尺码")}</dt>
-						<dd>
-								[#if !product.isGift]
-								    [#if product.specifications?has_content]
-								        [#assign specificationValues = product.goods.specificationValues /]
-								            [#list product.specifications as specification]
-								                ${specification.key}
-											    [#if specification.code == 'size' || specification.code == 'shoes_size' || specification.code == 'pants_size']
-											        <ul class="sys_spec_text" style="padding: 0 0 0px 0px;">
-											        [#list specification.specificationValues as specificationValue]
-											            [#if specificationValues?seq_contains(specificationValue)]
-															 <li class="productSizeThumb" data-aid="${specificationValue.id}" data-code="${specification.code}">
-															     <a href="javascript:;" title="${specificationValue.name}">
-															         ${specificationValue.name}
-															     </a>
-															     <i></i>
-															</li>
-														 [/#if]
-							                         [/#list]
-													</ul>
-											        [/#if]
-										[/#list]	        
-								    [/#if]
-								[/#if]
-						</dd>
-					</dl>
-                </li>
-                <li>
-	                <dl id="buyQuantity" class="clearfix buyQuantity" data-sid="3">
-						<dt>${message("数量")}</dt>
-						<dd>
-						     <input type="button" id="decrease" class="decrease" value="-" />
-						    <label  id="quantity" name="quantity" class="quantity"  value="1"  maxlength="4" onpaste="return false;" readonly="readonly">1</label>
-						    <input type="button" id="increase" class="increase" value="+" />
-	                	</dd>
-					</dl>
-                </li>
-			</ul>
-			<div id="cart_favoriteBtn">
-				[#if product.isOutOfStock]
-					<button id="addCart" style="width: 45%;float: left;margin-left: 10px;background-color: white;border: 1px black solid;">
-						<font style="color:black">放进购物篮</font>
-                    </button>
-				[#else]
-					<button id="addCart" style="width: 45%;float: left;margin-left: 10px;background-color: white;border: 1px black solid;">
-						<font style="color:black;padding-left:8px;">放进购物篮</font></button>
-				[/#if]
-				<button id="addFavorite" style="width:45%; margin-right: 10px;background-color: white;border: 1px black solid;">
-					<font style="color:black;padding-left:8px;">收藏商品</font></button>
+			<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1489753786439/12.jpg#12.jpg" width="100%">
+		</div>
+		<div style="margin:0 0px;margin-top:10px;1border-top:1px solid #f6f6f6;">
+			<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1505349234104.jpg" style="display:block;width:100%;margin-bottom:1px;">
+		</div>
+	</div>
+	<div id="cartOrbuy_area" class="buy_footer">
+		<div class="add_cart" onclick="addCart_show();">加入购物车</div>
+		<div class="buy_show" onclick="buy_show();">立即购买</div>
+	</div>
+	<div id="attrSets_area">
+		<span class="attr_hide" onclick="attrHide()">×</span>
+		<div class="product_detail">
+			<div class="goods_name" id="goodsName">
+				钟点保洁
 			</div>
-			<button id="buyNow" style="width: 92.5%;margin-top: 10px;">立即购买</button>
+			<div class="goods_price" id="goodsPrice">
+				25.0元/小时/人
+			</div>
 		</div>
-	</div> 
-</div>
-<!-- the overlay element -->
-<div class="md-overlay"></div>
-
-<!-- end 尺码选择区 和 商品详情区 -->
-
-
-<!-- start 成分和保养-->
-<div class="md-modal md-compositionAndMaintenanceModal" id="compositionAndMaintenanceModal">
-	<div class="md-content"> 
-		<div>
-			<ul>
-			    <li>
-					${product.component}
-			    </li>
-				<li>
-				   [#if product.goods.washingInstructionss?has_content]
-			          [#list product.goods.washingInstructionss as washingInstructions]
-					   <dl>
-							<dt><img src="${washingInstructions.washingIcon}" width="15px"/></dt>
-							<dd>
-								<span>${washingInstructions.instructions}</span>
-							</dd>
-						</dl>
-						<br />
-					[/#list]
-		          [/#if]
-				</li>
-				<li>
-				    <label for="merchantNumber">${message("注意事项:")}</label>
-                    <span id="merchantNumber">${product.mattersNeedingAttention}</span> 
-				</li>
-			</ul>
-			<button class="md-close">关闭</button>
+		<div class="choose_attr_area" id="wrapper">
+			<div class="attrs_area">
+				<label class="choose_attr">选择属性</label>
+				<span class="attribute attr_select" onclick="select_attr(this,'10183');">钟点保洁</span>
+				<span class="attribute" onclick="select_attr(this,'10184');">钟点保洁（17：00后）</span>
+				<span class="attribute" onclick="select_attr(this,'10209');">钟点保洁补拍专用</span>
+				<span class="attribute" onclick="select_attr(this,'10210');">钟点保洁（17:00后）补拍专用</span>
+			</div>
 		</div>
+		<div class="choose_num_area">
+			<input type="hidden" id="xiangmupk" name="xiangmupk" value="10183">
+			<input type="hidden" id="minnum" name="minnum" value="2.0">
+			<input type="hidden" id="maxnum" name="maxnum" value="9999999.0">
+			<label class="choose_num">选择数量</label>
+			<div class="num_input">
+				<label id="subBtn" class="add_sub_disabled" onclick="setNum(-1)">-</label>
+				<input type="number" id="_num" name="_num" value="2.0" onchange="checkNum()" style="">
+				<label id="addBtn" class="add_sub_abled" onclick="setNum(1)" onclick="setNum(1)">+</label>
+			</div>
+		</div>
+		<div id="allsubmit_btn">加入购物车/立即购买</div>
 	</div>
-</div>
-<!-- end 成分和保养-->
-
-
-<!-- start 尺码指南-->
-<div class="md-modal md-sizeGuideModal" id="sizeGuideModal">
-	<div class="md-content"> 
-		<div>
-		    [#if !product.goods.purchase]
-		        <img src="${setting.productSizeGuideImage}" />
-		     [/#if]
-			 [#if product.goods.goodsSizeGuides?exists]
-			     [#if product.goods.goodsSizeGuides?has_content]
-				    [#list product.goods.goodsSizeGuides as goodsSizeGuide]
-						<img src="${goodsSizeGuide.sizeGuideImg}"/>
-					[/#list]
-				[/#if]
-			 [/#if]
-			<button class="md-close">关闭</button>
-		</div>
-	</div>
-</div>
-<!-- end 尺码指南-->
-
-<!-- start 寄送-->
-<div class="md-modal md-sendModal" id="sendModal">
-	<div class="md-content">
-		<div>
-			<ul>
-			    <li>
-			      [@product_transmit_list]
-									 ${productTransmits.transmitCn}
-					[/@product_transmit_list]
-			    </li>
-			</ul>
-			<button class="md-close">关闭</button>
-		</div>
-	</div>
-</div>
-<!-- end 寄送-->
-
-
-<!-- start 退货-->
-<div class="md-modal md-returnGoodsModal" id="returnGoodsModal">
-	<div class="md-content">
-		<div>
-			<ul>
-			    <li>
-			       [@product_transmit_list]
-								        ${productTransmits.returnGoodsCn}
-					[/@product_transmit_list]
-			    </li>
-			</ul>
-			<button class="md-close">关闭</button>
-		</div>
-	</div>
-</div>
-<!-- end 退货-->
-
-
-[#if product.validPromotions?has_content]
-<!-- start 促销-->
-<div class="md-modal md-promotionModal" id="promotionModal">
-	<div class="md-content">
-		<div>
-			<ul>
-				<li>
-				   [#list product.validPromotions as promotion]
-							 ${promotion.introduction}<br />
-					[/#list]
-				</li>
-			</ul>
-			<button class="md-close">关闭</button>
-		</div>
-	</div>
-</div>
-<!-- end 促销-->
- [/#if]
- 
- <!-- footer -->
-  [#include "/mobile/include/footer.ftl" /]
- <!-- footer -->
-</div>
-<script type="text/javascript" src="${base}/resources/mobile/js/modernizr.js"></script>
-<script type="text/javascript" src="${base}/resources/mobile/js/idangerous.swiper.min.js"></script>
-<script>
-  var productContentSwiper = new Swiper('.swiper-container',{
-    paginationClickable: true,
-    mode: 'vertical'
-  })
-</script>
-<div id="a1" style="position:fixed;top:0;left:0;background:#fff; display:none;z-index: 2000;width:100%;height:100%" >
-	<img src="" id="a2" /><a id="left_btn" class="prev"></a><a id="right_btn" class="next"></a>
+	<div id="cover" ontouchmove="event.preventDefault()"></div>
 </div>
 <script>
-	function getImgUrl(dq_img){
-		$("#a2").attr({src:''});
-		body_w = $(window).width();	
-		$("#a2").attr({src:dq_img,width:'100%'});
-		$("body").css('overflow','hidden');
-		$(".main").hide();
-		$("#a1").fadeIn();
+	var xmjson = {"10183":{"c120504002249533":"","c12041910441512":25.0,"tid120419104310340":10183,"c170109095347491":"钟点保洁","c161008165520564":"","c120419104404971":"小时/人","c161009153010364":9999999.0,"c161009152940408":2.0,"c1610081532143":"家庭单位保洁","c161117172008470":null,"c120419104352520":"钟点保洁"},"10209":{"c120504002249533":"","c12041910441512":25.0,"tid120419104310340":10209,"c170109095347491":"钟点保洁","c161008165520564":"","c120419104404971":"小时/人","c161009153010364":9999999.0,"c161009152940408":0.5,"c1610081532143":"家庭单位保洁","c161117172008470":null,"c120419104352520":"钟点保洁补拍专用"},"10184":{"c120504002249533":"","c12041910441512":30.0,"tid120419104310340":10184,"c170109095347491":"钟点保洁","c161008165520564":"","c120419104404971":"小时/人","c161009153010364":9999999.0,"c161009152940408":2.0,"c1610081532143":"家庭单位保洁","c161117172008470":null,"c120419104352520":"钟点保洁（17：00后）"},"10210":{"c120504002249533":"","c12041910441512":30.0,"tid120419104310340":10210,"c170109095347491":"钟点保洁","c161008165520564":"","c120419104404971":"小时/人","c161009153010364":9999999.0,"c161009152940408":0.5,"c1610081532143":"家庭单位保洁","c161117172008470":null,"c120419104352520":"钟点保洁（17:00后）补拍专用"}};
+	function select_attr(obj,tid){
+		var attrs = $('#attrSets_area .attribute');
+		for(var i=0;i<attrs.length;i++){
+			$(attrs[i]).removeClass("attr_select");
+		}
+		$(obj).addClass("attr_select");
+		$('#attrSets_area #xiangmupk').val(xmjson[tid].tid120419104310340);
+		$('#attrSets_area #goodsName').html(xmjson[tid].c120419104352520);
+		$('#attrSets_area #goodsPrice').html(xmjson[tid].c12041910441512+'元/'+xmjson[tid].c120419104404971);
+		$('#attrSets_area #_num').val(xmjson[tid].c161009152940408);
+		$('#attrSets_area #minnum').val(xmjson[tid].c161009152940408);
+		$('#attrSets_area #maxnum').val(xmjson[tid].c161009153010364);
+		//$('#attrSets_area #num_area').html(xmjson[tid].c161009152940408);
 	}
-	$("#a2").mousemove(function(e){
-		body_h = $(window).height();
-		img_h  = $("#a2").height();
-		mouse_y = e.clientY;
-		bfb     = mouse_y/body_h;
-		y       = (img_h*bfb);
-		if (y-body_h<0)return;
-		$("#a1").css("top",-(y-body_h));
-	})
-	$("#a2").click(function(){
-		$("#a1").hide();
-		$("body").css('overflow','auto');
-		$(".main").show();
-	})
+	function setBtn(){
+		var minnum = Number($('#minnum').val());
+		var maxnum = Number($('#maxnum').val());
+		var num = Number($('#_num').val());
+		if(num<=minnum){
+			$('#subBtn').attr('class','add_sub_disabled');
+			$('#addBtn').attr( "onclick",'');
+		}else{
+			$('#subBtn').attr('class','add_sub_abled');
+			$('#subBtn').attr( "onclick",'setNum(-1)');
+		}
+		if(num>=maxnum){
+			$('#addBtn').attr('class','add_sub_disabled');
+			$('#addBtn').attr( "onclick",'' );
+		}else{
+			$('#addBtn').attr('class','add_sub_abled');
+			$('#addBtn').attr( "onclick",'setNum(1)');
+		}
+	}
+	function setNum(n){
+		var minnum = Number($('#minnum').val());
+		var maxnum = Number($('#maxnum').val());
+		var num = Number($('#_num').val());
+		if(num+n<minnum||num+n>maxnum){
+			return;
+		}
+		num=num+n;
+		$('#_num').val(num);
+		//$('#num_area').html(num);
+		setBtn();
+	}
+	function checkNum(){
+		var minnum = Number($('#minnum').val());
+		var maxnum = Number($('#maxnum').val());
+		var num = Number($('#_num').val());
+		if(num<minnum){
+			$('#_num').val(minnum);
+		}else if(num>maxnum){
+			$('#_num').val(maxnum);
+		}
+		setBtn();
+	}
+	var isLogin;
+	
+	function addCart_show(){
+		if(!isLogin){
+			switchView('bigview','loginview');
+			return;
+		}
+		//$('#cartOrbuy_area').hide();
+		$('#cover').show();
+		$('#allsubmit_btn').css({'background':'#FE9A2E'});
+		$('#allsubmit_btn').html('加入购物车');
+		$('#allsubmit_btn').attr('onclick','addCart()');
+		$('#attrSets_area').slideDown(function(){initScroll();});
+	}
+	function buy_show(){
+		//$('#cartOrbuy_area').hide();
+		$('#cover').show();
+		$('#allsubmit_btn').css({'background':'#DC0404'});
+		$('#allsubmit_btn').html('立即购买');
+		$('#allsubmit_btn').attr('onclick','buy()');
+		$('#attrSets_area').slideDown(function(){initScroll();});
+	}
+	function buy(){
+		gotourl('http://meiaijie.wx.toohuu.com:80/wx/appoint.jsp?xiangmupk='+$('#xiangmupk').val()+'&num='+$('#_num').val());
+	}
+	function attrHide(){
+		$('#attrSets_area').slideUp();
+		$('#cover').hide();
+	}
+	function addCart(){
+		$.ajax({  
+			type:'post',   
+			async:true,
+			url:'http://meiaijie.wx.toohuu.com:80/wx/jzbj/action.jsp?_r=1505805301196',
+			data:{
+					//kehu_id:$('#fwryzhanghao').val(),
+					xiangmupk:$('#xiangmupk').val(),
+					_num:$('#_num').val(),
+					method:'addCart'
+			},
+			complete:function(data){
+				if('1'==data.responseText){
+					$.MsgBox.toast({message:'加入购物车成功！',top:(H-200)+'px'});
+					attrHide();
+				}else{
+					$.MsgBox.alert({message:'加入购物车失败，请重试！'});
+				}
+			}  
+		})
+	}
+	var myScroll;
+	function initScroll () {
+		if(!myScroll){
+			myScroll = new IScroll('#wrapper', { mouseWheel: true,click:true});
+		}
+	}
 </script>
+<script type="text/javascript" src="${base}/resources/mobile/js/iscroll-lite.js"></script>
 </body>
 </html>

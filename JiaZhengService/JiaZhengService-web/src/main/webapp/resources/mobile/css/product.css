@@ -1,0 +1,285 @@
+/*商品分类css start*/
+
+.category-area{
+	
+}
+
+.first-category {
+	position: absolute;
+	top: 30px;
+	left: 0;
+	width: 100%;
+	z-index: 100;
+}
+
+.first-category span {
+	display: block;
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	color: #b6b6b6;
+	font-size: 14px;
+	text-align: center;
+	border-right: 1px solid #DADADA;
+}
+
+.first-category .selected {
+	border-right: 1px solid #fff;
+	border-top: 1px solid #DADADA;
+	border-bottom: 1px solid #DADADA;
+	background: #fff;
+	color: #333;
+}
+
+.p_area {
+	width: 100%;
+}
+
+.p_area label {
+	display: block;
+	color: #c6c6c6;
+	font-size: 14px;
+	height: 26px;
+	line-height: 26px;
+	border-bottom: 1px solid #e6e6e6;
+}
+
+.product_item {
+	height: 50px;
+	padding: 15px 10px 15px 15px;
+}
+
+.product_item img {
+	display: block;
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-right: 15px;
+}
+
+.product_item .title {
+	display: block;
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+}
+
+.product_item .description {
+	display: block;
+	line-height: 16px;
+	font-size: 12px;
+	color: #bbb;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+/*商品分类css end*/
+
+/*商品详情css start*/
+.product_content {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	padding: 50px 0 55px 0;
+}
+
+.buy_footer {
+	color: white;
+	font-size: 20px;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	z-index: 999;
+}
+
+.buy_footer .add_cart {
+	float: left;
+	width: 50%;
+	background: #FE9A2E;
+}
+
+.buy_footer .buy_show {
+	float: left;
+	width: 50%;
+	background: #DC0404;
+}
+
+#attrSets_area {
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	height: 410px;
+	z-index: 999;
+	background: #fff;
+	border-top: 1px #ddd solid;
+	display: none;
+	font-size: 14px;
+}
+
+.attr_hide {
+	display: block;
+	position: absolute;
+	right: 5px;
+	top: 0;
+	font-size: 22px;
+	color: #666;
+	z-index: 1002;
+}
+
+.product_detail {
+	position: absolute;
+	top: 0;
+	z-index: 1001;
+	height: 44px;
+	width: 100%;
+	background: #fff;
+	padding: 3px 0;
+	border-bottom: 1px solid #F0F0F0;
+}
+
+.product_detail .goods_name {
+	color: #333;
+	line-height: 22px;
+	text-align: center;
+}
+
+.product_detail .goods_price {
+	color: #DC0404;
+	line-height: 22px;
+	text-align: center;
+}
+
+.choose_attr_area {
+	position: absolute;
+	top: 51px;
+	bottom: 80px;
+	width: 100%;
+	z-index: 1000;
+	overflow: hidden;
+}
+
+.choose_attr_area .attrs_area {
+	padding: 10px 0;
+}
+
+.attrs_area .choose_attr {
+	display: block;
+	line-height: 20px;
+	text-align: left;
+	text-indent: 10px;
+}
+
+.attrs_area .attribute {
+	display: block;
+	line-height: 30px;
+	font-size: 12px;
+	color: #ccc;
+	border: 1px solid #ccc;
+	margin: 8px;
+	text-align: center;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.attrs_area .attr_select {
+	color: #DC0404;
+	border: 1px solid #DC0404;
+}
+
+.choose_num_area {
+	position: absolute;
+	bottom: 40px;
+	background: #fff;
+	width: 100%;
+	height: 30px;
+	padding: 10px 0;
+	border-top: 1px solid #F0F0F0;
+	z-index: 1001;
+}
+
+.choose_num_area .choose_num {
+	display: block;
+	float: left;
+	line-height: 30px;
+	text-align: left;
+	margin-left: 10px;
+}
+
+.choose_num_area .num_input {
+	float: right;
+	margin-right: 10px;
+}
+
+.num_input input {
+	display: block;
+    float: left;
+    width: 45px;
+    height: 26px;
+    text-align: center;
+    line-height: 28px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+}
+
+.add_sub_abled {
+	display: block;
+	float: left;
+	border: 1px solid #DC0404;
+	color: #DC0404;
+	width: 30px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.add_sub_disabled {
+	display: block;
+	float: left;
+	border: 1px solid #ccc;
+	color: #ccc;
+	width: 30px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+#allsubmit_btn {
+	color: #fff;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	z-index: 1001;
+	width: 100%;
+}
+
+#cover {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 200;
+	width: 100%;
+	height: 100%;
+	background: black;
+	filter: alpha(opacity = 60);
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	display: none;
+}
+
+/*商品详情css end*/

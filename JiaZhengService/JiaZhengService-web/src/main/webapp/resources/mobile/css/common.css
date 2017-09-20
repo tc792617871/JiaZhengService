@@ -269,7 +269,7 @@ ul {
 }
 
 .body_margin {
-	margin-top: 41px;
+	margin-top: 51px;
 }
 
 .buyQuantity {
@@ -2526,5 +2526,62 @@ input[type=checkbox].confirmCheckBox {
 	margin-top: -3px;
 	display: inline;
 }
-
 /* end paymentPluginModal:  slide and stick to bottom */
+
+/*header版本2 start*/
+.header_2{
+	position: fixed;
+    top: 0px;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    height: 50px;
+    line-height: 50px;
+    font-size: 24px;
+    text-align: center;
+    z-index: 999;
+}
+
+.header_2 .backArrow_area {
+	position: absolute;
+	left: 10px;
+	height: 50px;
+}
+
+.backArrow_area .backArrow {
+    display: block;
+    float: left;
+    width: 16px;
+    height: 16px;
+    margin-top: 15px;
+    border-left: 4px solid #DC0404;
+    border-bottom: 4px solid #DC0404;
+    webkit-transform: scale(0.75, 0.75) rotate(45deg);
+    transform: scale(0.75, 0.75) rotate(45deg);
+}
+
+#headerTitleContent {
+	margin: 0 36px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 20px;
+}
+
+.header_2 .cart_area {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	height: 50px;
+}
+
+.cart_area span.cartIcon {
+	display: block;
+	width: 22px;
+	height: 22px;
+	background: url(../images/cart1.png) no-repeat;
+	background-size: 22px 22px;
+	margin-top: 13px;
+}
+
+/*header版本2 end*/

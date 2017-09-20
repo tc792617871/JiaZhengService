@@ -172,7 +172,7 @@ function message(code) {
 	$.checkLogin = function() {
 		var result = false;
 		$.ajax({
-			url: moshop.base + "/login/check.jhtml",
+			url: jiazhengservice.base + "/login/check.jhtml",
 			type: "GET",
 			dataType: "json",
 			cache: false,
@@ -188,7 +188,7 @@ function message(code) {
 	$.alreadyPurchasedQty = function(productId) {
 		var result = 0;
 		$.ajax({
-			url: moshop.base + "/cart/alreadyPurchasedQty.jhtml",
+			url: jiazhengservice.base + "/cart/alreadyPurchasedQty.jhtml",
 			type: "GET",
 			data: {productId: productId},
 			dataType: "json",
@@ -294,7 +294,7 @@ function timeStamp2String(time){
 function getCartNumber(){
 	var $navCartQuantity = $("#navCartQuantity");
 	$.ajax({
-		url: moshop.base+"/cart/quantity.jhtml",
+		url: jiazhengservice.base+"/cart/quantity.jhtml",
 		type: "GET",
 		dataType: "json",
 		cache: false,

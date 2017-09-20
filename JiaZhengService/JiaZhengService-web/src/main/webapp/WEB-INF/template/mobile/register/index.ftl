@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>注册</title>
+<title>${setting.siteName}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -25,27 +25,12 @@ $().ready(function() {
 	 $registerSubmit.click(function(){
 		m$.register.registerUser.submit();
 	});
-
-    setInterval(function () {
-	   m$.ui.fixed.fixedTop($('#header'));
-	}, 500);
-	
-	setInterval(function () {
-	   m$.ui.fixed.fixedBody($('#bdmg'));
-	}, 500);
-	
-	setInterval(function () {
-	   m$.ui.fixed.fixedWatch($('#footer'));
-	}, 500);
-	
 });
 </script>
 </head>
 <body class="body_margin" id='bdmg'>
 	<div class="fullscreen">
-		<!-- header -->
-		[#include "/mobile/include/header.ftl" /]
-		<!-- /header -->		
+		[#include "/mobile/include/header_2.ftl" /]
 		<form id="registerForm" action="${base}/mobile/register/registSubmit.jhtml" method="get" >
 			<div class="moMobileContent">
 				<div class="box">
@@ -71,9 +56,7 @@ $().ready(function() {
 				</div>
 			</div>		
 		</form>
-		<!-- footer -->
-	       [#include "/mobile/include/footer.ftl" /]
-      	<!-- /footer -->
+       [#include "/mobile/include/footer.ftl" /]
     </div>
 </body>
 </html>
