@@ -15,42 +15,6 @@
 	.slider{display:none}
 	.focus span{width:10px;height:10px;margin-right:10px;border-radius:50%;background:#666;font-size:0}
 	.focus span.current{background:#fff}
-	.ui-categorys {
-	    width: 100%;
-    	border-top: 1px solid #E0E0E0;
-	}
-	.category-item {
-		border-bottom: 1px solid #E0E0E0;
-	    height: 50px;
-	    padding: 15px 10px 15px 15px;
-	}
-	.category-item img {
-	    display: block;
-	    width: 50px;
-	    height: 50px;
-	    float: left;
-	    margin-right: 15px;
-	}
-	.category-item .title {
-	    display: block;
-	    line-height: 18px;
-	    font-size: 14px;
-	    font-weight: bold;
-	    color: #333;
-	}
-	.category-item .description {
-	    display: block;
-	    line-height: 16px;
-	    font-size: 12px;
-	    color: #bbb;
-	    word-break: break-all;
-	    text-overflow: ellipsis;
-	    display: -webkit-box;
-	    -webkit-box-orient: vertical;
-	    -webkit-line-clamp: 2;
-	    overflow: hidden;
-	}
-	
 </style>
 </head>
 <body>

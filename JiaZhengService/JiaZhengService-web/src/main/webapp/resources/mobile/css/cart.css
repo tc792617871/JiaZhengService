@@ -1,0 +1,139 @@
+.ui-cartList {
+	width: 100%;
+	margin-top: 10px;
+	border-bottom: 1px solid #E0E0E0;
+	border-top: 1px solid #E0E0E0;
+	overflow: hidden;
+	background: #fff;
+}
+
+.ui-cartList .cart-item {
+	width: 100%;
+	overflow: hidden;
+}
+
+.cart-item .cart-item-select {
+	line-height: 41px;
+	padding: 0 0 0 9px;
+	border-bottom: 1px solid #E0E0E0;
+}
+
+.cart-item-select-checkbox input[type='checkbox'] {
+	margin: 14px 3px 0 0;
+	padding: 0;
+}
+
+.cart-item-select-checkbox a.item-delete{
+	display: inline-block;
+	float: right;
+	width: 70px;
+	height: 44px;
+	text-align: center;
+	color: #fff;
+	background: #e22a30;
+	line-height: 44px;
+	font-size: 18px;
+}
+
+.cart-item .cart-item-content {
+	overflow: hidden;
+	padding: 5px 8px;
+}
+
+.cart-item-content img {
+	display: block;
+	width: 80px;
+	height: 80px;
+	float: left;
+	margin-right: 15px;
+}
+
+.cart-item-content .title {
+	display: block;
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+}
+
+.cart-item-content .price {
+	display: block;
+	line-height: 42px;
+	font-size: 14px;
+	color: #e6393d;
+	overflow: hidden;
+}
+
+.cart-item-content .num_input {
+	float: right;
+	margin-right: 10px;
+	margin-top: -10px;
+}
+
+.cart-total {
+	position: fixed;
+	width: 100%;
+	height: 41px;
+	text-align: center;
+	opacity: .95;
+	z-index: 2000;
+	bottom: 0;
+	background-color: #EEEEEE;
+	margin: 0 auto;
+}
+
+.cart-total .select-all {
+	float: left;
+	height: 41px;
+	line-height: 41px;
+	padding: 0 0 0 9px;
+	white-space: nowrap;
+}
+
+.cart-checkbox {
+	position: relative;
+	z-index: 3;
+	float: left;
+	margin-right: 5px;
+}
+
+.cart-checkbox input[type='checkbox'] {
+	margin: 14px 3px 0 0;
+	padding: 0;
+}
+
+.cart-but {
+	height: 41px;
+	line-height: 41px;
+	padding: 0px;
+}
+
+.cart-but a.cart-but-sett {
+	display: inline-block;
+	float: right;
+	width: 157px;
+	height: 41px;
+	text-align: center;
+	color: #fff;
+	background: #e22a30;
+	line-height: 41px;
+	font-size: 24px;
+}
+
+.cart-but .cTotal-amo {
+	padding-right: 10px;
+	line-height: 41px;
+	float: right;
+}
+
+.cart-but .cTotal-amo em {
+	font-style: normal;
+	font-weight: bold;
+}
+
+.cart-but .cTotal-amo span {
+	color: #c92026;
+	font-size: 22px;
+	position: relative;
+	top: 3px;
+}

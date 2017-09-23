@@ -1,6 +1,5 @@
 /*商品分类css start*/
-
-.category-area{
+.category-area {
 	
 }
 
@@ -215,45 +214,6 @@
 .choose_num_area .num_input {
 	float: right;
 	margin-right: 10px;
-}
-
-.num_input input {
-	display: block;
-    float: left;
-    width: 45px;
-    height: 26px;
-    text-align: center;
-    line-height: 28px;
-    margin: 0 5px;
-    border: 1px solid #ccc;
-}
-
-.add_sub_abled {
-	display: block;
-	float: left;
-	border: 1px solid #DC0404;
-	color: #DC0404;
-	width: 30px;
-	height: 28px;
-	line-height: 28px;
-	text-align: center;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-}
-
-.add_sub_disabled {
-	display: block;
-	float: left;
-	border: 1px solid #ccc;
-	color: #ccc;
-	width: 30px;
-	height: 28px;
-	line-height: 28px;
-	text-align: center;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
 }
 
 #allsubmit_btn {

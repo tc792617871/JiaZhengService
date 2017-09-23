@@ -20,9 +20,7 @@ $().ready(function() {
 </head>
 <body class="body_margin">
 	<div class="fullscreen">
-		<!-- header -->
 		[#include "/mobile/include/header_2.ftl" /]
-		<!-- /header -->
 		<div class="moMobileContent">
 			<div class="chief_info_area">
 				<div class="chief_info">

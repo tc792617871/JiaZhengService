@@ -41,11 +41,6 @@ button {
 	border: 0
 }
 
-input, input[type="submit"], input[type="reset"], input[type="button"],
-	button {
-	-webkit-appearance: inherit
-}
-
 .index_category {
 	width: 100%;
 	margin-bottom: 5px
@@ -94,7 +89,7 @@ input, input[type="submit"], input[type="reset"], input[type="button"],
 	height: auto;
 	bottom: 0;
 	text-align: -webkit-auto;
-/* 	padding: 0 5px 73px 5px */
+	/* 	padding: 0 5px 73px 5px */
 }
 
 img {
@@ -2095,7 +2090,7 @@ end 璁㈠��璇����
 .personalInfo {
 	text-align: center;
 	margin: 0 auto;
-/* 	padding: 5px 0; */
+	/* 	padding: 5px 0; */
 	background: #fff;
 	margin-bottom: 15px;
 }
@@ -2533,17 +2528,17 @@ input[type=checkbox].confirmCheckBox {
 /* end paymentPluginModal:  slide and stick to bottom */
 
 /*header版本2 start*/
-.header_2{
+.header_2 {
 	position: fixed;
-    top: 0px;
-    width: 100%;
-    background: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    height: 50px;
-    line-height: 50px;
-    font-size: 24px;
-    text-align: center;
-    z-index: 999;
+	top: 0px;
+	width: 100%;
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
+	height: 50px;
+	line-height: 50px;
+	font-size: 24px;
+	text-align: center;
+	z-index: 999;
 }
 
 .header_2 .backArrow_area {
@@ -2553,15 +2548,15 @@ input[type=checkbox].confirmCheckBox {
 }
 
 .backArrow_area .backArrow {
-    display: block;
-    float: left;
-    width: 16px;
-    height: 16px;
-    margin-top: 15px;
-    border-left: 4px solid #DC0404;
-    border-bottom: 4px solid #DC0404;
-    webkit-transform: scale(0.75, 0.75) rotate(45deg);
-    transform: scale(0.75, 0.75) rotate(45deg);
+	display: block;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin-top: 15px;
+	border-left: 4px solid #DC0404;
+	border-bottom: 4px solid #DC0404;
+	webkit-transform: scale(0.75, 0.75) rotate(45deg);
+	transform: scale(0.75, 0.75) rotate(45deg);
 }
 
 #headerTitleContent {
@@ -2587,5 +2582,42 @@ input[type=checkbox].confirmCheckBox {
 	background-size: 22px 22px;
 	margin-top: 13px;
 }
-
 /*header版本2 end*/
+.num_input input {
+	display: block;
+	float: left;
+	width: 45px;
+	height: 26px;
+	text-align: center;
+	line-height: 28px;
+	margin: 0 5px;
+	border: 1px solid #ccc;
+}
+
+.add_sub_abled {
+	display: block;
+	float: left;
+	border: 1px solid #DC0404;
+	color: #DC0404;
+	width: 30px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.add_sub_disabled {
+	display: block;
+	float: left;
+	border: 1px solid #ccc;
+	color: #ccc;
+	width: 30px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}

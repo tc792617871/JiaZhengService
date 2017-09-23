@@ -1,0 +1,186 @@
+.order-content {
+	overflow: hidden;
+	padding: 5px 8px;
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.order-content img {
+	display: block;
+	width: 80px;
+	height: 80px;
+	float: left;
+	margin-right: 15px;
+}
+
+.order-content .title {
+	display: block;
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+}
+
+.order-content .price {
+	display: block;
+	line-height: 42px;
+	font-size: 14px;
+	color: #e6393d;
+	overflow: hidden;
+}
+
+.order-content .num_input {
+	float: right;
+	margin-right: 10px;
+	margin-top: -10px;
+}
+
+.order-items {
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.order-items table {
+	width: 100%;
+}
+
+.order-items-brief {
+	overflow: hidden;
+	padding: 5px 8px;
+}
+
+.order-items-brief img {
+	display: block;
+	width: 80px;
+	height: 80px;
+	float: left;
+	margin-right: 15px;
+}
+
+}
+.order-items-brief .title {
+	display: block;
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #333;
+}
+
+.order-items-brief .description {
+	display: block;
+	line-height: 60px;
+	font-size: 14px;
+	color: #e6393d;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.rightArrow {
+	float: right;
+	width: 7px;
+	margin-right: 11px;
+}
+
+.order-info {
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.order-info li table {
+	width: 100%;
+}
+
+.imgIcon {
+	display: block;
+	width: 35px;
+	height: 35px;
+	float: left;
+	/* 	margin-right: 15px; */
+}
+
+span.tableSpan {
+	line-height: 32px;
+}
+
+.order-info li.bottomBorder {
+	border-bottom: 1px solid #E0E0E0;
+}
+
+.order-info .order-address table label {
+	margin-left: 50px;
+}
+
+.order-info .orderAreaSquare input {
+	border-radius: 0;
+	font-size: 13px;
+	width: 66px;
+	height: 32px;
+	padding-left: 0;
+	border: none;
+}
+
+.order-info-memo {
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.order-info-memo table {
+	width: 100%;
+}
+
+.order-info-memo input {
+	border-radius: 0;
+	font-size: 13px;
+	width: 100%;
+	height: 60px;
+	padding-left: 0;
+	border: none;
+	background: url(../icons/location_icon_mobile.png) center left no-repeat;
+	background-size: 35px 35px;
+	padding-left: 35px;
+}
+
+.order-info-memo input::-webkit-input-placeholder {
+	color: #c0c0c0;
+	left: 100px;
+}
+
+.order-info-total {
+	background: #fff;
+	margin-bottom: 10px;
+}
+
+.order-info-total table {
+	width: 100%;
+}
+
+.order-info-total .totalPrice {
+	float: right;
+	margin-right: 11px;
+	color: red;
+}
+
+.submit_order_info_area {
+	color: white;
+	font-size: 20px;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 41px;
+	line-height: 41px;
+	text-align: center;
+	z-index: 999;
+	padding: 5px 0;
+}
+
+.submit_order_info_area .submit_order_info {
+	width: 96%;
+	height: 41px;
+	background: #DC0404;
+	margin-left: 2%;
+	border-radius: 7px;
+}
