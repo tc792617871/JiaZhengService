@@ -22,4 +22,17 @@ public class MemberController extends AbstractController {
 		return "/mobile/member/index";
 	}
 
+	@RequestMapping(value = "/myOrder", method = RequestMethod.GET)
+	public String myOrder(ModelMap model) {
+		return "/mobile/member/myOrder";
+	}
+
+	/**
+	 * 订单详情页面
+	 */
+	@RequestMapping(value = "/orderDetails", method = RequestMethod.GET)
+	public String listOrderDetails(Long id, ModelMap model) {
+		return "/mobile/member/orderDetails";
+	}
+
 }

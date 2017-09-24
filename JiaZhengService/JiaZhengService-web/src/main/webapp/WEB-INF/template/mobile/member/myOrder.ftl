@@ -1,133 +1,180 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>我的订单</title>
+<title>${setting.siteName}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="icon" href="${base}/favicon.ico" type="image/x-icon" />
 <link href="${base}/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
+<link href="${base}/resources/mobile/css/myOrder.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/mobile/js/jquery.min.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/common.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/mobile.js"></script>
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle("我的订单");
+	$(".header_2 .cart_area").remove();
+	$(".header_2 .home_area").remove();
+	
+	//setCheckCate(document.getElementById('noend'),'noend');
 });
-
-var nextOrderPageHtml = '';
-var listData = '';
-var scrollbarLocation = 0;
-var pageParams = {
-	pageNumber : 1,
-	pageCount : ${totalPage},
-	pageSize : 6,
-	total:0,
-	totalPages:0
-}
 </script>
 </head>
 <body class="body_margin">
-	<div class="fullscreen">
-		<!-- header -->
-		[#include "/mobile/include/header.ftl" /]
-		<!-- /header -->
-		
-		<div class="moMobileContent">
-		   <ul class="myOrderList" id="myOrderList">
-		        <button onClick="window.location='${base}/mobile/member/moreMyOrder.jhtml';">查看更多</button>
-				[#if page.content?has_content]
-					[#list page.content as order]
-					    	<li onClick="window.location='${base}/mobile/member/orderDetails.jhtml?id=${order.id}';">
-					    	    <table>
-					    	        <tr>
-					    	            <td rowspan="7">
-					    	                <img src="${order.orderItems[0].product.listCoverImage}@100w_100Q_1x.jpg"  datasrc="${order.orderItems[0].product.listCoverImage}@100w_100Q_1x.jpg"  haslazy="true" />
-					    	            </td>
-					    	            <th>
-					    	                <label for="orderSn">订单编号：</label>
-					    	                <span id="orderSn">${order.sn}</span>
-					    	            </th>
-					    	             <td rowspan="7">
-					    	                <img src="${base}/resources/mobile/images/icon_rightarrow.png" datasrc="${base}/resources/mobile/images/icon_rightarrow.png"  width="8px">
-					    	            </td>
-					    	        </tr>
-					    	         <tr>
-					    	            <td>
-					    	                <label for="orderStatus">订单状态：</label>
-					    	                <span id="orderStatus">
-					    	                  ${message("Order.OrderStatus." + order.orderStatus)}
-							                  [#if order.expired]<span class="gray">(${message("admin.order.hasExpired")})</span>[/#if]
-					    	                </span>
-					    	            </td>
-					    	        </tr>
-					    	         <tr>
-					    	            <td>
-					    	                <label for="paymentStatus">支付状态：</label>
-					    	                <span id="paymentStatus">${message("Order.PaymentStatus." + order.paymentStatus)}</span>
-					    	            </td>
-					    	        </tr>
-					    	         <tr>
-					    	            <td>
-					    	                <label for="shippingStatus">配送状态：</label>
-					    	                <span id="shippingStatus">${message("Order.ShippingStatus." + order.shippingStatus)}</span>
-					    	            </td>
-					    	        </tr>
-					    	         <tr>
-					    	            <td>
-					    	                <label for="orderCreateDate">成交日期：</label>
-					    	                <span id="orderCreateDate">${order.createDate}</span>
-					    	            </td>
-					    	        </tr>
-					    	         <tr>
-					    	            <td>
-					    	                <label for="orderQuantity">商品总数：</label>
-					    	                <span id="orderQuantity">${order.quantity}</span>
-					    	            </td>
-					    	        </tr>
-					    	         <tr>
-					    	           <td>
-					    	                <label for="orderAmount">实付金额：</label>
-					    	                <span id="orderAmount">${currency(order.amount, true)}</span>
-					    	            </td>
-					    	        </tr>
-					    	    </table>
-					    	</li>
-					[/#list]
-					<li class="page_loading" id="pageLoading">
-					    <div class="loading">
-					        <div class="rotate"></div>
-					    </div>
-					</li>
-				[#else]
-				    <li style="text-align: center;padding-top: 50px;">
-					     暂无订单	
-					</li>
-				[/#if]
-			</ul>
+	<div id="container">
+		[#include "/mobile/include/header_2.ftl" /]
+		<div id="bigcates">
+			<input type="hidden" id="currid" name="currid" value="">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td class="nocheckCate checkCate" id="noend" onClick="setCheckCate(this,'noend')">未完成订单</td>
+					<td class="nocheckCate" id="end" onClick="setCheckCate(this,'end')">已完成订单</td>
+					<td class="nocheckCate" id="noPJ" onClick="setCheckCate(this,'noPJ')">待评价订单</td>
+					<td class="nocheckCate" id="DQ" onClick="setCheckCate(this,'DQ')">定期服务</td>
+				</tr>
+			</table>
+		</div>
+		<div class="order-list">
+			<div id="smallcates">
+				<div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="center" class="pgdnum">111111</td>
+							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
+						</tr>
+					</table>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+						<tr><td class="pgddetail">服务项目：1111</td></tr>
+					    <tr><td class="pgddetail">服务地址：11111</td></tr>
+						<tr><td class="pgddetail">开始时间：1111</td></tr>
+					 </table><span class="rightArrow"></span>
+				  </div>
+				  <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="center" class="pgdnum">111111</td>
+							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
+						</tr>
+					</table>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+						<tr><td class="pgddetail">服务项目：1111</td></tr>
+					    <tr><td class="pgddetail">服务地址：11111</td></tr>
+						<tr><td class="pgddetail">开始时间：1111</td></tr>
+					 </table><span class="rightArrow"></span>
+				  </div>
+				  <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="center" class="pgdnum">111111</td>
+							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
+						</tr>
+					</table>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+						<tr><td class="pgddetail">服务项目：1111</td></tr>
+					    <tr><td class="pgddetail">服务地址：11111</td></tr>
+						<tr><td class="pgddetail">开始时间：1111</td></tr>
+					 </table><span class="rightArrow"></span>
+				  </div>
+				  <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="center" class="pgdnum">111111</td>
+							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
+						</tr>
+					</table>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
+						<tr><td class="pgddetail">服务项目：1111</td></tr>
+					    <tr><td class="pgddetail">服务地址：11111</td></tr>
+						<tr><td class="pgddetail">开始时间：1111</td></tr>
+					 </table><span class="rightArrow"></span>
+				  </div>
+			</div>
 		</div>
 		<script type="text/javascript">
-		<!--
-			_listPop(window.location.href, 'get');
-			var listUrl = "${base}/mobile/member/myOrderList.jhtml?";
-			var listParam =  getListParam(pageParams);
-			var nextPageIndex = pageParams.pageNumber + 1;
-			if (nextPageIndex <= pageParams.pageCount){
-				getOrderList(listUrl, listParam, false);
-				if(pageParams.pageNumber == 1){
-				    $('#pageLoading').before(nextOrderPageHtml);
-	                nextOrderPageHtml = '';
+			function setCheckCate(obj,bigcate){
+				var container_clientwidth = $('#bigcates').innerWidth();
+				var width = $(obj).outerWidth(false);//返回元素的宽度（包括元素宽度、内边距和边框，不包括外边距）参数为true，包括外边距
+				var dis = (container_clientwidth-width)/2;//滚动后元素距左侧距离
+				var offleft = obj.offsetLeft ;//$(obj).position().left;//相对于容器左边距离
+				//$('#bigcates').scrollLeft(offleft-dis);
+				$('#bigcates').animate({ scrollLeft: offleft-dis }, 300);
+		
+				if($('#bigcates .checkCate').length>0){
+					$('#bigcates .checkCate').removeClass('checkCate');
 				}
-			}else{
-			    $('#pageLoading .loading').css('display', 'none');
+				$(obj).addClass('checkCate');
+				$('#currid').val(bigcate);
+				if(bigcate=='DQ'){
+					getDQ();
+				}else{
+					getsmallcates(bigcate);
+				}
 			}
-			m$.myAccount.lazyLoadOrder.init('myOrderList');
-			-->
+			function getsmallcates(bigcate){
+				$.loader.show('加载中...');
+				$.ajax({  
+					type:'post',   
+					async:true,
+					url:'http://meiaijie.wx.toohuu.com:80/wx/jzbj/json/paigongdan.jsp?pgdstatus='+bigcate,
+					complete:function(data){
+						$.loader.hide();
+						eval ('huiyuan_danci = '+data.responseText); 
+						list_json = huiyuan_danci['huiyuan'];
+						//console.log(list_json);
+						var currid = $('#currid').val();
+						var html = "";
+						for(inx in list_json){
+							new_json = list_json[inx];
+							html += '<div class="pgdarea" onclick="gotourl(\'http://meiaijie.wx.toohuu.com:80/wx/jzbj/tpgd_show.jsp?pgdid='+new_json.tid120416182220667+'&currid='+currid+'\')">'
+								  + '<table width="100%" border="0" cellspacing="0" cellpadding="0">'
+								  + '<tr>'
+									+ '<td align="center" class="pgdnum">'+new_json.c120416182510645+'</td>'
+									+ '<td align="right" class="pgdstatus"><span style="color:#FF4000" >'+new_json.c120417141759268+'</span></td>'
+								  + '</tr>'
+								  + '</table>'
+								  + '<table width="100%" border="0" cellspacing="0" cellpadding="0" >'
+								  + '<tr><td class="pgddetail">服务项目：'+(new_json.c140805163445556||new_json.c140805163445556)+'</td></tr>'	
+								  +	'<tr><td class="pgddetail">服务地址：'+new_json.c12041618311183+'</td></tr>'
+								  +	'<tr><td class="pgddetail">开始时间：'+(new_json.c120416182856132==null?'':new_json.c120416182856132)+'</td></tr>'
+								  + '</table><span class="rightArrow"></span></div>';
+						}
+						$('#smallcates').html(html);
+					}
+				})
+			}
+			function getDQ(){
+				$.loader.show('加载中...');
+				$.ajax({  
+					type:'post',   
+					async:true,
+					url:'http://meiaijie.wx.toohuu.com:80/wx/jzbj/json/DQ.jsp?_r=1506184803309',
+					complete:function(data){
+						$.TooHuuLoader.hide();
+						eval ('list_json = '+data.responseText); 
+						//console.log(list_json);
+						var html = "";
+						for(inx in list_json){
+							new_json = list_json[inx];
+							html += '<div class="pgdarea" _onclick="gotourl(\'http://meiaijie.wx.toohuu.com:80/wx/jzbj/DQ_show.jsp?tid='+new_json.tid170112122420783+'\')">'
+								  + '<table width="100%" border="0" cellspacing="0" cellpadding="0">'
+								  + '<tr>'
+									+ '<td align="center" class="pgdnum">'+new_json.c170112140843465+'</td>'
+								  + '</tr>'
+								  + '</table>'
+								  + '<table width="100%" border="0" cellspacing="0" cellpadding="0" >'
+								  + '<tr><td class="pgddetail">服务项目：'+new_json.c120419104352520+'</td></tr>'	
+								  +	'<tr><td class="pgddetail">服务地址：'+new_json.c170112141046400+'</td></tr>'
+								  +	'<tr><td class="pgddetail">定期余额：'+new_json.c170112152844367+'</td></tr>'
+								  + '</table><span class="rightArrow"></span></div>';
+						}
+						$('#smallcates').html(html);
+					}
+				})
+			}
 		</script>
-		<!-- footer -->
 	   [#include "/mobile/include/footer.ftl" /]
-      <!-- /footer -->
 	</div>
 </body>
 </html>

@@ -1,0 +1,146 @@
+#container {
+	position: relative;
+	width: 100%;
+	min-height: 100%;
+	padding-bottom: 44px;
+}
+
+#bigcates {
+	font-size: 14px;
+	margin: 0;
+	overflow: auto;
+	/* 	-webkit-overflow-scrolling: touch; */
+	position: fixed;
+	top: 50px;
+	left: 0;
+	z-index: 999;
+	width: 100%;
+}
+
+#bigcates table {
+	border-collapse: collapse;
+	width: 100%;
+	background: #fff;
+	border: 1px solid #E6E6E6;
+}
+
+.nocheckCate {
+	border: 1px solid #E6E6E6;
+	height: 30px;
+	line-height: 30px;
+	white-space: nowrap;
+	text-align: center;
+	padding: 2px 10px;
+}
+
+.rightArrow {
+	display: block;
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	right: 10px;
+	top: 43%;
+	border-right: 2px solid #A4A4A4;
+	border-top: 2px solid #A4A4A4;
+	webkit-transform: scale(0.75, 0.75) rotate(45deg);
+	transform: scale(0.75, 0.75) rotate(45deg);
+}
+
+.checkCate {
+	background: #DC0404;
+	border: 1px solid #DC0404;
+	color: white;
+}
+
+.order-list {
+	/* 	overflow: auto; */
+	padding: 51px 0 0 0;
+	/* 	overflow-x: hidden; */
+}
+
+.pgdarea {
+/* 	position: relative; */
+	width: 100%;
+	background: #fff;
+	border-bottom: 1px solid #E6E6E6;
+	padding: 5px 0;
+}
+
+.pgdnum {
+	font-size: 18px;
+	font-weight: bold;
+	height: 24px;
+	line-height: 24px;
+	color: #0066CC
+}
+
+.pgdstatus {
+	font-size: 12px;
+	padding-right: 10px;
+	width: 100px;
+}
+
+.pgddetail {
+	color: #666;
+	font-size: 14px;
+	line-height: 18px;
+	padding: 0 10px;
+}
+
+/*订单详情 start*/
+.orderInfoContent {
+	
+}
+
+.orderInfoContent .pgdarea {
+	background: #FFFFFF;
+	padding: 0px;
+	margin: 5px 0px;
+	border: 1px solid #ccc;
+}
+
+.pgdarea .orderName {
+	text-align: center;
+	color: #003399;
+	font-weight: bold
+}
+
+.pgdarea hr {
+	height: 1px;
+	border: none;
+	border-top: #CCCCCC solid 1px;
+	margin: 0px;
+}
+
+.orderInfoContent .parts {
+	margin: 0;
+	background: white;
+	min-height: 30px;
+	border-bottom: 1px solid #ccc;
+}
+
+.parts .service-content {
+	display: block;
+	background: #fff;
+	color: #bbb;
+	text-align: center;
+	height: 32px;
+	line-height: 32px;
+	font-size: 16px;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+.pgdarea span {
+	display: block;
+	line-height: 18px;
+	padding: 6px 5px;
+	font-size: 14px;
+}
+
+.parts td {
+	font-size: 12px;
+	height: 30px;
+	padding: 0 5px;
+}
+/*订单详情 end*/
