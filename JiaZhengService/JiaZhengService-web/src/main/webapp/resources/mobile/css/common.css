@@ -2536,7 +2536,7 @@ input[type=checkbox].confirmCheckBox {
 	border-bottom: 1px solid #e0e0e0;
 	height: 50px;
 	line-height: 50px;
-	font-size: 24px;
+	font-size: 18px;
 	text-align: center;
 	z-index: 999;
 }
@@ -2564,7 +2564,7 @@ input[type=checkbox].confirmCheckBox {
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .header_2 .cart_area {
@@ -2578,9 +2578,26 @@ input[type=checkbox].confirmCheckBox {
 	display: block;
 	width: 22px;
 	height: 22px;
-	background: url(../images/cart1.png) no-repeat;
+	background: url(../icons/cartIcon.png) no-repeat;
 	background-size: 22px 22px;
 	margin-top: 13px;
+}
+
+.header_2 .home_area {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+	height: 50px;
+}
+
+.home_area span.homeIcon{
+	display: block;
+	width: 22px;
+	height: 22px;
+	background: url(../icons/homeIcon.png) no-repeat;
+	background-size: 22px 22px;
+	margin-top: 13px;
+	
 }
 /*header版本2 end*/
 .num_input input {
@@ -2621,3 +2638,62 @@ input[type=checkbox].confirmCheckBox {
 	-moz-border-radius: 2px;
 	-webkit-border-radius: 2px;
 }
+
+/*公共页面底部 start*/
+.commonFooter {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	font-size: 24px;
+	text-align: center;
+	background: #FBFBFB;
+	border-top: #e0e0e0 solid 1px
+}
+
+.commonFooter table td {
+	width: 25%;
+	height: 50px;
+	color: #666;
+	font-size: 11px;
+}
+
+.commonFooter table td div.home-page {
+	background: url('../icons/home.png') no-repeat;
+	width: 18px;
+	height: 18px;
+	background-size: 18px 18px;
+	margin-bottom: -12px;
+	margin-top: 10px;
+}
+
+.commonFooter table td div.cart-page {
+	background: url('../icons/cart.png') no-repeat;
+	width: 18px;
+	height: 18px;
+	background-size: 18px 18px;
+	margin-bottom: -12px;
+	margin-top: 10px;
+}
+
+.commonFooter table td div.service-page {
+	margin: 0 auto;
+	background: url('../icons/service.png') no-repeat;
+	width: 18px;
+	height: 18px;
+	background-size: 18px 18px;
+	margin-bottom: -12px;
+	margin-top: 10px;
+}
+
+.commonFooter table td div.personal-page {
+	margin: 0 auto;
+	background: url('../icons/personal.png') no-repeat;
+	width: 18px;
+	height: 18px;
+	background-size: 18px 18px;
+	margin-bottom: -12px;
+	margin-top: 10px;
+}
+/*公共页面底部 end*/

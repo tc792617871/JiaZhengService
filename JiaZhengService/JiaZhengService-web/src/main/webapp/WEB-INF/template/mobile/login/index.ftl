@@ -22,6 +22,8 @@ $().ready(function() {
 	var $loginSubmit = $("#loginSubmit");
 	var $loginForm = $("#loginForm");
 	m$.header.titleContent.setTitle('登录/注册');
+	$(".header_2 .cart_area").remove();
+	$(".header_2 .home_area").remove();
 	
 	$loginSubmit.click(function(){
 	    var redirectUrl = "${redirectUrl}";
@@ -67,7 +69,7 @@ $().ready(function() {
 				<button  onClick="location.href='${base}/mobile/register/index.jhtml'">创建用户名</button>
 			</div>
 		</div>
-    	[#include "/mobile/include/footer.ftl" /]
+    	[#include "/mobile/include/footer_2.ftl" /]
 	</div>
 </body>
 </html>

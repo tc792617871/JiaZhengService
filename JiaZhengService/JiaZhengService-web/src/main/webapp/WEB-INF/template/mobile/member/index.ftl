@@ -15,6 +15,7 @@
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle("我的账户");
+	$(".header_2 .cart_area").remove();
 });
 </script>
 </head>
@@ -33,13 +34,12 @@ $().ready(function() {
 			    <li onclick="window.location='${base}/mobile/member/myOrder.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							       我的订单
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/document.png" class="personal-icon"/>
+			                    <span class="tableSpan">我的订单</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
@@ -47,13 +47,12 @@ $().ready(function() {
 			    <li onclick="window.location='${base}/mobile/member/myOrder.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							       优惠券
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/money.png" class="personal-icon"/>
+			                    <span class="tableSpan">优惠券</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
@@ -61,13 +60,12 @@ $().ready(function() {
 			    <li onclick="window.location='${base}/mobile/member/myOrder.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							      领券中心
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/money.png" class="personal-icon"/>
+			                    <span class="tableSpan">领券中心</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
@@ -77,13 +75,12 @@ $().ready(function() {
 			    <li onclick="window.location='${base}/mobile/member/sendAddress.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							       寄送地址
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/location_icon_mobile.png" class="personal-icon"/>
+			                	<span class="tableSpan">寄送地址</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
@@ -91,13 +88,12 @@ $().ready(function() {
 			    <li onclick="window.location='${base}/mobile/member/personalInfo.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							       个人资料
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/man.png" class="personal-icon"/>
+			                    <span class="tableSpan">个人资料</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
@@ -105,13 +101,12 @@ $().ready(function() {
 			    <li onclick="window.location='${base}/mobile/member/loginInfo.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							       登录资料
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/man.png" class="personal-icon"/>
+			                    <span class="tableSpan">登录资料</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
@@ -119,13 +114,12 @@ $().ready(function() {
 			    <li onclick="window.location='${base}/mobile/member/changePassword.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							       更改密码
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/key.png" class="personal-icon"/>
+			                    <span class="tableSpan">更改密码</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
@@ -135,13 +129,12 @@ $().ready(function() {
 		    	<li onclick="window.location='${base}/mobile/member/contactUs.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							       使用帮助
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/news.png" class="personal-icon"/>
+			                    <span class="tableSpan">使用帮助</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
@@ -149,23 +142,21 @@ $().ready(function() {
 			    <li onclick="window.location='${base}/mobile/member/contactUs.jhtml'">
 			        <table>
 			            <tr>
-			                <td>
-			                    <a href="#">
-							       联系我们
-							    </a>
+			            	<td>
+			                    <img src="${base}/resources/mobile/icons/news.png" class="personal-icon"/>
+			                    <span class="tableSpan">联系我们</span>
 			                </td>
 			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="myaccount-img"/>
+			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
 			                </td>
 			            </tr>
 			        </table>
 			    </li>
 			</ul>						
-			<div class="myaccount-btn">
+			<div class="quit-btn">
 				<button onClick="window.location='${base}/mobile/login/logout.jhtml';">退出</button>
 			</div>
 		</div>
-	   [#include "/mobile/include/footer.ftl" /]
 	</div>
 </body>
 </html>

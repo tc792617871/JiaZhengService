@@ -49,20 +49,22 @@ $().ready(function() {
 						<tr><td class="pgddetail">服务项目：1111</td></tr>
 					    <tr><td class="pgddetail">服务地址：11111</td></tr>
 						<tr><td class="pgddetail">开始时间：1111</td></tr>
-					 </table><span class="rightArrow"></span>
-				  </div>
-				  <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+					 </table>
+					 <span class="rightArrow"></span>
+			     </div>
+				 <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
+				 	 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td align="center" class="pgdnum">111111</td>
 							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
 						</tr>
-					</table>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-						<tr><td class="pgddetail">服务项目：1111</td></tr>
-					    <tr><td class="pgddetail">服务地址：11111</td></tr>
-						<tr><td class="pgddetail">开始时间：1111</td></tr>
-					 </table><span class="rightArrow"></span>
+					  </table>
+					  <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+							<tr><td class="pgddetail">服务项目：1111</td></tr>
+					    	<tr><td class="pgddetail">服务地址：11111</td></tr>
+							<tr><td class="pgddetail">开始时间：1111</td></tr>
+					  </table>
+					  <span class="rightArrow"></span>
 				  </div>
 				  <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
 					<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -174,7 +176,7 @@ $().ready(function() {
 				})
 			}
 		</script>
-	   [#include "/mobile/include/footer.ftl" /]
+	   [#include "/mobile/include/footer_2.ftl" /]
 	</div>
 </body>
 </html>

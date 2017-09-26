@@ -20,6 +20,8 @@
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle("注册");
+	$(".header_2 .cart_area").remove();
+	$(".header_2 .home_area").remove();
 	
 	var $registerSubmit = $("#registerSubmit");
 	 $registerSubmit.click(function(){
@@ -56,7 +58,7 @@ $().ready(function() {
 				</div>
 			</div>		
 		</form>
-       [#include "/mobile/include/footer.ftl" /]
+       [#include "/mobile/include/footer_2.ftl" /]
     </div>
 </body>
 </html>

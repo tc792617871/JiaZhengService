@@ -4,10 +4,10 @@
 	</div>
 	<div id="headerTitleContent">
 	</div>
-	<div class="cart_area" onclick="gotourl('http://meiaijie.wx.toohuu.com:80/wx/shoppingCart.jsp?_NR=1')">
+	<div class="cart_area" onclick="window.location.href='${base}/mobile/cart/index.jhtml'">
 		<span class="cartIcon"></span>
 	</div>
-	<div class="home_area" onclick="gotourl('http://meiaijie.wx.toohuu.com:80/wx/shoppingCart.jsp?_NR=1')">
+	<div class="home_area" onclick="window.location.href='${base}/mobile/mobileIndex.jhtml'">
 		<span class="homeIcon"></span>
 	</div>
 </div>

@@ -15,6 +15,7 @@
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle("购物车");
+	$(".header_2 .cart_area").remove();
 });
 </script>
 </head>

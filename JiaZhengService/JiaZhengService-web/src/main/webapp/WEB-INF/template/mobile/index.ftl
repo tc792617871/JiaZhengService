@@ -81,7 +81,7 @@
 			</ul>
 		</div>
 	</div>
-	[#include "/mobile/include/footer.ftl" /]
+	[#include "/mobile/include/footer_2.ftl" /]
 	<script type="text/javascript" src="${base}/resources/mobile/js/mobileSlider.js"></script>
 	<script type="text/javascript">
     	$(".slider").yxMobileSlider({width:640,height:320,during:3000})
