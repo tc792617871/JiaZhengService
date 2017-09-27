@@ -26,20 +26,15 @@
 	<mvc:annotation-driven validator="validator" />
 
 	<mvc:interceptors>
-<!-- 		<mvc:interceptor> -->
-<!-- 			<mvc:mapping path="/order/**" /> -->
-<!-- 			<mvc:mapping path="/member/**" /> -->
-<!-- 			<mvc:mapping path="/mobile/member/**" /> -->
-<!-- 			<bean id="memberInterceptor" -->
-<!-- 				class="com.platform.JiaZhengService.interceptor.MemberInterceptor" /> -->
-<!-- 		</mvc:interceptor> -->
+		<mvc:interceptor>
+			<mvc:mapping path="/mobile/member/**" />
+			<bean id="memberInterceptor"
+				class="com.platform.JiaZhengService.interceptor.MemberInterceptor" />
+		</mvc:interceptor>
 		<!-- 为了防止CSRF攻击，MOSHOP对所有post请求进行了令牌验证，可以在applicationContext-mvc.xml配置文件中禁用部分url的请求验证 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<mvc:exclude-mapping path="/payment/**" />
-			<!-- start 手机端接口 -->
-			<mvc:exclude-mapping path="/service/**" />
-			<!-- end 手机端接口 -->
 			<bean id="tokenInterceptor"
 				class="com.platform.JiaZhengService.interceptor.TokenInterceptor" />
 		</mvc:interceptor>

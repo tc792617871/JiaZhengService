@@ -282,7 +282,8 @@ ul {
 .box {
 	margin-bottom: 10px;
 	text-align: center;
-	overflow: hidden
+	overflow: hidden;
+	padding: 0 5px;
 }
 
 .box_input {
@@ -2590,14 +2591,13 @@ input[type=checkbox].confirmCheckBox {
 	height: 50px;
 }
 
-.home_area span.homeIcon{
+.home_area span.homeIcon {
 	display: block;
 	width: 22px;
 	height: 22px;
 	background: url(../icons/homeIcon.png) no-repeat;
 	background-size: 22px 22px;
 	margin-top: 13px;
-	
 }
 /*header版本2 end*/
 .num_input input {

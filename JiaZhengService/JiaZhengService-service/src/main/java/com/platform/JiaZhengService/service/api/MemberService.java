@@ -15,4 +15,38 @@ public interface MemberService extends BaseService {
 	 */
 	TMember getCurrent();
 
+	/**
+	 * 判断mobile是否唯一
+	 * 
+	 * @param mobile
+	 * @return
+	 */
+	boolean mobileUnique(String mobile);
+
+	/**
+	 * 判断用户名是否禁用
+	 * 
+	 * @param username
+	 *            用户名(忽略大小写)
+	 * @return 用户名是否禁用
+	 */
+	boolean usernameDisabled(String username);
+
+	/**
+	 * 判断用户名是否存在
+	 * 
+	 * @param username
+	 *            用户名(忽略大小写)
+	 * @return 用户名是否存在
+	 */
+	boolean usernameExists(String username);
+
+	/**
+	 * 新增会员
+	 * 
+	 * @param member
+	 * @return
+	 */
+	boolean addMember(TMember member);
+
 }

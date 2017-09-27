@@ -11,13 +11,26 @@ import com.platform.JiaZhengService.common.pojo.StringAndEqualsPojo;
  * @author: peiyu
  */
 public class TMember extends StringAndEqualsPojo implements Serializable {
+
+	/** "身份信息"参数名称 */
+	public static final String PRINCIPAL_ATTRIBUTE_NAME = TMember.class.getName() + ".PRINCIPAL";
+
+	/** "用户名"Cookie名称 */
+	public static final String USERNAME_COOKIE_NAME = "username";
+
+	/** "用户名"Cookie名称 */
+	public static final String NAME_COOKIE_NAME = "name";
+
+	/** "用户email"Cookie名称 */
+	public static final String EMAIL_COOKIE_NAME = "email";
+
+	/** "微信OPENID" Cookie名称 */
+	public static final String WECHAT_OPENTID = "USER_TOKEN_ID";
+
 	/**
 	 * @Fields serialVersionUID : 自动生成默认序列化ID
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/** "身份信息"参数名称 */
-	public static final String PRINCIPAL_ATTRIBUTE_NAME = TMember.class.getName() + ".PRINCIPAL";
 
 	/**
 	 * @Fields t_member.id :
@@ -42,7 +55,7 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 	/**
 	 * @Fields t_member.amount :
 	 */
-	private String amount;
+	private Double amount;
 
 	/**
 	 * @Fields t_member.attribute_value0 :
@@ -97,7 +110,7 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 	/**
 	 * @Fields t_member.balance :
 	 */
-	private String balance;
+	private Double balance;
 
 	/**
 	 * @Fields t_member.birth :
@@ -337,7 +350,7 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 	/**
 	 * @return t_member.amount : 返回
 	 */
-	public String getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
@@ -345,8 +358,8 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 	 * @param amount
 	 *            of t_member : 设置
 	 */
-	public void setAmount(String amount) {
-		this.amount = amount == null ? null : amount.trim();
+	public void setAmount(Double amount) {
+		this.amount = amount;
 	}
 
 	/**
@@ -502,7 +515,7 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 	/**
 	 * @return t_member.balance : 返回
 	 */
-	public String getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
@@ -510,8 +523,8 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 	 * @param balance
 	 *            of t_member : 设置
 	 */
-	public void setBalance(String balance) {
-		this.balance = balance == null ? null : balance.trim();
+	public void setBalance(Double balance) {
+		this.balance = balance;
 	}
 
 	/**

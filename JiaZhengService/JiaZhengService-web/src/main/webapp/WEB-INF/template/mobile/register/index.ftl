@@ -10,11 +10,11 @@
 <link href="${base}/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
 <link rel="${base}/resources/mobile/css/swipe-left-right.css"rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/mobile/js/jquery.min.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/jsbn.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/prng4.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/rng.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/rsa.js"></script>
-<script type="text/javascript" src="${base}/resources/shop/js/base64.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/jsbn.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/prng4.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/rng.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/rsa.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/base64.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/common.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/mobile.js"></script>
 <script type="text/javascript">
@@ -24,7 +24,7 @@ $().ready(function() {
 	$(".header_2 .home_area").remove();
 	
 	var $registerSubmit = $("#registerSubmit");
-	 $registerSubmit.click(function(){
+	$registerSubmit.click(function(){
 		m$.register.registerUser.submit();
 	});
 });
@@ -35,9 +35,6 @@ $().ready(function() {
 		[#include "/mobile/include/header_2.ftl" /]
 		<form id="registerForm" action="${base}/mobile/register/registSubmit.jhtml" method="get" >
 			<div class="moMobileContent">
-				<div class="box">
-					<input type="email" id="email" name="email" placeholder="&nbsp;&nbsp;电子邮箱" class="box_input"/>
-				</div>
 				<div class="box">
 					<input type="number" id="mobile" name="mobile" placeholder="&nbsp;&nbsp;手机号码" class="box_input"/>
 				</div>
@@ -50,15 +47,11 @@ $().ready(function() {
 				<div class="box">
 					<input type="text" id="name" name="name" placeholder="&nbsp;&nbsp;姓名" class="box_input"/>
 				</div>
-				<div class="box">
-					<input type="text" id="address" name="address" placeholder="&nbsp;&nbsp;地址" class="box_input"/>
-				</div>
 				<div class="box" style="margin-top: 20px;">
 					<button type="button" id="registerSubmit">存储</button>
 				</div>
 			</div>		
 		</form>
-       [#include "/mobile/include/footer_2.ftl" /]
     </div>
 </body>
 </html>

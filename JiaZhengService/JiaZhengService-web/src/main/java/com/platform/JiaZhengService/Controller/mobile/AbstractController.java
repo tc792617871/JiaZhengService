@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.context.request.RequestAttributes;
@@ -29,6 +31,8 @@ import com.platform.JiaZhengService.template.directive.FlashMessageDirective;
  *
  */
 public class AbstractController {
+
+	protected final Logger logger = LoggerFactory.getLogger(getClass().getName());
 
 	/** 错误视图 */
 	protected static final String ERROR_VIEW = "/mobile/common/error";

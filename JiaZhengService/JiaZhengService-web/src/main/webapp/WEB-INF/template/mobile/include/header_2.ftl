@@ -4,7 +4,7 @@
 	</div>
 	<div id="headerTitleContent">
 	</div>
-	<div class="cart_area" onclick="window.location.href='${base}/mobile/cart/index.jhtml'">
+	<div class="cart_area" onclick="window.location.href='${base}/mobile/member/cart/index.jhtml'">
 		<span class="cartIcon"></span>
 	</div>
 	<div class="home_area" onclick="window.location.href='${base}/mobile/mobileIndex.jhtml'">

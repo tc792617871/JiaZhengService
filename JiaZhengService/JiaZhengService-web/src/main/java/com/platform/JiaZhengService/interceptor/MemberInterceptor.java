@@ -34,7 +34,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 	private static final String MEMBER_ATTRIBUTE_NAME = "member";
 
 	/** 默认登录URL */
-	private static final String DEFAULT_LOGIN_URL = "/login.jhtml";
+	private static final String DEFAULT_LOGIN_URL = "/mobile/login/index.jhtml";
 
 	private static final String DEFAULT_MOBILE_LOGIN_RUL = "/mobile/login/index.jhtml";
 

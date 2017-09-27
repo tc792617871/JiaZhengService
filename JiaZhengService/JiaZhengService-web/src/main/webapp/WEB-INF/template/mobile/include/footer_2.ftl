@@ -8,7 +8,7 @@
 				</div>
 			</td>
 			<td align="center">
-				<div style="margin:0 auto;" onclick="window.location.href='${base}/mobile/cart/index.jhtml'">
+				<div style="margin:0 auto;" onclick="window.location.href='${base}/mobile/member/cart/index.jhtml'">
 					<div class="cart-page"></div>
 					购物车
 				</div>

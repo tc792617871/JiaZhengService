@@ -101,7 +101,6 @@
 				<value>${message.common_path}</value>
 				<value>${message.admin_path}</value>
 				<value>${message.shop_path}</value>
-				<value>${message.weixin_path}</value>
 			</list>
 		</property>
 	</bean>
