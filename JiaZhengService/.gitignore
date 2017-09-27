@@ -3,3 +3,4 @@
 target/
 .project
 .classpath
+JiaZhengService-web/src/main/resources/jdbc.properties
