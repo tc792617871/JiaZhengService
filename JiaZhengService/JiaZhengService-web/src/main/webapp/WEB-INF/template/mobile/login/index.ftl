@@ -50,10 +50,10 @@ $().ready(function() {
 				</div>
 				<div class="box">
 				    <input type="hidden" id="openId" name="openId" value="${openId}"/>
-					<input type="text" id= "username" name="username" placeholder="&nbsp;&nbsp;电子邮箱/手机号码" class="box_input"/>
+					<input type="text" id= "username" name="username" placeholder="手机号码" class="box_input"/>
 				</div>
 				<div class="box">
-					<input type="password" id= "password" name="password" placeholder="&nbsp;&nbsp;密码" class="box_input"/>
+					<input type="password" id= "password" name="password" placeholder="密码" class="box_input"/>
 				</div>
 				<div class="box">
 				    <button type="button" id="loginSubmit">登录</button>
@@ -66,7 +66,7 @@ $().ready(function() {
 				<span class="box-span">我要注册</span>
 			</div>
 			<div class="box">
-				<button  onClick="location.href='${base}/mobile/register/index.jhtml'">创建用户名</button>
+				<button onClick="location.href='${base}/mobile/register/index.jhtml'">创建用户名</button>
 			</div>
 		</div>
     	[#include "/mobile/include/footer_2.ftl" /]

@@ -171,7 +171,7 @@ function contains(array, values) {
 			if (!$username.val()) {
 				m$.ui.dialog.dialogShow({
 					'title' : '提示',
-					'content' : '电子邮件不能为空'
+					'content' : '登录账号不能为空'
 				}, [ {
 					'text' : '确定'
 				} ]);
@@ -187,7 +187,7 @@ function contains(array, values) {
 				return false;
 			}
 			$.ajax({
-				url : jiazhengservice.base + "/common/public_key.jhtml",
+				url : jiazhengservice.base + "/mobile/common/public_key.jhtml",
 				type : "GET",
 				dataType : "json",
 				cache : false,
@@ -227,8 +227,7 @@ function contains(array, values) {
 									},[{
 											'text' : '忘记密码？',
 											'func' : function() {
-												document.location.href = jiazhengservice.base
-														+ '/mobile/login/forgetPwd.jhtml';
+												document.location.href = jiazhengservice.base + '/mobile/login/forgetPwd.jhtml';
 											}
 										},
 										{

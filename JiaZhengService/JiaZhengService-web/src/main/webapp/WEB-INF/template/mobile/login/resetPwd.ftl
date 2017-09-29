@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>重置密码</title>
+<title>${setting.siteName}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -20,13 +20,15 @@
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle('重置密码');
+	$(".header_2 .cart_area").remove();
+	$(".header_2 .home_area").remove();
 	$("#resetPasswordBtn").click(function(){
 	        submitReset();
 	 });
 });
 function submitReset() {
     $.ajax({
-        url: moshop.base + "/common/public_key.jhtml",
+        url: jiazhengservice.base + "/mobile/common/public_key.jhtml",
         type: "GET",
         dataType: "json",
         cache: false,
@@ -79,7 +81,7 @@ function submitReset() {
                             }, [{
                                 'text': '确定',
                                 'func': function () {
-                                    window.location.href = moshop.base + "/mobile/login/index.jhtml";
+                                    window.location.href = jiazhengservice.base + "/mobile/login/index.jhtml";
                                 }
                             }]);
                         } else {
@@ -102,31 +104,25 @@ function submitReset() {
 </head>
 <body class="body_margin" id='bdmg'>
 	<div class="fullscreen">
-		<!-- header -->
-		[#include "/mobile/include/header.ftl" /]
-		<!-- /header -->	
+		[#include "/mobile/include/header_2.ftl" /]
 			<div class="moMobileContent">
 			   <form id="resetPasswordForm" action="${base}/login/resetPasswordSubmit.jhtml" method="post">
-			         <input type="hidden" id="phoneNumber" name="phoneNumber" value="${phoneNumber}" />
+			        <input type="hidden" id="phoneNumber" name="phoneNumber" value="${phoneNumber}" />
 			        <input type="hidden" id="validateCode" name="validateCode" value="${validateCode}"/>
 			        <input type="hidden" id="memeberId" value="${member.id}">
 			        <input type="hidden" id="key4user" name="key" value="${key}" />
-					<ul style="line-height: 50px;">
-					    <li>
-					       <input type="password" id="newPassword" name="newPassword" placeholder="新密码" class="box_input"/>
-					    </li>
-					    <li>
-					       <input type="password" id="agNewPassword" name="agNewPassword" placeholder="再次输入新密码" class="box_input"/>
-					    </li>
-					    <li>
-					        <button type="button" id="resetPasswordBtn">提交</button>
-					    </li>
-					</ul>
+				    <div class="box">
+				       <input type="password" id="newPassword" name="newPassword" placeholder="新密码" class="box_input"/>
+				    </div>
+				    <div class="box">
+				       <input type="password" id="agNewPassword" name="agNewPassword" placeholder="再次输入新密码" class="box_input"/>
+				    </div>
+				    <div class="box">
+				        <button type="button" id="resetPasswordBtn">提交</button>
+				    </div>
 				</form>
 			</div>
-		<!-- footer -->
-	   [#include "/mobile/include/footer.ftl" /]
-      <!-- /footer -->
+	   [#include "/mobile/include/footer_2.ftl" /]
 	</div>
 </body>
 </html>

@@ -6,7 +6,9 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestAttributes;
@@ -15,6 +17,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.platform.JiaZhengService.common.pojo.Principal;
 import com.platform.JiaZhengService.common.pojo.Setting;
+import com.platform.JiaZhengService.common.pojo.Setting.AccountLockType;
+import com.platform.JiaZhengService.common.util.JiaZhengServiceUtil;
 import com.platform.JiaZhengService.common.util.SettingUtils;
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.constants.TTMember;
@@ -83,6 +87,67 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 		member.setCreateDate(dt);
 		member.setModifyDate(dt);
 		return memberMapper.insertSelective(member) > 0 ? true : false;
+	}
+
+	@Override
+	public TMember findByUsername(String username) {
+		Criteria c = new Criteria();
+		c.createConditon().andEqualTo(TTMember.USERNAME, username);
+		List<TMember> members = memberMapper.selectByExample(c);
+		if (members != null && members.size() > 0) {
+			return members.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean checkLockedStatus(TMember member, Setting setting) {
+		if (!member.getIsLocked()) {
+			return false;
+		}
+		boolean needUpdate = false;
+		if (ArrayUtils.contains(setting.getAccountLockTypes(), AccountLockType.member)) {
+			int loginFailureLockTime = setting.getAccountLockTime();
+			if (loginFailureLockTime == 0) {
+				return false;
+			}
+			Date lockedDate = member.getLockedDate();
+			Date unlockDate = DateUtils.addMinutes(lockedDate, loginFailureLockTime);
+			if (new Date().after(unlockDate)) {
+				needUpdate = true;
+			}
+		} else {
+			needUpdate = true;
+		}
+		if (needUpdate) {
+			member.setLoginFailureCount(0);
+			member.setIsLocked(false);
+			member.setLockedDate(null);
+			member.setModifyDate(new Date());
+			memberMapper.updateByPrimaryKeySelective(member);
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean updateMember(TMember member) {
+		member.setModifyDate(new Date());
+		return memberMapper.updateByPrimaryKeySelective(member) > 0 ? true : false;
+	}
+
+	@Override
+	public void updateLoginStatus(HttpServletRequest request, TMember member) {
+		member.setLoginIp(JiaZhengServiceUtil.getAddr(request));
+		member.setLoginDate(new Date());
+		member.setModifyDate(new Date());
+		member.setLoginFailureCount(0);
+		memberMapper.updateByPrimaryKeySelective(member);
+	}
+
+	@Override
+	public TMember find(Long uid) {
+		return memberMapper.selectByPrimaryKey(uid);
 	}
 
 }

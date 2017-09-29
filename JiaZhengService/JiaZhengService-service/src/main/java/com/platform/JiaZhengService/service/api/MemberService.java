@@ -1,5 +1,8 @@
 package com.platform.JiaZhengService.service.api;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.platform.JiaZhengService.common.pojo.Setting;
 import com.platform.JiaZhengService.dao.entity.TMember;
 
 /**
@@ -48,5 +51,46 @@ public interface MemberService extends BaseService {
 	 * @return
 	 */
 	boolean addMember(TMember member);
+
+	/**
+	 * 根据用户名查找member
+	 * 
+	 * @param username
+	 * @return
+	 */
+	TMember findByUsername(String username);
+
+	/**
+	 * 检验member会员锁定状态
+	 * 
+	 * @param member
+	 * @param setting
+	 * @return
+	 */
+	boolean checkLockedStatus(TMember member, Setting setting);
+
+	/**
+	 * 更新member会员信息
+	 * 
+	 * @param member
+	 * @return
+	 */
+	boolean updateMember(TMember member);
+
+	/**
+	 * 更新会员登录状态
+	 * 
+	 * @param request
+	 * @param member
+	 */
+	void updateLoginStatus(HttpServletRequest request, TMember member);
+
+	/**
+	 * 根据ID查询member会员
+	 * 
+	 * @param uid
+	 * @return
+	 */
+	TMember find(Long uid);
 
 }
