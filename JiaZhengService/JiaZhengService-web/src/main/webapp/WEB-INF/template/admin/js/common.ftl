@@ -319,8 +319,8 @@ function message(code) {
 				type: "image",
 				title: message("admin.browser.title"),
 				isUpload: true,
-				browserUrl: moshop.base + "/admin/file/browser.jhtml",
-				uploadUrl: moshop.base + "/admin/file/upload.jhtml",
+				browserUrl: jiazhengservice.base + "/admin/file/browser.jhtml",
+				uploadUrl: jiazhengservice.base + "/admin/file/upload.jhtml",
 				callback: null
 			};
 			$.extend(settings, options);
@@ -395,13 +395,13 @@ function message(code) {
 							var iconUrl;
 							var title;
 							if (fileInfo.isDirectory) {
-								iconUrl = moshop.base + "/resources/admin/images/folder_icon.gif";
+								iconUrl = jiazhengservice.base + "/resources/admin/images/folder_icon.gif";
 								title = fileInfo.name;
 							} else if (new RegExp("^\\S.*\\.(jpg|jpeg|bmp|gif|png)$", "i").test(fileInfo.name)) {
 								iconUrl = fileInfo.url;
 								title = fileInfo.name + " (" + Math.ceil(fileInfo.size / 1024) + "KB, " + new Date(fileInfo.lastModified).toLocaleString() + ")";
 							} else {
-								iconUrl = moshop.base + "/resources/admin/images/file_icon.gif";
+								iconUrl = jiazhengservice.base + "/resources/admin/images/file_icon.gif";
 								title = fileInfo.name + " (" + Math.ceil(fileInfo.size / 1024) + "KB, " + new Date(fileInfo.lastModified).toLocaleString() + ")";
 							}
 							browserListHtml += '<div class="browserItem"><img src="' + iconUrl + '" title="' + title + '" url="' + fileInfo.url + '" isDirectory="' + fileInfo.isDirectory + '" \/><div>' + fileInfo.name + '<\/div><\/div>';

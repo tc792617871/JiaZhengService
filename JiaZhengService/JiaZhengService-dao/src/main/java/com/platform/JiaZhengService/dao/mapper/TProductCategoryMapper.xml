@@ -1,274 +1,277 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.platform.JiaZhengService.dao.mapper.TProductCategoryMapper">
-	<resultMap id="BaseResultMap"
-		type="com.platform.JiaZhengService.dao.entity.TProductCategory">
-		<id column="id" property="id" jdbcType="BIGINT" />
-		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
-		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
-		<result column="orders" property="orders" jdbcType="INTEGER" />
-		<result column="grade" property="grade" jdbcType="INTEGER" />
-		<result column="name_zh" property="nameZh" jdbcType="VARCHAR" />
-		<result column="seo_description" property="seoDescription"
-			jdbcType="VARCHAR" />
-		<result column="seo_keywords" property="seoKeywords" jdbcType="VARCHAR" />
-		<result column="seo_title" property="seoTitle" jdbcType="VARCHAR" />
-		<result column="tree_path" property="treePath" jdbcType="VARCHAR" />
-		<result column="parent" property="parent" jdbcType="BIGINT" />
-		<result column="name_en" property="nameEn" jdbcType="VARCHAR" />
-	</resultMap>
-	<sql id="Base_Column_List">
-		id, create_date, modify_date, orders, grade, name_zh, seo_description,
-		seo_keywords,
-		seo_title, tree_path, parent, name_en
-	</sql>
-	<select id="selectByExample" resultMap="BaseResultMap"
-		parameterType="com.platform.JiaZhengService.dao.Criteria">
-		select
-		<if test="distinct">
-			distinct
-		</if>
-		<include refid="Base_Column_List" />
-		from t_product_category
-		<if test="_parameter != null">
-			<include refid="common.Example_Where_Clause" />
-		</if>
-	</select>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Long">
-		select
-		<include refid="Base_Column_List" />
-		from t_product_category
-		where id = #{id,jdbcType=BIGINT}
-	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_product_category
-		where id = #{id,jdbcType=BIGINT}
-	</delete>
-	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
-		delete from t_product_category
-		<if test="_parameter != null">
-			<include refid="common.Example_Where_Clause" />
-		</if>
-	</delete>
-	<insert id="insert"
-		parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory">
-		<selectKey resultType="java.lang.Long" keyProperty="id"
-			order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-		insert into t_product_category (create_date, modify_date, orders,
-		grade, name_zh, seo_description,
-		seo_keywords, seo_title, tree_path,
-		parent, name_en)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
-		#{orders,jdbcType=INTEGER},
-		#{grade,jdbcType=INTEGER}, #{nameZh,jdbcType=VARCHAR}, #{seoDescription,jdbcType=VARCHAR},
-		#{seoKeywords,jdbcType=VARCHAR}, #{seoTitle,jdbcType=VARCHAR},
-		#{treePath,jdbcType=VARCHAR},
-		#{parent,jdbcType=BIGINT}, #{nameEn,jdbcType=VARCHAR})
-	</insert>
-	<insert id="insertSelective"
-		parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory">
-		<selectKey resultType="java.lang.Long" keyProperty="id"
-			order="AFTER">
-			SELECT LAST_INSERT_ID()
-		</selectKey>
-		insert into t_product_category
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="createDate != null">
-				create_date,
-			</if>
-			<if test="modifyDate != null">
-				modify_date,
-			</if>
-			<if test="orders != null">
-				orders,
-			</if>
-			<if test="grade != null">
-				grade,
-			</if>
-			<if test="nameZh != null">
-				name_zh,
-			</if>
-			<if test="seoDescription != null">
-				seo_description,
-			</if>
-			<if test="seoKeywords != null">
-				seo_keywords,
-			</if>
-			<if test="seoTitle != null">
-				seo_title,
-			</if>
-			<if test="treePath != null">
-				tree_path,
-			</if>
-			<if test="parent != null">
-				parent,
-			</if>
-			<if test="nameEn != null">
-				name_en,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="createDate != null">
-				#{createDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="modifyDate != null">
-				#{modifyDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="orders != null">
-				#{orders,jdbcType=INTEGER},
-			</if>
-			<if test="grade != null">
-				#{grade,jdbcType=INTEGER},
-			</if>
-			<if test="nameZh != null">
-				#{nameZh,jdbcType=VARCHAR},
-			</if>
-			<if test="seoDescription != null">
-				#{seoDescription,jdbcType=VARCHAR},
-			</if>
-			<if test="seoKeywords != null">
-				#{seoKeywords,jdbcType=VARCHAR},
-			</if>
-			<if test="seoTitle != null">
-				#{seoTitle,jdbcType=VARCHAR},
-			</if>
-			<if test="treePath != null">
-				#{treePath,jdbcType=VARCHAR},
-			</if>
-			<if test="parent != null">
-				#{parent,jdbcType=BIGINT},
-			</if>
-			<if test="nameEn != null">
-				#{nameEn,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
-		resultType="java.lang.Integer">
-		select count(*) from t_product_category
-		<if test="_parameter != null">
-			<include refid="common.Example_Where_Clause" />
-		</if>
-	</select>
-	<update id="updateByExampleSelective" parameterType="map">
-		update t_product_category
-		<set>
-			<if test="record.id != null">
-				id = #{record.id,jdbcType=BIGINT},
-			</if>
-			<if test="record.createDate != null">
-				create_date = #{record.createDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="record.modifyDate != null">
-				modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="record.orders != null">
-				orders = #{record.orders,jdbcType=INTEGER},
-			</if>
-			<if test="record.grade != null">
-				grade = #{record.grade,jdbcType=INTEGER},
-			</if>
-			<if test="record.nameZh != null">
-				name_zh = #{record.nameZh,jdbcType=VARCHAR},
-			</if>
-			<if test="record.seoDescription != null">
-				seo_description = #{record.seoDescription,jdbcType=VARCHAR},
-			</if>
-			<if test="record.seoKeywords != null">
-				seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
-			</if>
-			<if test="record.seoTitle != null">
-				seo_title = #{record.seoTitle,jdbcType=VARCHAR},
-			</if>
-			<if test="record.treePath != null">
-				tree_path = #{record.treePath,jdbcType=VARCHAR},
-			</if>
-			<if test="record.parent != null">
-				parent = #{record.parent,jdbcType=BIGINT},
-			</if>
-			<if test="record.nameEn != null">
-				name_en = #{record.nameEn,jdbcType=VARCHAR},
-			</if>
-		</set>
-		<if test="_parameter != null">
-			<include refid="common.Update_By_Example_Where_Clause" />
-		</if>
-	</update>
-	<update id="updateByExample" parameterType="map">
-		update t_product_category
-		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		orders = #{record.orders,jdbcType=INTEGER},
-		grade = #{record.grade,jdbcType=INTEGER},
-		name_zh = #{record.nameZh,jdbcType=VARCHAR},
-		seo_description = #{record.seoDescription,jdbcType=VARCHAR},
-		seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
-		seo_title = #{record.seoTitle,jdbcType=VARCHAR},
-		tree_path = #{record.treePath,jdbcType=VARCHAR},
-		parent = #{record.parent,jdbcType=BIGINT},
-		name_en = #{record.nameEn,jdbcType=VARCHAR}
-		<if test="_parameter != null">
-			<include refid="common.Update_By_Example_Where_Clause" />
-		</if>
-	</update>
-	<update id="updateByPrimaryKeySelective"
-		parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory">
-		update t_product_category
-		<set>
-			<if test="createDate != null">
-				create_date = #{createDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="modifyDate != null">
-				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-			</if>
-			<if test="orders != null">
-				orders = #{orders,jdbcType=INTEGER},
-			</if>
-			<if test="grade != null">
-				grade = #{grade,jdbcType=INTEGER},
-			</if>
-			<if test="nameZh != null">
-				name_zh = #{nameZh,jdbcType=VARCHAR},
-			</if>
-			<if test="seoDescription != null">
-				seo_description = #{seoDescription,jdbcType=VARCHAR},
-			</if>
-			<if test="seoKeywords != null">
-				seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
-			</if>
-			<if test="seoTitle != null">
-				seo_title = #{seoTitle,jdbcType=VARCHAR},
-			</if>
-			<if test="treePath != null">
-				tree_path = #{treePath,jdbcType=VARCHAR},
-			</if>
-			<if test="parent != null">
-				parent = #{parent,jdbcType=BIGINT},
-			</if>
-			<if test="nameEn != null">
-				name_en = #{nameEn,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where id = #{id,jdbcType=BIGINT}
-	</update>
-	<update id="updateByPrimaryKey"
-		parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory">
-		update t_product_category
-		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		orders = #{orders,jdbcType=INTEGER},
-		grade = #{grade,jdbcType=INTEGER},
-		name_zh = #{nameZh,jdbcType=VARCHAR},
-		seo_description = #{seoDescription,jdbcType=VARCHAR},
-		seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
-		seo_title = #{seoTitle,jdbcType=VARCHAR},
-		tree_path = #{treePath,jdbcType=VARCHAR},
-		parent = #{parent,jdbcType=BIGINT},
-		name_en = #{nameEn,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=BIGINT}
-	</update>
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TProductCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TProductCategory" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="orders" property="orders" jdbcType="INTEGER" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="name_zh" property="nameZh" jdbcType="VARCHAR" />
+    <result column="seo_description" property="seoDescription" jdbcType="VARCHAR" />
+    <result column="seo_keywords" property="seoKeywords" jdbcType="VARCHAR" />
+    <result column="seo_title" property="seoTitle" jdbcType="VARCHAR" />
+    <result column="tree_path" property="treePath" jdbcType="VARCHAR" />
+    <result column="parent" property="parent" jdbcType="BIGINT" />
+    <result column="name_en" property="nameEn" jdbcType="VARCHAR" />
+    <result column="logo_image" property="logoImage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, modify_date, orders, grade, name_zh, seo_description, seo_keywords, 
+    seo_title, tree_path, parent, name_en, logo_image
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_product_category
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_product_category
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_product_category
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    delete from t_product_category
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product_category (create_date, modify_date, orders, 
+      grade, name_zh, seo_description, 
+      seo_keywords, seo_title, tree_path, 
+      parent, name_en, logo_image
+      )
+    values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{orders,jdbcType=INTEGER}, 
+      #{grade,jdbcType=INTEGER}, #{nameZh,jdbcType=VARCHAR}, #{seoDescription,jdbcType=VARCHAR}, 
+      #{seoKeywords,jdbcType=VARCHAR}, #{seoTitle,jdbcType=VARCHAR}, #{treePath,jdbcType=VARCHAR}, 
+      #{parent,jdbcType=BIGINT}, #{nameEn,jdbcType=VARCHAR}, #{logoImage,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_product_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="orders != null" >
+        orders,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="nameZh != null" >
+        name_zh,
+      </if>
+      <if test="seoDescription != null" >
+        seo_description,
+      </if>
+      <if test="seoKeywords != null" >
+        seo_keywords,
+      </if>
+      <if test="seoTitle != null" >
+        seo_title,
+      </if>
+      <if test="treePath != null" >
+        tree_path,
+      </if>
+      <if test="parent != null" >
+        parent,
+      </if>
+      <if test="nameEn != null" >
+        name_en,
+      </if>
+      <if test="logoImage != null" >
+        logo_image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="nameZh != null" >
+        #{nameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="seoDescription != null" >
+        #{seoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="seoKeywords != null" >
+        #{seoKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="seoTitle != null" >
+        #{seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="treePath != null" >
+        #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null" >
+        #{parent,jdbcType=BIGINT},
+      </if>
+      <if test="nameEn != null" >
+        #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="logoImage != null" >
+        #{logoImage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from t_product_category
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_product_category
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orders != null" >
+        orders = #{record.orders,jdbcType=INTEGER},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=INTEGER},
+      </if>
+      <if test="record.nameZh != null" >
+        name_zh = #{record.nameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seoDescription != null" >
+        seo_description = #{record.seoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seoKeywords != null" >
+        seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seoTitle != null" >
+        seo_title = #{record.seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.treePath != null" >
+        tree_path = #{record.treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parent != null" >
+        parent = #{record.parent,jdbcType=BIGINT},
+      </if>
+      <if test="record.nameEn != null" >
+        name_en = #{record.nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logoImage != null" >
+        logo_image = #{record.logoImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_product_category
+    set id = #{record.id,jdbcType=BIGINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      orders = #{record.orders,jdbcType=INTEGER},
+      grade = #{record.grade,jdbcType=INTEGER},
+      name_zh = #{record.nameZh,jdbcType=VARCHAR},
+      seo_description = #{record.seoDescription,jdbcType=VARCHAR},
+      seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
+      seo_title = #{record.seoTitle,jdbcType=VARCHAR},
+      tree_path = #{record.treePath,jdbcType=VARCHAR},
+      parent = #{record.parent,jdbcType=BIGINT},
+      name_en = #{record.nameEn,jdbcType=VARCHAR},
+      logo_image = #{record.logoImage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory" >
+    update t_product_category
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="nameZh != null" >
+        name_zh = #{nameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="seoDescription != null" >
+        seo_description = #{seoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="seoKeywords != null" >
+        seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="seoTitle != null" >
+        seo_title = #{seoTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="treePath != null" >
+        tree_path = #{treePath,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null" >
+        parent = #{parent,jdbcType=BIGINT},
+      </if>
+      <if test="nameEn != null" >
+        name_en = #{nameEn,jdbcType=VARCHAR},
+      </if>
+      <if test="logoImage != null" >
+        logo_image = #{logoImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory" >
+    update t_product_category
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      orders = #{orders,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=INTEGER},
+      name_zh = #{nameZh,jdbcType=VARCHAR},
+      seo_description = #{seoDescription,jdbcType=VARCHAR},
+      seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
+      seo_title = #{seoTitle,jdbcType=VARCHAR},
+      tree_path = #{treePath,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=BIGINT},
+      name_en = #{nameEn,jdbcType=VARCHAR},
+      logo_image = #{logoImage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 </mapper>

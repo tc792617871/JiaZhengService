@@ -39,7 +39,11 @@ var parametersAll = new Array();
 $().ready(function() {
 
 	var $inputForm = $("#inputForm");
+	
 	var $productCategoryId = $("#productCategoryId");
+	
+	var $browserButton = $("#browserButton");
+	$browserButton.browser();
 	
 	var $addSpecificationProduct = $("#addSpecificationProduct");
 	var $specificationProductTable = $("#specificationProductTable");
@@ -108,16 +112,16 @@ $().ready(function() {
 					<input type="text" name="specifications[' + specificationIndex + '].code" class="text" maxlength="200" style="width: 130px;"\/>
 				<\/td>
 				<td>
-					<input type="text" name="specifications[' + specificationIndex + '].orders" class="text productImageOrder" maxlength="9" style="width: 30px;" readonly="true" value="'+(specificationIndex+1)+'"\/>
+					<input type="text" name="specifications[' + specificationIndex + '].orders" class="text" maxlength="9" style="width: 30px;" readonly="true" value="'+(specificationIndex+1)+'"\/>
 				<\/td>
 				<td>
-					<input type="text" name="specifications[' + specificationIndex + '].price" class="text" maxlength="200" style="width: 60px;"\/>
+					<input type="text" name="specifications[' + specificationIndex + '].price" class="text number" placeholder="保留1位小数" maxlength="200" style="width: 75px;"\/>
 				<\/td>
 				<td>
-					<input type="text" name="specifications[' + specificationIndex + '].minNum" class="text" maxlength="200" style="width: 60px;"\/>
+					<input type="text" name="specifications[' + specificationIndex + '].minNum" class="text number" placeholder="保留1位小数" maxlength="200" style="width: 75px;"\/>
 				<\/td>
 				<td>
-					<input type="text" name="specifications[' + specificationIndex + '].maxNum" class="text" maxlength="200" style="width: 60px;"\/>
+					<input type="text" name="specifications[' + specificationIndex + '].maxNum" class="text number" placeholder="保留1位小数" maxlength="200" style="width: 75px;"\/>
 				<\/td>
 				<td>
 					<a id= ""href="#" class="iconButton upIcon"  style="float: none;"><span class="upIcon"></span></a>
@@ -159,12 +163,18 @@ $().ready(function() {
 		rules: {
 			productCategoryId: "required",
 			name: "required",
+			image:"required",
 			introduction:"required",
+			memo: "required"
 		},
 		messages: {
 		},
 		submitHandler: function(form) {
 			if($specificationProductTableTBody.find("tr").length == 0){
+				return false;
+			}
+			var rt = form.valid();
+			if(!rt){
 				return false;
 			}
 			form.submit();
@@ -253,6 +263,29 @@ $().ready(function() {
 				</th>
 				<td>
 					<input type="text" name="name" class="text" value="${product.name}" maxlength="200" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					${message("Product.memo")}:
+				</th>
+				<td>
+					<!--<input type="text" name="memo" class="text" value="${product.memo}" maxlength="200" />-->
+					<textarea name="memo" rows="3" cols="20" class="text" maxlength="200" />${product.memo}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>${message("Product.image")}${message("Product.productImageSize")}:
+				</th>
+				<td>
+					<span class="fieldSet">
+						<input type="text" name="image" class="text" maxlength="200" value="${product.image}" title="${message("admin.product.imageTitle")}" />
+						<input type="button" id="browserButton" class="button" value="${message("admin.browser.select")}" />
+						[#if product.image??]
+							<img src="${product.image}" width="60px"/>
+						[/#if]
+					</span>
 				</td>
 			</tr>
 			<tr>
@@ -347,25 +380,25 @@ $().ready(function() {
 								[#else]
 									&nbsp;
 								[/#if]
-								<input type="hidden" name="specifications[${specification_index}].id" value="${specification.id}" class="text"/>
+								<input type="hidden" name="specifications[${specification_index}].id" value="${specification.id}" required="required" class="text"/>
 							</td>
 							<td>
-								<input type="text" name="specifications[${specification_index}].name" value="${specification.name}" class="text" maxlength="200" style="width: 130px;"/>
+								<input type="text" name="specifications[${specification_index}].name" value="${specification.name}" required="required" class="text" maxlength="200" style="width: 130px;"/>
 							</td>
 							<td>
-								<input type="text" name="specifications[${specification_index}].code" value="${specification.code}" class="text" maxlength="200" style="width: 130px;"/>
+								<input type="text" name="specifications[${specification_index}].code" value="${specification.code}" required="required" class="text" maxlength="200" style="width: 130px;"/>
 							</td>
 							<td>
-								<input type="text" name="specifications[${specification_index}].orders" class="text productImageOrder" maxlength="9" style="width: 30px;" readonly="true" value="${specification.orders}"/>
+								<input type="text" name="specifications[${specification_index}].orders" class="text" maxlength="9" required="required" style="width: 30px;" readonly="true" value="${specification.orders}"/>
 							</td>
 							<td>
-								<input type="text" name="specifications[${specification_index}].price" value="${specification.price}" class="text" maxlength="200" style="width: 60px;"\/>
+								<input type="text" name="specifications[${specification_index}].price" value="${specification.price}" required="required" class="text number" placeholder="保留1位小数" maxlength="200" style="width: 60px;"\/>
 							</td>
 							<td>
-								<input type="text" name="specifications[${specification_index}].minNum" value="${specification.minNum}" class="text" maxlength="200" style="width: 60px;"\/>
+								<input type="text" name="specifications[${specification_index}].minNum" value="${specification.minNum}" required="required" class="text number" placeholder="保留1位小数" maxlength="200" style="width: 60px;"\/>
 							</td>
 							<td>
-								<input type="text" name="specifications[${specification_index}].maxNum" value="${specification.maxNum}" class="text" maxlength="200" style="width: 60px;"\/>
+								<input type="text" name="specifications[${specification_index}].maxNum" value="${specification.maxNum}" required="required" class="text number" placeholder="保留1位小数" maxlength="200" style="width: 60px;"\/>
 							</td>
 							<td>
 								<a id= ""href="#" class="iconButton upIcon"  style="float: none;"><span class="upIcon"></span></a>

@@ -111,7 +111,7 @@ function submitReset() {
 			        <input type="hidden" id="validateCode" name="validateCode" value="${validateCode}"/>
 			        <input type="hidden" id="memeberId" value="${member.id}">
 			        <input type="hidden" id="key4user" name="key" value="${key}" />
-				    <div class="box">
+				    <div class="box" style="margin-top: 10px;">
 				       <input type="password" id="newPassword" name="newPassword" placeholder="新密码" class="box_input"/>
 				    </div>
 				    <div class="box">

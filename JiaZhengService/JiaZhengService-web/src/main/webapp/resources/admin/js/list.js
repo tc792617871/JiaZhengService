@@ -1,12 +1,3 @@
-/*
- * Copyright 2012-2014 sencloud.com.cn. All rights reserved.
- * Support: http://www.sencloud.com.cn
- * License: http://www.sencloud.com.cn/license
- * 
- * JavaScript - List
- * Version: 3.0
- */
-
 $().ready( function() {
 
 	var $listForm = $("#listForm");

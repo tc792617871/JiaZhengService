@@ -173,4 +173,13 @@ public class ProductController extends AbstractController {
 		return SUCCESS_MESSAGE;
 	}
 
+	/**
+	 * 删除
+	 */
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public @ResponseBody Message delete(Long[] ids) {
+		productService.delete(ids);
+		return SUCCESS_MESSAGE;
+	}
+
 }

@@ -2,7 +2,7 @@
 
 <jiaZhengService> 
 	<setting name="siteName" value="家政服务平台"/>  
-	<setting name="siteUrl" value="http://192.168.2.181:8080/JiaZhengService-web"/>  
+	<setting name="siteUrl" value="http://127.0.0.1:8080/JiaZhengService-web"/>  
 	<setting name="logo" value="/upload/image/logo.gif"/>  
 	<setting name="hotSearch" value="xxx"/>  
 	<setting name="address" value="xxx"/>  

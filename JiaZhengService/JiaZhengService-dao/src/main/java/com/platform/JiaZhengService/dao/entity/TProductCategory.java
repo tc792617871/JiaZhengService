@@ -76,6 +76,11 @@ public class TProductCategory extends StringAndEqualsPojo implements Serializabl
     private String nameEn;
 
     /**
+     * @Fields t_product_category.logo_image :分类展示图
+     */
+    private String logoImage;
+
+    /**
      * @return t_product_category.id : 返回 
      */
     public Long getId() {
@@ -241,5 +246,19 @@ public class TProductCategory extends StringAndEqualsPojo implements Serializabl
      */
     public void setNameEn(String nameEn) {
         this.nameEn = nameEn == null ? null : nameEn.trim();
+    }
+
+    /**
+     * @return t_product_category.logo_image : 返回 分类展示图
+     */
+    public String getLogoImage() {
+        return logoImage;
+    }
+
+    /**
+     * @param logoImage of t_product_category : 设置 分类展示图
+     */
+    public void setLogoImage(String logoImage) {
+        this.logoImage = logoImage == null ? null : logoImage.trim();
     }
 }

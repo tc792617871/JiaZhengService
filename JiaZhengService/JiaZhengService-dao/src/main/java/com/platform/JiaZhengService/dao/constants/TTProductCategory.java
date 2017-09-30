@@ -65,4 +65,9 @@ public abstract class TTProductCategory {
      * @Fields t_product_category.NAME_EN: 
      */
     public static final String NAME_EN = "name_en";
+
+    /**
+     * @Fields t_product_category.LOGO_IMAGE: 分类展示图
+     */
+    public static final String LOGO_IMAGE = "logo_image";
 }

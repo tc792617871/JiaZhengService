@@ -23,4 +23,6 @@ public interface ProductService extends BaseService {
 
 	boolean updateByProductSelective(TProductWithBLOBs p);
 
+	void delete(Long[] ids);
+
 }

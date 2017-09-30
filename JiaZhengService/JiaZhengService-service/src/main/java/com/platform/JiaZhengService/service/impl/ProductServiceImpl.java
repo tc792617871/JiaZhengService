@@ -61,7 +61,6 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		product.setCreateDate(new Date());
 		product.setModifyDate(new Date());
 		productMapper.insertSelective(product);
-		System.out.println(1 / 0);
 		List<TSpecification> specifications = product.getSpecifications();
 		if (specifications != null && specifications.size() > 0) {
 			for (Iterator<TSpecification> iterator = product.getSpecifications().iterator(); iterator.hasNext();) {
@@ -170,6 +169,15 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 	@Override
 	public boolean updateByProductSelective(TProductWithBLOBs p) {
 		return productMapper.updateByPrimaryKeySelective(p) > 0 ? true : false;
+	}
+
+	@Override
+	public void delete(Long[] ids) {
+		if (ids != null && ids.length > 0) {
+			for (Long id : ids) {
+				productMapper.deleteByPrimaryKey(id);
+			}
+		}
 	}
 
 }

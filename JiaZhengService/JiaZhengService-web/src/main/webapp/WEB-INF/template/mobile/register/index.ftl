@@ -35,7 +35,7 @@ $().ready(function() {
 		[#include "/mobile/include/header_2.ftl" /]
 		<form id="registerForm" action="${base}/mobile/register/registSubmit.jhtml" method="get" >
 			<div class="moMobileContent">
-				<div class="box">
+				<div class="box" style="margin-top: 10px;">
 					<input type="number" id="mobile" name="mobile" placeholder="手机号码" class="box_input"/>
 				</div>
 				<div class="box">
@@ -47,7 +47,7 @@ $().ready(function() {
 				<div class="box">
 					<input type="text" id="name" name="name" placeholder="姓名" class="box_input"/>
 				</div>
-				<div class="box" style="margin-top: 20px;">
+				<div class="box">
 					<button type="button" id="registerSubmit">存储</button>
 				</div>
 			</div>		

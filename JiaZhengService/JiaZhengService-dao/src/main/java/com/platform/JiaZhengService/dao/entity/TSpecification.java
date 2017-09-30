@@ -61,7 +61,7 @@ public class TSpecification extends StringAndEqualsPojo implements Serializable,
 	/**
 	 * @Fields t_specification.price :
 	 */
-	private String price;
+	private Double price;
 
 	/**
 	 * @Fields t_specification.min_num :
@@ -201,7 +201,7 @@ public class TSpecification extends StringAndEqualsPojo implements Serializable,
 	/**
 	 * @return t_specification.price : 返回
 	 */
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
@@ -209,8 +209,8 @@ public class TSpecification extends StringAndEqualsPojo implements Serializable,
 	 * @param price
 	 *            of t_specification : 设置
 	 */
-	public void setPrice(String price) {
-		this.price = price == null ? null : price.trim();
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	/**
@@ -264,7 +264,7 @@ public class TSpecification extends StringAndEqualsPojo implements Serializable,
 	}
 
 	public boolean isEmpty() {
-		return StringUtils.isEmpty(getCode()) || StringUtils.isEmpty(getName()) || StringUtils.isEmpty(getPrice())
+		return StringUtils.isEmpty(getCode()) || StringUtils.isEmpty(getName()) || getPrice() == null
 				|| getMinNum() == null || getMaxNum() == null;
 	}
 }

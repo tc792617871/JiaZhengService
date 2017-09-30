@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${base}/resources/admin/js/jquery.validate.js"></script>
 <script type="text/javascript" src="${base}/resources/admin/js/common.js"></script>
 <script type="text/javascript" src="${base}/resources/admin/js/input.js"></script>
+<script type="text/javascript" src="${base}/resources/admin/uploadify/jquery.uploadify.min.js?time=${.now?date}${.now?time}"></script>
 <style type="text/css">
 .brands label {
 	width: 150px;
@@ -23,6 +24,9 @@ $().ready(function() {
 
 	var $inputForm = $("#inputForm");
 	
+	var $browserButton = $("#browserButton");
+	$browserButton.browser();
+	
 	[@flash_message /]
 
 	// 表单验证
@@ -30,7 +34,8 @@ $().ready(function() {
 		rules: {
 			nameZh: "required",
 			nameEn: "required",
-			orders: "digits"
+			orders: "digits",
+			logoImage: "required"
 		}
 	});
 	
@@ -57,6 +62,18 @@ $().ready(function() {
 				</th>
 				<td>
 					<input type="text" id="nameEn" name="nameEn" class="text" maxlength="200" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>${message("ProductCategory.logoImage")}${message("ProductCategory.logoImageSize")}:
+				</th>
+				<td>
+					<span class="fieldSet">
+						<input type="text" name="logoImage" class="text" maxlength="200" title="${message("ProductCategory.logoImage")}" />
+						<input type="button" id="browserButton" class="button" value="${message("admin.browser.select")}" />
+						<img width="60px"/>
+					</span>
 				</td>
 			</tr>
 			<tr>
