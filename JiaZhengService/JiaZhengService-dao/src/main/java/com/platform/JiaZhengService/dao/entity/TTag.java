@@ -6,286 +6,259 @@ import java.util.Date;
 
 /**
  * @ClassName: TTag
- * @Description: t_tag表对应的java bean类
- * @author: peiyu
+* @Description: t_tag表对应的java bean类
+* @author: peiyu
  */
 public class TTag extends StringAndEqualsPojo implements Serializable {
+    /**
+     * @Fields serialVersionUID : 自动生成默认序列化ID
+     */
+    private static final long serialVersionUID = 1L;
 
-	/** "Tag"参数名称 */
-	public static final String TAGID_ATTRIBUTE_NAME = TTag.class.getName() + ".TAGID";
+    /**
+     * @Fields t_tag.id :
+     */
+    private Long id;
 
-	/**
-	 * @Fields serialVersionUID : 自动生成默认序列化ID
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * @Fields t_tag.create_date :
+     */
+    private Date createDate;
 
-	/**
-	 * 类型
-	 */
-	public enum Type {
-		product(1, "商品标签");
-		private Integer code;
-		private String desc;
+    /**
+     * @Fields t_tag.modify_date :
+     */
+    private Date modifyDate;
 
-		Type(Integer code, String desc) {
-			this.setCode(code);
-			this.setDesc(desc);
-		}
+    /**
+     * @Fields t_tag.orders :
+     */
+    private Integer orders;
 
-		public Integer getCode() {
-			return code;
-		}
+    /**
+     * @Fields t_tag.icon :
+     */
+    private String icon;
 
-		public void setCode(Integer code) {
-			this.code = code;
-		}
+    /**
+     * @Fields t_tag.memo :
+     */
+    private String memo;
 
-		public String getDesc() {
-			return desc;
-		}
+    /**
+     * @Fields t_tag.name :
+     */
+    private String name;
 
-		public void setDesc(String desc) {
-			this.desc = desc;
-		}
-	}
+    /**
+     * @Fields t_tag.type :
+     */
+    private Integer type;
 
-	/**
-	 * @Fields t_tag.id :
-	 */
-	private Long id;
+    /**
+     * @Fields t_tag.mobile_cover :
+     */
+    private String mobileCover;
 
-	/**
-	 * @Fields t_tag.create_date :
-	 */
-	private Date createDate;
+    /**
+     * @Fields t_tag.ed_mobile_cover :
+     */
+    private String edMobileCover;
 
-	/**
-	 * @Fields t_tag.modify_date :
-	 */
-	private Date modifyDate;
+    /**
+     * @Fields t_tag.mo_mobile_cover :
+     */
+    private String moMobileCover;
 
-	/**
-	 * @Fields t_tag.orders :
-	 */
-	private Integer orders;
+    /**
+     * @Fields t_tag.is_enabled :
+     */
+    private Boolean isEnabled;
 
-	/**
-	 * @Fields t_tag.icon :
-	 */
-	private String icon;
+    /**
+     * @Fields t_tag.code :
+     */
+    private String code;
 
-	/**
-	 * @Fields t_tag.memo :
-	 */
-	private String memo;
+    /**
+     * @return t_tag.id : 返回 
+     */
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @Fields t_tag.name :
-	 */
-	private String name;
+    /**
+     * @param id of t_tag : 设置 
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @Fields t_tag.type :
-	 */
-	private Integer type;
+    /**
+     * @return t_tag.create_date : 返回 
+     */
+    public Date getCreateDate() {
+        return createDate;
+    }
 
-	/**
-	 * @Fields t_tag.mobile_cover :
-	 */
-	private String mobileCover;
+    /**
+     * @param createDate of t_tag : 设置 
+     */
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
-	/**
-	 * @Fields t_tag.ed_mobile_cover :
-	 */
-	private String edMobileCover;
+    /**
+     * @return t_tag.modify_date : 返回 
+     */
+    public Date getModifyDate() {
+        return modifyDate;
+    }
 
-	/**
-	 * @Fields t_tag.mo_mobile_cover :
-	 */
-	private String moMobileCover;
+    /**
+     * @param modifyDate of t_tag : 设置 
+     */
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
 
-	/**
-	 * @Fields t_tag.is_enabled :
-	 */
-	private Boolean isEnabled;
+    /**
+     * @return t_tag.orders : 返回 
+     */
+    public Integer getOrders() {
+        return orders;
+    }
 
-	/**
-	 * @return t_tag.id : 返回
-	 */
-	public Long getId() {
-		return id;
-	}
+    /**
+     * @param orders of t_tag : 设置 
+     */
+    public void setOrders(Integer orders) {
+        this.orders = orders;
+    }
 
-	/**
-	 * @param id
-	 *            of t_tag : 设置
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * @return t_tag.icon : 返回 
+     */
+    public String getIcon() {
+        return icon;
+    }
 
-	/**
-	 * @return t_tag.create_date : 返回
-	 */
-	public Date getCreateDate() {
-		return createDate;
-	}
+    /**
+     * @param icon of t_tag : 设置 
+     */
+    public void setIcon(String icon) {
+        this.icon = icon == null ? null : icon.trim();
+    }
 
-	/**
-	 * @param createDate
-	 *            of t_tag : 设置
-	 */
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
+    /**
+     * @return t_tag.memo : 返回 
+     */
+    public String getMemo() {
+        return memo;
+    }
 
-	/**
-	 * @return t_tag.modify_date : 返回
-	 */
-	public Date getModifyDate() {
-		return modifyDate;
-	}
+    /**
+     * @param memo of t_tag : 设置 
+     */
+    public void setMemo(String memo) {
+        this.memo = memo == null ? null : memo.trim();
+    }
 
-	/**
-	 * @param modifyDate
-	 *            of t_tag : 设置
-	 */
-	public void setModifyDate(Date modifyDate) {
-		this.modifyDate = modifyDate;
-	}
+    /**
+     * @return t_tag.name : 返回 
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @return t_tag.orders : 返回
-	 */
-	public Integer getOrders() {
-		return orders;
-	}
+    /**
+     * @param name of t_tag : 设置 
+     */
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-	/**
-	 * @param orders
-	 *            of t_tag : 设置
-	 */
-	public void setOrders(Integer orders) {
-		this.orders = orders;
-	}
+    /**
+     * @return t_tag.type : 返回 
+     */
+    public Integer getType() {
+        return type;
+    }
 
-	/**
-	 * @return t_tag.icon : 返回
-	 */
-	public String getIcon() {
-		return icon;
-	}
+    /**
+     * @param type of t_tag : 设置 
+     */
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
-	/**
-	 * @param icon
-	 *            of t_tag : 设置
-	 */
-	public void setIcon(String icon) {
-		this.icon = icon == null ? null : icon.trim();
-	}
+    /**
+     * @return t_tag.mobile_cover : 返回 
+     */
+    public String getMobileCover() {
+        return mobileCover;
+    }
 
-	/**
-	 * @return t_tag.memo : 返回
-	 */
-	public String getMemo() {
-		return memo;
-	}
+    /**
+     * @param mobileCover of t_tag : 设置 
+     */
+    public void setMobileCover(String mobileCover) {
+        this.mobileCover = mobileCover == null ? null : mobileCover.trim();
+    }
 
-	/**
-	 * @param memo
-	 *            of t_tag : 设置
-	 */
-	public void setMemo(String memo) {
-		this.memo = memo == null ? null : memo.trim();
-	}
+    /**
+     * @return t_tag.ed_mobile_cover : 返回 
+     */
+    public String getEdMobileCover() {
+        return edMobileCover;
+    }
 
-	/**
-	 * @return t_tag.name : 返回
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @param edMobileCover of t_tag : 设置 
+     */
+    public void setEdMobileCover(String edMobileCover) {
+        this.edMobileCover = edMobileCover == null ? null : edMobileCover.trim();
+    }
 
-	/**
-	 * @param name
-	 *            of t_tag : 设置
-	 */
-	public void setName(String name) {
-		this.name = name == null ? null : name.trim();
-	}
+    /**
+     * @return t_tag.mo_mobile_cover : 返回 
+     */
+    public String getMoMobileCover() {
+        return moMobileCover;
+    }
 
-	/**
-	 * @return t_tag.type : 返回
-	 */
-	public Integer getType() {
-		return type;
-	}
+    /**
+     * @param moMobileCover of t_tag : 设置 
+     */
+    public void setMoMobileCover(String moMobileCover) {
+        this.moMobileCover = moMobileCover == null ? null : moMobileCover.trim();
+    }
 
-	/**
-	 * @param type
-	 *            of t_tag : 设置
-	 */
-	public void setType(Integer type) {
-		this.type = type;
-	}
+    /**
+     * @return t_tag.is_enabled : 返回 
+     */
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
 
-	/**
-	 * @return t_tag.mobile_cover : 返回
-	 */
-	public String getMobileCover() {
-		return mobileCover;
-	}
+    /**
+     * @param isEnabled of t_tag : 设置 
+     */
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
 
-	/**
-	 * @param mobileCover
-	 *            of t_tag : 设置
-	 */
-	public void setMobileCover(String mobileCover) {
-		this.mobileCover = mobileCover == null ? null : mobileCover.trim();
-	}
+    /**
+     * @return t_tag.code : 返回 
+     */
+    public String getCode() {
+        return code;
+    }
 
-	/**
-	 * @return t_tag.ed_mobile_cover : 返回
-	 */
-	public String getEdMobileCover() {
-		return edMobileCover;
-	}
-
-	/**
-	 * @param edMobileCover
-	 *            of t_tag : 设置
-	 */
-	public void setEdMobileCover(String edMobileCover) {
-		this.edMobileCover = edMobileCover == null ? null : edMobileCover.trim();
-	}
-
-	/**
-	 * @return t_tag.mo_mobile_cover : 返回
-	 */
-	public String getMoMobileCover() {
-		return moMobileCover;
-	}
-
-	/**
-	 * @param moMobileCover
-	 *            of t_tag : 设置
-	 */
-	public void setMoMobileCover(String moMobileCover) {
-		this.moMobileCover = moMobileCover == null ? null : moMobileCover.trim();
-	}
-
-	/**
-	 * @return t_tag.is_enabled : 返回
-	 */
-	public Boolean getIsEnabled() {
-		return isEnabled;
-	}
-
-	/**
-	 * @param isEnabled
-	 *            of t_tag : 设置
-	 */
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
+    /**
+     * @param code of t_tag : 设置 
+     */
+    public void setCode(String code) {
+        this.code = code == null ? null : code.trim();
+    }
 }

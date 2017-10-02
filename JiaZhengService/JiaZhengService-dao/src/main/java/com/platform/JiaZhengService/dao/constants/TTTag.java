@@ -65,4 +65,9 @@ public abstract class TTTag {
      * @Fields t_tag.IS_ENABLED: 
      */
     public static final String IS_ENABLED = "is_enabled";
+
+    /**
+     * @Fields t_tag.CODE: 
+     */
+    public static final String CODE = "code";
 }
