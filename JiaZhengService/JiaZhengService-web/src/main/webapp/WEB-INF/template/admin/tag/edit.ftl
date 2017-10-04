@@ -29,6 +29,7 @@ $().ready(function() {
 	$inputForm.validate({
 		rules: {
 			name: "required",
+			code: "required",
 			orders: "digits"
 		}
 	});
@@ -56,6 +57,14 @@ $().ready(function() {
 				</th>
 				<td>
 					<input type="text" name="name" class="text" value="${tag.name}" maxlength="200" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>${message("Tag.code")}:
+				</th>
+				<td>
+					<input type="text" name="code" class="text" value="${tag.code}" maxlength="100" />
 				</td>
 			</tr>
 			<tr>

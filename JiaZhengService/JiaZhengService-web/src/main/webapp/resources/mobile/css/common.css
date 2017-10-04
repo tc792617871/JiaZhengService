@@ -2696,3 +2696,6 @@ input[type=checkbox].confirmCheckBox {
 	margin-top: 10px;
 }
 /*公共页面底部 end*/
+.hidden_flow {
+	overflow: hidden;
+}

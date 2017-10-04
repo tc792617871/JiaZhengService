@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.platform.JiaZhengService.dao.Criteria;
+import com.platform.JiaZhengService.dao.entity.TProduct;
 import com.platform.JiaZhengService.dao.entity.TProductTagKey;
 import com.platform.JiaZhengService.dao.entity.TTag;
 
@@ -91,4 +92,6 @@ public interface TProductTagMapper {
 	int updateByExample(@Param("record") TProductTagKey record, @Param("example") Criteria criteria);
 
 	List<TTag> selectByProductID(Long productId);
+
+	List<TProduct> findProductsByTagID(Criteria c);
 }

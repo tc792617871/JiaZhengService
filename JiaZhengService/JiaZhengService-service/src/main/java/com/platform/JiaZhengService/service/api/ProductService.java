@@ -25,4 +25,6 @@ public interface ProductService extends BaseService {
 
 	void delete(Long[] ids);
 
+	List<TProduct> queryProductListByProductCategroyID(Long productCategoryID, Boolean isMarketable, Boolean archived);
+
 }

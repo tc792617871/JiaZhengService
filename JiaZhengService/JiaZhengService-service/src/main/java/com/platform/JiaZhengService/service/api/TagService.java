@@ -56,6 +56,15 @@ public interface TagService extends BaseService {
 
 	void delete(Long[] ids);
 
-	List<TProduct> findProductsByTagID(Long id);
+	/**
+	 * 根据一系列商品条件，tagID查询商品列表
+	 * 
+	 * @param id
+	 * @param isMarketable
+	 * @param isArchive
+	 * @param count
+	 * @return
+	 */
+	List<TProduct> findProductsByTagID(Long id, Boolean isMarketable, Boolean isArchive, Integer count);
 
 }

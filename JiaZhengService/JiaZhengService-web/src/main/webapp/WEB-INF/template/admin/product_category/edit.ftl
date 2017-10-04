@@ -24,6 +24,9 @@ $().ready(function() {
 
 	var $inputForm = $("#inputForm");
 	
+	var $browserButton = $("#browserButton");
+	$browserButton.browser();
+	
 	[@flash_message /]
 
 	// 表单验证

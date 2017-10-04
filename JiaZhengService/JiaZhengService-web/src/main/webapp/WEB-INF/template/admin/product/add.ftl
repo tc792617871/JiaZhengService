@@ -163,10 +163,6 @@ $().ready(function() {
 			if($specificationProductTableTBody.find("tr").length == 0){
 				return false;
 			}
-			var rt = form.valid();
-			if(!rt){
-				return false;
-			}
 			form.submit();
 		}
 	});

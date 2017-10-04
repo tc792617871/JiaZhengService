@@ -134,7 +134,7 @@
 	</sql>
 	<sql id="p_Column_List">
 		p.id, p.create_date, p.modify_date, p.is_marketable, p.name,
-		p.product_category, p.is_square
+		p.product_category, p.is_square, p.archived
 	</sql>
 	<sql id="Blob_Column_List">
 		introduction, component, matters_needing_attention

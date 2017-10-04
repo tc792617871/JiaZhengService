@@ -1,6 +1,5 @@
 package com.platform.JiaZhengService.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,12 +14,16 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.platform.JiaZhengService.common.pojo.Filter;
+import com.platform.JiaZhengService.common.pojo.JiaZhengServiceConstants;
 import com.platform.JiaZhengService.common.pojo.Order;
+import com.platform.JiaZhengService.common.pojo.TableAliasConstants;
 import com.platform.JiaZhengService.dao.Criteria;
+import com.platform.JiaZhengService.dao.Criteria.Condition;
+import com.platform.JiaZhengService.dao.Page;
+import com.platform.JiaZhengService.dao.constants.TTProduct;
 import com.platform.JiaZhengService.dao.constants.TTProductTag;
 import com.platform.JiaZhengService.dao.constants.TTTag;
 import com.platform.JiaZhengService.dao.entity.TProduct;
-import com.platform.JiaZhengService.dao.entity.TProductTagKey;
 import com.platform.JiaZhengService.dao.entity.TTag;
 import com.platform.JiaZhengService.dao.entity.TTag.Type;
 import com.platform.JiaZhengService.dao.mapper.TProductMapper;
@@ -106,18 +109,24 @@ public class TagServiceImpl extends BaseServiceImpl implements TagService {
 	}
 
 	@Override
-	public List<TProduct> findProductsByTagID(Long id) {
+	public List<TProduct> findProductsByTagID(Long id, Boolean isMarketable, Boolean isArchive, Integer count) {
 		if (id != null) {
 			Criteria c = new Criteria();
-			c.createConditon().andEqualTo(TTProductTag.TAGS, id);
-			List<TProductTagKey> productTags = productTagMapper.selectByExample(c);
-			if (productTags != null && productTags.size() > 0) {
-				List<TProduct> products = new ArrayList<>();
-				for (TProductTagKey key : productTags) {
-					products.add(productMapper.selectByPrimaryKey(key.getProducts()));
-				}
-				return products;
+			if (count != null) {
+				c = new Criteria(new Page(0, count));
 			}
+			Condition con = c.createConditon();
+			con.andEqualTo(TableAliasConstants.ALIAS_T_PRODUCT_TAG + TTProductTag.TAGS, id);
+			if (isMarketable != null) {
+				con.andEqualTo(TableAliasConstants.ALIAS_T_PRODUCT + TTProduct.IS_MARKETABLE, isMarketable);
+			}
+			if (isArchive != null) {
+				con.andEqualTo(TableAliasConstants.ALIAS_T_PRODUCT + TTProduct.ARCHIVED, isArchive);
+			}
+			c.setOrderByClause(
+					TableAliasConstants.ALIAS_T_PRODUCT + TTProduct.CREATE_DATE + JiaZhengServiceConstants.SORT_DESC);
+			List<TProduct> products = productTagMapper.findProductsByTagID(c);
+			return products;
 		}
 		return null;
 	}

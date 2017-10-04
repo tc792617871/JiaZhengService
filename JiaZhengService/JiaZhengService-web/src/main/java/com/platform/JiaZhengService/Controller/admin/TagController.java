@@ -103,7 +103,7 @@ public class TagController extends AbstractController {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
 				TTag tag = tagService.find(id);
-				List<TProduct> products = tagService.findProductsByTagID(id);
+				List<TProduct> products = tagService.findProductsByTagID(id, null, null, null);
 				if (!products.isEmpty()) {
 					return Message.error("admin.tag.deleteExistNotAllowed", tag.getName());
 				}

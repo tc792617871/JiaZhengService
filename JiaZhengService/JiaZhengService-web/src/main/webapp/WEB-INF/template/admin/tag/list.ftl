@@ -85,6 +85,9 @@ $().ready(function() {
 					<a href="javascript:;" class="sort" name="name">${message("Tag.name")}</a>
 				</th>
 				<th>
+					<a href="javascript:;" class="sort" name="code">${message("Tag.code")}</a>
+				</th>
+				<th>
 					<a href="javascript:;" class="sort" name="type">${message("Tag.type")}</a>
 				</th>
 				<th>
@@ -107,6 +110,9 @@ $().ready(function() {
 					</td>
 					<td>
 						${tag.name}
+					</td>
+					<td>
+						${tag.code}
 					</td>
 					<td>
 						${message("Tag.Type." + tag.type)}

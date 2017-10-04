@@ -28,58 +28,39 @@
 			<li><a href=""><img src="../resources/mobile/images/5.jpg">测试标题一</a></li>
 		  </ul>
 		</div>
+		[#if productCategories ??]
 		<div class="ui-categorys">
-			<div class="category-item">
-				<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1487560983465/钟点保洁.jpg#钟点保洁.jpg">
-				<span class="title">钟点保洁</span>
-				<span class="description">把时间留给自己，把打扫交给我们</span>
-			</div>
-			<div class="category-item">
-				<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1501828924834/钟点保洁.jpg#钟点保洁.jpg">
-				<span class="title">星级·钟点保洁</span>
-				<span class="description">星级保洁为工作三年以上的阿姨为您服务</span>
-			</div>
-			<div class="category-item">
-				<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1501829467399/地板.jpg#地板.jpg">
-				<span class="title">星级·定期保洁</span>
-				<span class="description">星级保洁为工作三年以上的阿姨为您服务</span>
-			</div>
+			[#list productCategories as productCategory]
+				<div class="category-item" onclick="window.location.href='${base}/mobile/product/productCategory.jhtml?productCategoryId=${productCategory.id}'">
+					<img src="${productCategory.logoImage}">
+					<span class="title">${productCategory.nameZh}</span>
+					<span class="description">${productCategory.seoDescription}</span>
+				</div>
+			[/#list]
 		</div>
+		[/#if]
+		[#if tags ??]
+		[#list tags as tag]
 		<div class="tags">
+			[#if tag.products ??]
 			<div class="tag-title">
-				<p>热门推荐</p>
+				<p>${tag.name}</p>
 			</div>
 			<ul class="tag-content">
-				<li class="content-item odd">
+				[#list tag.products as product]
+				<li class="content-item [#if product_index%2 == 1]odd[#elseif product_index%2 == 0]even[/#if]" onclick="window.location.href='${base}/mobile/product/content.jhtml?productId=${product.id}'">
 					<div class="content-container">
-						<span class="title">星级·定期保洁</span>
-						<span class="description">星级保洁为工作三年以上的阿姨为您服务</span>
-						<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1500713453628/15.jpg#15.jpg">
+						<span class="title">${product.name}</span>
+						<span class="description">${product.memo}</span>
+						<img src="${product.image}">
 					</div>
 				</li>
-				<li class="content-item even">
-					<div class="content-container">
-						<span class="title">星级·定期保洁</span>
-						<span class="description">星级保洁为工作三年以上的阿姨为您服务</span>
-						<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1500713453628/15.jpg#15.jpg">
-					</div>
-				</li>
-				<li class="content-item odd">
-					<div class="content-container">
-						<span class="title">星级·定期保洁</span>
-						<span class="description">星级保洁为工作三年以上的阿姨为您服务</span>
-						<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1500713453628/15.jpg#15.jpg">
-					</div>
-				</li>
-				<li class="content-item even">
-					<div class="content-container">
-						<span class="title">星级·定期保洁</span>
-						<span class="description">星级保洁为工作三年以上的阿姨为您服务</span>
-						<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1500713453628/15.jpg#15.jpg">
-					</div>
-				</li>
+				[/#list]
 			</ul>
+			[/#if]
 		</div>
+		[/#list]
+		[/#if]
 	</div>
 	[#include "/mobile/include/footer_2.ftl" /]
 	<script type="text/javascript" src="${base}/resources/mobile/js/mobileSlider.js"></script>

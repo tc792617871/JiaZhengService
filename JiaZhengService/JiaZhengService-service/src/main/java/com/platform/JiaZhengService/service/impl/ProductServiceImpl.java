@@ -10,7 +10,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.platform.JiaZhengService.common.pojo.JiaZhengServiceConstants;
 import com.platform.JiaZhengService.dao.Criteria;
+import com.platform.JiaZhengService.dao.Criteria.Condition;
+import com.platform.JiaZhengService.dao.constants.TTProduct;
 import com.platform.JiaZhengService.dao.constants.TTProductTag;
 import com.platform.JiaZhengService.dao.entity.TProduct;
 import com.platform.JiaZhengService.dao.entity.TProductSpecificationKey;
@@ -178,6 +181,22 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 				productMapper.deleteByPrimaryKey(id);
 			}
 		}
+	}
+
+	@Override
+	public List<TProduct> queryProductListByProductCategroyID(Long productCategoryID, Boolean isMarketable,
+			Boolean archived) {
+		Criteria criteria = new Criteria();
+		Condition condition = criteria.createConditon();
+		condition.andEqualTo(TTProduct.PRODUCT_CATEGORY, productCategoryID);
+		if (isMarketable != null) {
+			condition.andEqualTo(TTProduct.IS_MARKETABLE, isMarketable);
+		}
+		if (archived != null) {
+			condition.andEqualTo(TTProduct.ARCHIVED, archived);
+		}
+		criteria.setOrderByClause(TTProduct.CREATE_DATE + JiaZhengServiceConstants.SORT_DESC);
+		return productMapper.selectByExample(criteria);
 	}
 
 }

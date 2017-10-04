@@ -18,6 +18,7 @@
 <script type="text/javascript">
 	$().ready(function() {
 		m$.header.titleContent.setTitle('星级.钟点保洁');
+		$(".header_2 .cart_area").remove();
 	});
 </script>
 
