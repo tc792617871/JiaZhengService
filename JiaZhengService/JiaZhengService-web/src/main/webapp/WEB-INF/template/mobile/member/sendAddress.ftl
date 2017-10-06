@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>寄送地址</title>
+<title>${setting.siteName}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,18 +14,17 @@
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle("寄送地址");
+	$(".header_2 .cart_area").remove();
 });
 </script>
 </head>
 <body class="body_margin">
 	<div class="fullscreen">
-		<!-- header -->
-		[#include "/mobile/include/header.ftl" /]
-		<!-- /header -->		
+		[#include "/mobile/include/header_2.ftl" /]
 		<div class="moMobileContent">
 			[#if member??]
 			<ul class="sendAddressList">
-			  [#list member.receivers as receiver]
+			  [#list receivers as receiver]
 				  <li>
 						<table>
 						    <tr>
@@ -75,9 +74,7 @@ $().ready(function() {
 				</button>
 			</div>
 		</div>
-		<!-- footer -->
-	    	[#include "/mobile/include/footer.ftl" /]
-       <!-- /footer -->
+    	[#include "/mobile/include/footer_2.ftl" /]
 	</div>
 </body>
 </html>

@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TOrder" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="amount_paid" property="amountPaid" jdbcType="DOUBLE" />
+    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
+    <result column="consignee" property="consignee" jdbcType="VARCHAR" />
+    <result column="coupon_discount" property="couponDiscount" jdbcType="DOUBLE" />
+    <result column="expire" property="expire" jdbcType="TIMESTAMP" />
+    <result column="fee" property="fee" jdbcType="DOUBLE" />
+    <result column="freight" property="freight" jdbcType="DOUBLE" />
+    <result column="invoice_title" property="invoiceTitle" jdbcType="VARCHAR" />
+    <result column="is_allocated_stock" property="isAllocatedStock" jdbcType="BIT" />
+    <result column="is_invoice" property="isInvoice" jdbcType="BIT" />
+    <result column="lock_expire" property="lockExpire" jdbcType="TIMESTAMP" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="offset_amount" property="offsetAmount" jdbcType="DOUBLE" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="payment_method_name" property="paymentMethodName" jdbcType="VARCHAR" />
+    <result column="payment_status" property="paymentStatus" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="point" property="point" jdbcType="BIGINT" />
+    <result column="promotion" property="promotion" jdbcType="VARCHAR" />
+    <result column="promotion_discount" property="promotionDiscount" jdbcType="DOUBLE" />
+    <result column="shipping_method_name" property="shippingMethodName" jdbcType="VARCHAR" />
+    <result column="shipping_status" property="shippingStatus" jdbcType="INTEGER" />
+    <result column="sn" property="sn" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="DOUBLE" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="BIGINT" />
+    <result column="coupon_code" property="couponCode" jdbcType="BIGINT" />
+    <result column="member" property="member" jdbcType="BIGINT" />
+    <result column="operator" property="operator" jdbcType="BIGINT" />
+    <result column="payment_method" property="paymentMethod" jdbcType="BIGINT" />
+    <result column="shipping_method" property="shippingMethod" jdbcType="BIGINT" />
+    <result column="agree_return" property="agreeReturn" jdbcType="INTEGER" />
+    <result column="invoice_type" property="invoiceType" jdbcType="VARCHAR" />
+    <result column="payment_plugin_id" property="paymentPluginId" jdbcType="VARCHAR" />
+    <result column="confirm_delivery_time" property="confirmDeliveryTime" jdbcType="TIMESTAMP" />
+    <result column="memo_flag" property="memoFlag" jdbcType="INTEGER" />
+    <result column="seller_memo" property="sellerMemo" jdbcType="VARCHAR" />
+    <result column="bank_code" property="bankCode" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="order_source" property="orderSource" jdbcType="VARCHAR" />
+    <result column="system_type" property="systemType" jdbcType="VARCHAR" />
+    <result column="system_version" property="systemVersion" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, modify_date, address, amount_paid, area_name, consignee, coupon_discount, 
+    expire, fee, freight, invoice_title, is_allocated_stock, is_invoice, lock_expire, 
+    memo, offset_amount, order_status, payment_method_name, payment_status, phone, point, 
+    promotion, promotion_discount, shipping_method_name, shipping_status, sn, tax, zip_code, 
+    area, coupon_code, member, operator, payment_method, shipping_method, agree_return, 
+    invoice_type, payment_plugin_id, confirm_delivery_time, memo_flag, seller_memo, bank_code, 
+    bank_name, order_source, system_type, system_version
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_order
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    delete from t_order
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TOrder" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order (create_date, modify_date, address, 
+      amount_paid, area_name, consignee, 
+      coupon_discount, expire, fee, 
+      freight, invoice_title, is_allocated_stock, 
+      is_invoice, lock_expire, memo, 
+      offset_amount, order_status, payment_method_name, 
+      payment_status, phone, point, 
+      promotion, promotion_discount, shipping_method_name, 
+      shipping_status, sn, tax, 
+      zip_code, area, coupon_code, 
+      member, operator, payment_method, 
+      shipping_method, agree_return, invoice_type, 
+      payment_plugin_id, confirm_delivery_time, 
+      memo_flag, seller_memo, bank_code, 
+      bank_name, order_source, system_type, 
+      system_version)
+    values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
+      #{amountPaid,jdbcType=DOUBLE}, #{areaName,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, 
+      #{couponDiscount,jdbcType=DOUBLE}, #{expire,jdbcType=TIMESTAMP}, #{fee,jdbcType=DOUBLE}, 
+      #{freight,jdbcType=DOUBLE}, #{invoiceTitle,jdbcType=VARCHAR}, #{isAllocatedStock,jdbcType=BIT}, 
+      #{isInvoice,jdbcType=BIT}, #{lockExpire,jdbcType=TIMESTAMP}, #{memo,jdbcType=VARCHAR}, 
+      #{offsetAmount,jdbcType=DOUBLE}, #{orderStatus,jdbcType=INTEGER}, #{paymentMethodName,jdbcType=VARCHAR}, 
+      #{paymentStatus,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{point,jdbcType=BIGINT}, 
+      #{promotion,jdbcType=VARCHAR}, #{promotionDiscount,jdbcType=DOUBLE}, #{shippingMethodName,jdbcType=VARCHAR}, 
+      #{shippingStatus,jdbcType=INTEGER}, #{sn,jdbcType=VARCHAR}, #{tax,jdbcType=DOUBLE}, 
+      #{zipCode,jdbcType=VARCHAR}, #{area,jdbcType=BIGINT}, #{couponCode,jdbcType=BIGINT}, 
+      #{member,jdbcType=BIGINT}, #{operator,jdbcType=BIGINT}, #{paymentMethod,jdbcType=BIGINT}, 
+      #{shippingMethod,jdbcType=BIGINT}, #{agreeReturn,jdbcType=INTEGER}, #{invoiceType,jdbcType=VARCHAR}, 
+      #{paymentPluginId,jdbcType=VARCHAR}, #{confirmDeliveryTime,jdbcType=TIMESTAMP}, 
+      #{memoFlag,jdbcType=INTEGER}, #{sellerMemo,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, 
+      #{bankName,jdbcType=VARCHAR}, #{orderSource,jdbcType=VARCHAR}, #{systemType,jdbcType=VARCHAR}, 
+      #{systemVersion,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TOrder" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="amountPaid != null" >
+        amount_paid,
+      </if>
+      <if test="areaName != null" >
+        area_name,
+      </if>
+      <if test="consignee != null" >
+        consignee,
+      </if>
+      <if test="couponDiscount != null" >
+        coupon_discount,
+      </if>
+      <if test="expire != null" >
+        expire,
+      </if>
+      <if test="fee != null" >
+        fee,
+      </if>
+      <if test="freight != null" >
+        freight,
+      </if>
+      <if test="invoiceTitle != null" >
+        invoice_title,
+      </if>
+      <if test="isAllocatedStock != null" >
+        is_allocated_stock,
+      </if>
+      <if test="isInvoice != null" >
+        is_invoice,
+      </if>
+      <if test="lockExpire != null" >
+        lock_expire,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="offsetAmount != null" >
+        offset_amount,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="paymentMethodName != null" >
+        payment_method_name,
+      </if>
+      <if test="paymentStatus != null" >
+        payment_status,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="point != null" >
+        point,
+      </if>
+      <if test="promotion != null" >
+        promotion,
+      </if>
+      <if test="promotionDiscount != null" >
+        promotion_discount,
+      </if>
+      <if test="shippingMethodName != null" >
+        shipping_method_name,
+      </if>
+      <if test="shippingStatus != null" >
+        shipping_status,
+      </if>
+      <if test="sn != null" >
+        sn,
+      </if>
+      <if test="tax != null" >
+        tax,
+      </if>
+      <if test="zipCode != null" >
+        zip_code,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="couponCode != null" >
+        coupon_code,
+      </if>
+      <if test="member != null" >
+        member,
+      </if>
+      <if test="operator != null" >
+        operator,
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method,
+      </if>
+      <if test="shippingMethod != null" >
+        shipping_method,
+      </if>
+      <if test="agreeReturn != null" >
+        agree_return,
+      </if>
+      <if test="invoiceType != null" >
+        invoice_type,
+      </if>
+      <if test="paymentPluginId != null" >
+        payment_plugin_id,
+      </if>
+      <if test="confirmDeliveryTime != null" >
+        confirm_delivery_time,
+      </if>
+      <if test="memoFlag != null" >
+        memo_flag,
+      </if>
+      <if test="sellerMemo != null" >
+        seller_memo,
+      </if>
+      <if test="bankCode != null" >
+        bank_code,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="orderSource != null" >
+        order_source,
+      </if>
+      <if test="systemType != null" >
+        system_type,
+      </if>
+      <if test="systemVersion != null" >
+        system_version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPaid != null" >
+        #{amountPaid,jdbcType=DOUBLE},
+      </if>
+      <if test="areaName != null" >
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDiscount != null" >
+        #{couponDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="expire != null" >
+        #{expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fee != null" >
+        #{fee,jdbcType=DOUBLE},
+      </if>
+      <if test="freight != null" >
+        #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="invoiceTitle != null" >
+        #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="isAllocatedStock != null" >
+        #{isAllocatedStock,jdbcType=BIT},
+      </if>
+      <if test="isInvoice != null" >
+        #{isInvoice,jdbcType=BIT},
+      </if>
+      <if test="lockExpire != null" >
+        #{lockExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="offsetAmount != null" >
+        #{offsetAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="paymentMethodName != null" >
+        #{paymentMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentStatus != null" >
+        #{paymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        #{point,jdbcType=BIGINT},
+      </if>
+      <if test="promotion != null" >
+        #{promotion,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionDiscount != null" >
+        #{promotionDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="shippingMethodName != null" >
+        #{shippingMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingStatus != null" >
+        #{shippingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        #{tax,jdbcType=DOUBLE},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=BIGINT},
+      </if>
+      <if test="couponCode != null" >
+        #{couponCode,jdbcType=BIGINT},
+      </if>
+      <if test="member != null" >
+        #{member,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=BIGINT},
+      </if>
+      <if test="paymentMethod != null" >
+        #{paymentMethod,jdbcType=BIGINT},
+      </if>
+      <if test="shippingMethod != null" >
+        #{shippingMethod,jdbcType=BIGINT},
+      </if>
+      <if test="agreeReturn != null" >
+        #{agreeReturn,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceType != null" >
+        #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentPluginId != null" >
+        #{paymentPluginId,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmDeliveryTime != null" >
+        #{confirmDeliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memoFlag != null" >
+        #{memoFlag,jdbcType=INTEGER},
+      </if>
+      <if test="sellerMemo != null" >
+        #{sellerMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null" >
+        #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="systemType != null" >
+        #{systemType,jdbcType=VARCHAR},
+      </if>
+      <if test="systemVersion != null" >
+        #{systemVersion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from t_order
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amountPaid != null" >
+        amount_paid = #{record.amountPaid,jdbcType=DOUBLE},
+      </if>
+      <if test="record.areaName != null" >
+        area_name = #{record.areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consignee != null" >
+        consignee = #{record.consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponDiscount != null" >
+        coupon_discount = #{record.couponDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.expire != null" >
+        expire = #{record.expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fee != null" >
+        fee = #{record.fee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.freight != null" >
+        freight = #{record.freight,jdbcType=DOUBLE},
+      </if>
+      <if test="record.invoiceTitle != null" >
+        invoice_title = #{record.invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isAllocatedStock != null" >
+        is_allocated_stock = #{record.isAllocatedStock,jdbcType=BIT},
+      </if>
+      <if test="record.isInvoice != null" >
+        is_invoice = #{record.isInvoice,jdbcType=BIT},
+      </if>
+      <if test="record.lockExpire != null" >
+        lock_expire = #{record.lockExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.memo != null" >
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.offsetAmount != null" >
+        offset_amount = #{record.offsetAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentMethodName != null" >
+        payment_method_name = #{record.paymentMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentStatus != null" >
+        payment_status = #{record.paymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.point != null" >
+        point = #{record.point,jdbcType=BIGINT},
+      </if>
+      <if test="record.promotion != null" >
+        promotion = #{record.promotion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.promotionDiscount != null" >
+        promotion_discount = #{record.promotionDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.shippingMethodName != null" >
+        shipping_method_name = #{record.shippingMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shippingStatus != null" >
+        shipping_status = #{record.shippingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.sn != null" >
+        sn = #{record.sn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tax != null" >
+        tax = #{record.tax,jdbcType=DOUBLE},
+      </if>
+      <if test="record.zipCode != null" >
+        zip_code = #{record.zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=BIGINT},
+      </if>
+      <if test="record.couponCode != null" >
+        coupon_code = #{record.couponCode,jdbcType=BIGINT},
+      </if>
+      <if test="record.member != null" >
+        member = #{record.member,jdbcType=BIGINT},
+      </if>
+      <if test="record.operator != null" >
+        operator = #{record.operator,jdbcType=BIGINT},
+      </if>
+      <if test="record.paymentMethod != null" >
+        payment_method = #{record.paymentMethod,jdbcType=BIGINT},
+      </if>
+      <if test="record.shippingMethod != null" >
+        shipping_method = #{record.shippingMethod,jdbcType=BIGINT},
+      </if>
+      <if test="record.agreeReturn != null" >
+        agree_return = #{record.agreeReturn,jdbcType=INTEGER},
+      </if>
+      <if test="record.invoiceType != null" >
+        invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentPluginId != null" >
+        payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confirmDeliveryTime != null" >
+        confirm_delivery_time = #{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.memoFlag != null" >
+        memo_flag = #{record.memoFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.sellerMemo != null" >
+        seller_memo = #{record.sellerMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCode != null" >
+        bank_code = #{record.bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderSource != null" >
+        order_source = #{record.orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemType != null" >
+        system_type = #{record.systemType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systemVersion != null" >
+        system_version = #{record.systemVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_order
+    set id = #{record.id,jdbcType=BIGINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      address = #{record.address,jdbcType=VARCHAR},
+      amount_paid = #{record.amountPaid,jdbcType=DOUBLE},
+      area_name = #{record.areaName,jdbcType=VARCHAR},
+      consignee = #{record.consignee,jdbcType=VARCHAR},
+      coupon_discount = #{record.couponDiscount,jdbcType=DOUBLE},
+      expire = #{record.expire,jdbcType=TIMESTAMP},
+      fee = #{record.fee,jdbcType=DOUBLE},
+      freight = #{record.freight,jdbcType=DOUBLE},
+      invoice_title = #{record.invoiceTitle,jdbcType=VARCHAR},
+      is_allocated_stock = #{record.isAllocatedStock,jdbcType=BIT},
+      is_invoice = #{record.isInvoice,jdbcType=BIT},
+      lock_expire = #{record.lockExpire,jdbcType=TIMESTAMP},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      offset_amount = #{record.offsetAmount,jdbcType=DOUBLE},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      payment_method_name = #{record.paymentMethodName,jdbcType=VARCHAR},
+      payment_status = #{record.paymentStatus,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      point = #{record.point,jdbcType=BIGINT},
+      promotion = #{record.promotion,jdbcType=VARCHAR},
+      promotion_discount = #{record.promotionDiscount,jdbcType=DOUBLE},
+      shipping_method_name = #{record.shippingMethodName,jdbcType=VARCHAR},
+      shipping_status = #{record.shippingStatus,jdbcType=INTEGER},
+      sn = #{record.sn,jdbcType=VARCHAR},
+      tax = #{record.tax,jdbcType=DOUBLE},
+      zip_code = #{record.zipCode,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=BIGINT},
+      coupon_code = #{record.couponCode,jdbcType=BIGINT},
+      member = #{record.member,jdbcType=BIGINT},
+      operator = #{record.operator,jdbcType=BIGINT},
+      payment_method = #{record.paymentMethod,jdbcType=BIGINT},
+      shipping_method = #{record.shippingMethod,jdbcType=BIGINT},
+      agree_return = #{record.agreeReturn,jdbcType=INTEGER},
+      invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
+      payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
+      confirm_delivery_time = #{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
+      memo_flag = #{record.memoFlag,jdbcType=INTEGER},
+      seller_memo = #{record.sellerMemo,jdbcType=VARCHAR},
+      bank_code = #{record.bankCode,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      order_source = #{record.orderSource,jdbcType=VARCHAR},
+      system_type = #{record.systemType,jdbcType=VARCHAR},
+      system_version = #{record.systemVersion,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TOrder" >
+    update t_order
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="amountPaid != null" >
+        amount_paid = #{amountPaid,jdbcType=DOUBLE},
+      </if>
+      <if test="areaName != null" >
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="consignee != null" >
+        consignee = #{consignee,jdbcType=VARCHAR},
+      </if>
+      <if test="couponDiscount != null" >
+        coupon_discount = #{couponDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="expire != null" >
+        expire = #{expire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fee != null" >
+        fee = #{fee,jdbcType=DOUBLE},
+      </if>
+      <if test="freight != null" >
+        freight = #{freight,jdbcType=DOUBLE},
+      </if>
+      <if test="invoiceTitle != null" >
+        invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="isAllocatedStock != null" >
+        is_allocated_stock = #{isAllocatedStock,jdbcType=BIT},
+      </if>
+      <if test="isInvoice != null" >
+        is_invoice = #{isInvoice,jdbcType=BIT},
+      </if>
+      <if test="lockExpire != null" >
+        lock_expire = #{lockExpire,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="offsetAmount != null" >
+        offset_amount = #{offsetAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="paymentMethodName != null" >
+        payment_method_name = #{paymentMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentStatus != null" >
+        payment_status = #{paymentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="point != null" >
+        point = #{point,jdbcType=BIGINT},
+      </if>
+      <if test="promotion != null" >
+        promotion = #{promotion,jdbcType=VARCHAR},
+      </if>
+      <if test="promotionDiscount != null" >
+        promotion_discount = #{promotionDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="shippingMethodName != null" >
+        shipping_method_name = #{shippingMethodName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingStatus != null" >
+        shipping_status = #{shippingStatus,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        sn = #{sn,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        tax = #{tax,jdbcType=DOUBLE},
+      </if>
+      <if test="zipCode != null" >
+        zip_code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=BIGINT},
+      </if>
+      <if test="couponCode != null" >
+        coupon_code = #{couponCode,jdbcType=BIGINT},
+      </if>
+      <if test="member != null" >
+        member = #{member,jdbcType=BIGINT},
+      </if>
+      <if test="operator != null" >
+        operator = #{operator,jdbcType=BIGINT},
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method = #{paymentMethod,jdbcType=BIGINT},
+      </if>
+      <if test="shippingMethod != null" >
+        shipping_method = #{shippingMethod,jdbcType=BIGINT},
+      </if>
+      <if test="agreeReturn != null" >
+        agree_return = #{agreeReturn,jdbcType=INTEGER},
+      </if>
+      <if test="invoiceType != null" >
+        invoice_type = #{invoiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentPluginId != null" >
+        payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmDeliveryTime != null" >
+        confirm_delivery_time = #{confirmDeliveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memoFlag != null" >
+        memo_flag = #{memoFlag,jdbcType=INTEGER},
+      </if>
+      <if test="sellerMemo != null" >
+        seller_memo = #{sellerMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        bank_code = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSource != null" >
+        order_source = #{orderSource,jdbcType=VARCHAR},
+      </if>
+      <if test="systemType != null" >
+        system_type = #{systemType,jdbcType=VARCHAR},
+      </if>
+      <if test="systemVersion != null" >
+        system_version = #{systemVersion,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TOrder" >
+    update t_order
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      amount_paid = #{amountPaid,jdbcType=DOUBLE},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      consignee = #{consignee,jdbcType=VARCHAR},
+      coupon_discount = #{couponDiscount,jdbcType=DOUBLE},
+      expire = #{expire,jdbcType=TIMESTAMP},
+      fee = #{fee,jdbcType=DOUBLE},
+      freight = #{freight,jdbcType=DOUBLE},
+      invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
+      is_allocated_stock = #{isAllocatedStock,jdbcType=BIT},
+      is_invoice = #{isInvoice,jdbcType=BIT},
+      lock_expire = #{lockExpire,jdbcType=TIMESTAMP},
+      memo = #{memo,jdbcType=VARCHAR},
+      offset_amount = #{offsetAmount,jdbcType=DOUBLE},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      payment_method_name = #{paymentMethodName,jdbcType=VARCHAR},
+      payment_status = #{paymentStatus,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      point = #{point,jdbcType=BIGINT},
+      promotion = #{promotion,jdbcType=VARCHAR},
+      promotion_discount = #{promotionDiscount,jdbcType=DOUBLE},
+      shipping_method_name = #{shippingMethodName,jdbcType=VARCHAR},
+      shipping_status = #{shippingStatus,jdbcType=INTEGER},
+      sn = #{sn,jdbcType=VARCHAR},
+      tax = #{tax,jdbcType=DOUBLE},
+      zip_code = #{zipCode,jdbcType=VARCHAR},
+      area = #{area,jdbcType=BIGINT},
+      coupon_code = #{couponCode,jdbcType=BIGINT},
+      member = #{member,jdbcType=BIGINT},
+      operator = #{operator,jdbcType=BIGINT},
+      payment_method = #{paymentMethod,jdbcType=BIGINT},
+      shipping_method = #{shippingMethod,jdbcType=BIGINT},
+      agree_return = #{agreeReturn,jdbcType=INTEGER},
+      invoice_type = #{invoiceType,jdbcType=VARCHAR},
+      payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
+      confirm_delivery_time = #{confirmDeliveryTime,jdbcType=TIMESTAMP},
+      memo_flag = #{memoFlag,jdbcType=INTEGER},
+      seller_memo = #{sellerMemo,jdbcType=VARCHAR},
+      bank_code = #{bankCode,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      order_source = #{orderSource,jdbcType=VARCHAR},
+      system_type = #{systemType,jdbcType=VARCHAR},
+      system_version = #{systemVersion,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

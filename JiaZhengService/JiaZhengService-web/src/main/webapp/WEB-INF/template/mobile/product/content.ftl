@@ -27,12 +27,7 @@
 <div class="fullscreen" >
 	[#include "/mobile/include/header_2.ftl" /]
 	<div class="product_content">
-		<div>
-			<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1489753786439/12.jpg#12.jpg" width="100%">
-		</div>
-		<div style="margin:0 0px;margin-top:10px;1border-top:1px solid #f6f6f6;">
-			<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1505349234104.jpg" style="display:block;width:100%;margin-bottom:1px;">
-		</div>
+		${product.introduction}
 	</div>
 	<div id="cartOrbuy_area" class="buy_footer">
 		<div class="add_cart" onclick="addCart_show();">加入购物车</div>
@@ -42,29 +37,28 @@
 		<span class="attr_hide" onclick="attrHide()">×</span>
 		<div class="product_detail">
 			<div class="goods_name" id="goodsName">
-				钟点保洁
+				${defaultSpecification.name}
 			</div>
 			<div class="goods_price" id="goodsPrice">
-				25.0元/小时/人
+				${defaultSpecification.price}元/${defaultSpecification.unit}
 			</div>
 		</div>
 		<div class="choose_attr_area" id="wrapper">
 			<div class="attrs_area">
 				<label class="choose_attr">选择属性</label>
-				<span class="attribute attr_select" onclick="select_attr(this,'10183');">钟点保洁</span>
-				<span class="attribute" onclick="select_attr(this,'10184');">钟点保洁（17：00后）</span>
-				<span class="attribute" onclick="select_attr(this,'10209');">钟点保洁补拍专用</span>
-				<span class="attribute" onclick="select_attr(this,'10210');">钟点保洁（17:00后）补拍专用</span>
+				[#list product.specifications as specification]
+					<span class="attribute [#if specification_index == 0]attr_select[/#if]" onclick="select_attr(this,'${specification.id}');">${specification.name}</span>
+				[/#list]
 			</div>
 		</div>
 		<div class="choose_num_area">
-			<input type="hidden" id="xiangmupk" name="xiangmupk" value="10183">
-			<input type="hidden" id="minnum" name="minnum" value="2.0">
-			<input type="hidden" id="maxnum" name="maxnum" value="9999999.0">
+			<input type="hidden" id="specificationId" name="specificationId" value="${defaultSpecification.id}">
+			<input type="hidden" id="minnum" name="minnum" value="${defaultSpecification.minNum}">
+			<input type="hidden" id="maxnum" name="maxnum" value="${defaultSpecification.maxNum}">
 			<label class="choose_num">选择数量</label>
 			<div class="num_input">
 				<label id="subBtn" class="add_sub_disabled" onclick="setNum(-1)">-</label>
-				<input type="number" id="_num" name="_num" value="2.0" onchange="checkNum()" style="">
+				<input type="number" id="_num" name="_num" value="${defaultSpecification.minNum}" onchange="checkNum()" style="">
 				<label id="addBtn" class="add_sub_abled" onclick="setNum(1)" onclick="setNum(1)">+</label>
 			</div>
 		</div>
@@ -73,20 +67,32 @@
 	<div id="cover" ontouchmove="event.preventDefault()"></div>
 </div>
 <script>
-	var xmjson = {"10183":{"c120504002249533":"","c12041910441512":25.0,"tid120419104310340":10183,"c170109095347491":"钟点保洁","c161008165520564":"","c120419104404971":"小时/人","c161009153010364":9999999.0,"c161009152940408":2.0,"c1610081532143":"家庭单位保洁","c161117172008470":null,"c120419104352520":"钟点保洁"},"10209":{"c120504002249533":"","c12041910441512":25.0,"tid120419104310340":10209,"c170109095347491":"钟点保洁","c161008165520564":"","c120419104404971":"小时/人","c161009153010364":9999999.0,"c161009152940408":0.5,"c1610081532143":"家庭单位保洁","c161117172008470":null,"c120419104352520":"钟点保洁补拍专用"},"10184":{"c120504002249533":"","c12041910441512":30.0,"tid120419104310340":10184,"c170109095347491":"钟点保洁","c161008165520564":"","c120419104404971":"小时/人","c161009153010364":9999999.0,"c161009152940408":2.0,"c1610081532143":"家庭单位保洁","c161117172008470":null,"c120419104352520":"钟点保洁（17：00后）"},"10210":{"c120504002249533":"","c12041910441512":30.0,"tid120419104310340":10210,"c170109095347491":"钟点保洁","c161008165520564":"","c120419104404971":"小时/人","c161009153010364":9999999.0,"c161009152940408":0.5,"c1610081532143":"家庭单位保洁","c161117172008470":null,"c120419104352520":"钟点保洁（17:00后）补拍专用"}};
+	var specificationMap = {};
+	[@compress single_line = true]
+		[#list specifications as specification]
+			specificationMap['${specification.id}']={
+				id:'${specification.id}',
+				name:'${specification.name}',
+				price:${specification.price},
+				unit:'${specification.unit}',
+				minNum:${specification.minNum},
+				maxNum:${specification.maxNum}				
+			};
+		[/#list]
+	[/@compress]
+
 	function select_attr(obj,tid){
 		var attrs = $('#attrSets_area .attribute');
 		for(var i=0;i<attrs.length;i++){
 			$(attrs[i]).removeClass("attr_select");
 		}
 		$(obj).addClass("attr_select");
-		$('#attrSets_area #xiangmupk').val(xmjson[tid].tid120419104310340);
-		$('#attrSets_area #goodsName').html(xmjson[tid].c120419104352520);
-		$('#attrSets_area #goodsPrice').html(xmjson[tid].c12041910441512+'元/'+xmjson[tid].c120419104404971);
-		$('#attrSets_area #_num').val(xmjson[tid].c161009152940408);
-		$('#attrSets_area #minnum').val(xmjson[tid].c161009152940408);
-		$('#attrSets_area #maxnum').val(xmjson[tid].c161009153010364);
-		//$('#attrSets_area #num_area').html(xmjson[tid].c161009152940408);
+		$('#attrSets_area #specificationId').val(specificationMap[tid].id);
+		$('#attrSets_area #goodsName').html(specificationMap[tid].name);
+		$('#attrSets_area #goodsPrice').html(specificationMap[tid].price+'元/'+specificationMap[tid].unit);
+		$('#attrSets_area #_num').val(specificationMap[tid].minNum);
+		$('#attrSets_area #minnum').val(specificationMap[tid].minNum);
+		$('#attrSets_area #maxnum').val(specificationMap[tid].maxNum);
 	}
 	function setBtn(){
 		var minnum = Number($('#minnum').val());
@@ -116,7 +122,6 @@
 		}
 		num=num+n;
 		$('#_num').val(num);
-		//$('#num_area').html(num);
 		setBtn();
 	}
 	function checkNum(){

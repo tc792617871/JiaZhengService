@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>个人资料</title>
+<title>${setting.siteName}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,14 +14,13 @@
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle("个人资料");
+	$(".header_2 .cart_area").remove();
 });
 </script>
 </head>
 <body class="body_margin">
 	<div class="fullscreen">
-		<!-- header -->
-		[#include "/mobile/include/header.ftl" /]
-		<!-- /header -->		
+		[#include "/mobile/include/header_2.ftl" /]
 			<div class="moMobileContent">
 			    <ul class="vipCardInfo">
 			        <li>
@@ -30,86 +29,6 @@ $().ready(function() {
 			            </lable>
 			            <span>
 			                ${member.name}
-			            </span>
-			        </li>
-			         <li>
-			            <lable>
-			                邮箱：
-			            </lable>
-			            <span>
-			               ${member.email}
-			            </span>
-			        </li>
-			        <li>
-			            <lable>
-			               性别：
-			            </lable>
-			            <span>
-			              ${member.gender}
-			            </span>
-			        </li>
-			        <li>
-			            <lable>
-			                生日：
-			            </lable>
-			            <span>
-			               ${member.birth}
-			            </span>
-			        </li>
-			        <li>
-			            <lable>
-			               身高：
-			            </lable>
-			            <span>
-			               ${member.height}
-			            </span>
-			        </li>
-			        <li>
-			            <lable>
-			               体重：
-			            </lable>
-			            <span>
-			               ${member.weight}
-			            </span>
-			        </li>
-			        <li>
-			            <lable>
-			                三围：
-			            </lable>
-			            <span>
-			                [#if member.bust ] 
-						        ${member.bust}
-							[#else] 
-							   00
-							[/#if] 
-						    /
-						    [#if member.waist ] 
-						       ${member.waist}
-							[#else] 
-							   00
-							[/#if] 
-						    /
-						    [#if member.hip ] 
-						       ${member.hip}
-							[#else] 
-							   00
-							[/#if]
-			            </span>
-			        </li>
-			        <li>
-			            <lable>
-			               年龄：
-			            </lable>
-			            <span>
-			               ${member.age}
-			            </span>
-			        </li>
-			        <li>
-			            <lable>
-			                职业：
-			            </lable>
-			            <span>
-			               ${member.occupation.name}
 			            </span>
 			        </li>
 			        <li>
@@ -125,32 +44,14 @@ $().ready(function() {
 			                地址：
 			            </lable>
 			            <span>
-			               ${member.address}
-			            </span>
-			        </li>
-			        <li>
-			            <lable>
-			                居住国家：
-			            </lable>
-			            <span>
-			               ${member.country}
-			            </span>
-			        </li>
-			         <li>
-			            <lable>
-			                主要语言：
-			            </lable>
-			            <span>
-			              ${member.languagePreference.languageName}
+			               ${receiver.areaName!'-'}${receiver.address!'-'}
 			            </span>
 			        </li>
 			    </ul>
-			    <button  style="margin-top: 10px;" onClick="window.location='${base}/mobile/member/editPersonalInfo.jhtml?id=${member.id}'">修改</button>
+			    <!--<button  style="margin-top: 10px;" onClick="window.location='${base}/mobile/member/editPersonalInfo.jhtml?id=${member.id}'">修改</button>-->
 			</div>	
 					
-		<!-- footer -->
-	     [#include "/mobile/include/footer.ftl" /]
-        <!-- /footer -->
-	</div><!-- /page -->
+	     [#include "/mobile/include/footer_2.ftl" /]
+	</div>
 </body>
 </html>

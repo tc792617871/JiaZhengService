@@ -78,6 +78,8 @@ public class TSpecification extends StringAndEqualsPojo implements Serializable,
 	 */
 	private Boolean isEnable;
 
+	private String unit;
+
 	/**
 	 * @return t_specification.id : 返回
 	 */
@@ -265,6 +267,14 @@ public class TSpecification extends StringAndEqualsPojo implements Serializable,
 
 	public boolean isEmpty() {
 		return StringUtils.isEmpty(getCode()) || StringUtils.isEmpty(getName()) || getPrice() == null
-				|| getMinNum() == null || getMaxNum() == null;
+				|| getMinNum() == null || getMaxNum() == null || StringUtils.isEmpty(getUnit());
+	}
+
+	public String getUnit() {
+		return unit;
+	}
+
+	public void setUnit(String unit) {
+		this.unit = unit;
 	}
 }

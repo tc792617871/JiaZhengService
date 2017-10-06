@@ -1,6 +1,8 @@
 package com.platform.JiaZhengService.Controller.mobile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,8 @@ import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.constants.TTProductCategory;
 import com.platform.JiaZhengService.dao.entity.TProduct;
 import com.platform.JiaZhengService.dao.entity.TProductCategory;
+import com.platform.JiaZhengService.dao.entity.TProductWithBLOBs;
+import com.platform.JiaZhengService.dao.entity.TSpecification;
 import com.platform.JiaZhengService.service.api.ProductCategoryService;
 import com.platform.JiaZhengService.service.api.ProductService;
 
@@ -61,6 +65,18 @@ public class ProductController extends AbstractController {
 	 */
 	@RequestMapping(value = "/content", method = RequestMethod.GET)
 	public String content(Long productId, HttpServletRequest request, ModelMap model) {
+		TProductWithBLOBs product = productService.find(productId);
+		List<TSpecification> specifications = product.getSpecifications();
+		model.addAttribute("defaultSpecification", specifications.get(0));
+		model.addAttribute("specifications", specifications);
+		model.addAttribute("product", product);
+		Map<String, Object> specificationsMap = new HashMap<>();
+		if (specifications != null && specifications.size() > 0) {
+			for (TSpecification specification : specifications) {
+				specificationsMap.put(String.valueOf(specification.getId()), specification);
+			}
+		}
+		model.addAttribute("specificationsMap", specificationsMap);
 		return "/mobile/product/content";
 	}
 

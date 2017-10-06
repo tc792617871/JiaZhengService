@@ -21,6 +21,7 @@
 		<result column="min_num" property="minNum" jdbcType="DOUBLE" />
 		<result column="max_num" property="maxNum" jdbcType="DOUBLE" />
 		<result column="is_enable" property="isEnable" jdbcType="BIT" />
+		<result column="unit" property="unit" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		products, specifications
@@ -108,7 +109,7 @@
 		select
 		distinct
 		s.id, s.create_date, s.modify_date, s.orders, s.memo, s.name, s.type,
-		s.code, s.price, s.min_num, s.max_num,
+		s.code, s.price, s.min_num, s.max_num, s.unit,
 		s.is_enable
 		from t_product_specification ps
 		left join t_specification s on ps.specifications = s.id

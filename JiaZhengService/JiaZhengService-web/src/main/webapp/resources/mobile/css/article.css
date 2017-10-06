@@ -1,0 +1,31 @@
+/** aboutus css**/
+.content {
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	padding: 0 0 0 0;
+	background: #fff;
+}
+
+.content #article_area {
+	padding: 5px 10px;
+}
+
+span.imgArea {
+	WHITE-SPACE: normal;
+	WORD-SPACING: 0px;
+	TEXT-TRANSFORM: none;
+	FLOAT: none;
+	COLOR: rgb(120, 120, 120);
+	FONT: 14px/28px 宋体;
+	WIDOWS: 1;
+	DISPLAY: inline !important;
+	LETTER-SPACING: normal;
+	BACKGROUND-COLOR: rgb(255, 255, 255);
+	TEXT-INDENT: 0px;
+	-webkit-text-stroke-width: 0px
+}
+
+.imgArea img {
+	height: 163px;
+	width: 342px;
+}

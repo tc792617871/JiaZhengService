@@ -14,10 +14,11 @@
     <result column="min_num" property="minNum" jdbcType="DOUBLE" />
     <result column="max_num" property="maxNum" jdbcType="DOUBLE" />
     <result column="is_enable" property="isEnable" jdbcType="BIT" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, create_date, modify_date, orders, memo, name, type, code, price, min_num, max_num, 
-    is_enable
+    is_enable, unit
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
     select
@@ -53,11 +54,11 @@
     insert into t_specification (create_date, modify_date, orders, 
       memo, name, type, code, 
       price, min_num, max_num, 
-      is_enable)
+      is_enable, unit)
     values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{orders,jdbcType=INTEGER}, 
       #{memo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
       #{price,jdbcType=DOUBLE}, #{minNum,jdbcType=DOUBLE}, #{maxNum,jdbcType=DOUBLE}, 
-      #{isEnable,jdbcType=BIT})
+      #{isEnable,jdbcType=BIT}, #{unit,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TSpecification" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -98,6 +99,9 @@
       <if test="isEnable != null" >
         is_enable,
       </if>
+      <if test="unit != null" >
+        unit,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="createDate != null" >
@@ -132,6 +136,9 @@
       </if>
       <if test="isEnable != null" >
         #{isEnable,jdbcType=BIT},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -180,6 +187,9 @@
       <if test="record.isEnable != null" >
         is_enable = #{record.isEnable,jdbcType=BIT},
       </if>
+      <if test="record.unit != null" >
+        name = #{record.unit,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="common.Update_By_Example_Where_Clause" />
@@ -198,7 +208,8 @@
       price = #{record.price,jdbcType=DOUBLE},
       min_num = #{record.minNum,jdbcType=DOUBLE},
       max_num = #{record.maxNum,jdbcType=DOUBLE},
-      is_enable = #{record.isEnable,jdbcType=BIT}
+      is_enable = #{record.isEnable,jdbcType=BIT},
+      unit = #{record.unit,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="common.Update_By_Example_Where_Clause" />
     </if>
@@ -239,6 +250,9 @@
       <if test="isEnable != null" >
         is_enable = #{isEnable,jdbcType=BIT},
       </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -254,7 +268,8 @@
       price = #{price,jdbcType=DOUBLE},
       min_num = #{minNum,jdbcType=DOUBLE},
       max_num = #{maxNum,jdbcType=DOUBLE},
-      is_enable = #{isEnable,jdbcType=BIT}
+      is_enable = #{isEnable,jdbcType=BIT},
+      unit = #{unit,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

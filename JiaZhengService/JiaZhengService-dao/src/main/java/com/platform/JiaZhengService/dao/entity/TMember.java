@@ -1,7 +1,9 @@
 package com.platform.JiaZhengService.dao.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.platform.JiaZhengService.common.pojo.StringAndEqualsPojo;
 
@@ -286,6 +288,8 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 	 * @Fields t_member.we_chat_open_id :
 	 */
 	private String weChatOpenId;
+
+	private List<TReceiver> receivers = new ArrayList<>();
 
 	/**
 	 * @return t_member.id : 返回
@@ -1050,5 +1054,13 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 	 */
 	public void setWeChatOpenId(String weChatOpenId) {
 		this.weChatOpenId = weChatOpenId == null ? null : weChatOpenId.trim();
+	}
+
+	public List<TReceiver> getReceivers() {
+		return receivers;
+	}
+
+	public void setReceivers(List<TReceiver> receivers) {
+		this.receivers = receivers;
 	}
 }

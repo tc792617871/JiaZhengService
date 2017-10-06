@@ -1,7 +1,9 @@
 package com.platform.JiaZhengService.Controller.mobile;
 
 import java.security.interfaces.RSAPublicKey;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.platform.JiaZhengService.dao.entity.TArea;
+import com.platform.JiaZhengService.service.api.AreaService;
 import com.platform.JiaZhengService.service.api.RSAService;
 
 /**
@@ -28,6 +32,9 @@ public class CommonController {
 	@Resource(name = "rsaServiceImpl")
 	private RSAService rsaService;
 
+	@Resource(name = "areaServiceImpl")
+	private AreaService areaService;
+
 	/**
 	 * 公钥
 	 */
@@ -38,6 +45,25 @@ public class CommonController {
 		data.put("modulus", Base64.encodeBase64String(publicKey.getModulus().toByteArray()));
 		data.put("exponent", Base64.encodeBase64String(publicKey.getPublicExponent().toByteArray()));
 		return data;
+	}
+
+	/**
+	 * 地区
+	 */
+	@RequestMapping(value = "/area", method = RequestMethod.GET)
+	public @ResponseBody Map<Long, String> area(Long parentId) {
+		List<TArea> areas = new ArrayList<TArea>();
+		TArea parent = areaService.find(parentId);
+		if (parent != null) {
+			areas = areaService.findChilds(parentId);
+		} else {
+			areas = areaService.findRoots();
+		}
+		Map<Long, String> options = new HashMap<Long, String>();
+		for (TArea area : areas) {
+			options.put(area.getId(), area.getName());
+		}
+		return options;
 	}
 
 	/**

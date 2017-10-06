@@ -79,6 +79,9 @@ $().ready(function() {
 					<input type="text" name="specifications[' + specificationIndex + '].price" required="required" class="text number" placeholder="保留1位小数" maxlength="200" style="width: 75px;"\/>
 				<\/td>
 				<td>
+					<input type="text" name="specifications[' + specificationIndex + '].unit" required="required" class="text" maxlength="200" style="width: 130px;"\/>
+				<\/td>
+				<td>
 					<input type="text" name="specifications[' + specificationIndex + '].minNum" required="required" class="text number" placeholder="保留1位小数" maxlength="200" style="width: 75px;"\/>
 				<\/td>
 				<td>
@@ -330,6 +333,9 @@ $().ready(function() {
 				</td>
 				<td>
 					${message("Specification.price")}
+				</td>
+				<td>
+					${message("Specification.unit")}
 				</td>
 				<td>
 					${message("Specification.minNum")}

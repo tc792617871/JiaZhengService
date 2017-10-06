@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>更改密码</title>
+<title>${setting.siteName}</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,17 +14,7 @@
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle("更改密码");
-	setInterval(function () {
-	   m$.ui.fixed.fixedBody($('#bdmg'));
-	}, 500);
-	
-	setInterval(function () {
-	   m$.ui.fixed.fixedTop($('#header'));
-	}, 500);
-	
-	setInterval(function () {
-	   m$.ui.fixed.fixedWatch($('#footer'));
-	}, 500);
+	$(".header_2 .cart_area").remove();
 });
 
 function btnClick(){
@@ -38,9 +28,7 @@ function btnClick(){
 </head>
 <body class="body_margin" id='bdmg'>
 	<div class="fullscreen">
-		<!-- header -->
-		[#include "/mobile/include/header.ftl" /]
-		<!-- /header -->		
+		[#include "/mobile/include/header_2.ftl" /]
 		<div class="moMobileContent">
 			<div class="box">
 				<input type="password" id="oldPassword" value="" class="box_input" placeholder="&nbsp;&nbsp;输入原始密码"/>
@@ -55,9 +43,7 @@ function btnClick(){
 				<button onClick="btnClick()">确认</button>
 			</div>
 		</div>
-		<!-- footer -->
-	   [#include "/mobile/include/footer.ftl" /]
-      <!-- /footer -->
+	   [#include "/mobile/include/footer_2.ftl" /]
 	</div>
 </body>
 </html>

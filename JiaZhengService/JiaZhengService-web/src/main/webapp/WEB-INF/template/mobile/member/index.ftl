@@ -25,9 +25,9 @@ $().ready(function() {
 		<div class="moMobileContent">
 			<div class="chief_info_area">
 				<div class="chief_info">
-					<img src="http://meiaijie.wx.toohuu.com:80/data/uploadfile/1487560983465/钟点保洁.jpg#钟点保洁.jpg">
-					<span class="title">xxxxx</span>
-					<span class="description">把时间留给自己，把打扫交给我们</span>
+					<img src="${base}/resources/mobile/icons/man.png">
+					<span class="title">尊敬的用户${member.username}，您好</span>
+					<span class="description">姓名：${member.name}</span>
 				</div>
 			</div>
 			<ul class="personalInfo">
@@ -44,7 +44,7 @@ $().ready(function() {
 			            </tr>
 			        </table>
 			    </li>
-			    <li onclick="window.location='${base}/mobile/member/myOrder.jhtml'">
+			    <li onclick="window.location='${base}/mobile/member/myCoupons.jhtml'">
 			        <table>
 			            <tr>
 			            	<td>
@@ -57,7 +57,7 @@ $().ready(function() {
 			            </tr>
 			        </table>
 			    </li>
-			    <li onclick="window.location='${base}/mobile/member/myOrder.jhtml'">
+			    <li onclick="window.location='${base}/mobile/member/couponCenter.jhtml'">
 			        <table>
 			            <tr>
 			            	<td>
@@ -98,19 +98,6 @@ $().ready(function() {
 			            </tr>
 			        </table>
 			    </li>
-			    <li onclick="window.location='${base}/mobile/member/loginInfo.jhtml'">
-			        <table>
-			            <tr>
-			            	<td>
-			                    <img src="${base}/resources/mobile/icons/man.png" class="personal-icon"/>
-			                    <span class="tableSpan">登录资料</span>
-			                </td>
-			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
-			                </td>
-			            </tr>
-			        </table>
-			    </li>
 			    <li onclick="window.location='${base}/mobile/member/changePassword.jhtml'">
 			        <table>
 			            <tr>
@@ -126,7 +113,7 @@ $().ready(function() {
 			    </li>
 		    </ul>
 		    <ul class="personalInfo">
-		    	<li onclick="window.location='${base}/mobile/member/contactUs.jhtml'">
+		    	<li onclick="window.location='${base}/mobile/member/useHelp.jhtml'">
 			        <table>
 			            <tr>
 			            	<td>
@@ -139,12 +126,12 @@ $().ready(function() {
 			            </tr>
 			        </table>
 			    </li>
-			    <li onclick="window.location='${base}/mobile/member/contactUs.jhtml'">
+			    <li onclick="window.location='${base}/mobile/member/aboutUs.jhtml'">
 			        <table>
 			            <tr>
 			            	<td>
 			                    <img src="${base}/resources/mobile/icons/news.png" class="personal-icon"/>
-			                    <span class="tableSpan">联系我们</span>
+			                    <span class="tableSpan">关于我们</span>
 			                </td>
 			                 <td>
 			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>

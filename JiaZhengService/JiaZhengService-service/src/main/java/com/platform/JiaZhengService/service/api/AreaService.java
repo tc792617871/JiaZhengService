@@ -33,7 +33,7 @@ public interface AreaService extends BaseService {
 
 	void delete(Long[] ids);
 
-	TArea find(Long parentId);
+	TArea find(Long id);
 
 	List<TArea> findChilds(Long parentId);
 

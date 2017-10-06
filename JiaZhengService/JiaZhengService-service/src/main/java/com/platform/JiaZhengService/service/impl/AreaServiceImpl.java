@@ -87,9 +87,9 @@ public class AreaServiceImpl extends BaseServiceImpl implements AreaService {
 	}
 
 	@Override
-	public TArea find(Long parentId) {
-		if (parentId != null) {
-			return areaMapper.selectByPrimaryKey(parentId);
+	public TArea find(Long id) {
+		if (id != null) {
+			return areaMapper.selectByPrimaryKey(id);
 		}
 		return null;
 	}
