@@ -150,4 +150,50 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 		return memberMapper.selectByPrimaryKey(uid);
 	}
 
+	/**
+	 * 判断mobile是否唯一
+	 * 
+	 * @param previousMobile
+	 *            修改前mobile(忽略大小写)
+	 * @param mobile
+	 *            当前mobile(忽略大小写)
+	 * @return mobile是否唯一
+	 */
+	@Override
+	public boolean mobileUnique(String previousMobile, String mobile) {
+		if (StringUtils.equalsIgnoreCase(previousMobile, mobile)) {
+			return true;
+		} else {
+			Criteria c = new Criteria();
+			c.createConditon().andEqualTo(TTMember.MOBILE, mobile);
+			List<TMember> members = memberMapper.selectByExample(c);
+			if (members != null && members.size() > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	}
+
+	@Override
+	public void delete(Long[] ids) {
+		if (ids != null && ids.length > 0) {
+			for (Long id : ids) {
+				memberMapper.deleteByPrimaryKey(id);
+			}
+		}
+	}
+
+	@Override
+	public List<TMember> findMemberList(Criteria c) {
+		return memberMapper.selectByExample(c);
+	}
+
+	@Override
+	public void saveMember(TMember member) {
+		member.setCreateDate(new Date());
+		member.setModifyDate(new Date());
+		memberMapper.insertSelective(member);
+	}
+
 }

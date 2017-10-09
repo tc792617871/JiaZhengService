@@ -1,8 +1,11 @@
 package com.platform.JiaZhengService.service.api;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.platform.JiaZhengService.common.pojo.Setting;
+import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.entity.TMember;
 
 /**
@@ -92,5 +95,36 @@ public interface MemberService extends BaseService {
 	 * @return
 	 */
 	TMember find(Long uid);
+
+	/**
+	 * 验证手机号是否存在
+	 * 
+	 * @param previousMobile
+	 * @param mobile
+	 * @return
+	 */
+	boolean mobileUnique(String previousMobile, String mobile);
+
+	/**
+	 * 批量删除会员
+	 * 
+	 * @param ids
+	 */
+	void delete(Long[] ids);
+
+	/**
+	 * 查询会员列表
+	 * 
+	 * @param c
+	 * @return
+	 */
+	List<TMember> findMemberList(Criteria c);
+
+	/**
+	 * 保存会员
+	 * 
+	 * @param member
+	 */
+	void saveMember(TMember member);
 
 }
