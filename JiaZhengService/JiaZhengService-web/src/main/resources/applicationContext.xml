@@ -81,9 +81,9 @@
 				<entry key="systemShowPowered" value="#{${system.show_powered}}" />
 				<entry key="base" value="#{servletContext.contextPath}" />
 				<entry key="locale" value="${locale}" />
-				<entry key="setting"
-					value="#{T(com.platform.JiaZhengService.common.util.SettingUtils).get()}" />
+				<entry key="setting" value="#{T(com.platform.JiaZhengService.common.util.SettingUtils).get()}" />
 				<entry key="message" value-ref="messageMethod" />
+				<entry key="currency" value-ref="currencyMethod" />
 				<entry key="abbreviate" value-ref="abbreviateMethod" />
 				<entry key="flash_message" value-ref="flashMessageDirective" />
 				<entry key="pagination" value-ref="paginationDirective" />

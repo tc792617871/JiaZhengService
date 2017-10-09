@@ -39,6 +39,14 @@ $().ready(function() {
 					cache: false
 				}
 			},
+			mobile:{
+			    required: true,
+			    pattern: /^1(3|4|5|7|8)\d{9}$/,
+			    remote: {
+					url: "check_mobile.jhtml",
+					cache: false
+				}
+			},
 			password: {
 				required: true,
 				pattern: /^[^\s&\"<>]+$/,
@@ -91,6 +99,10 @@ $().ready(function() {
 				pattern: "${message("admin.validate.illegal")}",
 				remote: "${message("admin.member.disabledExist")}"
 			},
+			mobile : {
+				pattern: "${message("admin.validate.illegal")}",
+				remote: "${message("admin.member.disabledExist")}"
+			},
 			vipCode: {
 				pattern: "${message("admin.validate.illegal")}",
 				remote: "${message("admin.member.vipCodeExist")}"
@@ -126,10 +138,18 @@ $().ready(function() {
 		<table class="input tabContent">
 			<tr>
 				<th>
-					<span class="requiredField">*</span>${message("Member.username")}:
+					<span class="requiredField">*</span>${message("Member.mobile")}:
 				</th>
 				<td>
-					<input type="text" name="username" class="text" maxlength="20" />
+					<input type="text" name="mobile" class="text" maxlength="11" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>${message("Member.name")}:
+				</th>
+				<td>
+					<input type="text" name="name" class="text" maxlength="10" />
 				</td>
 			</tr>
 			<tr>

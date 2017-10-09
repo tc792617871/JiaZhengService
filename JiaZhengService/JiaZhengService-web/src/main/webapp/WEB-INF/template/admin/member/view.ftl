@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>${message("admin.member.view")} - MO&Co.</title>
-<meta name="author" content="广州爱帛服饰有限公司 Team" />
-<meta name="copyright" content="广州爱帛服饰有限公司" />
+<title>${message("admin.member.view")} - 家政服务管理平台</title>
+<meta name="author" content="xxxx有限公司 Team" />
+<meta name="copyright" content="xxx有限公司" />
 <link href="${base}/resources/admin/css/common.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/admin/js/jquery.js"></script>
 <script type="text/javascript" src="${base}/resources/admin/js/jquery.tools.js"></script>
@@ -19,11 +19,6 @@
 		<li>
 			<input type="button" value="${message("admin.member.base")}" />
 		</li>
-		[#if memberAttributes?has_content]
-			<li>
-				<input type="button" value="${message("admin.member.profile")}" />
-			</li>
-		[/#if]
 	</ul>
 	<table class="input tabContent">
 		[#if member.isLocked]
@@ -41,20 +36,6 @@
 		[/#if]
 		<tr>
 			<th>
-				${message("Member.username")}:
-			</th>
-			<td>
-				${member.username}
-			</td>
-			<th>
-				${message("Member.email")}:
-			</th>
-			<td>
-				${member.email}
-			</td>
-		</tr>
-		<tr>
-			<th>
 				${message("Member.name")}:
 			</th>
 			<td>
@@ -69,10 +50,10 @@
 		</tr>
 		<tr>
 			<th>
-				${message("Member.memberRank")}:
+				${message("Member.username")}:
 			</th>
 			<td>
-				${member.memberRank.name}
+				${member.username}
 			</td>
 			<th>
 				${message("admin.member.status")}:
@@ -95,67 +76,11 @@
 				${member.point}
 			</td>
 			<th>
-				${message("admin.member.reviewCount")}:
-			</th>
-			<td>
-				${member.reviews?size}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("admin.member.consultationCount")}:
-			</th>
-			<td>
-				${member.consultations?size}
-			</td>
-			<th>
-				${message("admin.member.favoriteProductCount")}:
-			</th>
-			<td>
-				${member.favoriteProducts?size}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("Member.vipCode")}:
-			</th>
-			<td>
-				${member.vipCode}
-			</td>
-			<th>
-				${message("Member.vipNumber")}:
-			</th>
-			<td>
-				${member.vipNumber}
-			</td>
-		</tr>
-		<tr>
-			<th>
 				${message("Member.balance")}:
 			</th>
 			<td>
 				${currency(member.balance, true)}
 				<a href="../deposit/list.jhtml?memberId=${member.id}">[${message("admin.member.viewDeposit")}]</a>
-			</td>
-			<th>
-				${message("Member.amount")}:
-			</th>
-			<td>
-				${currency(member.amount, true)}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("admin.common.createDate")}:
-			</th>
-			<td>
-				${member.createDate?string("yyyy-MM-dd HH:mm:ss")}
-			</td>
-			<th>
-				${message("Member.loginDate")}:
-			</th>
-			<td>
-				${(member.loginDate?string("yyyy-MM-dd HH:mm:ss"))!"-"}
 			</td>
 		</tr>
 		<tr>
@@ -164,6 +89,20 @@
 			</th>
 			<td>
 				${member.registerIp}
+			</td>
+			<th>
+				${message("admin.common.createDate")}:
+			</th>
+			<td>
+				${member.createDate?string("yyyy-MM-dd HH:mm:ss")}
+			</td>
+		</tr>
+		<tr>
+			<th>
+				${message("Member.loginDate")}:
+			</th>
+			<td>
+				${(member.loginDate?string("yyyy-MM-dd HH:mm:ss"))!"-"}
 			</td>
 			<th>
 				${message("Member.loginIp")}:
@@ -188,20 +127,6 @@
 		</tr>
 		<tr>
 			<th>
-				${message("Member.refundsCount")}:
-			</th>
-			<td>
-				${(member.refundsCount)!"-"}
-			</td>
-			<th>
-				${message("Member.refundsAmount")}:
-			</th>
-			<td>
-				${currency(member.refundsAmount, true)}
-			</td>
-		</tr>
-		<tr>
-			<th>
 				${message("Member.lastPurchaseDate")}:
 			</th>
 			<td>
@@ -215,52 +140,6 @@
 			</td>
 		</tr>
 	</table>
-	[#if memberAttributes?has_content]
-		<table class="input tabContent">
-			[#list memberAttributes as memberAttribute]
-				<tr>
-					<th>
-						${memberAttribute.name}:
-					</th>
-					<td>
-						[#if memberAttribute.type == "name"]
-							${member.name}
-						[#elseif memberAttribute.type == "gender"]
-							${message("Member.Gender." + member.gender)}
-						[#elseif memberAttribute.type == "birth"]
-							${member.birth}
-						[#elseif memberAttribute.type == "area"]
-							[#if member.area??]
-								${member.area}
-							[#else]
-								${member.areaName}
-							[/#if]
-						[#elseif memberAttribute.type == "address"]
-							${member.address}
-						[#elseif memberAttribute.type == "zipCode"]
-							${member.zipCode}
-						[#elseif memberAttribute.type == "phone"]
-							${member.phone}
-						[#elseif memberAttribute.type == "mobile"]
-							${member.mobile}
-						[#elseif memberAttribute.type == "height"]
-							${member.height}
-						[#elseif memberAttribute.type == "weight"]
-							${member.weight}
-						[#elseif memberAttribute.type == "text"]
-							${member.getAttributeValue(memberAttribute)}
-						[#elseif memberAttribute.type == "select"]
-							${member.getAttributeValue(memberAttribute)}
-						[#elseif memberAttribute.type == "checkbox"]
-							[#list member.getAttributeValue(memberAttribute) as option]
-								${option}
-							[/#list]
-						[/#if]
-					</td>
-				</tr>
-			[/#list]
-		</table>
-	[/#if]
 	<table class="input">
 		<tr>
 			<th>

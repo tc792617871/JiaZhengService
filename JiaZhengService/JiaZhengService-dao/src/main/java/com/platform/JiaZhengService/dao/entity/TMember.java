@@ -291,6 +291,8 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 
 	private List<TReceiver> receivers = new ArrayList<>();
 
+	private List<TOrder> orders = new ArrayList<>();
+
 	/**
 	 * @return t_member.id : 返回
 	 */
@@ -1062,5 +1064,33 @@ public class TMember extends StringAndEqualsPojo implements Serializable {
 
 	public void setReceivers(List<TReceiver> receivers) {
 		this.receivers = receivers;
+	}
+
+	public Integer getBuyCount() {
+		Integer buyCount = new Integer(0);
+		return buyCount;
+	}
+
+	public List<TOrder> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<TOrder> orders) {
+		this.orders = orders;
+	}
+
+	public Double getTotalConsumption() {
+		Double totalConsumption = new Double(0);
+		return totalConsumption;
+	}
+
+	public Date getLastPurchaseDate() {
+		Date lastPurchaseDate = new Date();
+		return lastPurchaseDate;
+	}
+
+	public Double getLastPurchaseAmount() {
+		Double lastPurchaseAmount = new Double(0);
+		return lastPurchaseAmount;
 	}
 }

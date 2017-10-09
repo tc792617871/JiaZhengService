@@ -113,12 +113,6 @@ $().ready(function() {
 			<li>
 				<input type="button" value="${message("admin.member.base")}" />
 			</li>
-			<li>
-				<input type="button" value="${message("admin.member.point")}" />
-			</li>
-			<li>
-				<input type="button" value="${message("admin.member.deposit")}" />
-			</li>
 		</ul>
 		<table class="input tabContent">
 			<tr>
@@ -127,6 +121,14 @@ $().ready(function() {
 				</th>
 				<td>
 					${member.username}
+				</td>
+			</tr>
+			<tr>
+				<th>
+					${message("Member.name")}:
+				</th>
+				<td>
+					${member.name}
 				</td>
 			</tr>
 			<tr>
@@ -143,14 +145,6 @@ $().ready(function() {
 				</th>
 				<td>
 					<input type="password" name="rePassword" class="text" maxlength="20" />
-				</td>
-			</tr>
-			<tr>
-				<th>
-					<span class="requiredField">*</span>${message("Member.mobile")}:
-				</th>
-				<td>
-					<input type="text" name="mobile" class="text" value="${member.mobile}" maxlength="200" />
 				</td>
 			</tr>
 			<tr>
@@ -192,50 +186,6 @@ $().ready(function() {
 				</th>
 				<td>
 					${member.registerIp}
-				</td>
-			</tr>
-		</table>
-		<table class="input tabContent">
-			<tr>
-				<th>
-					${message("admin.member.currentPoint")}:
-				</th>
-				<td>
-					${member.point}
-				</td>
-			</tr>
-			<tr>
-				<th>
-					${message("admin.member.modifyPoint")}:
-				</th>
-				<td>
-					<input type="text" name="modifyPoint" class="text" maxlength="9" title="${message("admin.member.modifyPointTitle")}" />
-				</td>
-			</tr>
-		</table>
-		<table class="input tabContent">
-			<tr>
-				<th>
-					${message("admin.member.currentBalance")}:
-				</th>
-				<td>
-					${currency(member.balance, true)}
-				</td>
-			</tr>
-			<tr>
-				<th>
-					${message("admin.member.modifyBalance")}:
-				</th>
-				<td>
-					<input type="text" name="modifyBalance" class="text" maxlength="16" title="${message("admin.member.modifyBalanceTitle")}" />
-				</td>
-			</tr>
-			<tr>
-				<th>
-					${message("admin.member.depositMemo")}:
-				</th>
-				<td>
-					<input type="text" name="depositMemo" class="text" maxlength="200" />
 				</td>
 			</tr>
 		</table>

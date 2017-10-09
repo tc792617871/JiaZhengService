@@ -177,7 +177,7 @@ $().ready(function() {
 							<a href="../tag/list.jhtml" target="iframe">${message("admin.main.tag")}</a>
 						</dd>
 					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:template"]
+					<!--[@shiro.hasPermission name="admin:template"]
 						<dd>
 							<a href="../template/list.jhtml" target="iframe">${message("admin.main.template")}</a>
 						</dd>
@@ -191,7 +191,7 @@ $().ready(function() {
 						<dd>
 							<a href="../static/build.jhtml" target="iframe">${message("admin.main.static")}</a>
 						</dd>
-					[/@shiro.hasPermission]
+					[/@shiro.hasPermission]-->
 				</dl>
 				<dl id="marketing">
 					[#list ["admin:coupon"] as permission]

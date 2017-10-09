@@ -57,10 +57,10 @@ public class MemberController extends AbstractController {
 		if (StringUtils.isEmpty(mobile)) {
 			return false;
 		}
-		if (memberService.mobileUnique(previousMobile, mobile)) {
-			return true;
-		} else {
+		if (memberService.mobileUnique(mobile)) {
 			return false;
+		} else {
+			return true;
 		}
 	}
 
@@ -69,6 +69,7 @@ public class MemberController extends AbstractController {
 	 */
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view(Long id, ModelMap model) {
+		model.addAttribute("member", memberService.find(id));
 		return "/admin/member/view";
 	}
 
@@ -87,6 +88,7 @@ public class MemberController extends AbstractController {
 	public String save(TMember member, Long memberRankId, HttpServletRequest request,
 			RedirectAttributes redirectAttributes) {
 		Setting setting = SettingUtils.get();
+		member.setUsername(member.getMobile());
 		if (member.getUsername().length() < setting.getUsernameMinLength()
 				|| member.getUsername().length() > setting.getUsernameMaxLength()) {
 			return ERROR_VIEW;
@@ -117,6 +119,7 @@ public class MemberController extends AbstractController {
 	 */
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(Long id, ModelMap model) {
+		model.addAttribute("member", memberService.find(id));
 		return "/admin/member/edit";
 	}
 
@@ -126,43 +129,11 @@ public class MemberController extends AbstractController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(TMember member, Long memberRankId, Integer modifyPoint, BigDecimal modifyBalance,
 			String depositMemo, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		Setting setting = SettingUtils.get();
-		if (member.getPassword() != null && (member.getPassword().length() < setting.getPasswordMinLength()
-				|| member.getPassword().length() > setting.getPasswordMaxLength())) {
-			return ERROR_VIEW;
-		}
-		TMember pMember = memberService.find(member.getId());
-		if (pMember == null) {
-			return ERROR_VIEW;
-		}
-		// if (!setting.getIsDuplicateEmail() &&
-		// !memberService.emailUnique(pMember.getEmail(), member.getEmail())) {
-		// return ERROR_VIEW;
-		// }
-		pMember.setMobile(member.getMobile());
-		if (StringUtils.isEmpty(member.getPassword())) {
-			member.setPassword(pMember.getPassword());
-		} else {
-			member.setPassword(DigestUtils.md5Hex(member.getPassword()));
-		}
-		if (pMember.getIsLocked() && !member.getIsLocked()) {
+		if (member.getIsLocked() != null && !member.getIsLocked()) {
 			member.setLoginFailureCount(0);
 			member.setLockedDate(null);
-		} else {
-			member.setIsLocked(pMember.getIsLocked());
-			member.setLoginFailureCount(pMember.getLoginFailureCount());
-			member.setLockedDate(pMember.getLockedDate());
 		}
-
-		// BeanUtils.copyProperties(member, pMember,
-		// new String[] { "username", "mobile", "point", "amount", "balance",
-		// "registerIp", "loginIp", "loginDate",
-		// "safeKey", "cart", "orders", "deposits", "payments", "couponCodes",
-		// "receivers", "reviews",
-		// "consultations", "favoriteProducts", "productNotifies", "inMessages",
-		// "outMessages" });
-		// memberService.update(pMember, modifyPoint, modifyBalance,
-		// depositMemo, adminService.getCurrent());
+		memberService.updateMember(member);
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:list.jhtml";
 	}
