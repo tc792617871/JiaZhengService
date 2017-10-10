@@ -12,4 +12,6 @@ public interface CartItemService extends BaseService {
 
 	void saveCartItem(TCartItem cartItem);
 
+	void delete(Long id);
+
 }

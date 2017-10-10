@@ -1,7 +1,7 @@
 .ui-cartList {
 	width: 100%;
 	margin-top: 10px;
-	border-bottom: 1px solid #E0E0E0;
+/* 	border-bottom: 1px solid #E0E0E0; */
 	border-top: 1px solid #E0E0E0;
 	overflow: hidden;
 	background: #fff;
@@ -10,11 +10,14 @@
 .ui-cartList .cart-item {
 	width: 100%;
 	overflow: hidden;
+	border-bottom: 1px solid #E0E0E0;
+	margin-bottom : 15px;
 }
 
 .cart-item .cart-item-select {
 	line-height: 41px;
 	padding: 0 0 0 9px;
+	border-top: 1px solid #E0E0E0;
 	border-bottom: 1px solid #E0E0E0;
 }
 
@@ -84,8 +87,8 @@
 
 .cart-total .select-all {
 	float: left;
-	height: 41px;
-	line-height: 41px;
+	height: 48px;
+	line-height: 48px;
 	padding: 0 0 0 9px;
 	white-space: nowrap;
 }
@@ -94,7 +97,7 @@
 	position: relative;
 	z-index: 3;
 	float: left;
-	margin-right: 5px;
+	margin-right: 0px;
 }
 
 .cart-checkbox input[type='checkbox'] {
@@ -111,7 +114,7 @@
 .cart-but a.cart-but-sett {
 	display: inline-block;
 	float: right;
-	width: 157px;
+	width: 100px;
 	height: 41px;
 	text-align: center;
 	color: #fff;

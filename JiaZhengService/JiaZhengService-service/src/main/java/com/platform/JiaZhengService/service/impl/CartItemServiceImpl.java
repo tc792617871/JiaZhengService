@@ -10,7 +10,6 @@ import com.platform.JiaZhengService.dao.entity.TCartItem;
 import com.platform.JiaZhengService.dao.mapper.TCartItemMapper;
 import com.platform.JiaZhengService.service.api.CartItemService;
 
-
 @Service("cartItemServiceImpl")
 public class CartItemServiceImpl extends BaseServiceImpl implements CartItemService {
 
@@ -42,6 +41,13 @@ public class CartItemServiceImpl extends BaseServiceImpl implements CartItemServ
 		cartItem.setModifyDate(new Date());
 		cartItem.setCreateDate(new Date());
 		cartItemMapper.insertSelective(cartItem);
+	}
+
+	@Override
+	public void delete(Long id) {
+		if (id != null) {
+			cartItemMapper.deleteByPrimaryKey(id);
+		}
 	}
 
 }

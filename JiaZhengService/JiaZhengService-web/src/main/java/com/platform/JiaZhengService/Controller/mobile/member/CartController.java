@@ -1,9 +1,7 @@
 package com.platform.JiaZhengService.Controller.mobile.member;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -70,37 +68,18 @@ public class CartController extends AbstractController {
 	 * 删除
 	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> delete(Long[] ids) {
-		Map<String, Object> data = new HashMap<String, Object>();
-
+	public @ResponseBody Message delete(Long id) {
 		TMember member = memberService.getCurrent();
 		TCart cart = cartService.findByMember(member.getId());
 		if (cart == null) {
-			data.put("message", Message.error("shop.cart.notEmpty"));
-			return data;
+			return Message.error("shop.cart.notEmpty");
 		}
-		List<TCartItem> cartItems = cartService.findCartItemsByCartId(cart.getId());
-
-		if (ids != null && ids.length > 0) {
-			for (Long id : ids) {
-				TCartItem cartItem = cartItemService.find(id);
-				if (cartItem == null || cartItems == null || !cartItems.contains(cartItem)) {
-					data.put("message", Message.error("shop.cart.cartItemNotExsit"));
-					return data;
-				}
-			}
+		TCartItem cartItem = cartItemService.find(id);
+		if (cartItem == null) {
+			return Message.error("shop.cart.cartItemNotExsit");
 		}
-		cartItemService.delete(ids);
-
-		// data.put("quantity", cart.getQuantity());
-		// data.put("effectivePoint", cart.getEffectivePoint());
-		// data.put("effectivePrice", cart.getEffectivePrice());
-		// data.put("discount", cart.getDiscount());
-		// data.put("promotions", cart.getPromotions());
-		// data.put("isLowStock", cart.getIsLowStock());
-		// data.put("sellingPrice", cart.getSellingPrice());
-		// data.put("giftItems", cart.getGiftItems());
-		return data;
+		cartItemService.delete(id);
+		return SUCCESS_MESSAGE;
 	}
 
 	/**
@@ -154,6 +133,20 @@ public class CartController extends AbstractController {
 			cart.getCartItems().add(cartItem);
 		}
 		return Message.success("shop.cart.addSuccess", cart.getQuantity());
+	}
+
+	/**
+	 * 编辑
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	public @ResponseBody Message edit(Long id, Double quantity) {
+		TCartItem cartItem = cartItemService.find(id);
+		if (cartItem == null) {
+			return Message.error("shop.cart.cartItemNotExsit");
+		}
+		cartItem.setQuantity(quantity);
+		cartItemService.updateCartItem(cartItem);
+		return SUCCESS_MESSAGE;
 	}
 
 }

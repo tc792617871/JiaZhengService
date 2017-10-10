@@ -27,9 +27,10 @@ $().ready(function() {
 			[#if cartItems ?? && (cartItems?size > 0)]
 				[#list cartItems as cartItem]	
 				<div class="cart-item">
+					<input type="hidden" id="itemId" value="${cartItem.id}"/>
 					<div class="cart-item-select">
 						<div class="cart-item-select-checkbox">
-			            	<input type="checkbox" value="${cartItem.id}"/>
+			            	<input type="checkbox" name="itemId" value="${cartItem.id}"/>
 			            	<a href="javascript:void(0);" id="item-delete" class="item-delete">删除</a>
 			       	 	</div> 
 					</div>
@@ -38,9 +39,11 @@ $().ready(function() {
 						<span class="title">${cartItem.tSpecification.name}</span>
 						<span class="price">${currency(cartItem.tSpecification.price, true)}/${cartItem.tSpecification.unit}</span>
 						<div class="num_input">
-							<label id="subBtn" class="add_sub_disabled" onclick="setNum(-1)">-</label>
-							<input type="number" id="_num" name="_num" value="${cartItem.quantity}" onchange="checkNum()" style="">
-							<label id="addBtn" class="add_sub_abled" onclick="setNum(1)" onclick="setNum(1)">+</label>
+							<input type="hidden" name="minnum" value="${cartItem.tSpecification.minNum}"/>
+							<input type="hidden" name="maxnum" value="${cartItem.tSpecification.maxNum}"/>
+							<label id="subBtn" class="add_sub_abled" onclick="setNum(-1,this)">-</label>
+							<input type="number" name="num" value="${cartItem.quantity}" onchange="checkNum(this)">
+							<label id="addBtn" class="add_sub_abled" onclick="setNum(1,this)">+</label>
 						</div>
 					</div>
 				</div>
@@ -64,5 +67,218 @@ $().ready(function() {
       		</div>
 		</div>
 	</div>
+	<script>
+		var $select_all = $("#cart_select_all_foot");
+		var $items = $(".ui-cartList .cart-item .cart-item-select input[name='itemId']");
+		var $buyGoods = $("#buyGoods");
+		var $item_delete = $(".item-delete");
+	
+		$().ready(function() {
+			$select_all.click(function(){
+				var $this = $(this);
+				var $item = $(".ui-cartList .cart-item .cart-item-select input[name='itemId']");
+				if ($this.prop("checked")) {
+					$item.prop("checked", true);
+				}
+				else {
+					$item.prop("checked", false);
+				}
+			});
+			
+			$items.each(function(){
+				var $this = $(this);
+				$this.click(function(){
+					
+				});
+			});
+			
+			$item_delete.each(function(){
+				var $this = $(this);
+				$this.click(function(){
+					var $checkbox = $this.closest("div").find("input[name='itemId']");
+					if(!$checkbox.is(":checked")){
+						return ;
+					}
+					var itemId = $this.closest("div").find("input[name='itemId']").val();
+					if (!$.checkLogin()) {
+						m$.ui.dialog.dialogShow({
+							'title': '提示',
+							'content': '必须登录后才能操作购物车'
+						},
+						[{
+							'text': '确定',
+							'func': function() {
+								$.redirectLogin(jiazhengservice.base + "/mobile/member/cart/index.jhtml");
+							}
+						}]);
+					}else{
+						$.ajax({
+							url : jiazhengservice.base + "/mobile/member/cart/delete.jhtml",
+							type : "POST",
+							data : {
+								id : itemId
+							},
+							dataType : "json",
+							cache : false,
+							success : function(message) {
+								if (message['type'] == 'success') {
+									m$.ui.dialog.dialogShow({
+										'title' : '删除购物项',
+										'content' : message['content']
+									}, [ {
+										'text' : '确定',
+										'func': function() {
+											setTimeout(function() {
+												location.href = jiazhengservice.base + "/mobile/member/cart/index.jhtml";
+											}, 1000);
+										}
+									} ]);
+								} else {
+									m$.ui.dialog.dialogShow({
+										'title' : '提示',
+										'content' : message['content']
+									}, [ {
+										'text' : '确定'
+									} ]);
+								}
+				
+							}
+						});
+					}
+				});
+			});
+			
+			$buyGoods.click(function(){
+				var $this = $(this);
+				var $checkedItems = $items.filter(":checked");
+			});
+		});
+		
+		function setBtn(minnum,maxnum,num,$this){
+			var $num_input = $($this).closest("div.num_input")
+			var $subBtn = $num_input.find("#subBtn");
+			var $addBtn = $num_input.find("#addBtn");
+			if(num<=minnum){
+				$subBtn.attr('class','add_sub_disabled');
+				$addBtn.attr("onclick",'');
+			}else{
+				$subBtn.attr('class','add_sub_abled');
+				$addBtn.attr("onclick",'setNum(-1,this)');
+			}
+			if(num>=maxnum){
+				$addBtn.attr('class','add_sub_disabled');
+				$addBtn.attr("onclick",'');
+			}else{
+				$addBtn.attr('class','add_sub_abled');
+				$addBtn.attr("onclick",'setNum(1,this)');
+			}
+		}
+		function setNum(n,$this){
+			if (!$.checkLogin()) {
+				m$.ui.dialog.dialogShow({
+					'title': '提示',
+					'content': '必须登录后才能操作购物车'
+				},
+				[{
+					'text': '确定',
+					'func': function() {
+						$.redirectLogin(jiazhengservice.base + "/mobile/member/cart/index.jhtml");
+					}
+				}]);
+			}else{
+				var $num_input = $($this).closest("div.num_input");
+				var itemId = $($this).closest("div.cart-item").find("input[id='itemId']").val();
+				var $minnum = $num_input.find("input[name='minnum']");
+				var $maxnum = $num_input.find("input[name='maxnum']");
+				var $num = $num_input.find("input[name='num']")
+				var minnum = Number($minnum.val());
+				var maxnum = Number($maxnum.val());
+				var num = Number($num.val());
+				if(num+n<minnum||num+n>maxnum){
+					return;
+				}
+				num=num+n;
+				$.ajax({
+					url : jiazhengservice.base + "/mobile/member/cart/edit.jhtml",
+					type : "POST",
+					data : {
+						id : itemId,
+						quantity : num
+					},
+					dataType : "json",
+					cache : false,
+					success : function(message) {
+						if (message['type'] == 'success') {
+							$num.val(num);
+							setBtn(minnum,maxnum,num,$this);
+						} else {
+							m$.ui.dialog.dialogShow({
+								'title' : '提示',
+								'content' : message['content']
+							}, [ {
+								'text' : '确定'
+							} ]);
+						}
+					}
+				});
+			}
+		}
+		function checkNum($this){
+			if (!$.checkLogin()) {
+				m$.ui.dialog.dialogShow({
+					'title': '提示',
+					'content': '必须登录后才能操作购物车'
+				},
+				[{
+					'text': '确定',
+					'func': function() {
+						$.redirectLogin(jiazhengservice.base + "/mobile/member/cart/index.jhtml");
+					}
+				}]);
+			}else{
+				var $num_input = $($this).closest("div.num_input");
+				var itemId = $($this).closest("div.cart-item").find("input[id='itemId']").val();
+				var $minnum = $num_input.find("input[name='minnum']");
+				var $maxnum = $num_input.find("input[name='maxnum']");
+				var $num = $num_input.find("input[name='num']")
+				var minnum = Number($minnum.val());
+				var maxnum = Number($maxnum.val());
+				var num = Number($num.val());
+				var _num = num;
+				if(num<minnum){
+					_num = minnum;
+				}else if(num>maxnum){
+					_num = maxnum
+				}
+				$.ajax({
+					url : jiazhengservice.base + "/mobile/member/cart/edit.jhtml",
+					type : "POST",
+					data : {
+						id : itemId,
+						quantity : _num
+					},
+					dataType : "json",
+					cache : false,
+					success : function(message) {
+						if (message['type'] == 'success') {
+							$num.val(_num);
+							setBtn(minnum,maxnum,num,$this);
+						} else {
+							m$.ui.dialog.dialogShow({
+								'title' : '提示',
+								'content' : message['content']
+							}, [ {
+								'text' : '确定'
+							} ]);
+						}
+					}
+				});
+			}
+		}
+		
+		function calcuPrice(){
+			
+		}
+	</script>
 </body>
 </html>
