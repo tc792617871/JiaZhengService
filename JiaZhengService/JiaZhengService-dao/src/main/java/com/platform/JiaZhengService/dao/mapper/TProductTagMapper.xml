@@ -40,7 +40,8 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductTagKey">
 		delete from t_product_tag
-		where products = #{products,jdbcType=BIGINT}
+		where products =
+		#{products,jdbcType=BIGINT}
 		and tags = #{tags,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -52,7 +53,8 @@
 	<insert id="insert"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductTagKey">
 		insert into t_product_tag (products, tags)
-		values (#{products,jdbcType=BIGINT}, #{tags,jdbcType=BIGINT})
+		values
+		(#{products,jdbcType=BIGINT}, #{tags,jdbcType=BIGINT})
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductTagKey">
@@ -106,11 +108,14 @@
 	<select id="selectByProductID" resultMap="TagtMap"
 		parameterType="java.lang.Long">
 		select
-		t.id, t.create_date, t.modify_date, t.orders, t.icon, t.memo, t.name,
+		t.id, t.create_date, t.modify_date, t.orders,
+		t.icon, t.memo, t.name,
 		t.type, t.mobile_cover, t.ed_mobile_cover,
 		t.mo_mobile_cover, t.is_enabled
 		from t_product_tag pt
-		left join t_tag t on pt.tags = t.id
-		where 1=1 and pt.products = #{productId,jdbcType=BIGINT}
+		left join t_tag t
+		on pt.tags = t.id
+		where 1=1 and pt.products =
+		#{productId,jdbcType=BIGINT}
 	</select>
 </mapper>

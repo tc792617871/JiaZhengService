@@ -24,40 +24,30 @@ $().ready(function() {
 	<div class="fullscreen">
 		[#include "/mobile/include/header_2.ftl" /]
 		<div class="ui-cartList">
-			<div class="cart-item">
-				<div class="cart-item-select">
-					<div class="cart-item-select-checkbox">
-		            	<input type="checkbox">
-		            	<a href="javascript:void(0);" id="item-delete" class="item-delete">删除</a>
-		       	 	</div> 
-				</div>
-				<!--<div class="cart-item-content">
-					<img src="http://img13.360buyimg.com/n1/jfs/t3271/50/3320182148/85164/b1cfe23d/57ee25faN401020c0.jpg">
-					<span class="title">钟点保洁</span>
-					<span class="price">￥ 89/台</span>
-					<div class="num_input">
-						<label id="subBtn" class="add_sub_disabled" onclick="setNum(-1)">-</label>
-						<input type="number" id="_num" name="_num" value="2.0" onchange="checkNum()" style="">
-						<label id="addBtn" class="add_sub_abled" onclick="setNum(1)" onclick="setNum(1)">+</label>
-					</div>
-				</div>-->
-				[#if cartItems ?? && (cartItems?size > 0)]
+			[#if cartItems ?? && (cartItems?size > 0)]
 				[#list cartItems as cartItem]	
-				<div class="cart-item-content">
-					<img src="${cartItem.tproduct.image}">
-					<span class="title">${cartItem.tproduct.name}</span>
-					<span class="price">${currency(cartItem.tSpecification.price, true)}/${cartItem.tSpecification.unit}</span>
-					<div class="num_input">
-						<label id="subBtn" class="add_sub_disabled" onclick="setNum(-1)">-</label>
-						<input type="number" id="_num" name="_num" value="${cartItem.quantity}" onchange="checkNum()" style="">
-						<label id="addBtn" class="add_sub_abled" onclick="setNum(1)" onclick="setNum(1)">+</label>
+				<div class="cart-item">
+					<div class="cart-item-select">
+						<div class="cart-item-select-checkbox">
+			            	<input type="checkbox" value="${cartItem.id}"/>
+			            	<a href="javascript:void(0);" id="item-delete" class="item-delete">删除</a>
+			       	 	</div> 
+					</div>
+					<div class="cart-item-content">
+						<img src="${cartItem.tproduct.image}">
+						<span class="title">${cartItem.tSpecification.name}</span>
+						<span class="price">${currency(cartItem.tSpecification.price, true)}/${cartItem.tSpecification.unit}</span>
+						<div class="num_input">
+							<label id="subBtn" class="add_sub_disabled" onclick="setNum(-1)">-</label>
+							<input type="number" id="_num" name="_num" value="${cartItem.quantity}" onchange="checkNum()" style="">
+							<label id="addBtn" class="add_sub_abled" onclick="setNum(1)" onclick="setNum(1)">+</label>
+						</div>
 					</div>
 				</div>
 				[/#list]	
-				[#else]
-					<div class="cartEmpty" style="margin-top: 40px;text-align: center;font-size: 18px;">购物车为空.</div>
-				[/#if]
-			</div>
+			[#else]
+				<div class="cartEmpty" style="margin-top: 40px;text-align: center;font-size: 18px;">购物车为空.</div>
+			[/#if]
 		</div>
   		<div class="cart-total" id="cart-total">
 	    	<div class="cart-total-cont">

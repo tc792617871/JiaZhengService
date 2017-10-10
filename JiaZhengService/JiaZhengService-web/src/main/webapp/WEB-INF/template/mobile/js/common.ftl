@@ -172,7 +172,7 @@ function message(code) {
 	$.checkLogin = function() {
 		var result = false;
 		$.ajax({
-			url: jiazhengservice.base + "/login/check.jhtml",
+			url: jiazhengservice.base + "/mobile/common/check.jhtml",
 			type: "GET",
 			dataType: "json",
 			cache: false,
@@ -260,7 +260,7 @@ $().ready(function() {
 		}
 	});
 	
-	getCartNumber();
+	//getCartNumber();
 
 });
 

@@ -196,4 +196,17 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 		memberMapper.insertSelective(member);
 	}
 
+	@Override
+	public Boolean isAuthenticated() {
+		RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
+		if (requestAttributes != null) {
+			HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
+			Principal principal = (Principal) request.getSession().getAttribute(TMember.PRINCIPAL_ATTRIBUTE_NAME);
+			if (principal != null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

@@ -273,46 +273,45 @@ function contains(array, values) {
 			var $quantity = $("#quantity");
 			var quantity = $quantity.val();
 			if (/^\d*[1-9]\d*$/.test(quantity) && parseInt(quantity) > 0) {
-				$
-						.ajax({
-							url : jiazhengservice.base + "/cart/add.jhtml",
-							type : "POST",
-							data : {
-								id : $currentProductId.val(),
-								quantity : quantity
-							},
-							dataType : "json",
-							cache : false,
-							success : function(message) {
-								if (message['type'] == 'success') {
-									m$.ui.dialog
-											.dialogShow(
+				$.ajax({
+					url : jiazhengservice.base + "/cart/add.jhtml",
+					type : "POST",
+					data : {
+						id : $currentProductId.val(),
+						quantity : quantity
+					},
+					dataType : "json",
+					cache : false,
+					success : function(message) {
+						if (message['type'] == 'success') {
+							m$.ui.dialog
+									.dialogShow(
+											{
+												'title' : '成功加入购物袋',
+												'content' : message['content']
+											},
+											[
 													{
-														'title' : '成功加入购物袋',
-														'content' : message['content']
+														'text' : '确定'
 													},
-													[
-															{
-																'text' : '确定'
-															},
-															{
-																'text' : '结算',
-																'func' : function() {
-																	document.location.href = jiazhengservice.base
-																			+ '/mobile/cart/index.jhtml';
-																}
-															} ]);
-								} else {
-									m$.ui.dialog.dialogShow({
-										'title' : '提示',
-										'content' : message['content']
-									}, [ {
-										'text' : '确定'
-									} ]);
-								}
+													{
+														'text' : '结算',
+														'func' : function() {
+															document.location.href = jiazhengservice.base
+																	+ '/mobile/cart/index.jhtml';
+														}
+													} ]);
+						} else {
+							m$.ui.dialog.dialogShow({
+								'title' : '提示',
+								'content' : message['content']
+							}, [ {
+								'text' : '确定'
+							} ]);
+						}
 
-							}
-						});
+					}
+				});
 			} else {
 				m$.ui.dialog.dialogShow({
 					'title' : '遇到错误',
@@ -1111,36 +1110,33 @@ m$.myAccount = {};
 										'text' : '确定',
 										'func' : function() {
 
-											$
-													.ajax({
-														url : jiazhengservice.base
-																+ "/member/order/confirmReceiver.jhtml?orderItemId="
-																+ orderItemId
-																+ "&sn=" + sn,
-														type : "GET",
-														dataType : "json",
-														cache : false,
-														success : function(
-																message) {
-															if (message.type == "success") {
-																location
-																		.reload(true);
-															} else {
-																m$.ui.dialog
-																		.dialogShow(
-																				{
-																					'title' : '提示',
-																					'content' : message.content
-																				},
-																				[ {
-																					'text' : '确定'
-																				} ]);
-															}
-														}
-													});
-
+											$.ajax({
+												url : jiazhengservice.base
+														+ "/member/order/confirmReceiver.jhtml?orderItemId="
+														+ orderItemId
+														+ "&sn=" + sn,
+												type : "GET",
+												dataType : "json",
+												cache : false,
+												success : function(
+														message) {
+													if (message.type == "success") {
+														location
+																.reload(true);
+													} else {
+														m$.ui.dialog
+																.dialogShow(
+																		{
+																			'title' : '提示',
+																			'content' : message.content
+																		},
+																		[ {
+																			'text' : '确定'
+																		} ]);
+													}
+												}
+											});
 										}
-
 									} ]);
 		},
 		applyForRefund : function(sn) {
@@ -1159,48 +1155,46 @@ m$.myAccount = {};
 										'func' : function() {
 											var $refuseReasonId = $(
 													"#refuseReasonId").val();
-											$
-													.ajax({
-														url : jiazhengservice.base
-																+ "/mobile/member/order/applyForRefund.jhtml",
-														type : "POST",
-														dataType : "json",
-														data : {
-															sn : sn,
-															refuseReasonId : $refuseReasonId
-														},
-														cache : false,
-														success : function(
-																message) {
-															if (message.type == "success") {
-																m$.ui.dialog
-																		.dialogShow(
-																				{
-																					'title' : '申请退款请求成功',
-																					'content' : '将在3－5个工作日内，处理您的退款订单'
-																				},
-																				[ {
-																					'text' : '确定',
-																					'func' : function() {
-																						location
-																								.reload(true);
-																					}
-																				} ]);
-															} else {
-																m$.ui.dialog
-																		.dialogShow(
-																				{
-																					'title' : '提示',
-																					'content' : message.content
-																				},
-																				[ {
-																					'text' : '确定'
-																				} ]);
-															}
-														}
-													});
+											$.ajax({
+												url : jiazhengservice.base
+														+ "/mobile/member/order/applyForRefund.jhtml",
+												type : "POST",
+												dataType : "json",
+												data : {
+													sn : sn,
+													refuseReasonId : $refuseReasonId
+												},
+												cache : false,
+												success : function(
+														message) {
+													if (message.type == "success") {
+														m$.ui.dialog
+																.dialogShow(
+																		{
+																			'title' : '申请退款请求成功',
+																			'content' : '将在3－5个工作日内，处理您的退款订单'
+																		},
+																		[ {
+																			'text' : '确定',
+																			'func' : function() {
+																				location
+																						.reload(true);
+																			}
+																		} ]);
+													} else {
+														m$.ui.dialog
+																.dialogShow(
+																		{
+																			'title' : '提示',
+																			'content' : message.content
+																		},
+																		[ {
+																			'text' : '确定'
+																		} ]);
+													}
+												}
+											});
 										}
-
 									} ]);
 
 			$.ajax({

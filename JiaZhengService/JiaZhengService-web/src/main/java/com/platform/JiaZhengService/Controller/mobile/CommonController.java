@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.platform.JiaZhengService.dao.entity.TArea;
 import com.platform.JiaZhengService.service.api.AreaService;
+import com.platform.JiaZhengService.service.api.MemberService;
 import com.platform.JiaZhengService.service.api.RSAService;
 
 /**
@@ -34,6 +35,17 @@ public class CommonController {
 
 	@Resource(name = "areaServiceImpl")
 	private AreaService areaService;
+
+	@Resource(name = "memberServiceImpl")
+	private MemberService memberService;
+
+	/**
+	 * 登录检测
+	 */
+	@RequestMapping(value = "/check", method = RequestMethod.GET)
+	public @ResponseBody Boolean check() {
+		return memberService.isAuthenticated();
+	}
 
 	/**
 	 * 公钥

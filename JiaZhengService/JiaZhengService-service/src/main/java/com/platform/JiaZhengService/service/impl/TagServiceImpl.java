@@ -125,7 +125,7 @@ public class TagServiceImpl extends BaseServiceImpl implements TagService {
 			}
 			c.setOrderByClause(
 					TableAliasConstants.ALIAS_T_PRODUCT + TTProduct.CREATE_DATE + JiaZhengServiceConstants.SORT_DESC);
-			List<TProduct> products = productTagMapper.findProductsByTagID(c);
+			List<TProduct> products = productMapper.selectMutilTableByExample(c);
 			return products;
 		}
 		return null;

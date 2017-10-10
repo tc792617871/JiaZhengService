@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
 	$().ready(function() {
-		m$.header.titleContent.setTitle('星级.钟点保洁');
+		m$.header.titleContent.setTitle('${product.name}');
 		$(".header_2 .cart_area").remove();
 	});
 </script>
@@ -26,6 +26,7 @@
 <body>
 <div class="fullscreen" >
 	[#include "/mobile/include/header_2.ftl" /]
+	<input type="hidden" value="${product.id}" name="productId" id="productId"/>
 	<div class="product_content">
 		${product.introduction}
 	</div>
@@ -135,14 +136,8 @@
 		}
 		setBtn();
 	}
-	var isLogin;
 	
 	function addCart_show(){
-		if(!isLogin){
-			switchView('bigview','loginview');
-			return;
-		}
-		//$('#cartOrbuy_area').hide();
 		$('#cover').show();
 		$('#allsubmit_btn').css({'background':'#FE9A2E'});
 		$('#allsubmit_btn').html('加入购物车');
@@ -150,7 +145,6 @@
 		$('#attrSets_area').slideDown(function(){initScroll();});
 	}
 	function buy_show(){
-		//$('#cartOrbuy_area').hide();
 		$('#cover').show();
 		$('#allsubmit_btn').css({'background':'#DC0404'});
 		$('#allsubmit_btn').html('立即购买');
@@ -165,25 +159,54 @@
 		$('#cover').hide();
 	}
 	function addCart(){
-		$.ajax({  
-			type:'post',   
-			async:true,
-			url:'http://meiaijie.wx.toohuu.com:80/wx/jzbj/action.jsp?_r=1505805301196',
-			data:{
-					//kehu_id:$('#fwryzhanghao').val(),
-					xiangmupk:$('#xiangmupk').val(),
-					_num:$('#_num').val(),
-					method:'addCart'
+		if (!$.checkLogin()) {
+			m$.ui.dialog.dialogShow({
+				'title': '提示',
+				'content': '必须登录后才能加入购物车'
 			},
-			complete:function(data){
-				if('1'==data.responseText){
-					$.MsgBox.toast({message:'加入购物车成功！',top:(H-200)+'px'});
-					attrHide();
-				}else{
-					$.MsgBox.alert({message:'加入购物车失败，请重试！'});
+			[{
+				'text': '确定',
+				'func': function() {
+					$.redirectLogin(jiazhengservice.base + "/mobile/product/content.jhtml?productId=${product.id}");
 				}
-			}  
-		})
+			}]);
+		}else{
+			$.ajax({
+				url : jiazhengservice.base + "/mobile/member/cart/add.jhtml",
+				type : "POST",
+				data : {
+					productId : $("#productId").val(),
+					specificationId : $("#specificationId").val(),
+					quantity : $("#_num").val()
+				},
+				dataType : "json",
+				cache : false,
+				success : function(message) {
+					if (message['type'] == 'success') {
+						m$.ui.dialog.dialogShow(
+							{
+								'title' : '成功加入购物车',
+								'content' : message['content']
+							},
+							[
+							{
+								'text' : '确定',
+								'func': function() {
+									attrHide();
+								}
+							}]);
+					} else {
+						m$.ui.dialog.dialogShow({
+							'title' : '提示',
+							'content' : message['content']
+						}, [ {
+							'text' : '确定'
+						} ]);
+					}
+	
+				}
+			});
+		}
 	}
 	var myScroll;
 	function initScroll () {

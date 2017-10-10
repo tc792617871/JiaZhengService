@@ -107,9 +107,9 @@ public class CartController extends AbstractController {
 	 * 添加
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public @ResponseBody Message add(Long id, Long specificationId, Double quantity, HttpServletRequest request,
+	public @ResponseBody Message add(Long productId, Long specificationId, Double quantity, HttpServletRequest request,
 			HttpServletResponse response) {
-		TProduct product = productService.find(id);
+		TProduct product = productService.find(productId);
 		TSpecification specification = specificationService.find(specificationId);
 		if (product == null || specification == null) {
 			return Message.warn("shop.cart.productNotExsit");
@@ -139,7 +139,7 @@ public class CartController extends AbstractController {
 			if (TCartItem.MAX_QUANTITY != null && cartItem.getQuantity() + quantity > TCartItem.MAX_QUANTITY) {
 				return Message.warn("shop.cart.maxCartItemQuantity", TCartItem.MAX_QUANTITY);
 			}
-			cartItem.setQuantity(quantity);
+			cartItem.setQuantity(cartItem.getQuantity() + quantity);
 			cartItemService.updateCartItem(cartItem);
 		} else {
 			if (TCartItem.MAX_QUANTITY != null && quantity > TCartItem.MAX_QUANTITY) {
@@ -147,7 +147,8 @@ public class CartController extends AbstractController {
 			}
 			TCartItem cartItem = new TCartItem();
 			cartItem.setQuantity(quantity);
-			cartItem.setProduct(product.getId());
+			cartItem.setProduct(productId);
+			cartItem.setSpecification(specificationId);
 			cartItem.setCart(cart.getId());
 			cartItemService.saveCartItem(cartItem);
 			cart.getCartItems().add(cartItem);

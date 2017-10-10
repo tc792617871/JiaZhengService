@@ -127,4 +127,11 @@ public interface MemberService extends BaseService {
 	 */
 	void saveMember(TMember member);
 
+	/**
+	 * 是否已经登录
+	 * 
+	 * @return
+	 */
+	Boolean isAuthenticated();
+
 }
