@@ -15,12 +15,12 @@ public interface ReceiverService extends BaseService {
 	List<TReceiver> findReceiversByMemberID(Long id);
 
 	/**
-	 * 获取默认的收货地址信息
+	 * 获取会员id默认的收货地址信息
 	 * 
 	 * @param id
 	 * @return
 	 */
-	TReceiver findDefault(Long id);
+	TReceiver findDefault(Long memberId);
 
 	/**
 	 * 存储收货信息

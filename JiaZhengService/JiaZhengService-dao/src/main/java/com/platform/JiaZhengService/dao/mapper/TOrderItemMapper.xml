@@ -9,9 +9,9 @@
     <result column="is_gift" property="isGift" jdbcType="BIT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="price" property="price" jdbcType="DOUBLE" />
-    <result column="quantity" property="quantity" jdbcType="INTEGER" />
-    <result column="return_quantity" property="returnQuantity" jdbcType="INTEGER" />
-    <result column="shipped_quantity" property="shippedQuantity" jdbcType="INTEGER" />
+    <result column="quantity" property="quantity" jdbcType="DOUBLE" />
+    <result column="return_quantity" property="returnQuantity" jdbcType="DOUBLE" />
+    <result column="shipped_quantity" property="shippedQuantity" jdbcType="DOUBLE" />
     <result column="sn" property="sn" jdbcType="VARCHAR" />
     <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
     <result column="weight" property="weight" jdbcType="INTEGER" />
@@ -64,8 +64,8 @@
       product, agree_return_quantity, confirm_receipt_quantity, 
       specification)
     values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{fullName,jdbcType=VARCHAR}, 
-      #{isGift,jdbcType=BIT}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{quantity,jdbcType=INTEGER}, 
-      #{returnQuantity,jdbcType=INTEGER}, #{shippedQuantity,jdbcType=INTEGER}, #{sn,jdbcType=VARCHAR}, 
+      #{isGift,jdbcType=BIT}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, #{quantity,jdbcType=DOUBLE}, 
+      #{returnQuantity,jdbcType=DOUBLE}, #{shippedQuantity,jdbcType=DOUBLE}, #{sn,jdbcType=VARCHAR}, 
       #{thumbnail,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER}, #{orders,jdbcType=BIGINT}, 
       #{product,jdbcType=BIGINT}, #{agreeReturnQuantity,jdbcType=INTEGER}, #{confirmReceiptQuantity,jdbcType=INTEGER}, 
       #{specification,jdbcType=BIGINT})
@@ -148,13 +148,13 @@
         #{price,jdbcType=DOUBLE},
       </if>
       <if test="quantity != null" >
-        #{quantity,jdbcType=INTEGER},
+        #{quantity,jdbcType=DOUBLE},
       </if>
       <if test="returnQuantity != null" >
-        #{returnQuantity,jdbcType=INTEGER},
+        #{returnQuantity,jdbcType=DOUBLE},
       </if>
       <if test="shippedQuantity != null" >
-        #{shippedQuantity,jdbcType=INTEGER},
+        #{shippedQuantity,jdbcType=DOUBLE},
       </if>
       <if test="sn != null" >
         #{sn,jdbcType=VARCHAR},
@@ -213,13 +213,13 @@
         price = #{record.price,jdbcType=DOUBLE},
       </if>
       <if test="record.quantity != null" >
-        quantity = #{record.quantity,jdbcType=INTEGER},
+        quantity = #{record.quantity,jdbcType=DOUBLE},
       </if>
       <if test="record.returnQuantity != null" >
-        return_quantity = #{record.returnQuantity,jdbcType=INTEGER},
+        return_quantity = #{record.returnQuantity,jdbcType=DOUBLE},
       </if>
       <if test="record.shippedQuantity != null" >
-        shipped_quantity = #{record.shippedQuantity,jdbcType=INTEGER},
+        shipped_quantity = #{record.shippedQuantity,jdbcType=DOUBLE},
       </if>
       <if test="record.sn != null" >
         sn = #{record.sn,jdbcType=VARCHAR},
@@ -259,9 +259,9 @@
       is_gift = #{record.isGift,jdbcType=BIT},
       name = #{record.name,jdbcType=VARCHAR},
       price = #{record.price,jdbcType=DOUBLE},
-      quantity = #{record.quantity,jdbcType=INTEGER},
-      return_quantity = #{record.returnQuantity,jdbcType=INTEGER},
-      shipped_quantity = #{record.shippedQuantity,jdbcType=INTEGER},
+      quantity = #{record.quantity,jdbcType=DOUBLE},
+      return_quantity = #{record.returnQuantity,jdbcType=DOUBLE},
+      shipped_quantity = #{record.shippedQuantity,jdbcType=DOUBLE},
       sn = #{record.sn,jdbcType=VARCHAR},
       thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
       weight = #{record.weight,jdbcType=INTEGER},
@@ -296,13 +296,13 @@
         price = #{price,jdbcType=DOUBLE},
       </if>
       <if test="quantity != null" >
-        quantity = #{quantity,jdbcType=INTEGER},
+        quantity = #{quantity,jdbcType=DOUBLE},
       </if>
       <if test="returnQuantity != null" >
-        return_quantity = #{returnQuantity,jdbcType=INTEGER},
+        return_quantity = #{returnQuantity,jdbcType=DOUBLE},
       </if>
       <if test="shippedQuantity != null" >
-        shipped_quantity = #{shippedQuantity,jdbcType=INTEGER},
+        shipped_quantity = #{shippedQuantity,jdbcType=DOUBLE},
       </if>
       <if test="sn != null" >
         sn = #{sn,jdbcType=VARCHAR},
@@ -339,9 +339,9 @@
       is_gift = #{isGift,jdbcType=BIT},
       name = #{name,jdbcType=VARCHAR},
       price = #{price,jdbcType=DOUBLE},
-      quantity = #{quantity,jdbcType=INTEGER},
-      return_quantity = #{returnQuantity,jdbcType=INTEGER},
-      shipped_quantity = #{shippedQuantity,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=DOUBLE},
+      return_quantity = #{returnQuantity,jdbcType=DOUBLE},
+      shipped_quantity = #{shippedQuantity,jdbcType=DOUBLE},
       sn = #{sn,jdbcType=VARCHAR},
       thumbnail = #{thumbnail,jdbcType=VARCHAR},
       weight = #{weight,jdbcType=INTEGER},

@@ -52,6 +52,7 @@ $().ready(function() {
 				<div class="cartEmpty" style="margin-top: 40px;text-align: center;font-size: 18px;">购物车为空.</div>
 			[/#if]
 		</div>
+		<div class="commonMargin"></div>
   		<div class="cart-total" id="cart-total">
 	    	<div class="cart-total-cont">
 	        	<div class="select-all">

@@ -30,10 +30,10 @@ public class ReceiverServiceImpl extends BaseServiceImpl implements ReceiverServ
 	}
 
 	@Override
-	public TReceiver findDefault(Long id) {
-		if (id != null) {
+	public TReceiver findDefault(Long memberId) {
+		if (memberId != null) {
 			Criteria criteria = new Criteria();
-			criteria.createConditon().andEqualTo(TTReceiver.MEMBER, id).andEqualTo(TTReceiver.IS_DEFAULT, true);
+			criteria.createConditon().andEqualTo(TTReceiver.MEMBER, memberId).andEqualTo(TTReceiver.IS_DEFAULT, true);
 			List<TReceiver> receivers = receiverMapper.selectByExample(criteria);
 			if (receivers != null && receivers.size() > 0) {
 				return receivers.get(0);

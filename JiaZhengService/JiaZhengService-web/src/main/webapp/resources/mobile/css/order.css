@@ -57,18 +57,25 @@
 	margin-right: 15px;
 }
 
-}
 .order-items-brief .title {
 	display: block;
-	line-height: 18px;
+	line-height: 25px;
 	font-size: 14px;
 	font-weight: bold;
 	color: #333;
 }
 
+.order-items-brief .price {
+	display: block;
+	line-height: 25px;
+	font-size: 14px;
+	color: #e6393d;
+	overflow: hidden;
+}
+
 .order-items-brief .description {
 	display: block;
-	line-height: 60px;
+	line-height: 25px;
 	font-size: 14px;
 	color: #e6393d;
 	word-break: break-all;
@@ -85,47 +92,136 @@
 	margin-right: 11px;
 }
 
-.order-info {
-	background: #fff;
-	margin-bottom: 10px;
-}
-
-.order-info li table {
-	width: 100%;
-}
-
 .imgIcon {
 	display: block;
-	width: 35px;
-	height: 35px;
+	width: 24px;
+	height: 24px;
 	float: left;
-	/* 	margin-right: 15px; */
+	margin-right: 10px;
 }
 
 span.tableSpan {
-	line-height: 32px;
+	line-height: 24px;
+	font-size: 14px;
+	font-weight: 500;
 }
 
-.order-info li.bottomBorder {
-	border-bottom: 1px solid #E0E0E0;
+.md-orderServiceTimeModal {
+	bottom: 0px;
+	-webkit-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	transform: translateX(-50%);
+	height: 100%;
+	text-align: -webkit-auto;
+	opacity: 1;
 }
 
-.order-info .order-address table label {
-	margin-left: 50px;
+.md-orderServiceTimeModal .md-content>div {
+	padding: 0;
 }
 
-.order-info .orderAreaSquare input {
+.modal-time-select {
+	
+}
+
+.modal-time-select .tip {
+	height: 30px;
+	line-height: 30px;
+	background: #FA8258;
+	text-align: center;
+	color: #fff;
+	font-size: 14px;
+}
+
+.modal-time-select #weekDay_div {
+	margin: 0;
+	padding: 0;
+	background: #fff;
+	border-bottom: 1px solid #ccc;
+	text-align: center;
+}
+
+.modal-time-select #timeArea_div {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.modal-time-select #times_div {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.nocheckDay {
+	text-align: center;
+	font-size: 12px;
+	width: 68px;
+	height: 30px;
+	line-height: 15px;
+	display: inline-block;
+	margin: 5px;
+	padding: 3px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.checkday {
+	border: 1px solid #DC0404;
+}
+
+.nocheckTimeArea {
+	text-align: center;
+	font-size: 12px;
+	width: 68px;
+	height: 30px;
+	line-height: 30px;
+	display: inline-block;
+	margin: 5px;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.checkTimeArea {
+	border: 1px solid #DC0404;
+	background: #FC9C9C;
+	color: #fff;
+}
+
+.nocheckTime {
+	text-align: center;
+	font-size: 12px;
+	width: 68px;
+	height: 42px;
+	line-height: 14px;
+	padding: 4px 0;
+	display: inline-block;
+	margin: 5px;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+.checkTime {
+	border: 1px solid #DC0404;
+	background: #FC9C9C;
+	color: #fff;
+}
+
+.orderAreaSquare input {
 	border-radius: 0;
 	font-size: 13px;
 	width: 66px;
-	height: 32px;
-	padding-left: 0;
+	height: 21px;
+	padding-left: 8px;
 	border: none;
-}
-
-.order-info-memo {
-	background: #fff;
-	margin-bottom: 10px;
+	border-bottom: 1px solid #E0E0E0;
 }
 
 .order-info-memo table {
@@ -139,7 +235,7 @@ span.tableSpan {
 	height: 60px;
 	padding-left: 0;
 	border: none;
-	background: url(../icons/location_icon_mobile.png) center left no-repeat;
+	background: url(../icons/compose.png) center left no-repeat;
 	background-size: 35px 35px;
 	padding-left: 35px;
 }
@@ -147,6 +243,18 @@ span.tableSpan {
 .order-info-memo input::-webkit-input-placeholder {
 	color: #c0c0c0;
 	left: 100px;
+}
+
+.order-info-memo textarea {
+	height: 60px;
+	line-height: 18px;
+	width: 100%;
+	background: url(../icons/compose.png) no-repeat;
+	background-position: 1px 1px;
+	background-size: 24px 24px;
+	padding: 5px 0px 5px 33px;
+	border: none;
+	font-size: 14px;
 }
 
 .order-info-total {
@@ -178,9 +286,8 @@ span.tableSpan {
 }
 
 .submit_order_info_area .submit_order_info {
-	width: 96%;
+	width: 100%;
 	height: 41px;
 	background: #DC0404;
-	margin-left: 2%;
 	border-radius: 7px;
 }

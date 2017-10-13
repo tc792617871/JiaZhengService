@@ -300,7 +300,7 @@ ul {
 	width: 100%;
 	height: 38px;
 	color: #fff;
-/* 	border-radius: 0 */
+	/* 	border-radius: 0 */
 }
 
 .box-a {
@@ -1238,7 +1238,7 @@ body {
 .md-content button {
 	display: block;
 	margin: 0 auto;
-	font-size: 12px;
+/* 	font-size: 12px; */
 	padding-left: 0
 }
 
@@ -1764,13 +1764,14 @@ start 璁㈠��璇����
 ================================================================
 */
 .orderInfo .orderInfoContent {
-	font-size: 12px
+	font-size: 12px;
+	background: #fff;
 }
 
 .orderInfo .orderInfoContent ul li {
-	border-top: 1px solid #000;
+	border-top: 1px solid #E0E0E0;
 	border-bottom-width: 0;
-	margin-top: 10px;
+	margin-top: 1px;
 	line-height: 20px
 }
 
@@ -1783,7 +1784,6 @@ start 璁㈠��璇����
 }
 
 .orderInfo .orderInfoContent .nextBtnDiv {
-	margin-bottom: 73px;
 	margin-top: 33px
 }
 
@@ -2009,7 +2009,7 @@ start 璁㈠��璇����
 }
 
 .receiverEntry li a:hover {
-	border: 2px solid #000;
+	border: 2px solid #DC0404;
 	padding: 0 5px;
 	text-decoration: none
 }
@@ -2028,7 +2028,7 @@ start 璁㈠��璇����
 }
 
 .receiverEntry li.selected a {
-	border: 2px solid #000;
+	border: 2px solid #DC0404;
 	padding: 0 5px
 }
 
@@ -2698,4 +2698,11 @@ input[type=checkbox].confirmCheckBox {
 /*公共页面底部 end*/
 .hidden_flow {
 	overflow: hidden;
+}
+
+.commonMargin {
+	width: 100%;
+	height: 48px;
+	overflow: hidden;
+    background: #fff;
 }

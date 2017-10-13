@@ -235,4 +235,24 @@ public abstract class TTOrder {
      * @Fields t_order.SYSTEM_VERSION: 
      */
     public static final String SYSTEM_VERSION = "system_version";
+
+    /**
+     * @Fields t_order.WEEK_DAYS: 
+     */
+    public static final String WEEK_DAYS = "week_days";
+
+    /**
+     * @Fields t_order.TIME_AREA: 
+     */
+    public static final String TIME_AREA = "time_area";
+
+    /**
+     * @Fields t_order.TIME: 
+     */
+    public static final String TIME = "time";
+
+    /**
+     * @Fields t_order.AREA_SQUARE: 
+     */
+    public static final String AREA_SQUARE = "area_square";
 }

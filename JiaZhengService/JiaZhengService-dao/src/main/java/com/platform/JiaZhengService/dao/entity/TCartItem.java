@@ -1,8 +1,9 @@
 package com.platform.JiaZhengService.dao.entity;
 
-import com.platform.JiaZhengService.common.pojo.StringAndEqualsPojo;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.platform.JiaZhengService.common.pojo.StringAndEqualsPojo;
 
 /**
  * @ClassName: TCartItem
@@ -177,5 +178,18 @@ public class TCartItem extends StringAndEqualsPojo implements Serializable {
 
 	public void settSpecification(TSpecification tSpecification) {
 		this.tSpecification = tSpecification;
+	}
+
+	/**
+	 * 获取价格
+	 * 
+	 * @return 价格
+	 */
+	public Double getPrice() {
+		if (getTproduct() != null && gettSpecification() != null && gettSpecification().getPrice() != null) {
+			return gettSpecification().getPrice();
+		} else {
+			return new Double(0);
+		}
 	}
 }

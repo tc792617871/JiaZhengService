@@ -48,6 +48,10 @@
     <result column="order_source" property="orderSource" jdbcType="VARCHAR" />
     <result column="system_type" property="systemType" jdbcType="VARCHAR" />
     <result column="system_version" property="systemVersion" jdbcType="VARCHAR" />
+    <result column="week_days" property="weekDays" jdbcType="VARCHAR" />
+    <result column="time_area" property="timeArea" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="area_square" property="areaSquare" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, create_date, modify_date, address, amount_paid, area_name, consignee, coupon_discount, 
@@ -56,7 +60,8 @@
     promotion, promotion_discount, shipping_method_name, shipping_status, sn, tax, zip_code, 
     area, coupon_code, member, operator, payment_method, shipping_method, agree_return, 
     invoice_type, payment_plugin_id, confirm_delivery_time, memo_flag, seller_memo, bank_code, 
-    bank_name, order_source, system_type, system_version
+    bank_name, order_source, system_type, system_version, week_days, time_area, time, 
+    area_square
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
     select
@@ -104,7 +109,8 @@
       payment_plugin_id, confirm_delivery_time, 
       memo_flag, seller_memo, bank_code, 
       bank_name, order_source, system_type, 
-      system_version)
+      system_version, week_days, time_area, 
+      time, area_square)
     values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
       #{amountPaid,jdbcType=DOUBLE}, #{areaName,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, 
       #{couponDiscount,jdbcType=DOUBLE}, #{expire,jdbcType=TIMESTAMP}, #{fee,jdbcType=DOUBLE}, 
@@ -120,7 +126,8 @@
       #{paymentPluginId,jdbcType=VARCHAR}, #{confirmDeliveryTime,jdbcType=TIMESTAMP}, 
       #{memoFlag,jdbcType=INTEGER}, #{sellerMemo,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, 
       #{bankName,jdbcType=VARCHAR}, #{orderSource,jdbcType=VARCHAR}, #{systemType,jdbcType=VARCHAR}, 
-      #{systemVersion,jdbcType=VARCHAR})
+      #{systemVersion,jdbcType=VARCHAR}, #{weekDays,jdbcType=VARCHAR}, #{timeArea,jdbcType=VARCHAR}, 
+      #{time,jdbcType=VARCHAR}, #{areaSquare,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TOrder" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
@@ -263,6 +270,18 @@
       <if test="systemVersion != null" >
         system_version,
       </if>
+      <if test="weekDays != null" >
+        week_days,
+      </if>
+      <if test="timeArea != null" >
+        time_area,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="areaSquare != null" >
+        area_square,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="createDate != null" >
@@ -399,6 +418,18 @@
       </if>
       <if test="systemVersion != null" >
         #{systemVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="weekDays != null" >
+        #{weekDays,jdbcType=VARCHAR},
+      </if>
+      <if test="timeArea != null" >
+        #{timeArea,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="areaSquare != null" >
+        #{areaSquare,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -549,6 +580,18 @@
       <if test="record.systemVersion != null" >
         system_version = #{record.systemVersion,jdbcType=VARCHAR},
       </if>
+      <if test="record.weekDays != null" >
+        week_days = #{record.weekDays,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeArea != null" >
+        time_area = #{record.timeArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaSquare != null" >
+        area_square = #{record.areaSquare,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="common.Update_By_Example_Where_Clause" />
@@ -601,7 +644,11 @@
       bank_name = #{record.bankName,jdbcType=VARCHAR},
       order_source = #{record.orderSource,jdbcType=VARCHAR},
       system_type = #{record.systemType,jdbcType=VARCHAR},
-      system_version = #{record.systemVersion,jdbcType=VARCHAR}
+      system_version = #{record.systemVersion,jdbcType=VARCHAR},
+      week_days = #{record.weekDays,jdbcType=VARCHAR},
+      time_area = #{record.timeArea,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
+      area_square = #{record.areaSquare,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="common.Update_By_Example_Where_Clause" />
     </if>
@@ -744,6 +791,18 @@
       <if test="systemVersion != null" >
         system_version = #{systemVersion,jdbcType=VARCHAR},
       </if>
+      <if test="weekDays != null" >
+        week_days = #{weekDays,jdbcType=VARCHAR},
+      </if>
+      <if test="timeArea != null" >
+        time_area = #{timeArea,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="areaSquare != null" >
+        area_square = #{areaSquare,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -793,7 +852,11 @@
       bank_name = #{bankName,jdbcType=VARCHAR},
       order_source = #{orderSource,jdbcType=VARCHAR},
       system_type = #{systemType,jdbcType=VARCHAR},
-      system_version = #{systemVersion,jdbcType=VARCHAR}
+      system_version = #{systemVersion,jdbcType=VARCHAR},
+      week_days = #{weekDays,jdbcType=VARCHAR},
+      time_area = #{timeArea,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      area_square = #{areaSquare,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

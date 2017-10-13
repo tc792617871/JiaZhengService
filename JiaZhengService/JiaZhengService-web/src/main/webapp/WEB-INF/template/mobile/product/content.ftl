@@ -151,18 +151,31 @@
 		$('#allsubmit_btn').attr('onclick','buy()');
 		$('#attrSets_area').slideDown(function(){initScroll();});
 	}
+	
 	function buy(){
-		gotourl('http://meiaijie.wx.toohuu.com:80/wx/appoint.jsp?xiangmupk='+$('#xiangmupk').val()+'&num='+$('#_num').val());
+		var productId = ${product.id};
+		var specificationId = $("#specificationId").val();
+		var quantity = $("#_num").val();
+		if(!addCart()){
+			return ;
+		}
+		setTimeout(function() {
+			window.location.href = "${base}/mobile/member/order/info.jhtml?productId="+productId+"&specificationId="+specificationId+"&quantity="+quantity;
+		}, 1000);
 	}
+	
 	function attrHide(){
 		$('#attrSets_area').slideUp();
 		$('#cover').hide();
 	}
+	
 	function addCart(){
+		var addResult = true;
 		if (!$.checkLogin()) {
+			addResult = false;
 			m$.ui.dialog.dialogShow({
 				'title': '提示',
-				'content': '必须登录后才能加入购物车'
+				'content': '请先登录后再操作'
 			},
 			[{
 				'text': '确定',
@@ -196,6 +209,7 @@
 								}
 							}]);
 					} else {
+						addResult = false;
 						m$.ui.dialog.dialogShow({
 							'title' : '提示',
 							'content' : message['content']
@@ -207,7 +221,9 @@
 				}
 			});
 		}
+		return addResult;
 	}
+	
 	var myScroll;
 	function initScroll () {
 		if(!myScroll){
