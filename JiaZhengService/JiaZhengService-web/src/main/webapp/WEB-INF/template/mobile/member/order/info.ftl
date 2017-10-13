@@ -10,143 +10,624 @@
 <link href="${base}/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
 <link href="${base}/resources/mobile/css/order.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/mobile/js/jquery.min.js"></script>
+<script type="text/javascript" src="${base}/resources/mobile/js/jquery.lSelect.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/common.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/mobile.js"></script>
 <script type="text/javascript">
 $().ready(function() {
-	m$.header.titleContent.setTitle("预约");
+
+	var $orderForm = $("#orderForm");
+	var $receiverId = $("#receiverId");
+	var $consignee = $("#consignee");
+	var $phone = $("#phone");
+	var $address = $("#address");
+	var $zipCode = $("#zipCode");
+
+	m$.header.titleContent.setTitle("处理订单");
 	$(".header_2 .cart_area").remove();
 	$(".header_2 .home_area").remove();
+	
+	$("#modify_orderAreaId").lSelect({
+	    url: "${base}/mobile/common/area.jhtml"
+	});
+	
+	/**收货地址选择*/
+	$(".receiverList").each(function(){
+		var i=$(this);
+		var p=i.find("ul>li");
+		p.click(function(){
+			if(!!$(this).hasClass("selected")){
+				$(this).removeClass("selected");
+			}else{
+				$(this).addClass("selected").siblings("li").removeClass("selected");
+				$receiverId.val($(this).attr("dataid"));
+				$consignee.html($(this).find("#receiverConsignee").html());
+				$phone.html($(this).find("#receiverPhone").html());
+				$address.html($(this).find("#receiverAddress").html());
+				$zipCode.html($(this).find("#receiverZipCode").html());
+			}
+		})
+	});
+	
+	/**微信选择*/
+	$("#paymentPluginModal").each(function(){
+		var i=$(this);
+		var $paymentPluginText = $("#paymentPluginText")
+		var p=i.find("ul>li");
+		p.click(function(){
+			if(!!$(this).hasClass("selected")){
+				$(this).removeClass("selected");
+			}else{
+				$(this).addClass("selected").siblings("li").removeClass("selected");
+				$paymentPluginId.val($(this).attr("dataid"));
+				$paymentPluginText.html($(this).attr("dataval"));
+			}
+		})
+	});
 });
+
+// 计算
+function calculate() {
+	$.ajax({
+		url: "calculate.jhtml",
+		type: "POST",
+		data: $orderForm.serialize(),
+		dataType: "json",
+		cache: false,
+		success: function(data) {
+			if (data.message.type == "success") {
+				if (data.couponDiscount > 0) {
+					$couponDiscount.text(currency(data.couponDiscount, true));
+					$couponDiscount.parent().parent().show();
+				} else {
+					$couponDiscount.parent().parent().hide();
+				}
+				$amountPayable.text(currency(data.amountPayable, true, false));
+			} else {
+				$.message(data.message);
+				setTimeout(function() {
+					location.reload(true);
+				}, 3000);
+			}
+		}
+	});
+}
+
+function addNewAddress(){
+   var $receiverModifyAreaSpan = $("#receiverModifyAreaSpan");
+   var $areaSelects = $receiverModifyAreaSpan.find("select");
+   m$.business.cart.addAddress($receiverModifyAreaSpan,$areaSelects);
+}
 
 </script>
 </head>
 <body class="body_margin">
 	<div class="fullscreen">
 		[#include "/mobile/include/header_2.ftl" /]
-		<div class="order-content">
-			<img src="http://img13.360buyimg.com/n1/jfs/t3271/50/3320182148/85164/b1cfe23d/57ee25faN401020c0.jpg">
-			<span class="title">钟点保洁</span>
-			<span class="price">￥ 89/台</span>
-			<div class="num_input">
-				<label id="subBtn" class="add_sub_disabled" onclick="setNum(-1)">-</label>
-				<input type="number" id="_num" name="_num" value="2.0" onchange="checkNum()" style="">
-				<label id="addBtn" class="add_sub_abled" onclick="setNum(1)" onclick="setNum(1)">+</label>
+		<div class="moMobileContent orderInfo">
+			<form id="orderForm" action="create.jhtml" method="post" onsubmit="return false;"> 
+				<input type="hidden" id="receiverId" name="receiverId"[#if defaultReceiver??] value="${defaultReceiver.id}"[/#if] />
+				<!--
+				<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="alipayWapPlugin" />
+				-->
+				<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="wxJsPlugin" />
+				<div class="orderInfoContent">
+					<div>
+						<ul>
+						    <li class="md-trigger order-items" data-modal="orderProductInfoModal">
+						        <table>
+						        	<tr>
+						                <td>
+						                	<div class="order-items-brief">
+							                    <img src="${base}/resources/mobile/icons/default_order_item_pic.jpg">
+												<span class="title">挂式单台,滚筒不带烘干单台,顶吸/常规侧吸式单台</span>
+												<span class="description">共3件商品</span>
+												<span class="price">123</span>
+											</div>
+						                </td>
+						                 <td>
+						                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="rightArrow"/>
+						                </td>
+						            </tr>
+						        </table>
+						    </li>
+						    <li class="md-trigger" data-modal="receiverModal">
+						        <table>
+						            <tr>
+						                <td>
+						                    <img src="${base}/resources/mobile/icons/location.png" class="imgIcon">
+						                    <span class="tableSpan">收货信息</span>
+						                </td>
+						                <td>
+						                   <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="rightArrow"/>
+						                </td>
+						            </tr>
+						            [#if defaultReceiver??] 
+							            <tr>
+							                <td>
+							                    <label for="consignee">收件人:</label>
+							                    <span id="consignee">${defaultReceiver.consignee}</span>
+							                </td>
+							            </tr>
+							            <tr>
+							                <td>
+							                    <label for="phone">手机号码:</label>
+							                    <span id="phone">${defaultReceiver.phone}</span>
+							                </td>
+							            </tr>
+							            <tr>
+							                <td>
+							                    <label for="address">地址:</label>
+							                    <span id="address">
+												  ${defaultReceiver.areaName}${defaultReceiver.address}
+							                    </span>
+							                </td>
+							            </tr>
+							            <tr>
+							                <td>
+							                    <label for="zipCode">邮编:</label>
+							                    <span id="zipCode">${defaultReceiver.zipCode}</span>
+							                </td>
+							            </tr>
+							         [#else]
+							             <tr>
+							                <td>
+							                    点击新增收货地址
+							                </td>
+							            </tr>
+						             [/#if]
+						         </table>
+						    </li>
+						    <li class="md-trigger" data-modal="orderServiceTimeModal">
+						        <table>
+						            <tr>
+						                <td>
+						                    <img src="${base}/resources/mobile/icons/clock.png" class="imgIcon">
+						                    <span class="tableSpan workTime">请选择服务时间</span>
+						                    <input type="hidden" id="weekdays" name="weekdays"/> 
+						                    <input type="hidden" id="timearea" name="timearea"/> 
+						                    <input type="hidden" id="time" name="time"/>
+						                </td>
+						                <td>
+						                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="rightArrow"/>
+						                </td>
+						            </tr>
+						        </table>
+						    </li>
+						    <li class="orderAreaSquare">
+						        <table>
+						            <tr>
+						                <td style="width:25px;">
+						                </td>
+						                <td>
+				                    		<input type="text" name="areaSquare" placeholder="房屋面积"/>㎡ (请正确填写平米数)
+						                </td>
+						            </tr>
+						        </table>
+						    </li>
+						    <!--
+						    <li  class="md-trigger" data-modal="paymentPluginModal">
+						         <table>
+						            <tr>
+						                <th>
+						                   支付方式
+						                </th>
+						                <td rowspan="2" class="rightArrow">
+						                   <img src="${base}/resources/mobile/images/icon_rightarrow.png" width="8px"/>
+						                </td>
+						            </tr>
+						            <tr>
+						                <td>
+							               <span id="paymentPluginText">微信支付</span>
+						                </td>
+						            </tr>
+						         </table>
+						    </li>
+						    -->
+						    <li class="order-info-memo">
+						         <table>
+						            <tr>
+						                <td>
+						                    <textarea id="memo" placeholder="备注（非必填 最多100字）还有什么要求写在这里吧" name="memo"></textarea>
+						                </td>
+						            </tr>
+						         </table>
+						    </li>
+						    <!--<li>
+						         <table>
+						            <tr>
+						                <th>
+						                   	优惠券
+						                </th>
+						            </tr>
+						            <tr>
+					                	<td>
+					                	    <input type="hidden" id="code" name="code" maxlength="200" />
+						                	<input type="text" class="box_input" placeholder="优惠码" id="couponCode" name="couponCode" style="width:76%;border-right:none;float:left;"/>
+						                	<button  type="button"  class="couponButton" id="confirmBut">${message("shop.order.codeConfirm")}</button>
+					                	</td>
+					                   
+						                </td>
+						            </tr>
+						              <tr style="display:none">
+						                <td>
+						                    <label for="couponDiscount">优惠金额:</label>
+						                    <span id="couponDiscount">${currency(order.couponDiscount, true, false)}</span>
+						                </td>
+						            </tr>
+						         </table>
+						    </li>-->
+						    <li>
+						    </li>
+						</ul>
+						<div class="nextBtnDiv">
+						    <button type="button" id="submitOrderInfo" onclick="m$.business.cart.submitOrderInfo();">提交订单</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!-- end 订单详情 -->
+		<!-- the overlay element -->
+		<div class="md-overlay"></div>
+		
+		<!-- start 产品信息 -->
+		<div class="md-modal md-orderProductInfoModal" id="orderProductInfoModal">
+			<div class="md-content">
+				<div>
+					[#if order?? && order.orderItems?has_content]
+						<ul>
+							[#list order.orderItems as orderItem]
+							    <li>
+							         <table cellpadding="5" cellspacing="0">
+							             <tbody>
+							                 <tr>
+							                     <td rowspan="3">
+							                         <a href="${base}/mobile/product/content.jhtml?productId=${orderItem.product}">
+							                            <img src="${(orderItem.thumbnail)!}" style="width:70px"/>
+							                         </a>
+							                     </td>
+							                     <td colspan="2" style="width: 100%;">
+							                         <a  href="${base}/mobile/product/content.jhtml?productId=${orderItem.product.id}">
+							                             <strong>${(orderItem.name)!}</strong>
+							                         </a>
+							                     </td>
+							                     <td colspan="2" style="vertical-align: top;">
+							                       
+							                     </td>
+							                  </tr>
+							                  <tr>
+							                   <td>
+												  ${currency(orderItem.subtotal, true, false)}
+							                   </td>
+							                 </tr>
+							                 <tr>
+												<td>
+						                     		<div class="little-border" id="quantityVal">
+														<div class="little-boder-item">
+															<span>${(orderItem.quantity)!}件</span>
+														</div>
+													</div>
+												</td>
+							                 </tr>
+							             </tbody>
+							         </table>
+							    </li>
+							[/#list]
+						</ul>
+						<table style="padding-top: 10px;font-size: 13px;padding-bottom: 30px;width: 100%;">
+						    <tr>
+						        <td>
+						            <label for="cartQuantity">${(order.quantity)!}</label>
+						            <span id="cartQuantity">件商品&nbsp;&nbsp;</span>
+						        </td>
+						        <td style="text-align: right;">
+						            <label for="sellingPrice">商品总额:</label>
+						            <span id="sellingPrice">${currency(order.sellingPrice, true, false)}</span>
+						        </td>
+						    </tr>
+						    <tr>
+						        <td style="text-align: right;" colspan="2" >
+						            <label for="effectivePrice">实付款:</label>
+							        <span id="effectivePrice">${currency(order.amountPayable, true, false)}</span>
+						        </td>
+						    </tr>
+						</table>
+						[#else]
+							<div class="cartEmpty">${message("shop.cart.empty")}</div>
+						[/#if]
+						<button class="md-close">关闭</button>
+				</div>
 			</div>
 		</div>
-		<ul class="order-items">
-		    <li class="md-trigger" data-modal="orderItemsModal">
-		        <table>
-		            <tr>
-		                <td>
-		                	<div class="order-items-brief">
-			                    <img src="http://img13.360buyimg.com/n1/jfs/t3271/50/3320182148/85164/b1cfe23d/57ee25faN401020c0.jpg">
-								<span class="title">挂式单台,滚筒不带烘干单台,顶吸/常规侧吸式单台</span>
-								<span class="description">共3件商品</span>
-							</div>
-		                </td>
-		                 <td>
-		                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="rightArrow"/>
-		                </td>
-		            </tr>
-		        </table>
-		    </li>
-	    </ul>
-	    
-	    <ul class="order-info">
-		    <li class="md-trigger bottomBorder order-address" data-modal="receiverModal">
-		        <table>
-		            <tr>
-		                <td>
-		                    <img src="${base}/resources/mobile/icons/location_icon_mobile.png" class="imgIcon">
-		                    <span class="tableSpan">收货信息</span>
-		                </td>
-		                <td>
-		                   <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="rightArrow"/>
-		                </td>
-		            </tr>
-		            <tr>
-		                <td colspan="2">
-		                    <label for="consignee">收件人:</label>
-		                    <span id="consignee">xxxx</span>
-		                </td>
-		            </tr>
-		            <tr>
-		                <td colspan="2">
-		                    <label for="phone">手机号码:</label>
-		                    <span id="phone">xxx</span>
-		                </td>
-		            </tr>
-		            <tr>
-		                <td colspan="2">
-		                    <label for="address">地址:</label>
-		                    <span id="address">
-							  	江苏省南京市栖霞区迈尧路611号
-		                    </span>
-		                </td>
-		            </tr>
-		            <tr>
-		                <td colspan="2">
-	                    	<label for="addAddress">点击新增收货地址</label>
-		                </td>
-		            </tr>
-		         </table>
-		    </li>
-		    <li class="md-trigger bottomBorder" data-modal="orderServiceTimeModal">
-		        <table>
-		            <tr>
-		                <td>
-		                    <img src="${base}/resources/mobile/icons/location_icon_mobile.png" class="imgIcon">
-		                    <span class="tableSpan">请选择服务时间</span>
-		                </td>
-		                <td>
-		                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="rightArrow"/>
-		                </td>
-		            </tr>
-		        </table>
-		    </li>
-		    <li class="md-trigger orderAreaSquare" data-modal="orderAreaSquareModal">
-		        <table>
-		            <tr>
-		                <td style="width:25px;">
-		                </td>
-		                <td>
-                    		<input type="text" name="areaSquare" placeholder="&nbsp;&nbsp;房屋面积"/>㎡ (请正确填写平米数)
-		                </td>
-		            </tr>
-		        </table>
-		    </li>
-	    </ul>
-	    
-	    <ul class="order-info-memo">
-	    	<table>
-	            <tr>
-	                <td>
-                		<input type="text" name="memo" placeholder="备注（非必填 最多100字）还有什么要求写在这里吧"/>
-	                </td>
-	            </tr>
-	        </table>
-	    </ul>
-	    
-	    <ul class="order-info-total">
-		    <li class="md-trigger" data-modal="orderServiceTimeModal">
-		        <table>
-		            <tr>
-		                <td>
-		                    <img src="${base}/resources/mobile/icons/location_icon_mobile.png" class="imgIcon">
-		                    <span class="tableSpan">合计</span>
-		                </td>
-		                <td>
-		                    <span class="totalPrice">507.00</span>
-		                </td>
-		            </tr>
-		        </table>
-		    </li>
-	    </ul>
-	    
-		<div class="submit_order_info_area">
-			<div class="submit_order_info" onclick="">提交订单</div>
-		</div>		
+		<!-- end 产品信息 -->
+		
+		
+		<!-- start 收货信息 -->
+		<div class="md-modal md-receiverModal" id="receiverModal">
+			<div class="md-content">
+				<div>
+					[#if defaultReceiver?? ]
+					<dl class="clearfix receiverList" >
+						<dd>
+							<ul class="receiverEntry">
+								[#list receivers as receiver]
+								<li dataid="${receiver.id}">
+								    <a href="javascript:;">
+										 <table>
+								            <tr>
+								                <td>
+								                    <label for="receiverConsignee">收件人:</label>
+								                    <span id="receiverConsignee">${receiver.consignee}</span>
+								                </td>
+								            </tr>
+								            <tr>
+								                <td>
+								                    <label for="receiverPhone">手机号码:</label>
+								                    <span id="receiverPhone">${receiver.phone}</span>
+								                </td>
+								            </tr>
+								            <tr>
+								                <td>
+								                    <label for="receiverAddress">地址:</label>
+								                    <span id="receiverAddress">
+								                        [#if receiver.address?length lt 13] 
+														     ${receiver.areaName}${receiver.address}
+														[#else]
+														     ${receiver.areaName}${receiver.address[0..11]}...
+														[/#if]
+								                    </span>
+								                </td>
+								            </tr>
+								            <tr>
+								                <td>
+								                    <label for="receiverZipCode">邮编:</label>
+								                    <span id="receiverZipCode">${receiver.zipCode}</span>
+								                </td>
+								            </tr>
+								         </table>
+								    </a>
+								    <i></i>
+								</li>
+								[/#list]
+							</ul>
+						</dd>
+					</dl>
+					<button class="md-close">确定</button>
+					[#else]
+					<table style="width: 100%;">
+					    <tr>
+						    <td>
+						        <button id="addReceiver" class="md-trigger" data-modal="addReceiverModal">新增</button>
+						    </td>
+						    <td>
+						        <button class="md-close">关闭</button>
+						    </td>
+					    </tr>
+					</table>
+					[/#if]
+				</div>
+			</div>
+		</div>
+		<!-- end 收货信息 -->
+		
+		<!-- start 新增收货地址 -->
+		<div class="md-modal md-addReceiverModal" id="addReceiverModal">
+			<div class="md-content">
+				<div>
+				    <form id="receiverFormAdd" action="${base}/mobile/member/submitNewAddress.jhtml" method="post" novalidate="novalidate">
+				    	<div class="box">
+							<span class="fieldSet" id="receiverModifyAreaSpan">
+								<input type="hidden" id="modify_orderAreaId" name="modify_orderAreaId" treePath="${receiver.area.treePath}"/>
+							</span>
+						</div>
+						<div class="box">
+							<input type="text" name="address" class="box_input" placeholder="寄送地址"/>
+						</div>
+						<div class="box">
+							<input type="text" name="consignee"  class="box_input" placeholder="收货人"/>
+						</div>
+						<div class="box">
+							<input type="text" name="phone"  class="box_input" placeholder="手机号码"/>
+						</div>
+						<div class="box">
+							<input type="text" name="zipCode"  class="box_input" placeholder="邮编"/>
+						</div>
+						<div class="address-btn">
+							<button type="button" name="btn-confirm" onClick="addNewAddress()">确认</button>
+						</div>
+				    </form>	
+				    <button class="md-close">取消</button>
+				</div>
+			</div>
+		</div>
+		<!-- end 新增收货地址 -->
+		
+		<!-- start 支付方式选择 -->
+		<div class="md-modal md-paymentPluginModal" id="paymentPluginModal">
+			<div class="md-content">
+				<div>
+					<ul class="paymentPluginEntry">
+						<li dataid="wxJsPlugin" dataval="微信支付">
+						    <a href="javascript:;">
+						        <img src="http://images.mo-co.com/upload/image/201509/49027800-36d0-4997-9ebe-a899945dd86c.png" />
+						        微信支付
+						    </a>
+						    <i></i>
+						</li>
+						<li dataid="alipayWapPlugin" dataval="支付宝支付">
+						    <a href="javascript:;">
+							    <img src="http://images.mo-co.com/upload/image/201509/64ff404e-47b4-4353-adac-f290d84fb2e5.png" />
+							    支付宝支付
+						    </a>
+						    <i></i>
+						</li>
+					</ul>
+					<button type="button"  class="md-close" style="width: 45%;float: left;margin-left: 10px;">确定</button>
+				</div>
+			</div>
+		</div>
+		<!-- end 支付方式选择 -->
+		
+		<!-- start 服务时间选择 -->
+		<div class="md-modal md-orderServiceTimeModal" id="orderServiceTimeModal">
+			<div class="md-content">
+				<div class="modal-time-select">
+					<div class="tip">
+						建议多选，方便安排
+					</div>
+					<input type="hidden" id="weekdays_temp" name="weekdays_temp">
+					<input type="hidden" id="weekdays_temp2" name="weekdays_temp2">
+					<input type="hidden" id="timearea_temp" name="timearea_temp">
+					<input type="hidden" id="time_temp" name="time_temp">
+					<div id="weekDay_div">
+						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-25" e="明天">
+							明天<br>09/25
+						</span>
+						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-26" e="周二">
+							周二<br>09/26
+						</span>
+						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-27" e="周三">
+							周三<br>09/27
+						</span>
+						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-28" e="周四">
+							周四<br>09/28
+						</span>
+						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-29" e="周五">
+							周五<br>09/29
+						</span>
+						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-30" e="周六">
+							周六<br>09/30
+						</span>
+						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-10-01" e="周日">
+							周日<br>10/01
+						</span>
+						<span class="nocheckDay" onclick="selectWeekDay(this)" alone="1" id="我们安排" e="你们安排">
+							你们<br>安排
+						</span>
+					</div>
+					<div id="timeArea_div">
+						<span class="nocheckTimeArea" onclick="selectTimeArea(this)">上午</span>
+						<span class="nocheckTimeArea" onclick="selectTimeArea(this)">下午</span>
+						<span class="nocheckTimeArea" onclick="selectTimeArea(this)">全天</span>
+					</div>
+					<div id="times_div">
+						
+					</div>
+					<button type="button" onclick="chooseTime();">确定选择</button>
+				</div>
+			</div>
+		</div>
+		<!-- end 服务时间选择 -->
+		
+		[#include "/mobile/include/footer_2.ftl" /]
 	</div>
+	<script type="text/javascript" src="${base}/resources/mobile/js/modernizr.js"></script>
+	<script type="text/javascript">
+		function selectWeekDay(obj) {
+			if ($(obj).hasClass('checkday')) {
+				$(obj).removeClass('checkday');
+			} else {
+				if ($(obj).attr('alone') == '1') {
+					var alloption = $('#weekDay_div span');
+					for (var i = 0; i < alloption.length; i++) {
+						$(alloption[i]).removeClass('checkday');
+					}
+				} else {
+					$('#weekDay_div span[alone="1"]').removeClass('checkday');
+				}
+				$(obj).addClass('checkday');
+			}
+
+			var weekdays = "";
+			var weekdays_e = "";
+			var checkedoption = $("#weekDay_div").find("span.checkday");
+			for (var i = 0; i < checkedoption.length; i++) {
+				if (weekdays == '') {
+					weekdays += checkedoption[i].id;
+					weekdays_e += $(checkedoption[i]).attr('e');
+				} else {
+					weekdays += "," + checkedoption[i].id;
+					weekdays_e += "," + $(checkedoption[i]).attr('e');
+				}
+			}
+			$('#weekdays_temp').val(weekdays);
+			$('#weekdays_temp2').val(weekdays_e);
+		}
+
+		function selectTimeArea(obj) {
+			if ($(obj).hasClass('checkTimeArea')) {
+				$(obj).removeClass('checkTimeArea');
+				$('#timearea_temp').val("");
+			} else {
+				var alloption = $('#timeArea_div span');
+				for (var i = 0; i < alloption.length; i++) {
+					$(alloption[i]).removeClass('checkTimeArea');
+				}
+				$(obj).addClass('checkTimeArea');
+				$('#timearea_temp').val(obj.innerHTML);
+			}
+			$('#time_temp').val("");
+			appendTimes();
+		}
+		
+		function selectTime(obj) {
+			if ($(obj).hasClass('checkTime')) {
+				$(obj).removeClass('checkTime');
+				$('#time_temp').val("");
+			} else {
+				var alloption = $('#times_div span');
+				for (var i = 0; i < alloption.length; i++) {
+					$(alloption[i]).removeClass('checkTime');
+				}
+				$(obj).addClass('checkTime');
+				$('#time_temp').val($(obj).attr('val'));
+			}
+		}
+
+		var timejson = {
+			'am' : [ '07:00-08:00', '09:00-10:00' ],
+			'pm' : [ '11:00-12:00', '13:00-14:00', '15:00-16:00', '17:00-18:00' ]
+		}
+		
+		function appendTimes() {
+			var timeArea = $('#timearea_temp').val();
+			var temphtml = "";
+			var timearr = [];
+			switch (timeArea) {
+				case '上午':
+					timearr = timejson['am'];
+					break;
+				case '下午':
+					timearr = timejson['pm'];
+			}
+			for (var i = 0; i < timearr.length; i++) {
+				var tempArr = timearr[i].split('-');
+				temphtml += '<span class="nocheckTime" onclick="selectTime(this)" val="' + timearr[i] + '">'
+								+ tempArr[0]
+								+ '<br>至<br>'
+								+ tempArr[1] 
+							+ '</span>';
+			}
+			$('#times_div').html(temphtml);
+
+		}
+		
+		var chooseTime = function() {
+			$('#weekdays').val($('#weekdays_temp').val());
+			$('#timearea').val($('#timearea_temp').val());
+			$('#time').val($('#time_temp').val());
+			var workTimeHtml = $('#weekdays_temp2').val() + ($('#timearea').val() == '' ? '' : (' ' + $('#timearea').val())) + ($('#time').val() == '' ? '' : (' ' + $('#time').val()));
+			if(workTimeHtml == ''){
+				$('span.workTime').html('请选择服务时间');
+			}
+			else{
+				$('span.workTime').html(workTimeHtml);
+			}
+			$("#orderServiceTimeModal").removeClass("md-show");
+			$("#orderServiceTimeModal").removeClass("md-overflow");
+		}
+		
+	</script>
 </body>
 </html>
