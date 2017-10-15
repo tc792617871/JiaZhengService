@@ -14,4 +14,6 @@ public interface CartItemService extends BaseService {
 
 	void delete(Long id);
 
+	TCartItem findByParams(Long cartId, Long productId, Long specificationId);
+
 }

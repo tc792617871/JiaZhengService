@@ -37,12 +37,13 @@ $().ready(function() {
 					<div class="cart-item-content">
 						<img src="${cartItem.tproduct.image}">
 						<span class="title">${cartItem.tSpecification.name}</span>
+						<input type ="hidden" id="spe_price" name="spe_price" value="${cartItem.tSpecification.price}"/>
 						<span class="price">${currency(cartItem.tSpecification.price, true)}/${cartItem.tSpecification.unit}</span>
 						<div class="num_input">
 							<input type="hidden" name="minnum" value="${cartItem.tSpecification.minNum}"/>
 							<input type="hidden" name="maxnum" value="${cartItem.tSpecification.maxNum}"/>
 							<label id="subBtn" class="add_sub_abled" onclick="setNum(-1,this)">-</label>
-							<input type="number" name="num" value="${cartItem.quantity}" onchange="checkNum(this)">
+							<input type="number" name="num" value="${cartItem.quantity}" onchange="checkNum(this)"/>
 							<label id="addBtn" class="add_sub_abled" onclick="setNum(1,this)">+</label>
 						</div>
 					</div>
@@ -73,6 +74,7 @@ $().ready(function() {
 		var $items = $(".ui-cartList .cart-item .cart-item-select input[name='itemId']");
 		var $buyGoods = $("#buyGoods");
 		var $item_delete = $(".item-delete");
+		var $total = $("#total");
 	
 		$().ready(function() {
 			$select_all.click(function(){
@@ -84,12 +86,13 @@ $().ready(function() {
 				else {
 					$item.prop("checked", false);
 				}
+				calcuPrice();
 			});
 			
 			$items.each(function(){
 				var $this = $(this);
 				$this.click(function(){
-					
+					calcuPrice();
 				});
 			});
 			
@@ -152,6 +155,18 @@ $().ready(function() {
 			$buyGoods.click(function(){
 				var $this = $(this);
 				var $checkedItems = $items.filter(":checked");
+				var length = $checkedItems.length;
+				var cartItemIds = '';
+				if(length == 0){
+					return;
+				}
+				for(var index = 0 ; index < length; index++){
+					cartItemIds += $($checkedItems[index]).val();
+					if(index < length - 1){
+						cartItemIds += "-";
+					}
+				}
+				window.location.href = "${base}/mobile/member/order/info.jhtml?cartItemIds="+cartItemIds;
 			});
 		});
 		
@@ -212,6 +227,7 @@ $().ready(function() {
 						if (message['type'] == 'success') {
 							$num.val(num);
 							setBtn(minnum,maxnum,num,$this);
+							calcuPrice();
 						} else {
 							m$.ui.dialog.dialogShow({
 								'title' : '提示',
@@ -264,6 +280,7 @@ $().ready(function() {
 						if (message['type'] == 'success') {
 							$num.val(_num);
 							setBtn(minnum,maxnum,num,$this);
+							calcuPrice();
 						} else {
 							m$.ui.dialog.dialogShow({
 								'title' : '提示',
@@ -277,8 +294,22 @@ $().ready(function() {
 			}
 		}
 		
+		// 计算价格
 		function calcuPrice(){
-			
+			var $checkedItems = $items.filter(":checked");
+			var length = $checkedItems.length;
+			var result = currency(0, true);
+			if(length > 0){
+				var total = 0;
+				for(var index = 0 ; index < length; index++){
+					var price = $($checkedItems[index]).closest("div.cart-item").find(".cart-item-content input[name='spe_price']").val();
+					var num = $($checkedItems[index]).closest("div.cart-item").find(".cart-item-content input[name='num']").val();
+					var subTotal = parseFloat(price) * parseFloat(num);
+					total = total + subTotal;
+				}
+				result = currency(total, true);
+			}
+			$total.html(result);
 		}
 	</script>
 </body>

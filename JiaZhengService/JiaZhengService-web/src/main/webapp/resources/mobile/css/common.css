@@ -613,7 +613,7 @@ ul {
 	font-size: 12px;
 	text-align: center;
 	margin-right: 5px;
-	border: 1px solid #000;
+	border: 1px solid #E0E0E0;
 }
 
 .little-boder-item {
@@ -1935,7 +1935,7 @@ start 璁㈠��璇����
 }
 
 .md-orderProductInfoModal .md-content ul li {
-	border: 1px solid #000;
+	border: 1px solid #E0E0E0;
 	padding: 0;
 	margin-top: 5px;
 }

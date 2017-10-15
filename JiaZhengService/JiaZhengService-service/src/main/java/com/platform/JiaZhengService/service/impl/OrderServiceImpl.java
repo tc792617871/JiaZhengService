@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.platform.JiaZhengService.dao.entity.TCart;
@@ -23,6 +24,7 @@ import com.platform.JiaZhengService.dao.entity.TSpecification;
 import com.platform.JiaZhengService.dao.mapper.TMemberMapper;
 import com.platform.JiaZhengService.service.api.OrderService;
 
+@Service("orderServiceImpl")
 public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 
 	@Resource
@@ -53,14 +55,14 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		}
 
 		order.setPaymentPluginId(paymentPluginId);
-		order.setPaymentMethod(paymentMethod.getId());
+		order.setPaymentMethod(paymentMethod != null ? paymentMethod.getId() : null);
 
 		// 优惠券平分到每个商品上价格列表数据
 		// TODO
 
 		List<TOrderItem> orderItems = order.getOrderItems();
 		for (TCartItem cartItem : cart.getCartItems()) {
-			if (cartItem != null && cartItem.getProduct() != null) {
+			if (cartItem != null && cartItem.getProduct() != null && cartItem.getSpecification() != null) {
 				TProduct product = cartItem.getTproduct();
 				TSpecification specification = cartItem.gettSpecification();
 				TOrderItem orderItem = new TOrderItem();

@@ -120,9 +120,8 @@ function addNewAddress(){
 						                <td>
 						                	<div class="order-items-brief">
 							                    <img src="${base}/resources/mobile/icons/default_order_item_pic.jpg">
-												<span class="title">挂式单台,滚筒不带烘干单台,顶吸/常规侧吸式单台</span>
-												<span class="description">共3件商品</span>
-												<span class="price">123</span>
+												<span class="description">${order.quantity}件产品</span>
+												<span class="price">实付金额:${currency(order.amountPayable, true, false)}</span>
 											</div>
 						                </td>
 						                 <td>
@@ -288,7 +287,7 @@ function addNewAddress(){
 							                         </a>
 							                     </td>
 							                     <td colspan="2" style="width: 100%;">
-							                         <a  href="${base}/mobile/product/content.jhtml?productId=${orderItem.product.id}">
+							                         <a  href="${base}/mobile/product/content.jhtml?productId=${orderItem.product}">
 							                             <strong>${(orderItem.name)!}</strong>
 							                         </a>
 							                     </td>

@@ -1,9 +1,11 @@
 package com.platform.JiaZhengService.Controller.mobile.member;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,12 +60,28 @@ public class OrderController extends AbstractController {
 		TMember member = memberService.getCurrent();
 		TCart cart = cartService.findByMember(member.getId());
 		if (cart == null) {
-			return "redirect:/mobile/cart/index.jhtml";
+			return "redirect:/mobile/member/cart/index.jhtml";
 		}
-		List<TCartItem> cartItems = cartService.findCartItemsByCartId(cart.getId());
+		List<TCartItem> cartItems = new ArrayList<>();
+		if (StringUtils.isEmpty(cartItemIds)) {
+			TCartItem cartItem = cartItemService.findByParams(cart.getId(), productId, specificationId);
+			cartItem.setQuantity(quantity);
+			if (cartItem != null) {
+				cartItems.add(cartItem);
+			}
+		} else {
+			String[] cartItemIdsArr = cartItemIds.split("-");
+			for (String id : cartItemIdsArr) {
+				TCartItem cartItem = cartItemService.find(Long.valueOf(id));
+				if (cartItem != null) {
+					cartItems.add(cartItem);
+				}
+			}
+		}
 		if (cartItems == null || cartItems.size() == 0) {
-			return "redirect:/mobile/cart/index.jhtml";
+			return "redirect:/mobile/member/cart/index.jhtml";
 		}
+		cart.setCartItems(cartItems);
 		TReceiver defaultReceiver = receiverService.findDefault(member.getId());
 		List<TReceiver> receivers = receiverService.findReceiversByMemberID(member.getId());
 		model.addAttribute("defaultReceiver", defaultReceiver);

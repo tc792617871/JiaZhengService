@@ -1128,4 +1128,21 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 		Double amountPayable = getAmount() - getAmountPaid();
 		return amountPayable.compareTo(new Double(0)) > 0 ? amountPayable : new Double(0);
 	}
+
+	/**
+	 * 获取商品数量
+	 * 
+	 * @return 商品数量
+	 */
+	public Double getQuantity() {
+		Double quantity = new Double(0);
+		if (getOrderItems() != null) {
+			for (TOrderItem orderItem : getOrderItems()) {
+				if (orderItem != null && orderItem.getQuantity() != null) {
+					quantity += orderItem.getQuantity();
+				}
+			}
+		}
+		return quantity;
+	}
 }
