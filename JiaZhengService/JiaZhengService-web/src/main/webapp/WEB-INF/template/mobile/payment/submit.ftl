@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=[#if requestCharset?has_content]${requestCharset}[#else]utf-8[/#if]" />
-<title>${message("shop.payment.submit")} - MO&Co.</title>
-<meta name="author" content="广州爱帛服饰有限公司 Team" />
-<meta name="copyright" content="广州爱帛服饰有限公司" />
+<title>${message("shop.payment.submit")} - 家政服务平台</title>
+<meta name="author" content="xxx有限公司 Team" />
+<meta name="copyright" content="xxx有限公司" />
 <script type="text/javascript" src="${base}/resources/mobile/js/ap.js?time=${.now?date}${.now?time}"></script>
 <script type="text/javascript">
 function payOrder(){

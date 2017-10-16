@@ -38,7 +38,11 @@ import org.springframework.util.Assert;
 import com.platform.JiaZhengService.common.pojo.Setting;
 import com.platform.JiaZhengService.common.util.RSAUtils;
 import com.platform.JiaZhengService.common.util.SettingUtils;
+import com.platform.JiaZhengService.dao.entity.TPayment;
 import com.platform.JiaZhengService.dao.entity.TPluginConfig;
+import com.platform.JiaZhengService.service.api.MemberService;
+import com.platform.JiaZhengService.service.api.OrderService;
+import com.platform.JiaZhengService.service.api.PaymentService;
 import com.platform.JiaZhengService.service.api.PluginConfigService;
 
 /**
@@ -103,6 +107,15 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 
 	@Resource(name = "pluginConfigServiceImpl")
 	private PluginConfigService pluginConfigService;
+
+	@Resource(name = "paymentServiceImpl")
+	private PaymentService paymentService;
+
+	@Resource(name = "orderServiceImpl")
+	private OrderService orderService;
+
+	@Resource(name = "memberServiceImpl")
+	private MemberService memberService;
 
 	/**
 	 * 获取ID
@@ -237,9 +250,9 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	 * 
 	 * @return 手续费
 	 */
-	public BigDecimal getFee() {
+	public Double getFee() {
 		TPluginConfig pluginConfig = getPluginConfig();
-		return pluginConfig != null ? new BigDecimal(pluginConfig.getAttribute(FEE_ATTRIBUTE_NAME)) : null;
+		return pluginConfig != null ? new Double(pluginConfig.getAttribute(FEE_ATTRIBUTE_NAME)) : null;
 	}
 
 	/**
@@ -350,15 +363,15 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	 *            金额
 	 * @return 支付手续费
 	 */
-	public BigDecimal calculateFee(BigDecimal amount) {
+	public Double calculateFee(Double amount) {
 		Setting setting = SettingUtils.get();
-		BigDecimal fee;
+		Double fee;
 		if (getFeeType() == FeeType.scale) {
-			fee = amount.multiply(getFee());
+			fee = amount * getFee();
 		} else {
 			fee = getFee();
 		}
-		return setting.setScale(fee);
+		return setting.setScale(new BigDecimal(fee));
 	}
 
 	/**
@@ -368,8 +381,9 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	 *            金额
 	 * @return 支付金额
 	 */
-	public BigDecimal calculateAmount(BigDecimal amount) {
-		return amount.add(calculateFee(amount)).setScale(2, RoundingMode.UP);
+	public Double calculateAmount(Double amount) {
+		Double result = amount + calculateFee(amount);
+		return new BigDecimal(result).setScale(2, RoundingMode.UP).doubleValue();
 	}
 
 	/**
@@ -677,6 +691,24 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	public int compareTo(PaymentPlugin paymentPlugin) {
 		return new CompareToBuilder().append(getOrder(), paymentPlugin.getOrder())
 				.append(getId(), paymentPlugin.getId()).toComparison();
+	}
+
+	/**
+	 * 根据编号查找收款单
+	 * 
+	 * @param sn
+	 *            编号(忽略大小写)
+	 * @return 收款单，若不存在则返回null
+	 */
+	protected TPayment getPayment(String sn) {
+		TPayment payment = paymentService.findBySn(sn);
+		if (payment != null && payment.getOrders() != null) {
+			payment.setOrder(orderService.findById(payment.getOrders()));
+		}
+		if (payment != null && payment.getMember() != null) {
+			payment.setTmember(memberService.find(payment.getMember()));
+		}
+		return paymentService.findBySn(sn);
 	}
 
 }

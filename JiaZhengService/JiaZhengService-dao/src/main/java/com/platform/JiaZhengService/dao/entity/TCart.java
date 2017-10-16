@@ -156,7 +156,7 @@ public class TCart extends StringAndEqualsPojo implements Serializable {
 
 	public double getQuantity() {
 		double quantity = 0;
-		if (getCartItems() != null) {
+		if (getCartItems() != null && getCartItems().size() > 0) {
 			for (TCartItem cartItem : getCartItems()) {
 				if (cartItem != null && cartItem.getQuantity() != null) {
 					quantity += cartItem.getQuantity();
@@ -164,5 +164,17 @@ public class TCart extends StringAndEqualsPojo implements Serializable {
 			}
 		}
 		return quantity;
+	}
+
+	public Boolean isAreaSquare() {
+		if (getCartItems() != null && getCartItems().size() > 0) {
+			for (TCartItem cartItem : getCartItems()) {
+				TProduct product = cartItem.getTproduct();
+				if (cartItem != null && product != null && product.getIsSquare()) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

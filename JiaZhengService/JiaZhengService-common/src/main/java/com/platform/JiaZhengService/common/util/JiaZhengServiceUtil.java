@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ import org.slf4j.LoggerFactory;
 
 import com.platform.JiaZhengService.common.meta.Dto;
 import com.platform.JiaZhengService.common.pojo.JiaZhengServiceConstants;
+import com.platform.JiaZhengService.common.pojo.Message;
+import com.platform.JiaZhengService.common.pojo.ServiceTime;
 
 /**
  * Util-工具类
@@ -404,7 +407,63 @@ public class JiaZhengServiceUtil {
 
 	public static void main(String[] args) {
 		// 32.00918148060945,118.76591942529285
-		System.out.println(JiaZhengServiceUtil.geocodeAddr("32.00918148060945", "118.76591942529285"));
+		// System.out.println(JiaZhengServiceUtil.geocodeAddr("32.00918148060945",
+		// "118.76591942529285"));
+
+		List<ServiceTime> sts = formLastServiceTimes(2);
+		for (ServiceTime st : sts) {
+			System.out.println(st.getTimeDate() + "," + st.getTimeDate2() + "," + st.getTimeWeek());
+		}
+	}
+
+	public static String getOrderTimeOut(Integer timeout) {
+		StringBuffer timeoutStr = new StringBuffer("");
+		String tipHour = Message.warn("shop.orderDetail.orderCompleteHelp.hour").getContent();
+		String tipDay = Message.warn("shop.orderDetail.orderCompleteHelp.day").getContent();
+		String tipMinutes = Message.warn("shop.orderDetail.orderCompleteHelp.minute").getContent();
+		if (timeout != null) {
+			if (timeout > 60 && timeout < 1440) {
+				Integer hour = timeout / 60;
+				timeoutStr.append(hour);
+				timeoutStr.append(tipHour);
+				Integer minutes = timeout % 60;
+				if (minutes != 0) {
+					timeoutStr.append(minutes);
+					timeoutStr.append(tipMinutes);
+				}
+			}
+			if (timeout >= 1440) {
+				Integer day = timeout / (24 * 60);
+				timeoutStr.append(day);
+				timeoutStr.append(tipDay);
+			}
+			if (timeout <= 60) {
+				timeoutStr.append(timeout);
+				timeoutStr.append(tipMinutes);
+			}
+		}
+		return timeoutStr.toString();
+	}
+
+	public static List<ServiceTime> formLastServiceTimes(Integer count) {
+		if (count != null) {
+			List<ServiceTime> times = new ArrayList<>();
+			for (int index = 1; index <= count; index++) {
+				ServiceTime st = new ServiceTime();
+				Date dt = DateUtil.getDateByAddDays(new Date(), index);
+				String timeDate = DateUtil.date2String(dt, 10);
+				String timeDate2 = DateUtil.date2String(dt, 12);
+				st.setTimeDate(timeDate);
+				st.setTimeDate2(timeDate2.substring(5));
+				st.setTimeWeek(DateUtil.getWeekContent(timeDate));
+				if (index == 1) {
+					st.setTimeWeek("明天");
+				}
+				times.add(st);
+			}
+			return times;
+		}
+		return null;
 	}
 
 }

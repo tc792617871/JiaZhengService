@@ -17,7 +17,7 @@ $().ready(function() {
 	var $paymentPlugin = $(".paymentPlugin");
 	var $paymentForm = $("#paymentForm");
 	var $paymentPluginId = $("#paymentPluginId");
-	[#if order.paymentMethod.method == "online" && (order.paymentStatus == "unpaid" || order.paymentStatus == "partialPayment")]
+	[#if paymentMethod.method == 0 && (order.paymentStatus == 1 || order.paymentStatus == 2)]
 		// 订单锁定
 		setInterval(function() {
 			$.ajax({
@@ -28,7 +28,7 @@ $().ready(function() {
 				cache: false,
 				success: function(data) {
 					if (!data) {
-						window.location= moshop.base +  '/mobile/mobileIndex.jhtml';
+						window.location= jiazhengservice.base +  '/mobile/mobileIndex.jhtml';
 					}
 				}
 			});
@@ -44,7 +44,7 @@ $().ready(function() {
 				cache: false,
 				success: function(data) {
 					if (data) {
-						window.location= moshop.base +  '/mobile/mobileIndex.jhtml';
+						window.location= jiazhengservice.base +  '/mobile/mobileIndex.jhtml';
 					}
 				}
 			});
@@ -55,7 +55,7 @@ $().ready(function() {
 	// 支付
 	$paymentPlugin.click(function(){
 	    $paymentPluginId.val($(this).attr("data-code"));
-	    $paymentForm.attr('action','${base}/payment/submit.jhtml');
+	    $paymentForm.attr('action','${base}/mobile/payment/submit.jhtml');
 	    $paymentForm.submit();
 	});
 
@@ -64,9 +64,7 @@ $().ready(function() {
 </head>
 <body class="body_margin">
 	<div class="fullscreen">
-	    <!-- header -->
-		[#include "/mobile/include/header.ftl" /]
-		<!-- /header -->
+		[#include "/mobile/include/header_2.ftl" /]
 		<form id="paymentForm" method="post">
 		<input type="hidden" name="type" value="payment" />
 		<input type="hidden" name="sn" value="${order.sn}" />
@@ -85,16 +83,16 @@ $().ready(function() {
 		       </li>
 		       <li>
 				   <ul class="payList">
-				          [#if isWeChatBrowser] 
+				         [#if isWeChatBrowser] 
 	                         <!--微信-->
 	                         <li data-code="wxJsPlugin" class="paymentPlugin">
 	                             <img src="http://images.mo-co.com/upload/image/201509/49027800-36d0-4997-9ebe-a899945dd86c.png" />微信支付
 	                         </li>
                          [/#if]
                          <!--支付宝支付-->
-                         <li data-code="alipayWapPlugin" style="border: none;"  class="paymentPlugin">
+                         <!--<li data-code="alipayWapPlugin" style="border: none;"  class="paymentPlugin">
                              <img src="http://images.mo-co.com/upload/image/201509/64ff404e-47b4-4353-adac-f290d84fb2e5.png">支付宝支付
-                         </li>
+                         </li>-->
                     </ul>
 			   </li>
 		       <li>
@@ -106,18 +104,12 @@ $().ready(function() {
 		               </tr>
 		               <tr>
 			               <td>
-			                    日期：${order.createDate}
+			                    日期：${order.createDate?string("yyyy-MM-dd HH:mm:ss")}
 			               </td>
 		                </tr>
-		                <tr>
-			                <td>
-			                    <label>${message("shop.orderDetail.doorshippingMethod")}</label> 
-		                        <span>${message("shop.orderDetail.doorDelivery")}</span>
-			                </td>
-		               </tr>
 		               <tr>
 		                  <td>
-		                      实付金额：${currency(order.amountPayable, true)}
+                 	 实付金额：${currency(order.amountPayable, true)}
 		                  </td>
 		               </tr>
 		           </table>
@@ -161,21 +153,10 @@ $().ready(function() {
 			            </tr>
 			         </table>
 				 </li>
-				
-				 <!--
-				 <li>
-				 </li>-->
 		    </ul>
-		    <!--
-			<div class="paymentBtnDiv">
-			    <button type="button" id="paymentSubmit">支付</button>
-			</div>
-			-->
 		</div>
 		</form>	
-		<!-- footer -->
-	   [#include "/mobile/include/footer.ftl" /]
-      <!-- /footer -->
-	</div><!-- /page -->
+	   [#include "/mobile/include/footer_2.ftl" /]
+	</div>
 </body>
 </html>

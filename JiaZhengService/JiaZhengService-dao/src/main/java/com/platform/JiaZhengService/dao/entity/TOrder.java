@@ -13,6 +13,9 @@ import java.util.List;
  */
 public class TOrder extends StringAndEqualsPojo implements Serializable {
 
+	/** 订单名称分隔符 */
+	private static final String NAME_SEPARATOR = " ";
+
 	/**
 	 * 订单状态
 	 */
@@ -71,6 +74,35 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 		public void setDesc(String desc) {
 			this.desc = desc;
 		}
+	}
+
+	/**
+	 * 订单来源
+	 */
+	public enum OrderSource {
+		/**
+		 * 电脑端
+		 */
+		pc,
+
+		/**
+		 * 手机端
+		 */
+		mobile,
+
+		/**
+		 * 手机wap端
+		 */
+		wap,
+
+		/**
+		 * pad端
+		 */
+		ipad,
+		/**
+		 * 所有端
+		 */
+		all
 	}
 
 	/**
@@ -1144,5 +1176,47 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 			}
 		}
 		return quantity;
+	}
+
+	/**
+	 * 是否已过期
+	 * 
+	 * @return 是否已过期
+	 */
+	public boolean isExpired() {
+		return getExpire() != null && new Date().after(getExpire());
+	}
+
+	/**
+	 * 判断是否已锁定
+	 * 
+	 * @param operator
+	 *            操作员
+	 * @return 是否已锁定
+	 */
+	public boolean isLocked(TAdmin operator) {
+		return getLockExpire() != null && new Date().before(getLockExpire())
+				&& ((operator != null && !operator.equals(getOperator()))
+						|| (operator == null && getOperator() != null));
+	}
+
+	/**
+	 * 获取订单名称
+	 * 
+	 * @return 订单名称
+	 */
+	public String getName() {
+		StringBuffer name = new StringBuffer();
+		if (getOrderItems() != null) {
+			for (TOrderItem orderItem : getOrderItems()) {
+				if (orderItem != null && orderItem.getName() != null) {
+					name.append(NAME_SEPARATOR).append(orderItem.getName());
+				}
+			}
+			if (name.length() > 0) {
+				name.deleteCharAt(0);
+			}
+		}
+		return name.toString();
 	}
 }

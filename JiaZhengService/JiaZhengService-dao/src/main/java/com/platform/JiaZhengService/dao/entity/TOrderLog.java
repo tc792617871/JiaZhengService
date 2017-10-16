@@ -6,145 +6,213 @@ import java.util.Date;
 
 /**
  * @ClassName: TOrderLog
-* @Description: t_order_log表对应的java bean类
-* @author: peiyu
+ * @Description: t_order_log表对应的java bean类
+ * @author: peiyu
  */
 public class TOrderLog extends StringAndEqualsPojo implements Serializable {
-    /**
-     * @Fields serialVersionUID : 自动生成默认序列化ID
-     */
-    private static final long serialVersionUID = 1L;
 
-    /**
-     * @Fields t_order_log.id :
-     */
-    private Long id;
+	/**
+	 * 类型
+	 */
+	public enum Type {
 
-    /**
-     * @Fields t_order_log.create_date :
-     */
-    private Date createDate;
+		/** 订单创建 */
+		create(1, "订单创建"),
 
-    /**
-     * @Fields t_order_log.modify_date :
-     */
-    private Date modifyDate;
+		/** 订单修改 */
+		modify(2, "订单修改"),
 
-    /**
-     * @Fields t_order_log.content :
-     */
-    private String content;
+		/** 订单确认 */
+		confirm(3, "订单确认"),
 
-    /**
-     * @Fields t_order_log.operator :
-     */
-    private String operator;
+		/** 订单支付 */
+		payment(4, "订单支付"),
 
-    /**
-     * @Fields t_order_log.type :
-     */
-    private Integer type;
+		/** 订单退款 */
+		refunds(5, "订单退款"),
 
-    /**
-     * @Fields t_order_log.orders :
-     */
-    private Long orders;
+		/** 订单发货 */
+		shipping(6, "订单发货"),
 
-    /**
-     * @return t_order_log.id : 返回 
-     */
-    public Long getId() {
-        return id;
-    }
+		/** 订单退货 */
+		returns(7, "订单退货"),
 
-    /**
-     * @param id of t_order_log : 设置 
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
+		/** 订单完成 */
+		complete(8, "订单完成"),
 
-    /**
-     * @return t_order_log.create_date : 返回 
-     */
-    public Date getCreateDate() {
-        return createDate;
-    }
+		/** 订单取消 */
+		cancel(9, "订单取消"),
 
-    /**
-     * @param createDate of t_order_log : 设置 
-     */
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
+		/** 其它 */
+		other(10, "其它");
 
-    /**
-     * @return t_order_log.modify_date : 返回 
-     */
-    public Date getModifyDate() {
-        return modifyDate;
-    }
+		private Integer code;
+		private String desc;
 
-    /**
-     * @param modifyDate of t_order_log : 设置 
-     */
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
-    }
+		Type(Integer code, String desc) {
+			this.setCode(code);
+			this.setDesc(desc);
+		}
 
-    /**
-     * @return t_order_log.content : 返回 
-     */
-    public String getContent() {
-        return content;
-    }
+		public Integer getCode() {
+			return code;
+		}
 
-    /**
-     * @param content of t_order_log : 设置 
-     */
-    public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
-    }
+		public void setCode(Integer code) {
+			this.code = code;
+		}
 
-    /**
-     * @return t_order_log.operator : 返回 
-     */
-    public String getOperator() {
-        return operator;
-    }
+		public String getDesc() {
+			return desc;
+		}
 
-    /**
-     * @param operator of t_order_log : 设置 
-     */
-    public void setOperator(String operator) {
-        this.operator = operator == null ? null : operator.trim();
-    }
+		public void setDesc(String desc) {
+			this.desc = desc;
+		}
+	};
 
-    /**
-     * @return t_order_log.type : 返回 
-     */
-    public Integer getType() {
-        return type;
-    }
+	/**
+	 * @Fields serialVersionUID : 自动生成默认序列化ID
+	 */
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * @param type of t_order_log : 设置 
-     */
-    public void setType(Integer type) {
-        this.type = type;
-    }
+	/**
+	 * @Fields t_order_log.id :
+	 */
+	private Long id;
 
-    /**
-     * @return t_order_log.orders : 返回 
-     */
-    public Long getOrders() {
-        return orders;
-    }
+	/**
+	 * @Fields t_order_log.create_date :
+	 */
+	private Date createDate;
 
-    /**
-     * @param orders of t_order_log : 设置 
-     */
-    public void setOrders(Long orders) {
-        this.orders = orders;
-    }
+	/**
+	 * @Fields t_order_log.modify_date :
+	 */
+	private Date modifyDate;
+
+	/**
+	 * @Fields t_order_log.content :
+	 */
+	private String content;
+
+	/**
+	 * @Fields t_order_log.operator :
+	 */
+	private String operator;
+
+	/**
+	 * @Fields t_order_log.type :
+	 */
+	private Integer type;
+
+	/**
+	 * @Fields t_order_log.orders :
+	 */
+	private Long orders;
+
+	/**
+	 * @return t_order_log.id : 返回
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            of t_order_log : 设置
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return t_order_log.create_date : 返回
+	 */
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	/**
+	 * @param createDate
+	 *            of t_order_log : 设置
+	 */
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	/**
+	 * @return t_order_log.modify_date : 返回
+	 */
+	public Date getModifyDate() {
+		return modifyDate;
+	}
+
+	/**
+	 * @param modifyDate
+	 *            of t_order_log : 设置
+	 */
+	public void setModifyDate(Date modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	/**
+	 * @return t_order_log.content : 返回
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content
+	 *            of t_order_log : 设置
+	 */
+	public void setContent(String content) {
+		this.content = content == null ? null : content.trim();
+	}
+
+	/**
+	 * @return t_order_log.operator : 返回
+	 */
+	public String getOperator() {
+		return operator;
+	}
+
+	/**
+	 * @param operator
+	 *            of t_order_log : 设置
+	 */
+	public void setOperator(String operator) {
+		this.operator = operator == null ? null : operator.trim();
+	}
+
+	/**
+	 * @return t_order_log.type : 返回
+	 */
+	public Integer getType() {
+		return type;
+	}
+
+	/**
+	 * @param type
+	 *            of t_order_log : 设置
+	 */
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return t_order_log.orders : 返回
+	 */
+	public Long getOrders() {
+		return orders;
+	}
+
+	/**
+	 * @param orders
+	 *            of t_order_log : 设置
+	 */
+	public void setOrders(Long orders) {
+		this.orders = orders;
+	}
 }

@@ -107,9 +107,12 @@ function addNewAddress(){
 		<div class="moMobileContent orderInfo">
 			<form id="orderForm" action="create.jhtml" method="post" onsubmit="return false;"> 
 				<input type="hidden" id="receiverId" name="receiverId"[#if defaultReceiver??] value="${defaultReceiver.id}"[/#if] />
-				<!--
-				<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="alipayWapPlugin" />
-				-->
+				<input type="hidden" id="cartItemIds" name="cartItemIds" value="${cartItemIds}" />
+				<input type="hidden" id="productId" name="productId" value="${productId}" />
+				<input type="hidden" id="specificationId" name="specificationId" value="${specificationId}" />
+				<input type="hidden" id="quantity" name="quantity" value="${quantity}" />
+				
+				<!--<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="alipayWapPlugin" />-->
 				<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="wxJsPlugin" />
 				<div class="orderInfoContent">
 					<div>
@@ -193,17 +196,19 @@ function addNewAddress(){
 						            </tr>
 						        </table>
 						    </li>
+						    [#if isSquare]
 						    <li class="orderAreaSquare">
 						        <table>
 						            <tr>
 						                <td style="width:25px;">
 						                </td>
 						                <td>
-				                    		<input type="text" name="areaSquare" placeholder="房屋面积"/>㎡ (请正确填写平米数)
+				                    		<input type="text" name="areaSquare" id="areaSquare" placeholder="房屋面积"/>㎡ (请正确填写平米数)
 						                </td>
 						            </tr>
 						        </table>
 						    </li>
+						    [/#if]
 						    <!--
 						    <li  class="md-trigger" data-modal="paymentPluginModal">
 						         <table>
@@ -480,27 +485,11 @@ function addNewAddress(){
 					<input type="hidden" id="timearea_temp" name="timearea_temp">
 					<input type="hidden" id="time_temp" name="time_temp">
 					<div id="weekDay_div">
-						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-25" e="明天">
-							明天<br>09/25
+						[#list times as time]
+						<span class="nocheckDay" onclick="selectWeekDay(this)" id="${time.timeDate}" e="${time.timeWeek}">
+							${time.timeWeek}<br>${time.timeDate2}
 						</span>
-						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-26" e="周二">
-							周二<br>09/26
-						</span>
-						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-27" e="周三">
-							周三<br>09/27
-						</span>
-						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-28" e="周四">
-							周四<br>09/28
-						</span>
-						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-29" e="周五">
-							周五<br>09/29
-						</span>
-						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-09-30" e="周六">
-							周六<br>09/30
-						</span>
-						<span class="nocheckDay" onclick="selectWeekDay(this)" id="2017-10-01" e="周日">
-							周日<br>10/01
-						</span>
+						[/#list]
 						<span class="nocheckDay" onclick="selectWeekDay(this)" alone="1" id="我们安排" e="你们安排">
 							你们<br>安排
 						</span>

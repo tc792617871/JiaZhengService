@@ -68,6 +68,35 @@ public class DateUtil {
 		return c.get(Calendar.DAY_OF_WEEK);
 	}
 
+	public static String getWeekContent(String dateString) {
+		int week = getWeek(dateString);
+		String content = "";
+		switch (week) {
+		case 1: // 星期天
+			content = "星期天";
+			break;
+		case 2: // 星期1
+			content = "星期一";
+			break;
+		case 3: // 星期2
+			content = "星期二";
+			break;
+		case 4: // 星期3
+			content = "星期三";
+			break;
+		case 5: // 星期4
+			content = "星期四";
+			break;
+		case 6: // 星期5
+			content = "星期五";
+			break;
+		case 7: // 星期6
+			content = "星期六";
+			break;
+		}
+		return content;
+	}
+
 	public static String getDateByAddDays(String inDate, int days, int _iType) {
 		Date dateStr = string2Date(inDate);
 		Date tempDate = getDateByAddDays(dateStr, days);
@@ -92,6 +121,10 @@ public class DateUtil {
 			break;
 		case 10: // yyyy-mm-dd
 			formatter = new SimpleDateFormat("yyyy-MM-dd");
+			strTemp = formatter.format(date);
+			break;
+		case 12: // yyyy/mm/dd
+			formatter = new SimpleDateFormat("yyyy/MM/dd");
 			strTemp = formatter.format(date);
 			break;
 		case -6: // HHmmss

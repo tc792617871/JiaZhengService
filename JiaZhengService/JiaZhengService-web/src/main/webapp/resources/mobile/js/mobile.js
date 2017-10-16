@@ -393,27 +393,21 @@ function contains(array, values) {
 		submitOrderInfo : function() {
 			var $orderForm = $("#orderForm");
 			var $receiverId = $("#receiverId");
-			var $cartToken = $("#cartToken");
 			var $paymentPluginId = $("#paymentPluginId");
-			var $shippingMethodId = $('input[name="shippingMethodId"]:checked');
-			var $invoiceTypeId = $("#invoiceTypeId");
-			var $invoiceTitle = $("#invoiceTitle");
-			var $isInvoice = $("#isInvoice");
-			var $markinfo = $("#markinfo");
+			var $cartItemIds = $("#cartItemIds");
+			var $productId = $("#productId");
+			var $specificationId = $("#specificationId");
+			var $quantity = $("#quantity");
+			var $weekdays = $("#weekdays");
+			var $timearea = $("#timearea");
+			var $time = $("#time");
+			var $areaSquare = $("#areaSquare");
+			var $memo = $("#memo");
 			var $code = $("#code");
 			if (!$receiverId.val()) {
 				m$.ui.dialog.dialogShow({
 					'title' : '提示',
 					'content' : '请选择收货信息'
-				}, [ {
-					'text' : '确定'
-				} ]);
-				return false;
-			}
-			if (!$cartToken.val()) {
-				m$.ui.dialog.dialogShow({
-					'title' : '提示',
-					'content' : '购物车信息有误'
 				}, [ {
 					'text' : '确定'
 				} ]);
@@ -428,10 +422,19 @@ function contains(array, values) {
 				} ]);
 				return false;
 			}
-			if (!$shippingMethodId.val()) {
+			if (!$weekdays.val() || !$timearea.val()) {
 				m$.ui.dialog.dialogShow({
 					'title' : '提示',
-					'content' : '请选择寄送方式'
+					'content' : '请选择服务时间'
+				}, [ {
+					'text' : '确定'
+				} ]);
+				return false;
+			}
+			if ($areaSquare.length > 0 && !$areaSquare.val()) {
+				m$.ui.dialog.dialogShow({
+					'title' : '提示',
+					'content' : '请输入房屋面积'
 				}, [ {
 					'text' : '确定'
 				} ]);
@@ -442,13 +445,16 @@ function contains(array, values) {
 				type : "POST",
 				data : {
 					receiverId : $receiverId.val(),
-					cartToken : $cartToken.val(),
 					paymentPluginId : $paymentPluginId.val(),
-					shippingMethodId : $shippingMethodId.val(),
-					invoiceTypeId : $invoiceTypeId.val(),
-					invoiceTitle : $invoiceTitle.val(),
-					isInvoice : $isInvoice.val(),
-					markinfo : $markinfo.val(),
+					cartItemIds : $cartItemIds.val(),
+					productId : $productId.val(),
+					specificationId : $specificationId.val(),
+					quantity : $quantity.val(),
+					weekdays : $weekdays.val(),
+					timearea : $timearea.val(),
+					time : $time.val(),
+					areaSquare : $areaSquare.val(),
+					memo : $memo.val(),
 					code : $code.val()
 				},
 				dataType : "json",
@@ -466,7 +472,7 @@ function contains(array, values) {
 							'text' : '确定',
 							'func' : function() {
 								window.location = jiazhengservice.base
-										+ '/mobile/cart/index.jhtml';
+										+ '/mobile/member/cart/index.jhtml';
 							}
 						} ]);
 					}
@@ -487,32 +493,31 @@ function contains(array, values) {
 									{
 										'text' : '确定',
 										'func' : function() {
-											$
-													.ajax({
-														url : jiazhengservice.base
-																+ "/mobile/member/order/applyForRefund.jhtml?sn="
-																+ orderSn,
-														type : "POST",
-														dataType : "json",
-														cache : false,
-														success : function(
-																message) {
-															if (message.type == "success") {
-																location
-																		.reload(true);
-															} else {
-																m$.ui.dialog
-																		.dialogShow(
-																				{
-																					'title' : '提示',
-																					'content' : message['content']
-																				},
-																				[ {
-																					'text' : '确定'
-																				} ]);
-															}
-														}
-													});
+											$.ajax({
+												url : jiazhengservice.base
+														+ "/mobile/member/order/applyForRefund.jhtml?sn="
+														+ orderSn,
+												type : "POST",
+												dataType : "json",
+												cache : false,
+												success : function(
+														message) {
+													if (message.type == "success") {
+														location
+																.reload(true);
+													} else {
+														m$.ui.dialog
+																.dialogShow(
+																		{
+																			'title' : '提示',
+																			'content' : message['content']
+																		},
+																		[ {
+																			'text' : '确定'
+																		} ]);
+													}
+												}
+											});
 										}
 									} ]);
 			return false;

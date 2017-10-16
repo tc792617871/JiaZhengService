@@ -2027,7 +2027,7 @@ public class Setting implements Serializable {
 	 *            数值
 	 * @return 数值
 	 */
-	public BigDecimal setScale(BigDecimal amount) {
+	public Double setScale(BigDecimal amount) {
 		if (amount == null) {
 			return null;
 		}
@@ -2039,7 +2039,7 @@ public class Setting implements Serializable {
 		} else {
 			roundingMode = BigDecimal.ROUND_HALF_UP;
 		}
-		return amount.setScale(getPriceScale(), roundingMode);
+		return amount.setScale(getPriceScale(), roundingMode).doubleValue();
 	}
 
 	/**

@@ -70,4 +70,20 @@ public class CartServiceImpl extends BaseServiceImpl implements CartService {
 		cartMapper.insertSelective(cart);
 	}
 
+	@Override
+	public void mergeCart(TCart cart) {
+		List<TCartItem> cartItems = cart.getCartItems();
+		if (cartItems != null && cartItems.size() > 0) {
+			for (TCartItem cartItem : cartItems) {
+				TCartItem sourceCartItem = cartItemMapper.selectByPrimaryKey(cartItem.getId());
+				if (sourceCartItem.getQuantity().compareTo(cartItem.getQuantity()) > 0) { // 购物车部分提交
+					sourceCartItem.setQuantity(sourceCartItem.getQuantity() - cartItem.getQuantity());
+					cartItemMapper.updateByPrimaryKeySelective(sourceCartItem);
+				} else { // 购物车部分提交 全部提交
+					cartItemMapper.deleteByPrimaryKey(cartItem.getId());
+				}
+			}
+		}
+	}
+
 }

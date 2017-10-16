@@ -1,8 +1,10 @@
 package com.platform.JiaZhengService.service.api;
 
+import com.platform.JiaZhengService.dao.entity.TAdmin;
 import com.platform.JiaZhengService.dao.entity.TCart;
 import com.platform.JiaZhengService.dao.entity.TCouponCode;
 import com.platform.JiaZhengService.dao.entity.TOrder;
+import com.platform.JiaZhengService.dao.entity.TPayment;
 import com.platform.JiaZhengService.dao.entity.TPaymentMethod;
 import com.platform.JiaZhengService.dao.entity.TReceiver;
 
@@ -10,27 +12,45 @@ public interface OrderService extends BaseService {
 
 	/**
 	 * 生成订单
-	 * 
-	 * @param cart
-	 *            购物车
-	 * @param receiver
-	 *            收货地址
-	 * @param paymentMethod
-	 *            支付方式
-	 * @param shippingMethod
-	 *            配送方式
-	 * @param couponCode
-	 *            优惠码
-	 * @param isInvoice
-	 *            是否开据发票
-	 * @param invoiceTitle
-	 *            发票抬头
-	 * @param useBalance
-	 *            是否使用余额
-	 * @param memo
-	 *            附言
-	 * @return 订单
 	 */
 	TOrder build(TCart cart, TReceiver receiver, String paymentPluginId, TPaymentMethod paymentMethod,
-			TCouponCode couponCode, boolean useBalance, String memo, String bank, String bankName);
+			TCouponCode couponCode, boolean useBalance, String memo);
+
+	/**
+	 * 创建订单
+	 */
+	TOrder create(TCart cart, TReceiver receiver, String paymentPluginId, TPaymentMethod paymentMethod,
+			TCouponCode couponCode, boolean useBalance, String weekdays, String timearea, String time,
+			String areaSquare, String memo);
+
+	/**
+	 * 根据订单编号查找订单
+	 * 
+	 * @param sn
+	 *            订单编号(忽略大小写)
+	 * @return 若不存在则返回null
+	 */
+	TOrder findBySn(String sn);
+
+	/**
+	 * 更新订单
+	 * 
+	 * @param order
+	 */
+	void updateOrder(TOrder order);
+
+	/**
+	 * 订单支付
+	 * 
+	 * @param order
+	 *            订单
+	 * @param payment
+	 *            收款单
+	 * @param operator
+	 *            操作员
+	 */
+	void payment(TOrder order, TPayment payment, TAdmin operator);
+
+	TOrder findById(Long orderId);
+
 }

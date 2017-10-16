@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TSmsMqListMapper" >
+  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TSmsMqList" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="astatus" property="astatus" jdbcType="VARCHAR" />
+    <result column="channel" property="channel" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="receive_num" property="receiveNum" jdbcType="VARCHAR" />
+    <result column="rerr_status" property="rerrStatus" jdbcType="VARCHAR" />
+    <result column="rerr_status_content" property="rerrStatusContent" jdbcType="VARCHAR" />
+    <result column="rsend_time" property="rsendTime" jdbcType="TIMESTAMP" />
+    <result column="rstatus" property="rstatus" jdbcType="BIT" />
+    <result column="rsubmit_time" property="rsubmitTime" jdbcType="TIMESTAMP" />
+    <result column="send_num" property="sendNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, modify_date, astatus, channel, content, receive_num, rerr_status, 
+    rerr_status_content, rsend_time, rstatus, rsubmit_time, send_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_sms_mq_list
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sms_mq_list
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_sms_mq_list
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
+    delete from t_sms_mq_list
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TSmsMqList" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_sms_mq_list (create_date, modify_date, astatus, 
+      channel, content, receive_num, 
+      rerr_status, rerr_status_content, rsend_time, 
+      rstatus, rsubmit_time, send_num
+      )
+    values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{astatus,jdbcType=VARCHAR}, 
+      #{channel,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{receiveNum,jdbcType=VARCHAR}, 
+      #{rerrStatus,jdbcType=VARCHAR}, #{rerrStatusContent,jdbcType=VARCHAR}, #{rsendTime,jdbcType=TIMESTAMP}, 
+      #{rstatus,jdbcType=BIT}, #{rsubmitTime,jdbcType=TIMESTAMP}, #{sendNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TSmsMqList" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_sms_mq_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="astatus != null" >
+        astatus,
+      </if>
+      <if test="channel != null" >
+        channel,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="receiveNum != null" >
+        receive_num,
+      </if>
+      <if test="rerrStatus != null" >
+        rerr_status,
+      </if>
+      <if test="rerrStatusContent != null" >
+        rerr_status_content,
+      </if>
+      <if test="rsendTime != null" >
+        rsend_time,
+      </if>
+      <if test="rstatus != null" >
+        rstatus,
+      </if>
+      <if test="rsubmitTime != null" >
+        rsubmit_time,
+      </if>
+      <if test="sendNum != null" >
+        send_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="astatus != null" >
+        #{astatus,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        #{channel,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveNum != null" >
+        #{receiveNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rerrStatus != null" >
+        #{rerrStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rerrStatusContent != null" >
+        #{rerrStatusContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rsendTime != null" >
+        #{rsendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rstatus != null" >
+        #{rstatus,jdbcType=BIT},
+      </if>
+      <if test="rsubmitTime != null" >
+        #{rsubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendNum != null" >
+        #{sendNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
+    select count(*) from t_sms_mq_list
+    <if test="_parameter != null" >
+      <include refid="common.Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_sms_mq_list
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.astatus != null" >
+        astatus = #{record.astatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.channel != null" >
+        channel = #{record.channel,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveNum != null" >
+        receive_num = #{record.receiveNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rerrStatus != null" >
+        rerr_status = #{record.rerrStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rerrStatusContent != null" >
+        rerr_status_content = #{record.rerrStatusContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rsendTime != null" >
+        rsend_time = #{record.rsendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rstatus != null" >
+        rstatus = #{record.rstatus,jdbcType=BIT},
+      </if>
+      <if test="record.rsubmitTime != null" >
+        rsubmit_time = #{record.rsubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sendNum != null" >
+        send_num = #{record.sendNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_sms_mq_list
+    set id = #{record.id,jdbcType=BIGINT},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      astatus = #{record.astatus,jdbcType=VARCHAR},
+      channel = #{record.channel,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      receive_num = #{record.receiveNum,jdbcType=VARCHAR},
+      rerr_status = #{record.rerrStatus,jdbcType=VARCHAR},
+      rerr_status_content = #{record.rerrStatusContent,jdbcType=VARCHAR},
+      rsend_time = #{record.rsendTime,jdbcType=TIMESTAMP},
+      rstatus = #{record.rstatus,jdbcType=BIT},
+      rsubmit_time = #{record.rsubmitTime,jdbcType=TIMESTAMP},
+      send_num = #{record.sendNum,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="common.Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TSmsMqList" >
+    update t_sms_mq_list
+    <set >
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="astatus != null" >
+        astatus = #{astatus,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null" >
+        channel = #{channel,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveNum != null" >
+        receive_num = #{receiveNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rerrStatus != null" >
+        rerr_status = #{rerrStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="rerrStatusContent != null" >
+        rerr_status_content = #{rerrStatusContent,jdbcType=VARCHAR},
+      </if>
+      <if test="rsendTime != null" >
+        rsend_time = #{rsendTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rstatus != null" >
+        rstatus = #{rstatus,jdbcType=BIT},
+      </if>
+      <if test="rsubmitTime != null" >
+        rsubmit_time = #{rsubmitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendNum != null" >
+        send_num = #{sendNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TSmsMqList" >
+    update t_sms_mq_list
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      astatus = #{astatus,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      receive_num = #{receiveNum,jdbcType=VARCHAR},
+      rerr_status = #{rerrStatus,jdbcType=VARCHAR},
+      rerr_status_content = #{rerrStatusContent,jdbcType=VARCHAR},
+      rsend_time = #{rsendTime,jdbcType=TIMESTAMP},
+      rstatus = #{rstatus,jdbcType=BIT},
+      rsubmit_time = #{rsubmitTime,jdbcType=TIMESTAMP},
+      send_num = #{sendNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

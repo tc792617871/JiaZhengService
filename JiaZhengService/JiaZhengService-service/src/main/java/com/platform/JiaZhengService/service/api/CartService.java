@@ -30,4 +30,11 @@ public interface CartService extends BaseService {
 	 */
 	void saveCart(TCart cart);
 
+	/**
+	 * 合并购物车
+	 * 
+	 * @param cart
+	 */
+	void mergeCart(TCart cart);
+
 }
