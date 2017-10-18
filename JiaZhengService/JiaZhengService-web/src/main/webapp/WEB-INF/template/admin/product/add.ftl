@@ -155,12 +155,24 @@ $().ready(function() {
 	$inputForm.validate({
 		rules: {
 			productCategoryId: "required",
+			sn: {
+				required: true,
+				pattern: /^[0-9a-zA-Z_-]+$/,
+				remote: {
+					url: "check_sn.jhtml",
+					cache: false
+				}
+			},
 			name: "required",
 			image:"required",
 			introduction:"required",
 			memo:"required"
 		},
 		messages: {
+			sn: {
+				pattern: "${message("admin.validate.illegal")}",
+				remote: "${message("admin.validate.exist")}"
+			}
 		},
 		submitHandler: function(form) {
 			if($specificationProductTableTBody.find("tr").length == 0){
@@ -246,6 +258,14 @@ $().ready(function() {
 							</option>
 						[/#list]
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>${message("Product.sn")}:
+				</th>
+				<td>
+					<input type="text" name="sn" class="text" maxlength="50" />
 				</td>
 			</tr>
 			<tr>

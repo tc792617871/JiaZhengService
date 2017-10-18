@@ -27,4 +27,6 @@ public interface ProductService extends BaseService {
 
 	List<TProduct> queryProductListByProductCategroyID(Long productCategoryID, Boolean isMarketable, Boolean archived);
 
+	boolean snUnique(String previousSn, String sn);
+
 }

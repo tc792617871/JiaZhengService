@@ -79,5 +79,4 @@ public class ProductController extends AbstractController {
 		model.addAttribute("specificationsMap", specificationsMap);
 		return "/mobile/product/content";
 	}
-
 }

@@ -105,6 +105,10 @@ public class TOrderItem extends StringAndEqualsPojo implements Serializable {
 	 */
 	private Long specification;
 
+	private TProduct tProduct;
+
+	private TSpecification tSpecification;
+
 	/**
 	 * @return t_order_item.id : 返回
 	 */
@@ -386,5 +390,21 @@ public class TOrderItem extends StringAndEqualsPojo implements Serializable {
 		} else {
 			return new Double(0);
 		}
+	}
+
+	public TProduct gettProduct() {
+		return tProduct;
+	}
+
+	public void settProduct(TProduct tProduct) {
+		this.tProduct = tProduct;
+	}
+
+	public TSpecification gettSpecification() {
+		return tSpecification;
+	}
+
+	public void settSpecification(TSpecification tSpecification) {
+		this.tSpecification = tSpecification;
 	}
 }

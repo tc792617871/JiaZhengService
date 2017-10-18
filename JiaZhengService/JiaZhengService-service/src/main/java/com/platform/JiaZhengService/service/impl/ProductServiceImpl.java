@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -197,6 +198,23 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		}
 		criteria.setOrderByClause(TTProduct.CREATE_DATE + JiaZhengServiceConstants.SORT_DESC);
 		return productMapper.selectByExample(criteria);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public boolean snUnique(String previousSn, String currentSn) {
+		if (StringUtils.equalsIgnoreCase(previousSn, currentSn)) {
+			return true;
+		} else {
+			Criteria criteria = new Criteria();
+			criteria.createConditon().andEqualTo(TTProduct.SN, currentSn);
+			List<TProduct> products = productMapper.selectByExample(criteria);
+			if (products != null && products.size() > 0) {
+				return false;
+			} else {
+				return true;
+			}
+		}
 	}
 
 }

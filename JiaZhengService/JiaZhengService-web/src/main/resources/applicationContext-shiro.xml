@@ -22,6 +22,8 @@
 				/admin/product_category/** = perms["admin:productCategory"]
 				/admin/specification/** = perms["admin:specification"]
 
+				/admin/order/** = perms["admin:order"]
+
 				/admin/member/** = perms["admin:member"]
 
 				/admin/tag/** = perms["admin:tag"]

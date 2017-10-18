@@ -61,6 +61,21 @@ public class ProductController extends AbstractController {
 	private AdminService adminService;
 
 	/**
+	 * 检查编号是否唯一
+	 */
+	@RequestMapping(value = "/check_sn", method = RequestMethod.GET)
+	public @ResponseBody boolean checkSn(String previousSn, String sn) {
+		if (StringUtils.isEmpty(sn)) {
+			return false;
+		}
+		if (productService.snUnique(previousSn, sn)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * 列表
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

@@ -133,7 +133,7 @@
 		plu_code, timing_marketable_date, is_square
 	</sql>
 	<sql id="p_Column_List">
-		p.id, p.create_date, p.modify_date, p.is_marketable, p.name,
+		p.id, p.create_date, p.modify_date, p.is_marketable, p.name, p.sn, p.image, p.memo,
 		p.product_category, p.is_square, p.archived
 	</sql>
 	<sql id="Blob_Column_List">

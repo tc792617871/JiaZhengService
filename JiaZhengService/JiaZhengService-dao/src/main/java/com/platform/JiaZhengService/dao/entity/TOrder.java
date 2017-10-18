@@ -1,6 +1,8 @@
 package com.platform.JiaZhengService.dao.entity;
 
 import com.platform.JiaZhengService.common.pojo.StringAndEqualsPojo;
+import com.platform.JiaZhengService.dao.entity.TPayment.Status;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,7 +22,7 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 	 * 订单状态
 	 */
 	public enum OrderStatus {
-		unconfirmed(1, "未确认"), confirmed(2, "已确认"), completed(3, "已完成"), cancelled(4, "已取消");
+		unconfirmed(1, "未确认"), confirmed(2, "已确认"), completed(3, "已完成"), cancelled(4, "已取消"), receipt(5, "新增－客户确认收货");
 		private Integer code;
 		private String desc;
 
@@ -55,6 +57,51 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 		private String desc;
 
 		PaymentStatus(Integer code, String desc) {
+			this.setCode(code);
+			this.setDesc(desc);
+		}
+
+		public Integer getCode() {
+			return code;
+		}
+
+		public void setCode(Integer code) {
+			this.code = code;
+		}
+
+		public String getDesc() {
+			return desc;
+		}
+
+		public void setDesc(String desc) {
+			this.desc = desc;
+		}
+	}
+
+	/**
+	 * 配送状态
+	 */
+	public enum ShippingStatus {
+
+		/** 未发货 */
+		unshipped(1, "未发货"),
+
+		/** 部分发货 */
+		partialShipment(2, "部分发货"),
+
+		/** 已发货 */
+		shipped(3, "已发货"),
+
+		/** 部分退货 */
+		partialReturns(4, "部分退货"),
+
+		/** 已退货 */
+		returned(5, "已退货");
+
+		private Integer code;
+		private String desc;
+
+		ShippingStatus(Integer code, String desc) {
 			this.setCode(code);
 			this.setDesc(desc);
 		}
@@ -362,6 +409,10 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 
 	/** 订单项 */
 	private List<TOrderItem> orderItems = new ArrayList<TOrderItem>();
+
+	private TMember tMember;
+
+	private List<TPayment> payments = new ArrayList<TPayment>();
 
 	/**
 	 * @return t_order.id : 返回
@@ -1196,7 +1247,7 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 	 */
 	public boolean isLocked(TAdmin operator) {
 		return getLockExpire() != null && new Date().before(getLockExpire())
-				&& ((operator != null && !operator.equals(getOperator()))
+				&& ((operator != null && !operator.getId().equals(getOperator()))
 						|| (operator == null && getOperator() != null));
 	}
 
@@ -1218,5 +1269,38 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 			}
 		}
 		return name.toString();
+	}
+
+	public TMember gettMember() {
+		return tMember;
+	}
+
+	public void settMember(TMember tMember) {
+		this.tMember = tMember;
+	}
+
+	/**
+	 * 获取支付时间
+	 * 
+	 * @return
+	 */
+	public Date getPayTime() {
+		List<TPayment> payments = this.getPayments();
+		Date payTime = null;
+		for (TPayment payment : payments) {
+			if (Status.success.equals(payment.getStatus())) {
+				payTime = payment.getPaymentDate();
+				break;
+			}
+		}
+		return payTime;
+	}
+
+	public List<TPayment> getPayments() {
+		return payments;
+	}
+
+	public void setPayments(List<TPayment> payments) {
+		this.payments = payments;
 	}
 }

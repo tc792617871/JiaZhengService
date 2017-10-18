@@ -63,6 +63,16 @@
     bank_name, order_source, system_type, system_version, week_days, time_area, time, 
     area_square
   </sql>
+  <sql id="o_Column_List">
+  	o.id, o.create_date, o.modify_date, o.address, o.amount_paid, o.area_name, o.consignee, o.coupon_discount, 
+    o.expire, o.fee, o.freight, o.invoice_title, o.is_allocated_stock, o.is_invoice, o.lock_expire, 
+    o.memo, o.offset_amount, o.order_status, o.payment_method_name, o.payment_status, o.phone, o.point, 
+    o.promotion, o.promotion_discount, o.shipping_method_name, o.shipping_status, o.sn, o.tax, o.zip_code, 
+    o.area, o.coupon_code, o.member, o.operator, o.payment_method, o.shipping_method, o.agree_return, 
+    o.invoice_type, o.payment_plugin_id, o.confirm_delivery_time, o.memo_flag, o.seller_memo, o.bank_code, 
+    o.bank_name, o.order_source, o.system_type, o.system_version, o.week_days, o.time_area, o.time, 
+    o.area_square
+  </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
     select
     <if test="distinct" >
@@ -859,4 +869,16 @@
       area_square = #{areaSquare,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectMutilTableByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		distinct
+		<include refid="o_Column_List" />
+		from t_order o
+		left join t_member m
+		on o.member = m.id
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
 </mapper>

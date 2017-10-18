@@ -15,6 +15,8 @@ import com.platform.JiaZhengService.common.util.OrderSnUtil;
 import com.platform.JiaZhengService.common.util.SpringUtils;
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.constants.TTOrder;
+import com.platform.JiaZhengService.dao.constants.TTOrderItem;
+import com.platform.JiaZhengService.dao.constants.TTPayment;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
 import com.platform.JiaZhengService.dao.entity.TCart;
 import com.platform.JiaZhengService.dao.entity.TCartItem;
@@ -24,6 +26,7 @@ import com.platform.JiaZhengService.dao.entity.TOrder;
 import com.platform.JiaZhengService.dao.entity.TOrder.OrderSource;
 import com.platform.JiaZhengService.dao.entity.TOrder.OrderStatus;
 import com.platform.JiaZhengService.dao.entity.TOrder.PaymentStatus;
+import com.platform.JiaZhengService.dao.entity.TOrder.ShippingStatus;
 import com.platform.JiaZhengService.dao.entity.TOrderItem;
 import com.platform.JiaZhengService.dao.entity.TOrderLog;
 import com.platform.JiaZhengService.dao.entity.TOrderLog.Type;
@@ -33,10 +36,12 @@ import com.platform.JiaZhengService.dao.entity.TProduct;
 import com.platform.JiaZhengService.dao.entity.TReceiver;
 import com.platform.JiaZhengService.dao.entity.TSpecification;
 import com.platform.JiaZhengService.dao.mapper.TCartMapper;
+import com.platform.JiaZhengService.dao.mapper.TCouponCodeMapper;
 import com.platform.JiaZhengService.dao.mapper.TMemberMapper;
 import com.platform.JiaZhengService.dao.mapper.TOrderItemMapper;
 import com.platform.JiaZhengService.dao.mapper.TOrderLogMapper;
 import com.platform.JiaZhengService.dao.mapper.TOrderMapper;
+import com.platform.JiaZhengService.dao.mapper.TPaymentMapper;
 import com.platform.JiaZhengService.service.api.CartService;
 import com.platform.JiaZhengService.service.api.OrderService;
 import com.platform.JiaZhengService.service.api.SmsMqListService;
@@ -59,6 +64,12 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	@Resource
 	private TCartMapper cartMapper;
 
+	@Resource
+	private TCouponCodeMapper couponCodeMapper;
+
+	@Resource
+	private TPaymentMapper paymentMapper;
+
 	@Resource(name = "smsMqListServiceImpl")
 	private SmsMqListService smsMqListService;
 
@@ -70,6 +81,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 			TCouponCode couponCode, boolean useBalance, String memo) {
 
 		TOrder order = new TOrder();
+		order.setShippingStatus(ShippingStatus.unshipped.getCode());
 		order.setFee(new Double(0));
 		order.setPromotionDiscount(new Double(0));
 		order.setCouponDiscount(new Double(0));
@@ -207,21 +219,31 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		c.createConditon().andEqualTo(TTOrder.SN, sn);
 		List<TOrder> orders = orderMapper.selectByExample(c);
 		if (orders != null && orders.size() > 0) {
-			return orders.get(0);
+			TOrder order = orders.get(0);
+			Criteria oic = new Criteria();
+			oic.createConditon().andEqualTo(TTOrderItem.ORDERS, order.getId());
+			List<TOrderItem> orderItems = orderItemMapper.selectByExample(oic);
+			if (orderItems != null && orderItems.size() > 0) {
+				order.setOrderItems(orderItems);
+			}
+			return order;
 		}
 		return null;
 	}
 
 	@Override
 	public void updateOrder(TOrder order) {
+		order.setModifyDate(new Date());
 		orderMapper.updateByPrimaryKeySelective(order);
 	}
 
 	@Override
 	public void payment(TOrder order, TPayment payment, TAdmin operator) {
+		Date date = new Date();
 		order.setAmountPaid(order.getAmountPaid() + payment.getAmount());
 		order.setFee(payment.getFee());
 		order.setExpire(null);
+		order.setModifyDate(date);
 		if (order.getAmountPaid().compareTo(order.getAmount()) >= 0) {
 			order.setOrderStatus(OrderStatus.confirmed.getCode());
 			order.setPaymentStatus(PaymentStatus.paid.getCode());
@@ -235,8 +257,8 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		orderLog.setType(Type.payment.getCode());
 		orderLog.setOperator(operator != null ? operator.getUsername() : null);
 		orderLog.setOrders(order.getId());
-		orderLog.setCreateDate(new Date());
-		orderLog.setModifyDate(new Date());
+		orderLog.setCreateDate(date);
+		orderLog.setModifyDate(date);
 		orderLogMapper.insertSelective(orderLog);
 	}
 
@@ -246,6 +268,117 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 			return orderMapper.selectByPrimaryKey(orderId);
 		}
 		return null;
+	}
+
+	@Override
+	public void delete(Long[] ids) {
+		if (ids != null && ids.length > 0) {
+			for (Long id : ids) {
+				orderMapper.deleteByPrimaryKey(id);
+			}
+		}
+	}
+
+	@Override
+	public void confirm(TOrder order, TAdmin admin) {
+		Date date = new Date();
+		order.setOrderStatus(OrderStatus.confirmed.getCode());
+		order.setModifyDate(date);
+		orderMapper.updateByPrimaryKeySelective(order);
+
+		TOrderLog orderLog = new TOrderLog();
+		orderLog.setType(Type.confirm.getCode());
+		orderLog.setOperator(admin != null ? admin.getUsername() : null);
+		orderLog.setOrders(order.getId());
+		orderLog.setCreateDate(date);
+		orderLog.setModifyDate(date);
+		orderLogMapper.insertSelective(orderLog);
+	}
+
+	@Override
+	public void complete(TOrder order, TAdmin operator) {
+		Date date = new Date();
+		TMember member = memberMapper.selectByPrimaryKey(order.getMember());
+		// 这边需不要要锁定member，保证原子性
+
+		// 订单完成后需要更新优惠券状态
+
+		/**
+		 * 消费金额
+		 */
+		Double amountPaid = order.getAmountPaid();
+		if (null != member.getAmount()) {
+			member.setAmount(member.getAmount() + amountPaid);
+		} else {
+			member.setAmount(amountPaid);
+		}
+		memberMapper.updateByPrimaryKeySelective(member);
+
+		order.setOrderStatus(OrderStatus.completed.getCode());
+		order.setExpire(null);
+		order.setModifyDate(date);
+		orderMapper.updateByPrimaryKeySelective(order);
+
+		TOrderLog orderLog = new TOrderLog();
+		orderLog.setType(Type.complete.getCode());
+		orderLog.setOperator(operator != null ? operator.getUsername() : null);
+		orderLog.setOrders(order.getId());
+		orderLog.setCreateDate(date);
+		orderLog.setModifyDate(date);
+		orderLogMapper.insertSelective(orderLog);
+	}
+
+	public void cancel(TOrder order, TAdmin operator) {
+		Date date = new Date();
+		TMember member = memberMapper.selectByPrimaryKey(order.getMember());
+		TCouponCode couponCode = couponCodeMapper.selectByPrimaryKey(order.getCouponCode());
+		if (couponCode != null) {
+			couponCode.setIsUsed(false);
+			couponCode.setUsedDate(null);
+			couponCodeMapper.updateByPrimaryKeySelective(couponCode);
+		}
+		order.setCouponCode(null);
+		order.setOrderStatus(OrderStatus.cancelled.getCode());
+		order.setExpire(null);
+		order.setModifyDate(date);
+		orderMapper.updateByPrimaryKeySelective(order);
+
+		TOrderLog orderLog = new TOrderLog();
+		orderLog.setType(Type.cancel.getCode());
+		orderLog.setOperator(operator != null ? operator.getUsername() : null);
+		orderLog.setOrders(order.getId());
+		orderLog.setCreateDate(date);
+		orderLog.setModifyDate(date);
+		orderLogMapper.insertSelective(orderLog);
+		if (order != null) {
+			smsMqListService.sendSms(member.getMobile(), SpringUtils.getMessage("shop.message.send.cancelOrderReminds",
+					DateUtil.date2String(order.getModifyDate(), -1), order.getSn()));
+		}
+	}
+
+	@Override
+	public List<TOrder> queryOrderList(Criteria c) {
+		List<TOrder> orders = orderMapper.selectMutilTableByExample(c);
+		if (orders != null && orders.size() > 0) {
+			for (TOrder order : orders) {
+				if (order.getMember() != null) {
+					order.settMember(memberMapper.selectByPrimaryKey(order.getMember()));
+				}
+				Criteria criteria = new Criteria();
+				criteria.createConditon().andEqualTo(TTPayment.ORDERS, order.getId());
+				List<TPayment> payments = paymentMapper.selectByExample(criteria);
+				if (payments != null && payments.size() > 0) {
+					order.setPayments(payments);
+				}
+				Criteria oic = new Criteria();
+				oic.createConditon().andEqualTo(TTOrderItem.ORDERS, order.getId());
+				List<TOrderItem> orderItems = orderItemMapper.selectByExample(oic);
+				if (orderItems != null && orderItems.size() > 0) {
+					order.setOrderItems(orderItems);
+				}
+			}
+		}
+		return orders;
 	}
 
 }

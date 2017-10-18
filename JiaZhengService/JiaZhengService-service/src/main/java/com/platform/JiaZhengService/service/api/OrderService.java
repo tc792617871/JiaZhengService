@@ -1,5 +1,8 @@
 package com.platform.JiaZhengService.service.api;
 
+import java.util.List;
+
+import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
 import com.platform.JiaZhengService.dao.entity.TCart;
 import com.platform.JiaZhengService.dao.entity.TCouponCode;
@@ -52,5 +55,44 @@ public interface OrderService extends BaseService {
 	void payment(TOrder order, TPayment payment, TAdmin operator);
 
 	TOrder findById(Long orderId);
+
+	/**
+	 * 删除
+	 * 
+	 * @param ids
+	 */
+	void delete(Long[] ids);
+
+	/**
+	 * 订单确认
+	 * 
+	 * @param order
+	 * @param admin
+	 */
+	void confirm(TOrder order, TAdmin admin);
+
+	/**
+	 * 订单完成
+	 * 
+	 * @param order
+	 * @param admin
+	 */
+	void complete(TOrder order, TAdmin admin);
+
+	/**
+	 * 取消订单
+	 * 
+	 * @param order
+	 * @param admin
+	 */
+	void cancel(TOrder order, TAdmin admin);
+
+	/**
+	 * 查询订单列表
+	 * 
+	 * @param c
+	 * @return
+	 */
+	List<TOrder> queryOrderList(Criteria c);
 
 }

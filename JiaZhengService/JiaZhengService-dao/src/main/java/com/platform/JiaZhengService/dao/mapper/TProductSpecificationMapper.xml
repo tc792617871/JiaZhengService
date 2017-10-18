@@ -113,7 +113,7 @@
 		s.is_enable
 		from t_product_specification ps
 		left join t_specification s on ps.specifications = s.id
-		where 1=1 and ps.products = #{productId,jdbcType=BIGINT}
+		where 1=1 and s.is_enable = 1 and ps.products = #{productId,jdbcType=BIGINT}
 		order by s.orders
 	</select>
 </mapper>
