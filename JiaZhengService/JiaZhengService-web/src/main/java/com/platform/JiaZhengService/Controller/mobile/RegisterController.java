@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -26,6 +29,7 @@ import com.platform.JiaZhengService.common.pojo.Setting;
 import com.platform.JiaZhengService.common.util.JiaZhengServiceUtil;
 import com.platform.JiaZhengService.common.util.RegUtils;
 import com.platform.JiaZhengService.common.util.SettingUtils;
+import com.platform.JiaZhengService.common.util.SpringUtils;
 import com.platform.JiaZhengService.common.util.WebUtils;
 import com.platform.JiaZhengService.dao.entity.TMember;
 import com.platform.JiaZhengService.service.api.MemberService;
@@ -43,6 +47,44 @@ public class RegisterController extends AbstractController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String loginIndex(ModelMap model) {
 		return "/mobile/register/index";
+	}
+
+	/**
+	 * 用户注册手机短信验证
+	 */
+	@RequestMapping(value = "/getRegisterValidateCode", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getValidateCode(String mobile) {
+		Map<String, Object> data = new HashMap<String, Object>();
+		try {
+			// 随机生成6位验证码
+			Double d = Math.random();
+			int validateCodeInt = (int) (d * 900000 + 100000);
+			String validateCode = String.valueOf(validateCodeInt);
+			String msg = validateCode + SpringUtils.getMessage("admin.validate.sms.info");
+			Setting setting = SettingUtils.get();
+			String safeKey = UUID.randomUUID().toString() + DigestUtils.md5Hex(RandomStringUtils.randomAlphabetic(30));
+			Date safeKeyExpireTime = setting.getSafeKeyExpiryTime() != 0
+					? DateUtils.addMinutes(new Date(), setting.getSafeKeyExpiryTime()) : null;
+			// HashMap returnData =
+			// SmsCellUtil.getInstance().sendDone(mobile, msg,
+			// DateUtil.getCurrentDate());
+			System.out.println("-----------validateCode is " + validateCode);
+			Map<String, String> returnData = new HashMap<>();
+			returnData.put("return", "0");
+			if ("0".equals(returnData.get("return"))) {
+				data.put("validateCode", validateCode);
+				data.put("safeKey", safeKey);
+				data.put("safeKeyExpireTime", safeKeyExpireTime);
+				data.put("msg", "success");
+			} else {
+				data.put("validateCode", "");
+				data.put("msg", "获取手机短信验证失败");
+			}
+		} catch (Exception e) {
+			data.put("validateCode", "");
+			data.put("msg", "获取手机短信验证失败");
+		}
+		return data;
 	}
 
 	/**

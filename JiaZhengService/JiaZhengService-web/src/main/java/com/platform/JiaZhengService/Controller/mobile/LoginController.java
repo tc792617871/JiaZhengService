@@ -168,6 +168,7 @@ public class LoginController extends AbstractController {
 				// HashMap returnData =
 				// SmsCellUtil.getInstance().sendDone(phoneNumber, msg,
 				// DateUtil.getCurrentDate());
+				System.out.println(validateCode);
 				Map<String, String> returnData = new HashMap<>();
 				returnData.put("return", "0");
 				if ("0".equals(returnData.get("return"))) {

@@ -9,6 +9,7 @@
 <link rel="icon" href="${base}/favicon.ico" type="image/x-icon" />
 <link href="${base}/resources/mobile/css/common.css" rel="stylesheet" type="text/css" />
 <link rel="${base}/resources/mobile/css/swipe-left-right.css"rel="stylesheet" type="text/css" />
+<link href="${base}/resources/mobile/css/register.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/mobile/js/jquery.min.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/jsbn.js"></script>
 <script type="text/javascript" src="${base}/resources/mobile/js/prng4.js"></script>
@@ -36,16 +37,24 @@ $().ready(function() {
 		<form id="registerForm" action="${base}/mobile/register/registSubmit.jhtml" method="get" >
 			<div class="moMobileContent">
 				<div class="box" style="margin-top: 10px;">
-					<input type="number" id="mobile" name="mobile" placeholder="手机号码" class="box_input"/>
+					<input type="number" id="mobile" name="mobile" placeholder="手机号码" class="box_input" style="width:100%;"/>
 				</div>
 				<div class="box">
-					<input type="password" id="password" name="password" placeholder="密码" class="box_input"/>
+            		<div style="width:58%;float:left;">
+            			<input type="text" id="validateCode" name="validateCode" placeholder="验证码" class="box_input" style="width:100%;"/>
+            		</div>
+            		<div style="width:42%;float:left;">
+            			<button type="button" onclick="m$.register.registerUser.getRegisterValidateCode(60)" id="getValidateCode">获取验证码</button>
+        			</div>
 				</div>
 				<div class="box">
-					<input type="password" name="confirmPsd" id="confirmPsd" placeholder="确认密码" class="box_input"/>
+					<input type="password" id="password" name="password" placeholder="密码" class="box_input" style="width:100%;"/>
 				</div>
 				<div class="box">
-					<input type="text" id="name" name="name" placeholder="姓名" class="box_input"/>
+					<input type="password" name="confirmPsd" id="confirmPsd" placeholder="确认密码" class="box_input" style="width:100%;"/>
+				</div>
+				<div class="box">
+					<input type="text" id="name" name="name" placeholder="姓名" class="box_input" style="width:100%;"/>
 				</div>
 				<div class="box">
 					<button type="button" id="registerSubmit">存储</button>

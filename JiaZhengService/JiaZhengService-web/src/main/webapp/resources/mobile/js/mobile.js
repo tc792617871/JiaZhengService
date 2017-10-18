@@ -1830,6 +1830,7 @@ m$.register = {};
 			var $address = $("#address");
 			var $mobile = $("#mobile");
 			var mobileRegular = /1[3-8]+\d{9}/;
+			var $validateCode = $("#validateCode");
 
 			if (!$mobile.val()) {
 				m$.ui.dialog.dialogShow({
@@ -1844,6 +1845,15 @@ m$.register = {};
 				m$.ui.dialog.dialogShow({
 					'title' : '提示',
 					'content' : '手机号码格式不正确'
+				}, [ {
+					'text' : '确定'
+				} ]);
+				return false;
+			}
+			if (!$validateCode.val()) {
+				m$.ui.dialog.dialogShow({
+					'title' : '提示',
+					'content' : '请填写验证码'
 				}, [ {
 					'text' : '确定'
 				} ]);
@@ -1880,6 +1890,27 @@ m$.register = {};
 				m$.ui.dialog.dialogShow({
 					'title' : '提示',
 					'content' : '请填写姓名'
+				}, [ {
+					'text' : '确定'
+				} ]);
+				return false;
+			}
+			var orgsafeKeyExpireTime = cookie('safeKeyExpireTime');
+			var today = new Date();
+			if (orgsafeKeyExpireTime < today.getTime()) {
+				m$.ui.dialog.dialogShow({
+					'title' : '提示',
+					'content' : '验证码已过期'
+				}, [ {
+					'text' : '确定'
+				} ]);
+				return false;
+			}
+			var orgValidateCode = cookie('validateCode');
+			if (orgValidateCode != $validateCode.val()) {
+				m$.ui.dialog.dialogShow({
+					'title' : '提示',
+					'content' : '验证码错误'
 				}, [ {
 					'text' : '确定'
 				} ]);
@@ -1931,6 +1962,83 @@ m$.register = {};
 					});
 				}
 			});
+		},
+		getRegisterValidateCode : function(second) {
+			var $mobile = $("#mobile");
+			var $getValidateCode = $("#getValidateCode");
+			if ($mobile.val()) {
+				var mobielRegex = /1[3-8]+\d{9}/;
+				if (mobielRegex.test($mobile.val())) {
+					if (second > 0) {
+						if (second == 60) {
+							$.ajax({
+								url : jiazhengservice.base
+										+ "/mobile/register/getRegisterValidateCode.jhtml",
+								type : "GET",
+								dataType : "json",
+								data : {
+									mobile : $mobile.val()
+								},
+								cache : false,
+								success : function(data) {
+									if (data.msg == "success") {
+										cookie('validateCode',
+												data.validateCode);
+										cookie('safeKey',
+												data.safeKey);
+										cookie('safeKeyExpireTime',
+												data.safeKeyExpireTime);
+										cookie('phoneNumber',
+												$mobile.val());
+										$getValidateCode.attr(
+												'disabled', "true");
+										$mobile.attr('disabled',
+												"true");
+									} else {
+										m$.ui.dialog.dialogShow({
+											'title' : '提示',
+											'content' : data.msg
+										}, [ {
+											'text' : '确定'
+										} ]);
+										second = 0;
+										$getValidateCode
+												.removeAttr('disabled');
+										$mobile
+												.removeAttr('disabled');
+										$getValidateCode.text("获取验证码");
+									}
+								}
+							});
+						}
+						second--;
+						$getValidateCode.text(second + "s后重新获取");
+						setTimeout(function() {
+							m$.register.registerUser.getRegisterValidateCode(second);
+						}, 1000);
+					} else {
+						$getValidateCode.removeAttr('disabled');
+						$mobile.removeAttr('disabled');
+						$getValidateCode.text("获取验证码");
+					}
+				} else {
+					m$.ui.dialog.dialogShow({
+						'title' : '提示',
+						'content' : '手机号码格式错误'
+					}, [ {
+						'text' : '确定'
+					} ]);
+					return false;
+				}
+			} else {
+				m$.ui.dialog.dialogShow({
+					'title' : '提示',
+					'content' : '请填写手机号码'
+				}, [ {
+					'text' : '确定'
+				} ]);
+				return false;
+			}
 		},
 		getValidateCode : function(second) {
 			var $phoneNumber = $("#phoneNumber");
