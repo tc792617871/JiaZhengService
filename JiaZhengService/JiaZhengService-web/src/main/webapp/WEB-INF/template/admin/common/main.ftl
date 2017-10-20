@@ -55,7 +55,7 @@ $().ready(function() {
 		<tr>
 			<th class="logo">
 				<a href="main.jhtml">
-					<img src="${base}/resources/admin/images/header_logo.gif" alt="${setting.siteName}" width="160px" />
+					<img src="${base}/resources/admin/images/login_logo.png" alt="${setting.siteName}" width="160px" />
 				</a>
 			</th>
 			<th>

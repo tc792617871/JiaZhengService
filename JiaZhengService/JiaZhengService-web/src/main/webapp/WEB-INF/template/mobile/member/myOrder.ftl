@@ -31,8 +31,6 @@ $().ready(function() {
 				<tr>
 					<td class="nocheckCate checkCate" id="noend" onClick="setCheckCate(this,'noend')">未完成订单</td>
 					<td class="nocheckCate" id="end" onClick="setCheckCate(this,'end')">已完成订单</td>
-					<td class="nocheckCate" id="noPJ" onClick="setCheckCate(this,'noPJ')">待评价订单</td>
-					<td class="nocheckCate" id="DQ" onClick="setCheckCate(this,'DQ')">定期服务</td>
 				</tr>
 			</table>
 		</div>
@@ -140,35 +138,6 @@ $().ready(function() {
 								  + '<tr><td class="pgddetail">服务项目：'+(new_json.c140805163445556||new_json.c140805163445556)+'</td></tr>'	
 								  +	'<tr><td class="pgddetail">服务地址：'+new_json.c12041618311183+'</td></tr>'
 								  +	'<tr><td class="pgddetail">开始时间：'+(new_json.c120416182856132==null?'':new_json.c120416182856132)+'</td></tr>'
-								  + '</table><span class="rightArrow"></span></div>';
-						}
-						$('#smallcates').html(html);
-					}
-				})
-			}
-			function getDQ(){
-				$.loader.show('加载中...');
-				$.ajax({  
-					type:'post',   
-					async:true,
-					url:'http://meiaijie.wx.toohuu.com:80/wx/jzbj/json/DQ.jsp?_r=1506184803309',
-					complete:function(data){
-						$.TooHuuLoader.hide();
-						eval ('list_json = '+data.responseText); 
-						//console.log(list_json);
-						var html = "";
-						for(inx in list_json){
-							new_json = list_json[inx];
-							html += '<div class="pgdarea" _onclick="gotourl(\'http://meiaijie.wx.toohuu.com:80/wx/jzbj/DQ_show.jsp?tid='+new_json.tid170112122420783+'\')">'
-								  + '<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-								  + '<tr>'
-									+ '<td align="center" class="pgdnum">'+new_json.c170112140843465+'</td>'
-								  + '</tr>'
-								  + '</table>'
-								  + '<table width="100%" border="0" cellspacing="0" cellpadding="0" >'
-								  + '<tr><td class="pgddetail">服务项目：'+new_json.c120419104352520+'</td></tr>'	
-								  +	'<tr><td class="pgddetail">服务地址：'+new_json.c170112141046400+'</td></tr>'
-								  +	'<tr><td class="pgddetail">定期余额：'+new_json.c170112152844367+'</td></tr>'
 								  + '</table><span class="rightArrow"></span></div>';
 						}
 						$('#smallcates').html(html);

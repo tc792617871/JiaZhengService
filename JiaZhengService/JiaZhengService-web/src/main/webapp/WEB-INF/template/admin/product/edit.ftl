@@ -45,6 +45,9 @@ $().ready(function() {
 	var $browserButton = $("#browserButton");
 	$browserButton.browser();
 	
+	var $pluImageBrowserButton = $("#pluImageBrowserButton");
+	$pluImageBrowserButton.browser();
+	
 	var $addSpecificationProduct = $("#addSpecificationProduct");
 	var $specificationProductTable = $("#specificationProductTable");
 	var $specificationProductTableTBody = $("#specificationProductTableTBody");
@@ -282,6 +285,20 @@ $().ready(function() {
 				</th>
 				<td>
 					<input type="text" name="name" class="text" value="${product.name}" maxlength="200" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<span class="requiredField">*</span>${message("Product.pluImage")}${message("Product.productPluImageSize")}:
+				</th>
+				<td>
+					<span class="fieldSet">
+						<input type="text" name="pluImage" class="text" maxlength="200" value="${product.pluImage}" title="${message("admin.product.imageTitle")}" />
+						<input type="button" id="pluImageBrowserButton" class="button" value="${message("admin.browser.select")}" />
+						[#if product.pluImage??]
+							<img src="${product.pluImage}" width="60px"/>
+						[/#if]
+					</span>
 				</td>
 			</tr>
 			<tr>

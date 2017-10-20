@@ -1,182 +1,190 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.platform.JiaZhengService.dao.mapper.TCartItemMapper" >
-  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TCartItem" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
-    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
-    <result column="quantity" property="quantity" jdbcType="DOUBLE" />
-    <result column="cart" property="cart" jdbcType="BIGINT" />
-    <result column="product" property="product" jdbcType="BIGINT" />
-    <result column="specification" property="specification" jdbcType="BIGINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, create_date, modify_date, quantity, cart, product, specification
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_cart_item
-    <if test="_parameter != null" >
-      <include refid="common.Example_Where_Clause" />
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_cart_item
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from t_cart_item
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
-    delete from t_cart_item
-    <if test="_parameter != null" >
-      <include refid="common.Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into t_cart_item (create_date, modify_date, quantity, 
-      cart, product, specification
-      )
-    values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{quantity,jdbcType=DOUBLE}, 
-      #{cart,jdbcType=BIGINT}, #{product,jdbcType=BIGINT}, #{specification,jdbcType=BIGINT}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into t_cart_item
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="createDate != null" >
-        create_date,
-      </if>
-      <if test="modifyDate != null" >
-        modify_date,
-      </if>
-      <if test="quantity != null" >
-        quantity,
-      </if>
-      <if test="cart != null" >
-        cart,
-      </if>
-      <if test="product != null" >
-        product,
-      </if>
-      <if test="specification != null" >
-        specification,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyDate != null" >
-        #{modifyDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="quantity != null" >
-        #{quantity,jdbcType=DOUBLE},
-      </if>
-      <if test="cart != null" >
-        #{cart,jdbcType=BIGINT},
-      </if>
-      <if test="product != null" >
-        #{product,jdbcType=BIGINT},
-      </if>
-      <if test="specification != null" >
-        #{specification,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
-    select count(*) from t_cart_item
-    <if test="_parameter != null" >
-      <include refid="common.Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_cart_item
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.createDate != null" >
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.modifyDate != null" >
-        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.quantity != null" >
-        quantity = #{record.quantity,jdbcType=DOUBLE},
-      </if>
-      <if test="record.cart != null" >
-        cart = #{record.cart,jdbcType=BIGINT},
-      </if>
-      <if test="record.product != null" >
-        product = #{record.product,jdbcType=BIGINT},
-      </if>
-      <if test="record.specification != null" >
-        specification = #{record.specification,jdbcType=BIGINT},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="common.Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update t_cart_item
-    set id = #{record.id,jdbcType=BIGINT},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-      quantity = #{record.quantity,jdbcType=DOUBLE},
-      cart = #{record.cart,jdbcType=BIGINT},
-      product = #{record.product,jdbcType=BIGINT},
-      specification = #{record.specification,jdbcType=BIGINT}
-    <if test="_parameter != null" >
-      <include refid="common.Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem" >
-    update t_cart_item
-    <set >
-      <if test="createDate != null" >
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyDate != null" >
-        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="quantity != null" >
-        quantity = #{quantity,jdbcType=DOUBLE},
-      </if>
-      <if test="cart != null" >
-        cart = #{cart,jdbcType=BIGINT},
-      </if>
-      <if test="product != null" >
-        product = #{product,jdbcType=BIGINT},
-      </if>
-      <if test="specification != null" >
-        specification = #{specification,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem" >
-    update t_cart_item
-    set create_date = #{createDate,jdbcType=TIMESTAMP},
-      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-      quantity = #{quantity,jdbcType=DOUBLE},
-      cart = #{cart,jdbcType=BIGINT},
-      product = #{product,jdbcType=BIGINT},
-      specification = #{specification,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TCartItemMapper">
+	<resultMap id="BaseResultMap"
+		type="com.platform.JiaZhengService.dao.entity.TCartItem">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+		<result column="quantity" property="quantity" jdbcType="DOUBLE" />
+		<result column="cart" property="cart" jdbcType="BIGINT" />
+		<result column="product" property="product" jdbcType="BIGINT" />
+		<result column="specification" property="specification"
+			jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date, modify_date, quantity, cart, product, specification
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_cart_item
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_cart_item
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_cart_item
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
+		delete from t_cart_item
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_cart_item (create_date, modify_date, quantity,
+		cart, product, specification
+		)
+		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		#{quantity,jdbcType=DOUBLE},
+		#{cart,jdbcType=BIGINT}, #{product,jdbcType=BIGINT}, #{specification,jdbcType=BIGINT}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_cart_item
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+			<if test="quantity != null">
+				quantity,
+			</if>
+			<if test="cart != null">
+				cart,
+			</if>
+			<if test="product != null">
+				product,
+			</if>
+			<if test="specification != null">
+				specification,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="quantity != null">
+				#{quantity,jdbcType=DOUBLE},
+			</if>
+			<if test="cart != null">
+				#{cart,jdbcType=BIGINT},
+			</if>
+			<if test="product != null">
+				#{product,jdbcType=BIGINT},
+			</if>
+			<if test="specification != null">
+				#{specification,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
+		resultType="java.lang.Integer">
+		select count(*) from t_cart_item
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_cart_item
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.createDate != null">
+				create_date = #{record.createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.modifyDate != null">
+				modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.quantity != null">
+				quantity = #{record.quantity,jdbcType=DOUBLE},
+			</if>
+			<if test="record.cart != null">
+				cart = #{record.cart,jdbcType=BIGINT},
+			</if>
+			<if test="record.product != null">
+				product = #{record.product,jdbcType=BIGINT},
+			</if>
+			<if test="record.specification != null">
+				specification = #{record.specification,jdbcType=BIGINT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_cart_item
+		set id = #{record.id,jdbcType=BIGINT},
+		create_date = #{record.createDate,jdbcType=TIMESTAMP},
+		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+		quantity = #{record.quantity,jdbcType=DOUBLE},
+		cart = #{record.cart,jdbcType=BIGINT},
+		product = #{record.product,jdbcType=BIGINT},
+		specification = #{record.specification,jdbcType=BIGINT}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem">
+		update t_cart_item
+		<set>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="quantity != null">
+				quantity = #{quantity,jdbcType=DOUBLE},
+			</if>
+			<if test="cart != null">
+				cart = #{cart,jdbcType=BIGINT},
+			</if>
+			<if test="product != null">
+				product = #{product,jdbcType=BIGINT},
+			</if>
+			<if test="specification != null">
+				specification = #{specification,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem">
+		update t_cart_item
+		set create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		quantity = #{quantity,jdbcType=DOUBLE},
+		cart = #{cart,jdbcType=BIGINT},
+		product = #{product,jdbcType=BIGINT},
+		specification = #{specification,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
 </mapper>

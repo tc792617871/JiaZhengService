@@ -46,7 +46,7 @@ public class CaptchaEngine extends ListImageCaptchaEngine {
 	private static final String CHAR_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZSZHZOZPZXZXZ";
 
 	/** 随机背景图片路径 */
-	private static final String BACKGROUND_IMAGE_PATH = "com/platform/JiaZhengService/captchaEngine/captcha/";
+	private static final String BACKGROUND_IMAGE_PATH = "com/platform/JiaZhengService/captcha/";
 
 	/**
 	 * 随机字体

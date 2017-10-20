@@ -38,7 +38,8 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImageKey">
 		delete from t_product_product_image
-		where product = #{product,jdbcType=BIGINT}
+		where product =
+		#{product,jdbcType=BIGINT}
 		and source = #{source,jdbcType=VARCHAR}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -49,12 +50,15 @@
 	</delete>
 	<insert id="insert"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImage">
-		insert into t_product_product_image (product, source, large,
+		insert into t_product_product_image (product, source,
+		large,
 		medium, orders, thumbnail,
 		title)
-		values (#{product,jdbcType=BIGINT}, #{source,jdbcType=VARCHAR},
+		values
+		(#{product,jdbcType=BIGINT}, #{source,jdbcType=VARCHAR},
 		#{large,jdbcType=VARCHAR},
-		#{medium,jdbcType=VARCHAR}, #{orders,jdbcType=INTEGER}, #{thumbnail,jdbcType=VARCHAR},
+		#{medium,jdbcType=VARCHAR},
+		#{orders,jdbcType=INTEGER}, #{thumbnail,jdbcType=VARCHAR},
 		#{title,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective"
@@ -145,13 +149,20 @@
 	</update>
 	<update id="updateByExample" parameterType="map">
 		update t_product_product_image
-		set product = #{record.product,jdbcType=BIGINT},
-		source = #{record.source,jdbcType=VARCHAR},
-		large = #{record.large,jdbcType=VARCHAR},
-		medium = #{record.medium,jdbcType=VARCHAR},
-		orders = #{record.orders,jdbcType=INTEGER},
-		thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
-		title = #{record.title,jdbcType=VARCHAR}
+		set product =
+		#{record.product,jdbcType=BIGINT},
+		source =
+		#{record.source,jdbcType=VARCHAR},
+		large =
+		#{record.large,jdbcType=VARCHAR},
+		medium =
+		#{record.medium,jdbcType=VARCHAR},
+		orders =
+		#{record.orders,jdbcType=INTEGER},
+		thumbnail =
+		#{record.thumbnail,jdbcType=VARCHAR},
+		title =
+		#{record.title,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -177,17 +188,21 @@
 			</if>
 		</set>
 		where product = #{product,jdbcType=BIGINT}
-		and source = #{source,jdbcType=VARCHAR}
+		and source =
+		#{source,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByPrimaryKey"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductProductImage">
 		update t_product_product_image
-		set large = #{large,jdbcType=VARCHAR},
+		set large =
+		#{large,jdbcType=VARCHAR},
 		medium = #{medium,jdbcType=VARCHAR},
-		orders = #{orders,jdbcType=INTEGER},
+		orders =
+		#{orders,jdbcType=INTEGER},
 		thumbnail = #{thumbnail,jdbcType=VARCHAR},
 		title = #{title,jdbcType=VARCHAR}
-		where product = #{product,jdbcType=BIGINT}
+		where product =
+		#{product,jdbcType=BIGINT}
 		and source = #{source,jdbcType=VARCHAR}
 	</update>
 </mapper>

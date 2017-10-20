@@ -41,8 +41,10 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationKey">
 		delete from t_product_specification
-		where products = #{products,jdbcType=BIGINT}
-		and specifications = #{specifications,jdbcType=BIGINT}
+		where products =
+		#{products,jdbcType=BIGINT}
+		and specifications =
+		#{specifications,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
 		delete from t_product_specification
@@ -52,8 +54,10 @@
 	</delete>
 	<insert id="insert"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationKey">
-		insert into t_product_specification (products, specifications)
-		values (#{products,jdbcType=BIGINT}, #{specifications,jdbcType=BIGINT})
+		insert into t_product_specification (products,
+		specifications)
+		values (#{products,jdbcType=BIGINT},
+		#{specifications,jdbcType=BIGINT})
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationKey">
@@ -89,7 +93,8 @@
 				products = #{record.products,jdbcType=BIGINT},
 			</if>
 			<if test="record.specifications != null">
-				specifications = #{record.specifications,jdbcType=BIGINT},
+				specifications =
+				#{record.specifications,jdbcType=BIGINT},
 			</if>
 		</set>
 		<if test="_parameter != null">
@@ -98,8 +103,10 @@
 	</update>
 	<update id="updateByExample" parameterType="map">
 		update t_product_specification
-		set products = #{record.products,jdbcType=BIGINT},
-		specifications = #{record.specifications,jdbcType=BIGINT}
+		set products =
+		#{record.products,jdbcType=BIGINT},
+		specifications =
+		#{record.specifications,jdbcType=BIGINT}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -108,12 +115,16 @@
 		parameterType="java.lang.Long">
 		select
 		distinct
-		s.id, s.create_date, s.modify_date, s.orders, s.memo, s.name, s.type,
-		s.code, s.price, s.min_num, s.max_num, s.unit,
+		s.id, s.create_date, s.modify_date,
+		s.orders, s.memo, s.name, s.type,
+		s.code, s.price, s.min_num,
+		s.max_num, s.unit,
 		s.is_enable
 		from t_product_specification ps
-		left join t_specification s on ps.specifications = s.id
-		where 1=1 and s.is_enable = 1 and ps.products = #{productId,jdbcType=BIGINT}
+		left join
+		t_specification s on ps.specifications = s.id
+		where 1=1 and s.is_enable
+		= 1 and ps.products = #{productId,jdbcType=BIGINT}
 		order by s.orders
 	</select>
 </mapper>

@@ -1,387 +1,401 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.platform.JiaZhengService.dao.mapper.TPaymentMapper" >
-  <resultMap id="BaseResultMap" type="com.platform.JiaZhengService.dao.entity.TPayment" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
-    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
-    <result column="account" property="account" jdbcType="VARCHAR" />
-    <result column="amount" property="amount" jdbcType="DECIMAL" />
-    <result column="bank" property="bank" jdbcType="VARCHAR" />
-    <result column="expire" property="expire" jdbcType="TIMESTAMP" />
-    <result column="fee" property="fee" jdbcType="DECIMAL" />
-    <result column="memo" property="memo" jdbcType="VARCHAR" />
-    <result column="method" property="method" jdbcType="INTEGER" />
-    <result column="operator" property="operator" jdbcType="VARCHAR" />
-    <result column="payer" property="payer" jdbcType="VARCHAR" />
-    <result column="payment_date" property="paymentDate" jdbcType="TIMESTAMP" />
-    <result column="payment_method" property="paymentMethod" jdbcType="VARCHAR" />
-    <result column="payment_plugin_id" property="paymentPluginId" jdbcType="VARCHAR" />
-    <result column="sn" property="sn" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="member" property="member" jdbcType="BIGINT" />
-    <result column="orders" property="orders" jdbcType="BIGINT" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, create_date, modify_date, account, amount, bank, expire, fee, memo, method, operator, 
-    payer, payment_date, payment_method, payment_plugin_id, sn, status, type, member, 
-    orders
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.platform.JiaZhengService.dao.Criteria" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_payment
-    <if test="_parameter != null" >
-      <include refid="common.Example_Where_Clause" />
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_payment
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from t_payment
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" >
-    delete from t_payment
-    <if test="_parameter != null" >
-      <include refid="common.Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TPayment" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into t_payment (create_date, modify_date, account, 
-      amount, bank, expire, 
-      fee, memo, method, 
-      operator, payer, payment_date, 
-      payment_method, payment_plugin_id, sn, 
-      status, type, member, 
-      orders)
-    values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, #{account,jdbcType=VARCHAR}, 
-      #{amount,jdbcType=DECIMAL}, #{bank,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP}, 
-      #{fee,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR}, #{method,jdbcType=INTEGER}, 
-      #{operator,jdbcType=VARCHAR}, #{payer,jdbcType=VARCHAR}, #{paymentDate,jdbcType=TIMESTAMP}, 
-      #{paymentMethod,jdbcType=VARCHAR}, #{paymentPluginId,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{member,jdbcType=BIGINT}, 
-      #{orders,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TPayment" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into t_payment
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="createDate != null" >
-        create_date,
-      </if>
-      <if test="modifyDate != null" >
-        modify_date,
-      </if>
-      <if test="account != null" >
-        account,
-      </if>
-      <if test="amount != null" >
-        amount,
-      </if>
-      <if test="bank != null" >
-        bank,
-      </if>
-      <if test="expire != null" >
-        expire,
-      </if>
-      <if test="fee != null" >
-        fee,
-      </if>
-      <if test="memo != null" >
-        memo,
-      </if>
-      <if test="method != null" >
-        method,
-      </if>
-      <if test="operator != null" >
-        operator,
-      </if>
-      <if test="payer != null" >
-        payer,
-      </if>
-      <if test="paymentDate != null" >
-        payment_date,
-      </if>
-      <if test="paymentMethod != null" >
-        payment_method,
-      </if>
-      <if test="paymentPluginId != null" >
-        payment_plugin_id,
-      </if>
-      <if test="sn != null" >
-        sn,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="member != null" >
-        member,
-      </if>
-      <if test="orders != null" >
-        orders,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="createDate != null" >
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyDate != null" >
-        #{modifyDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="account != null" >
-        #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="amount != null" >
-        #{amount,jdbcType=DECIMAL},
-      </if>
-      <if test="bank != null" >
-        #{bank,jdbcType=VARCHAR},
-      </if>
-      <if test="expire != null" >
-        #{expire,jdbcType=TIMESTAMP},
-      </if>
-      <if test="fee != null" >
-        #{fee,jdbcType=DECIMAL},
-      </if>
-      <if test="memo != null" >
-        #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="method != null" >
-        #{method,jdbcType=INTEGER},
-      </if>
-      <if test="operator != null" >
-        #{operator,jdbcType=VARCHAR},
-      </if>
-      <if test="payer != null" >
-        #{payer,jdbcType=VARCHAR},
-      </if>
-      <if test="paymentDate != null" >
-        #{paymentDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="paymentMethod != null" >
-        #{paymentMethod,jdbcType=VARCHAR},
-      </if>
-      <if test="paymentPluginId != null" >
-        #{paymentPluginId,jdbcType=VARCHAR},
-      </if>
-      <if test="sn != null" >
-        #{sn,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="member != null" >
-        #{member,jdbcType=BIGINT},
-      </if>
-      <if test="orders != null" >
-        #{orders,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria" resultType="java.lang.Integer" >
-    select count(*) from t_payment
-    <if test="_parameter != null" >
-      <include refid="common.Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update t_payment
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.createDate != null" >
-        create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.modifyDate != null" >
-        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.account != null" >
-        account = #{record.account,jdbcType=VARCHAR},
-      </if>
-      <if test="record.amount != null" >
-        amount = #{record.amount,jdbcType=DECIMAL},
-      </if>
-      <if test="record.bank != null" >
-        bank = #{record.bank,jdbcType=VARCHAR},
-      </if>
-      <if test="record.expire != null" >
-        expire = #{record.expire,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.fee != null" >
-        fee = #{record.fee,jdbcType=DECIMAL},
-      </if>
-      <if test="record.memo != null" >
-        memo = #{record.memo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.method != null" >
-        method = #{record.method,jdbcType=INTEGER},
-      </if>
-      <if test="record.operator != null" >
-        operator = #{record.operator,jdbcType=VARCHAR},
-      </if>
-      <if test="record.payer != null" >
-        payer = #{record.payer,jdbcType=VARCHAR},
-      </if>
-      <if test="record.paymentDate != null" >
-        payment_date = #{record.paymentDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.paymentMethod != null" >
-        payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
-      </if>
-      <if test="record.paymentPluginId != null" >
-        payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.sn != null" >
-        sn = #{record.sn,jdbcType=VARCHAR},
-      </if>
-      <if test="record.status != null" >
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.type != null" >
-        type = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.member != null" >
-        member = #{record.member,jdbcType=BIGINT},
-      </if>
-      <if test="record.orders != null" >
-        orders = #{record.orders,jdbcType=BIGINT},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="common.Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update t_payment
-    set id = #{record.id,jdbcType=BIGINT},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP},
-      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-      account = #{record.account,jdbcType=VARCHAR},
-      amount = #{record.amount,jdbcType=DECIMAL},
-      bank = #{record.bank,jdbcType=VARCHAR},
-      expire = #{record.expire,jdbcType=TIMESTAMP},
-      fee = #{record.fee,jdbcType=DECIMAL},
-      memo = #{record.memo,jdbcType=VARCHAR},
-      method = #{record.method,jdbcType=INTEGER},
-      operator = #{record.operator,jdbcType=VARCHAR},
-      payer = #{record.payer,jdbcType=VARCHAR},
-      payment_date = #{record.paymentDate,jdbcType=TIMESTAMP},
-      payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
-      payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
-      sn = #{record.sn,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=INTEGER},
-      member = #{record.member,jdbcType=BIGINT},
-      orders = #{record.orders,jdbcType=BIGINT}
-    <if test="_parameter != null" >
-      <include refid="common.Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TPayment" >
-    update t_payment
-    <set >
-      <if test="createDate != null" >
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyDate != null" >
-        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="account != null" >
-        account = #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="amount != null" >
-        amount = #{amount,jdbcType=DECIMAL},
-      </if>
-      <if test="bank != null" >
-        bank = #{bank,jdbcType=VARCHAR},
-      </if>
-      <if test="expire != null" >
-        expire = #{expire,jdbcType=TIMESTAMP},
-      </if>
-      <if test="fee != null" >
-        fee = #{fee,jdbcType=DECIMAL},
-      </if>
-      <if test="memo != null" >
-        memo = #{memo,jdbcType=VARCHAR},
-      </if>
-      <if test="method != null" >
-        method = #{method,jdbcType=INTEGER},
-      </if>
-      <if test="operator != null" >
-        operator = #{operator,jdbcType=VARCHAR},
-      </if>
-      <if test="payer != null" >
-        payer = #{payer,jdbcType=VARCHAR},
-      </if>
-      <if test="paymentDate != null" >
-        payment_date = #{paymentDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="paymentMethod != null" >
-        payment_method = #{paymentMethod,jdbcType=VARCHAR},
-      </if>
-      <if test="paymentPluginId != null" >
-        payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
-      </if>
-      <if test="sn != null" >
-        sn = #{sn,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="type != null" >
-        type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="member != null" >
-        member = #{member,jdbcType=BIGINT},
-      </if>
-      <if test="orders != null" >
-        orders = #{orders,jdbcType=BIGINT},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TPayment" >
-    update t_payment
-    set create_date = #{createDate,jdbcType=TIMESTAMP},
-      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-      account = #{account,jdbcType=VARCHAR},
-      amount = #{amount,jdbcType=DECIMAL},
-      bank = #{bank,jdbcType=VARCHAR},
-      expire = #{expire,jdbcType=TIMESTAMP},
-      fee = #{fee,jdbcType=DECIMAL},
-      memo = #{memo,jdbcType=VARCHAR},
-      method = #{method,jdbcType=INTEGER},
-      operator = #{operator,jdbcType=VARCHAR},
-      payer = #{payer,jdbcType=VARCHAR},
-      payment_date = #{paymentDate,jdbcType=TIMESTAMP},
-      payment_method = #{paymentMethod,jdbcType=VARCHAR},
-      payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
-      sn = #{sn,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER},
-      member = #{member,jdbcType=BIGINT},
-      orders = #{orders,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+<mapper namespace="com.platform.JiaZhengService.dao.mapper.TPaymentMapper">
+	<resultMap id="BaseResultMap"
+		type="com.platform.JiaZhengService.dao.entity.TPayment">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+		<result column="account" property="account" jdbcType="VARCHAR" />
+		<result column="amount" property="amount" jdbcType="DECIMAL" />
+		<result column="bank" property="bank" jdbcType="VARCHAR" />
+		<result column="expire" property="expire" jdbcType="TIMESTAMP" />
+		<result column="fee" property="fee" jdbcType="DECIMAL" />
+		<result column="memo" property="memo" jdbcType="VARCHAR" />
+		<result column="method" property="method" jdbcType="INTEGER" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="payer" property="payer" jdbcType="VARCHAR" />
+		<result column="payment_date" property="paymentDate" jdbcType="TIMESTAMP" />
+		<result column="payment_method" property="paymentMethod"
+			jdbcType="VARCHAR" />
+		<result column="payment_plugin_id" property="paymentPluginId"
+			jdbcType="VARCHAR" />
+		<result column="sn" property="sn" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="member" property="member" jdbcType="BIGINT" />
+		<result column="orders" property="orders" jdbcType="BIGINT" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, create_date, modify_date, account, amount, bank, expire, fee, memo,
+		method, operator,
+		payer, payment_date, payment_method, payment_plugin_id, sn, status, type,
+		member,
+		orders
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from t_payment
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_payment
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from t_payment
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
+		delete from t_payment
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.platform.JiaZhengService.dao.entity.TPayment">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_payment (create_date, modify_date, account,
+		amount, bank, expire,
+		fee, memo, method,
+		operator, payer, payment_date,
+		payment_method, payment_plugin_id, sn,
+		status, type, member,
+		orders)
+		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		#{account,jdbcType=VARCHAR},
+		#{amount,jdbcType=DECIMAL}, #{bank,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP},
+		#{fee,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR},
+		#{method,jdbcType=INTEGER},
+		#{operator,jdbcType=VARCHAR}, #{payer,jdbcType=VARCHAR}, #{paymentDate,jdbcType=TIMESTAMP},
+		#{paymentMethod,jdbcType=VARCHAR},
+		#{paymentPluginId,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR},
+		#{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+		#{member,jdbcType=BIGINT},
+		#{orders,jdbcType=BIGINT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TPayment">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_payment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				create_date,
+			</if>
+			<if test="modifyDate != null">
+				modify_date,
+			</if>
+			<if test="account != null">
+				account,
+			</if>
+			<if test="amount != null">
+				amount,
+			</if>
+			<if test="bank != null">
+				bank,
+			</if>
+			<if test="expire != null">
+				expire,
+			</if>
+			<if test="fee != null">
+				fee,
+			</if>
+			<if test="memo != null">
+				memo,
+			</if>
+			<if test="method != null">
+				method,
+			</if>
+			<if test="operator != null">
+				operator,
+			</if>
+			<if test="payer != null">
+				payer,
+			</if>
+			<if test="paymentDate != null">
+				payment_date,
+			</if>
+			<if test="paymentMethod != null">
+				payment_method,
+			</if>
+			<if test="paymentPluginId != null">
+				payment_plugin_id,
+			</if>
+			<if test="sn != null">
+				sn,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="member != null">
+				member,
+			</if>
+			<if test="orders != null">
+				orders,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="createDate != null">
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				#{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="account != null">
+				#{account,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="bank != null">
+				#{bank,jdbcType=VARCHAR},
+			</if>
+			<if test="expire != null">
+				#{expire,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fee != null">
+				#{fee,jdbcType=DECIMAL},
+			</if>
+			<if test="memo != null">
+				#{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="method != null">
+				#{method,jdbcType=INTEGER},
+			</if>
+			<if test="operator != null">
+				#{operator,jdbcType=VARCHAR},
+			</if>
+			<if test="payer != null">
+				#{payer,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentDate != null">
+				#{paymentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="paymentMethod != null">
+				#{paymentMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentPluginId != null">
+				#{paymentPluginId,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				#{sn,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="member != null">
+				#{member,jdbcType=BIGINT},
+			</if>
+			<if test="orders != null">
+				#{orders,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.platform.JiaZhengService.dao.Criteria"
+		resultType="java.lang.Integer">
+		select count(*) from t_payment
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update t_payment
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.createDate != null">
+				create_date = #{record.createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.modifyDate != null">
+				modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.account != null">
+				account = #{record.account,jdbcType=VARCHAR},
+			</if>
+			<if test="record.amount != null">
+				amount = #{record.amount,jdbcType=DECIMAL},
+			</if>
+			<if test="record.bank != null">
+				bank = #{record.bank,jdbcType=VARCHAR},
+			</if>
+			<if test="record.expire != null">
+				expire = #{record.expire,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.fee != null">
+				fee = #{record.fee,jdbcType=DECIMAL},
+			</if>
+			<if test="record.memo != null">
+				memo = #{record.memo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.method != null">
+				method = #{record.method,jdbcType=INTEGER},
+			</if>
+			<if test="record.operator != null">
+				operator = #{record.operator,jdbcType=VARCHAR},
+			</if>
+			<if test="record.payer != null">
+				payer = #{record.payer,jdbcType=VARCHAR},
+			</if>
+			<if test="record.paymentDate != null">
+				payment_date = #{record.paymentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.paymentMethod != null">
+				payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="record.paymentPluginId != null">
+				payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sn != null">
+				sn = #{record.sn,jdbcType=VARCHAR},
+			</if>
+			<if test="record.status != null">
+				status = #{record.status,jdbcType=INTEGER},
+			</if>
+			<if test="record.type != null">
+				type = #{record.type,jdbcType=INTEGER},
+			</if>
+			<if test="record.member != null">
+				member = #{record.member,jdbcType=BIGINT},
+			</if>
+			<if test="record.orders != null">
+				orders = #{record.orders,jdbcType=BIGINT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update t_payment
+		set id = #{record.id,jdbcType=BIGINT},
+		create_date = #{record.createDate,jdbcType=TIMESTAMP},
+		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+		account = #{record.account,jdbcType=VARCHAR},
+		amount = #{record.amount,jdbcType=DECIMAL},
+		bank = #{record.bank,jdbcType=VARCHAR},
+		expire = #{record.expire,jdbcType=TIMESTAMP},
+		fee = #{record.fee,jdbcType=DECIMAL},
+		memo = #{record.memo,jdbcType=VARCHAR},
+		method = #{record.method,jdbcType=INTEGER},
+		operator = #{record.operator,jdbcType=VARCHAR},
+		payer = #{record.payer,jdbcType=VARCHAR},
+		payment_date = #{record.paymentDate,jdbcType=TIMESTAMP},
+		payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
+		payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
+		sn = #{record.sn,jdbcType=VARCHAR},
+		status = #{record.status,jdbcType=INTEGER},
+		type = #{record.type,jdbcType=INTEGER},
+		member = #{record.member,jdbcType=BIGINT},
+		orders = #{record.orders,jdbcType=BIGINT}
+		<if test="_parameter != null">
+			<include refid="common.Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.platform.JiaZhengService.dao.entity.TPayment">
+		update t_payment
+		<set>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyDate != null">
+				modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="account != null">
+				account = #{account,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				amount = #{amount,jdbcType=DECIMAL},
+			</if>
+			<if test="bank != null">
+				bank = #{bank,jdbcType=VARCHAR},
+			</if>
+			<if test="expire != null">
+				expire = #{expire,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fee != null">
+				fee = #{fee,jdbcType=DECIMAL},
+			</if>
+			<if test="memo != null">
+				memo = #{memo,jdbcType=VARCHAR},
+			</if>
+			<if test="method != null">
+				method = #{method,jdbcType=INTEGER},
+			</if>
+			<if test="operator != null">
+				operator = #{operator,jdbcType=VARCHAR},
+			</if>
+			<if test="payer != null">
+				payer = #{payer,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentDate != null">
+				payment_date = #{paymentDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="paymentMethod != null">
+				payment_method = #{paymentMethod,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentPluginId != null">
+				payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
+			</if>
+			<if test="sn != null">
+				sn = #{sn,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="member != null">
+				member = #{member,jdbcType=BIGINT},
+			</if>
+			<if test="orders != null">
+				orders = #{orders,jdbcType=BIGINT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TPayment">
+		update t_payment
+		set create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		account = #{account,jdbcType=VARCHAR},
+		amount = #{amount,jdbcType=DECIMAL},
+		bank = #{bank,jdbcType=VARCHAR},
+		expire = #{expire,jdbcType=TIMESTAMP},
+		fee = #{fee,jdbcType=DECIMAL},
+		memo = #{memo,jdbcType=VARCHAR},
+		method = #{method,jdbcType=INTEGER},
+		operator = #{operator,jdbcType=VARCHAR},
+		payer = #{payer,jdbcType=VARCHAR},
+		payment_date = #{paymentDate,jdbcType=TIMESTAMP},
+		payment_method = #{paymentMethod,jdbcType=VARCHAR},
+		payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
+		sn = #{sn,jdbcType=VARCHAR},
+		status = #{status,jdbcType=INTEGER},
+		type = #{type,jdbcType=INTEGER},
+		member = #{member,jdbcType=BIGINT},
+		orders = #{orders,jdbcType=BIGINT}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
 </mapper>

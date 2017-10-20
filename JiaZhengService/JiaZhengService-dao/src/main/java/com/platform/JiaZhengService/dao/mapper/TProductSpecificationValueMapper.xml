@@ -26,8 +26,10 @@
 	<delete id="deleteByPrimaryKey"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationValueKey">
 		delete from t_product_specification_value
-		where products = #{products,jdbcType=BIGINT}
-		and specification_values = #{specificationValues,jdbcType=BIGINT}
+		where products
+		= #{products,jdbcType=BIGINT}
+		and specification_values =
+		#{specificationValues,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
 		delete from t_product_specification_value
@@ -39,7 +41,8 @@
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationValueKey">
 		insert into t_product_specification_value (products,
 		specification_values)
-		values (#{products,jdbcType=BIGINT}, #{specificationValues,jdbcType=BIGINT})
+		values (#{products,jdbcType=BIGINT},
+		#{specificationValues,jdbcType=BIGINT})
 	</insert>
 	<insert id="insertSelective"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductSpecificationValueKey">
@@ -85,8 +88,10 @@
 	</update>
 	<update id="updateByExample" parameterType="map">
 		update t_product_specification_value
-		set products = #{record.products,jdbcType=BIGINT},
-		specification_values = #{record.specificationValues,jdbcType=BIGINT}
+		set products =
+		#{record.products,jdbcType=BIGINT},
+		specification_values =
+		#{record.specificationValues,jdbcType=BIGINT}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
