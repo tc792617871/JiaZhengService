@@ -1766,6 +1766,7 @@ start 璁㈠��璇����
 .orderInfo .orderInfoContent {
 	font-size: 12px;
 	background: #fff;
+	padding-bottom: 66px;
 }
 
 .orderInfo .orderInfoContent ul li {
@@ -1852,7 +1853,7 @@ start 璁㈠��璇����
 }
 
 .paymentContent li {
-	border-top: 1px solid #000;
+	border-top: 1px solid #E0E0E0;
 	border-bottom-width: 0;
 	margin-top: 10px;
 	line-height: 20px

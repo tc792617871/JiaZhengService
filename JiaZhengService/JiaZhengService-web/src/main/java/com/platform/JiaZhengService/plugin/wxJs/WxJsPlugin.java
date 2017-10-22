@@ -69,7 +69,7 @@ public class WxJsPlugin extends PaymentPlugin {
 
 	@Override
 	public String getSiteUrl() {
-		return "http://www.sencloud.com.cn";
+		return "http://www.xxx.com.cn";
 	}
 
 	@Override

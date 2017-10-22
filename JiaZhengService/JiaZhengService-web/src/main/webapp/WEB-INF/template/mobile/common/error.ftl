@@ -5,15 +5,7 @@
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no,width=320,target-densitydpi=142">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-[@seo type = "index"]
-		<title>${setting.siteName}</title>
-		[#if seo.keywords??]
-			<meta name="keywords" content="[@seo.keywords?interpret /]" />
-		[/#if]
-		[#if seo.description??]
-			<meta name="description" content="[@seo.description?interpret /]" />
-		[/#if]
-[/@seo]
+<title>${setting.siteName}</title>
 <link rel="icon" href="${base}/favicon.ico" type="image/x-icon" />
 </head>
 <body>

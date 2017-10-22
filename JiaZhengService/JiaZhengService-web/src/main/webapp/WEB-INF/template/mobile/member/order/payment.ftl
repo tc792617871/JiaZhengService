@@ -14,6 +14,10 @@
 <script type="text/javascript">
 $().ready(function() {
 	m$.header.titleContent.setTitle("收银台");
+	
+	$(".header_2 .cart_area").remove();
+	$(".header_2 .home_area").remove();
+	
 	var $paymentPlugin = $(".paymentPlugin");
 	var $paymentForm = $("#paymentForm");
 	var $paymentPluginId = $("#paymentPluginId");

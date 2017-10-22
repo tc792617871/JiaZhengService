@@ -30,19 +30,20 @@ import com.platform.JiaZhengService.dao.entity.TOrder;
 import com.platform.JiaZhengService.dao.entity.TOrder.OrderStatus;
 import com.platform.JiaZhengService.dao.entity.TOrder.PaymentStatus;
 import com.platform.JiaZhengService.dao.entity.TOrderItem;
+import com.platform.JiaZhengService.dao.entity.TOrderLog;
 import com.platform.JiaZhengService.dao.entity.TPayment;
 import com.platform.JiaZhengService.dao.entity.TPayment.Status;
 import com.platform.JiaZhengService.dao.entity.TPayment.Type;
 import com.platform.JiaZhengService.dao.entity.TPaymentMethod;
 import com.platform.JiaZhengService.dao.entity.TPluginConfig;
-import com.platform.JiaZhengService.dao.entity.TProduct;
-import com.platform.JiaZhengService.dao.entity.TSpecification;
 import com.platform.JiaZhengService.service.api.AdminService;
 import com.platform.JiaZhengService.service.api.AreaService;
 import com.platform.JiaZhengService.service.api.MemberService;
 import com.platform.JiaZhengService.service.api.OrderItemService;
+import com.platform.JiaZhengService.service.api.OrderLogService;
 import com.platform.JiaZhengService.service.api.OrderService;
 import com.platform.JiaZhengService.service.api.PaymentMethodService;
+import com.platform.JiaZhengService.service.api.PaymentService;
 import com.platform.JiaZhengService.service.api.PluginConfigService;
 import com.platform.JiaZhengService.service.api.ProductService;
 import com.platform.JiaZhengService.service.api.SmsMqListService;
@@ -76,8 +77,14 @@ public class OrderController extends AbstractController {
 	@Resource(name = "orderServiceImpl")
 	private OrderService orderService;
 
+	@Resource(name = "orderLogServiceImpl")
+	private OrderLogService orderLogService;
+
 	@Resource(name = "memberServiceImpl")
 	private MemberService memberService;
+
+	@Resource(name = "paymentServiceImpl")
+	private PaymentService paymentService;
 
 	@Resource(name = "orderItemServiceImpl")
 	private OrderItemService orderItemService;
@@ -131,13 +138,12 @@ public class OrderController extends AbstractController {
 		model.addAttribute("methods", TPayment.Method.values());
 		model.addAttribute("paymentMethods", paymentMethodService.queryPaymentMethodList(new Criteria()));
 		TOrder order = orderService.findById(id);
-		List<TOrderItem> orderItems = order.getOrderItems();
-		for (TOrderItem orderItem : orderItems) {
-			TProduct product = productService.find(orderItem.getProduct());
-			TSpecification specification = specificationService.find(orderItem.getSpecification());
-			orderItem.settProduct(product);
-			orderItem.settSpecification(specification);
-		}
+		List<TPayment> payments = paymentService.findPaymentByOrderId(order.getId());
+		order.setPayments(payments);
+		List<TOrderItem> orderItems = orderItemService.findOrderItemsByOrderId(order.getId());
+		order.setOrderItems(orderItems);
+		List<TOrderLog> orderLogs = orderLogService.findOrderLogsByOrderId(order.getId());
+		model.addAttribute("orderLogs", orderLogs);
 		model.addAttribute("order", order);
 		return "/admin/order/view";
 	}
@@ -363,5 +369,4 @@ public class OrderController extends AbstractController {
 		}
 		return SUCCESS_MESSAGE;
 	}
-
 }

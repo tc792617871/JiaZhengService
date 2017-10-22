@@ -1,5 +1,7 @@
 package com.platform.JiaZhengService.service.api;
 
+import java.util.List;
+
 import com.platform.JiaZhengService.dao.entity.TPayment;
 
 public interface PaymentService extends BaseService {
@@ -11,5 +13,7 @@ public interface PaymentService extends BaseService {
 	TPayment find(Long paymentId);
 
 	void handle(TPayment payment);
+
+	List<TPayment> findPaymentByOrderId(Long orderId);
 
 }

@@ -255,6 +255,7 @@ span.tableSpan {
 	padding: 5px 0px 5px 33px;
 	border: none;
 	font-size: 14px;
+	box-sizing: border-box;
 }
 
 .order-info-total {

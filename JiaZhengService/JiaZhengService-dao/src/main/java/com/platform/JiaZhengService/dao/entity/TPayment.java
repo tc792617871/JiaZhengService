@@ -18,7 +18,7 @@ public class TPayment extends StringAndEqualsPojo implements Serializable {
 	 * 支付状态
 	 */
 	public enum Type {
-		payment(1, "订单支付 "), recharge(2, "预存款充值 ");
+		payment(1, "订单支付"), recharge(2, "预存款充值");
 		private Integer code;
 		private String desc;
 
@@ -48,7 +48,7 @@ public class TPayment extends StringAndEqualsPojo implements Serializable {
 	 * 方式
 	 */
 	public enum Method {
-		online(1, "订单支付 "), offline(2, "线下支付 "), deposit(3, "预存款支付");
+		online(1, "订单支付"), offline(2, "线下支付"), deposit(3, "预存款支付");
 		private Integer code;
 		private String desc;
 
@@ -78,7 +78,7 @@ public class TPayment extends StringAndEqualsPojo implements Serializable {
 	 * 状态
 	 */
 	public enum Status {
-		wait(1, "等待支付 "), success(2, "支付成功 "), failure(3, "支付失败 ");
+		wait(1, "等待支付"), success(2, "支付成功"), failure(3, "支付失败");
 		private Integer code;
 		private String desc;
 

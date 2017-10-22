@@ -66,7 +66,7 @@ public class WxJsController extends AbstractController {
 		TPluginConfig pluginConfig = wxJsPlugin.getPluginConfig();
 		model.addAttribute("feeTypes", FeeType.values());
 		model.addAttribute("pluginConfig", pluginConfig);
-		return "/com/sencloud/plugin/wxJs/setting";
+		return "/com/platform/JiaZhengService/plugin/wxJs/setting";
 	}
 
 	/**

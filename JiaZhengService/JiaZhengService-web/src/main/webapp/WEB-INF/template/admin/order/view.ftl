@@ -98,7 +98,7 @@ $().ready(function() {
 		});
 	});
 
-	[#if !order.expired && order.orderStatus == "confirmed" && (order.paymentStatus == "unpaid" || order.paymentStatus == "partialPayment")]
+	[#if !order.expired && order.orderStatus == "2" && (order.paymentStatus == "1" || order.paymentStatus == "2")]
 		// 支付
 		$paymentButton.click(function() {
 			$.dialog({
@@ -137,22 +137,6 @@ $().ready(function() {
 									${currency(order.amountPaid, true)}
 								<\/td>
 							<\/tr>
-							[#if order.isInvoice]
-								<tr>
-									<th>
-										${message("Order.invoiceTitle")}:
-									<\/th>
-									<td>
-										${order.invoiceTitle}
-									<\/td>
-									<th>
-										${message("Order.tax")}:
-									<\/th>
-									<td>
-										${currency(order.tax, true)}
-									<\/td>
-								<\/tr>
-							[/#if]
 							<tr>
 								<th>
 									${message("Payment.bank")}:
@@ -255,7 +239,7 @@ $().ready(function() {
 		});
 	[/#if]
 	
-	[#if !order.expired  && (order.paymentStatus == "paid" || order.paymentStatus == "partialPayment" || order.paymentStatus == "partialRefunds")]
+	[#if !order.expired  && (order.paymentStatus == "3" || order.paymentStatus == "2")]
 		// 退款
 		$refundsButton.click(function() {
 			$.dialog({
@@ -404,7 +388,7 @@ $().ready(function() {
 		});
 	[/#if]
 	
-	[#if !order.expired && order.orderStatus == "confirmed" && (order.shippingStatus == "unshipped" || order.shippingStatus == "partialShipment")]
+	[#if !order.expired && order.orderStatus == "2" && (order.shippingStatus == "1" || order.shippingStatus == "2")]
 		// 发货
 		$shippingButton.click(function() {
 			$.dialog({
@@ -643,7 +627,7 @@ $().ready(function() {
 		});
 	[/#if]
 	
-	[#if !order.expired && (order.shippingStatus == "shipped" || order.shippingStatus == "partialReturns" )]
+	[#if !order.expired && (order.shippingStatus == "3" || order.shippingStatus == "4" )]
 		[#if order.orderStatus == "confirmed" || order.orderStatus == "receipt" ]  
 		// 退货
 		$returnsButton.click(function() {
@@ -884,24 +868,8 @@ $().ready(function() {
 			<input type="button" value="${message("admin.order.productInfo")}" />
 		</li>
 		<li>
-			<input type="button" value="${message("admin.order.memberInfo")}" />
-		</li>
-		<li>
 			<input type="button" value="${message("admin.order.paymentInfo")}" />
 		</li>
-		<li>
-			<input type="button" value="${message("admin.order.shippingInfo")}" />
-		</li>
-		[#if order.refunds]
-		<li>
-			<input type="button" value="${message("admin.order.refundsInfo")}" />
-		</li>
-		[/#if]
-		[#if order.returns]
-		<li>
-			<input type="button" value="${message("admin.order.returnsInfo")}" />
-		</li>
-		[/#if]
 		<li>
 			<input type="button" value="${message("admin.order.orderLog")}" />
 		</li>
@@ -929,12 +897,6 @@ $().ready(function() {
 				&nbsp;
 			</td>
 			<td>
-				[@shiro.hasPermission name = "admin:order_button_refundsButton"]
-				<input type="button" id="refundsButton" class="button" value="${message("admin.order.refunds")}"[#if order.expired || (order.paymentStatus != "paid" && order.paymentStatus != "partialPayment" && order.paymentStatus != "partialRefunds" )] disabled="disabled"  [/#if] />
-				[/@shiro.hasPermission]
-				[@shiro.hasPermission name = "admin:order_button_returnsButton"]
-				<input type="button" id="returnsButton" class="button" value="${message("admin.order.returns")}"[#if order.expired  || (order.shippingStatus != "shipped" && order.shippingStatus != "partialReturns")]disabled="disabled" [/#if] />
-				[/@shiro.hasPermission]
 				[@shiro.hasPermission name = "admin:order_button_cancelButton"]
 				<input type="button" id="cancelButton" class="button" value="${message("admin.order.cancel")}"[#if order.expired || order.orderStatus != "unconfirmed"] disabled="disabled"[/#if] />
 				[/@shiro.hasPermission]
@@ -995,20 +957,6 @@ $().ready(function() {
 				${currency(order.amount, true)}
 			</td>
 			<th>
-				${message("Order.amountPaid")}:
-			</th>
-			<td>
-				${currency(order.amountPaid, true)}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("Order.weight")}:
-			</th>
-			<td>
-				${order.weight}
-			</td>
-			<th>
 				${message("Order.quantity")}:
 			</th>
 			<td>
@@ -1017,24 +965,10 @@ $().ready(function() {
 		</tr>
 		<tr>
 			<th>
-				${message("Order.promotion")}:
-			</th>
-			<td>
-				${(order.promotion)!"-"}
-			</td>
-			<th>
 				${message("admin.order.coupon")}:
 			</th>
 			<td>
 				${(order.couponCode.coupon.name)!"-"}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("Order.promotionDiscount")}:
-			</th>
-			<td>
-				${currency(order.promotionDiscount, true)}
 			</td>
 			<th>
 				${message("Order.couponDiscount")}:
@@ -1045,65 +979,22 @@ $().ready(function() {
 		</tr>
 		<tr>
 			<th>
-				${message("Order.offsetAmount")}:
-			</th>
-			<td>
-				${currency(order.offsetAmount, true)}
-			</td>
-			<th>
-				${message("Order.point")}:
-			</th>
-			<td>
-				${order.point}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("Order.freight")}:
-			</th>
-			<td>
-				${currency(order.freight, true)}
-			</td>
-			<th>
-				${message("Order.fee")}:
-			</th>
-			<td>
-				${currency(order.fee, true)}
-			</td>
-		</tr>
-		<tr>
-			<th>
 				${message("Order.paymentMethod")}:
 			</th>
 			<td>
 				${order.paymentMethodName} [${paymentPluginAttribute}]
-				[#if order.bankCode]
-				    [${order.bankName}]
-				[/#if]
 			</td>
 			<th>
-				${message("Order.shippingMethod")}:
+				${message("Payment.businessSn")}:
 			</th>
-			<td>
-				${order.shippingMethodName}
+			<td colspan="3">
+				[#list order.payments as payment]
+				    [#if payment.status == 'success']
+				        [${payment.sn}]
+				    [/#if]
+				[/#list]
 			</td>
 		</tr>
-		[#if order.isInvoice]
-			<tr>
-				<th>
-					${message("Order.invoiceTitle")}/${message("Order.invoiceType.invoiceTypeName")}:
-				</th>
-				<td>
-					${order.invoiceTitle}/${order.invoiceType.invoiceTypeName}
-				</td>
-				<th>
-					${message("Order.tax")}:
-				</th>
-				<td>
-					${currency(order.tax, true)}
-				</td>
-			</tr>
-		[/#if]
 		<tr>
 			<th>
 				${message("Order.consignee")}:
@@ -1146,36 +1037,7 @@ $().ready(function() {
 				${order.memo}
 			</td>
 		</tr>
-		<tr>
-			<th>
-				${message("Order.markStatus")}:
-			</th>
-			<td>
-				[#if order.memoFlag]
-							<img src="${base}/resources/admin/images/op_memo_${order.memoFlag}.png">
-				[#else]
-						-
-				[/#if]
-			</td>
-			<th>
-				${message("Order.sellerMemo")}:
-			</th>
-			<td>
-				${order.sellerMemo}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("Payment.businessSn")}:
-			</th>
-			<td colspan="3">
-				[#list order.payments as payment]
-				    [#if payment.status == 'success']
-				        [${payment.sn}]
-				    [/#if]
-				[/#list]
-			</td>
-		</tr>
+	</table>
 	<table class="input tabContent">
 		<tr class="title">
 			<th>
@@ -1191,16 +1053,7 @@ $().ready(function() {
 				${message("OrderItem.product.price")}
 			</th>
 			<th>
-				${message("Order.member.memberRank.scale")}
-			</th>
-			<th>
 				${message("OrderItem.quantity")}
-			</th>
-			<th>
-				${message("OrderItem.shippedQuantity")}
-			</th>
-			<th>
-				${message("OrderItem.returnQuantity")}
 			</th>
 			<th>
 				${message("OrderItem.subtotal")}
@@ -1209,13 +1062,10 @@ $().ready(function() {
 		[#list order.orderItems as orderItem]
 			<tr>
 				<td>
-					<a href="${base}${orderItem.product.path}?brandId=${orderItem.product.brand.id}&productCategoryId=${orderItem.product.productCategory.id}&productId=${orderItem.product.id}"  target="_blank">${orderItem.sn}</a>
+					${orderItem.sn}
 				</td>
 				<td>
-					<span title="${orderItem.fullName}">${abbreviate(orderItem.fullName, 50, "...")}</span>
-					[#if orderItem.isGift]
-						<span class="red">[${message("admin.order.gift")}]</span>
-					[/#if]
+					<span title="${orderItem.fullName}">${abbreviate(orderItem.name, 50, "...")}</span>
 				</td>
 				<td>
 					[#if !orderItem.isGift]
@@ -1225,23 +1075,10 @@ $().ready(function() {
 					[/#if]
 				</td>
 				<td>
-					${currency(orderItem.product.marketPrice, true)}
-				</td>
-				<td>
-				[#if orderItem.discount == 1]
-					${message("Order.member.memberRank.noScale")}
-				[#else]
-					${(orderItem.discount)*10 }${message("Order.scale")}
-				[/#if]
+					${currency(orderItem.tSpecification.price, true)}
 				</td>
 				<td>
 					${orderItem.quantity}
-				</td>
-				<td>
-					${orderItem.shippedQuantity}
-				</td>
-				<td>
-					${orderItem.returnQuantity}
 				</td>
 				<td>
 					[#if !orderItem.isGift]
@@ -1252,53 +1089,6 @@ $().ready(function() {
 				</td>
 			</tr>
 		[/#list]
-	</table>
-		</table>
-	<table class="input tabContent">
-		<tr>
-			<th>
-				${message("Member.username")}
-			</th>
-			<td>
-				${order.member.username}
-			</td>
-			<th>
-				${message("Member.email")}
-			</th>
-			<td>
-				${order.member.email}
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("Member.memberRank")}
-			</th>
-			<td>
-				${order.member.memberRank.name}
-			</td>
-			<th>
-				${message("Member.scale")}
-			</th>
-			<td>
-				${order.member.memberRank.scale}
-			</td>
-		</tr>
-		[#if order.promotion.name]
-		<tr>
-			<th>
-				${message("Order.promotion.name")}
-			</th>
-			<td>
-				${order.promotion.name}
-			</td>
-			<th>
-				${message("Order.promotionDiscount")}
-			</th>
-			<td>
-				${order.promotionDiscount}
-			</td>
-		</tr>
-		[/#if]
 	</table>
 	<table class="input tabContent">
 		<tr class="title">
@@ -1349,408 +1139,6 @@ $().ready(function() {
 		[/#list]
 	</table>
 	<table class="input tabContent">
-	[#list order.shippings as shipping]
-		<tr class="title">
-			<th style="background-color: darkseagreen;">
-				${message("Shipping.sn")}
-			</th>
-			<th>
-				${message("Shipping.shippingMethod")}
-			</th>
-			<th>
-				${message("Shipping.deliveryCorp")}
-			</th>
-			<th>
-				${message("Shipping.trackingNo")}
-			</th>
-			<th>
-				${message("Shipping.consignee")}
-			</th>
-			<th>
-				${message("admin.common.createDate")}
-			</th>
-			<th>
-				${message("Shipping.order.sn")}
-			</th>
-			
-			<th>
-				${message("Shipping.operator")}
-			</th>
-			<th colspan="2">
-				${message("Shipping.memo")}
-			</th>
-		</tr>
-		<tr>
-			<td>
-				${shipping.sn}
-			</td>
-			<td>
-				${shipping.shippingMethod}
-			</td>
-			<td>
-				${shipping.deliveryCorp}
-			</td>
-			<td>
-				<a href="http://www.kuaidi100.com/chaxun?com=${shipping.deliveryCorpCode}&nu=${shipping.trackingNo}" target="_blank">${(shipping.trackingNo)!"-"}</a>
-			</td>
-			<td>
-				<div>${shipping.address}</div>
-				<div>${shipping.consignee}</div>
-				<div>${shipping.phone}</div>
-			</td>
-			<td>
-				${shipping.createDate?string("yyyy-MM-dd HH:mm:ss")}
-			</td>
-			<td>
-				${shipping.order.sn}
-			</td>
-			<td>
-				${shipping.operator}
-			</td>
-			<td colspan="2">
-				${(shipping.memo)!"-"}
-			</td>
-		</tr>
-		<tr class="title">
-			<th>
-				${message("Shipping.shippingItems")}
-			</th>
-			<th colspan="3">
-				${message("ShippingItem.sn")}
-			</th>
-			<th colspan="3">
-				${message("ShippingItem.name")}
-			</th>
-			<th colspan="3">
-				${message("ShippingItem.quantity")}
-			</th>
-		</tr>
-		[#list shipping.shippingItems as shippingItem]
-			<tr>
-				<td style="background-color: #ffffff;">
-					&nbsp
-				</td>
-				<td colspan="3">
-					${shippingItem.sn}
-				</td>
-				<td colspan="3">
-					<span title="${shippingItem.name}">${abbreviate(shippingItem.name, 50, "...")}</span>
-				</td>
-				<td colspan="3">
-					${shippingItem.quantity}
-				</td>
-			</tr>
-		[/#list]
-		<tr class="title">
-			<th>
-				${message("Shipping.shopStore.storeRowId")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.storeCode")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.storeName")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.storeType")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.storeAlipayNo")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.position")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.address")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.zipcode")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.consignorInfo")}
-			</th>
-			<th>
-				${message("Shipping.shopStore.shopCompany")}
-			</th>
-		</tr>
-		<tr>
-			<td>
-				${shipping.shopStore.storeRowId}
-			</td>
-			<td>
-				${shipping.shopStore.storeCode}
-			</td>
-			<td>
-				${shipping.shopStore.storeName}
-			</td>
-			<td>
-				[#if shipping.shopStore.storeType == 1]
-					${Shipping.ShopStore.storeType.warehouse}
-				[#else]
-					${Shipping.ShopStore.storeType.store}
-				[/#if]
-				
-			</td>
-			<td>
-				${shipping.shopStore.storeAlipayNo}
-			</td>
-			<td>
-				<div>${shipping.shopStore.province}</div>
-				<div>${shipping.shopStore.city}</div>
-				<div>${shipping.shopStore.district}</div>
-			</td>
-			<td>
-				${shipping.shopStore.address}
-			</td>
-			<td>
-				${shipping.shopStore.zipcode}
-			</td>
-			<td>
-				<div>${shipping.shopStore.consignor}</div>
-				<div>${shipping.shopStore.telephone}</div>
-			</td>
-			<td>
-				${shipping.shopStore.shopCompany.companyName}
-			</td>
-		</tr>
-		<tr>
-			<td colspan="10">
-				&nbsp
-			</td>
-		</tr>
-	[/#list]
-	</table>
-	[#if order.refunds]
-	<table class="input tabContent">
-		<tr class="title">
-			<th>
-				${message("Refunds.sn")}
-			</th>
-			<th>
-				${message("Refunds.method")}
-			</th>
-			<th>
-				${message("Refunds.paymentMethod")}
-			</th>
-			<th>
-				${message("Refunds.amount")}
-			</th>
-			<th>
-				${message("admin.common.createDate")}
-			</th>
-		</tr>
-		[#list order.refunds as refunds]
-			<tr>
-				<td>
-					${refunds.sn}
-				</td>
-				<td>
-					${message("Refunds.Method." + refunds.method)}
-				</td>
-				<td>
-					${refunds.paymentMethod!"-"}
-				</td>
-				<td>
-					${currency(refunds.amount, true)}
-				</td>
-				<td>
-					${refunds.createDate?string("yyyy-MM-dd HH:mm:ss")}
-				</td>
-			</tr>
-		[/#list]
-	</table>
-	[/#if]
-	[#if order.returns]
-	<table class="input tabContent">
-	[#list order.returns as returns]
-		<tr class="title">
-			<th style="background-color: darkseagreen;">
-				${message("admin.returns.base")}
-			</th>
-			<th>
-				${message("Returns.sn")}
-			</th>
-			<th>
-				${message("Returns.shippingMethod")}
-			</th>
-			<th>
-				${message("Returns.deliveryCorp")}
-			</th>
-			<th>
-				${message("Returns.trackingNo")}
-			</th>
-			<th>
-				${message("Returns.shipper")}
-			</th>
-			<th>
-				${message("admin.common.createDate")}
-			</th>
-			<th>
-				${message("Returns.memo")}:
-			</th>
-			<th colspan="2">
-				${message("Returns.customerMemo")}:
-			</th>
-		</tr>
-		<tr>
-			<td>
-				&nbsp;
-			</td>
-			<td>
-				${returns.sn}
-			</td>
-			<td>
-				${(returns.shippingMethod)!"-"}
-			</td>
-			<td>
-				${(returns.deliveryCorp)!"-"}
-			</td>
-			<td>
-				${(returns.trackingNo)!"-"}
-			</td>
-			<td>
-				${returns.shipper}
-			</td>
-			<td>
-				${returns.createDate?string("yyyy-MM-dd HH:mm:ss")}
-			</td>
-			<td>
-				${(returns.memo)!"-"}
-			</td>
-			<td colspan="2">
-				${(returns.customerMemo)!"-"}
-			</td>
-		</tr>
-		<tr class="title">
-			<th>
-				${message("Returns.returnsItems")}
-			</th>
-			<th colspan="2">
-				${message("ReturnsItem.sn")}
-			</th>
-			<th colspan="2">
-				${message("ReturnsItem.name")}
-			</th>
-			<th colspan="2">
-				${message("ReturnsItem.quantity")}
-			</th>
-			<th>
-				${message("ReturnsItem.actualReceiptQty")}
-			</th>
-			<th>
-				${message("Returns.returnsSingleAppliedAmount")}
-			</th>
-			<th>
-				${message("Returns.returnsSingleAmount")}
-			</th>
-		</tr>
-		[#list returns.returnsItems as returnsItem]
-		<tr>
-			<td>
-				&nbsp;
-			</td>
-			<td colspan="2">
-				${returnsItem.sn}
-			</td>
-			<td colspan="2">
-				<span title="${returnsItem.name}">${abbreviate(returnsItem.name, 50, "...")}</span>
-			</td>
-			<td colspan="2">
-				${returnsItem.quantity}
-			</td>
-			<td>
-				${(returnsItem.actualReceiptQty)!"-"}
-			</td>
-			<td>
-			    ${currency(returnsItem.returnsAppliedAmount, true)!"-"}
-			</td>
-			<td>
-			    ${currency(returnsItem.returnsAmount, true)!"-"}
-		    </td>
-		</tr>
-		[/#list]
-		<tr class="title">
-			<th>
-				${message("Returns.shopStore.storeRowId")}
-			</th>
-			<th>
-				${message("Returns.shopStore.storeCode")}
-			</th>
-			<th>
-				${message("Returns.shopStore.storeName")}
-			</th>
-			<th>
-				${message("Returns.shopStore.storeType")}
-			</th>
-			<th>
-				${message("Returns.shopStore.storeAlipayNo")}
-			</th>
-			<th>
-				${message("Returns.shopStore.position")}
-			</th>
-			<th>
-				${message("Returns.shopStore.address")}
-			</th>
-			<th>
-				${message("Returns.shopStore.zipcode")}
-			</th>
-			<th>
-				${message("Returns.shopStore.consignorInfo")}
-			</th>
-			<th>
-				${message("Returns.shopStore.shopCompany")}
-			</th>
-		</tr>
-		<tr>
-			<td>
-				${returns.shopStore.storeRowId}
-			</td>
-			<td>
-				${returns.shopStore.storeCode}
-			</td>
-			<td>
-				${returns.shopStore.storeName}
-			</td>
-			<td>
-				[#if returns.shopStore.storeType == 1]
-					${returns.ShopStore.storeType.warehouse}
-				[#else]
-					${returns.ShopStore.storeType.store}
-				[/#if]
-				
-			</td>
-			<td>
-				${returns.shopStore.storeAlipayNo}
-			</td>
-			<td>
-				<div>${returns.shopStore.province}</div>
-				<div>${returns.shopStore.city}</div>
-				<div>${returns.shopStore.district}</div>
-			</td>
-			<td>
-				${returns.shopStore.address}
-			</td>
-			<td>
-				${returns.shopStore.zipcode}
-			</td>
-			<td>
-				<div>${returns.shopStore.consignor}</div>
-				<div>${returns.shopStore.telephone}</div>
-			</td>
-			<td>
-				${returns.shopStore.shopCompany.companyName}
-			</td>
-		</tr>
-		<tr>
-			<td colspan="10">
-				&nbsp
-			</td>
-		</tr>
-	[/#list]
-	</table>
-	</table>
-	[/#if]
-	<table class="input tabContent">
 		<tr class="title">
 			<th>
 				${message("OrderLog.type")}
@@ -1765,7 +1153,7 @@ $().ready(function() {
 				${message("admin.common.createDate")}
 			</th>
 		</tr>
-		[#list order.orderLogs as orderLog]
+		[#list orderLogs as orderLog]
 			<tr>
 				<td>
 					${message("OrderLog.Type." + orderLog.type)}
@@ -1783,7 +1171,7 @@ $().ready(function() {
 					[/#if]
 				</td>
 				<td>
-					<span title="${orderLog.createDate?string("yyyy-MM-dd HH:mm:ss")}">${orderLog.createDate}</span>
+					<span title="${orderLog.createDate?string("yyyy-MM-dd HH:mm:ss")}">${orderLog.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
 				</td>
 			</tr>
 		[/#list]

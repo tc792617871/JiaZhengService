@@ -89,4 +89,15 @@ public class PaymentServiceImpl extends BaseServiceImpl implements PaymentServic
 		}
 	}
 
+	@Override
+	public List<TPayment> findPaymentByOrderId(Long orderId) {
+		if (orderId != null) {
+			Criteria criteria = new Criteria();
+			criteria.createConditon().andEqualTo(TTPayment.ORDERS, orderId);
+			List<TPayment> payments = paymentMapper.selectByExample(criteria);
+			return payments;
+		}
+		return null;
+	}
+
 }
