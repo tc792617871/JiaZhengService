@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.platform.JiaZhengService.common.pojo.Setting;
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.entity.TMember;
+import com.platform.JiaZhengService.dao.entity.TOrder;
 
 /**
  * 会员-memberService
@@ -133,5 +134,13 @@ public interface MemberService extends BaseService {
 	 * @return
 	 */
 	Boolean isAuthenticated();
+
+	/**
+	 * 查找会员订单
+	 * 
+	 * @param c
+	 * @return
+	 */
+	List<TOrder> findOrdersByCriteria(Criteria c);
 
 }

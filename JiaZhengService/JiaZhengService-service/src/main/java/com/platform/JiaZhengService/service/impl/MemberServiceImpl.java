@@ -23,7 +23,9 @@ import com.platform.JiaZhengService.common.util.SettingUtils;
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.constants.TTMember;
 import com.platform.JiaZhengService.dao.entity.TMember;
+import com.platform.JiaZhengService.dao.entity.TOrder;
 import com.platform.JiaZhengService.dao.mapper.TMemberMapper;
+import com.platform.JiaZhengService.dao.mapper.TOrderMapper;
 import com.platform.JiaZhengService.service.api.MemberService;
 
 @Service("memberServiceImpl")
@@ -31,6 +33,9 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 
 	@Resource
 	private TMemberMapper memberMapper;
+
+	@Resource
+	private TOrderMapper orderMapper;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -207,6 +212,11 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public List<TOrder> findOrdersByCriteria(Criteria c) {
+		return orderMapper.selectByExample(c);
 	}
 
 }

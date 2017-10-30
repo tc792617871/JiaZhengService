@@ -34,7 +34,21 @@ var messages = {
 	"Order.ShippingStatus.partialShipment":"${message("Order.ShippingStatus.partialShipment")}",
 	"Order.ShippingStatus.shipped":"${message("Order.ShippingStatus.shipped")}",
 	"Order.ShippingStatus.partialReturns":"${message("Order.ShippingStatus.partialReturns")}",
-	"Order.ShippingStatus.returned":"${message("Order.ShippingStatus.returned")}"
+	"Order.ShippingStatus.returned":"${message("Order.ShippingStatus.returned")}",
+	"Order.OrderStatus.1":"${message("Order.OrderStatus.unconfirmed")}",
+	"Order.OrderStatus.2":"${message("Order.OrderStatus.confirmed")}",
+	"Order.OrderStatus.3":"${message("Order.OrderStatus.completed")}",
+	"Order.OrderStatus.4":"${message("Order.OrderStatus.cancelled")}",
+	"Order.OrderStatus.5":"${message("Order.OrderStatus.receipt")}",
+	"Order.PaymentStatus.1":"${message("Order.PaymentStatus.unpaid")}",
+	"Order.PaymentStatus.2":"${message("Order.PaymentStatus.partialPayment")}",
+	"Order.PaymentStatus.3":"${message("Order.PaymentStatus.paid")}",
+	"Order.PaymentStatus.4":"${message("Order.PaymentStatus.refunded")}",
+	"Order.ShippingStatus.1":"${message("Order.ShippingStatus.unshipped")}",
+	"Order.ShippingStatus.2":"${message("Order.ShippingStatus.partialShipment")}",
+	"Order.ShippingStatus.3":"${message("Order.ShippingStatus.shipped")}",
+	"Order.ShippingStatus.4":"${message("Order.ShippingStatus.partialReturns")}",
+	"Order.ShippingStatus.5":"${message("Order.ShippingStatus.returned")}"
 };
 
 // 添加Cookie

@@ -37,9 +37,7 @@
 	display: block;
 	width: 10px;
 	height: 10px;
-	position: absolute;
 	right: 10px;
-	top: 43%;
 	border-right: 2px solid #A4A4A4;
 	border-top: 2px solid #A4A4A4;
 	webkit-transform: scale(0.75, 0.75) rotate(45deg);
@@ -77,7 +75,7 @@
 .pgdstatus {
 	font-size: 12px;
 	padding-right: 10px;
-	width: 100px;
+	width: 160px;
 }
 
 .pgddetail {

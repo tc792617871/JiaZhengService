@@ -1,8 +1,12 @@
 package com.platform.JiaZhengService.Controller.mobile.member;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Controller;
@@ -16,11 +20,18 @@ import com.platform.JiaZhengService.common.pojo.Message;
 import com.platform.JiaZhengService.common.pojo.Setting;
 import com.platform.JiaZhengService.common.util.RegUtils;
 import com.platform.JiaZhengService.common.util.SettingUtils;
+import com.platform.JiaZhengService.dao.Criteria;
+import com.platform.JiaZhengService.dao.Criteria.Condition;
+import com.platform.JiaZhengService.dao.constants.TTOrder;
 import com.platform.JiaZhengService.dao.entity.TArea;
 import com.platform.JiaZhengService.dao.entity.TMember;
+import com.platform.JiaZhengService.dao.entity.TOrder;
+import com.platform.JiaZhengService.dao.entity.TOrderItem;
 import com.platform.JiaZhengService.dao.entity.TReceiver;
 import com.platform.JiaZhengService.service.api.AreaService;
 import com.platform.JiaZhengService.service.api.MemberService;
+import com.platform.JiaZhengService.service.api.OrderItemService;
+import com.platform.JiaZhengService.service.api.OrderService;
 import com.platform.JiaZhengService.service.api.ReceiverService;
 
 @Controller("mobileMemberController")
@@ -36,6 +47,16 @@ public class MemberController extends AbstractController {
 	@Resource(name = "areaServiceImpl")
 	private AreaService areaService;
 
+	@Resource(name = "orderServiceImpl")
+	private OrderService orderService;
+
+	@Resource(name = "orderItemServiceImpl")
+	private OrderItemService orderItemService;
+
+	private static String ORDER_STATUS_NOEND = "noend";
+
+	private static String ORDER_STATUS_END = "end";
+
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String loginIndex(ModelMap model) {
 		TMember member = memberService.getCurrent();
@@ -49,10 +70,37 @@ public class MemberController extends AbstractController {
 	}
 
 	/**
+	 * 我的订单页面
+	 */
+	@RequestMapping(value = "/myOrderList", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> myOrderList(HttpServletRequest request, HttpServletResponse response,
+			String orderStatus) {
+		Map<String, Object> data = new HashMap<String, Object>();
+		TMember member = memberService.getCurrent();
+		Criteria c = new Criteria();
+		Condition con = c.createConditon();
+		con.andEqualTo(TTOrder.MEMBER, member.getId());
+		if (orderStatus != null) {
+			if (ORDER_STATUS_NOEND.equals(orderStatus)) {
+				con.andNotEqualTo(TTOrder.ORDER_STATUS, 3);
+			} else if (ORDER_STATUS_END.equals(orderStatus)) {
+				con.andEqualTo(TTOrder.ORDER_STATUS, 3);
+			}
+		}
+		List<TOrder> orders = memberService.findOrdersByCriteria(c);
+		data.put("orders", orders);
+		return data;
+	}
+
+	/**
 	 * 订单详情页面
 	 */
 	@RequestMapping(value = "/orderDetails", method = RequestMethod.GET)
-	public String listOrderDetails(Long id, ModelMap model) {
+	public String orderDetails(Long id, ModelMap model) {
+		TOrder order = orderService.findById(id);
+		List<TOrderItem> orderItems = orderItemService.findOrderItemsByOrderId(id);
+		order.setOrderItems(orderItems);
+		model.addAttribute("order", order);
 		return "/mobile/member/orderDetails";
 	}
 

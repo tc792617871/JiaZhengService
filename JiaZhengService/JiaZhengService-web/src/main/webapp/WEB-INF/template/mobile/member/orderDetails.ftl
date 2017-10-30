@@ -26,102 +26,54 @@ $().ready(function() {
 		<div class="orderInfoContent">
 			<div class="pgdarea">
 				<span class="orderName">
-					wx10748(取消)
+					${order.sn}(${message("Order.OrderStatus." + order.orderStatus)},${message("Order.PaymentStatus." + order.paymentStatus)},${message("Order.ShippingStatus." + order.shippingStatus)})
 				</span>
 				<hr/>
-				<span >
+				<span>
 					<label style="font-weight:bold;">服务地址</label>
-					<label >高级中学111号</label>
+					<label>${order.areaName}&nbsp;${order.address}</label>
 				</span>
 				<hr/>
-				<span >
+				<span>
 					<label style="font-weight:bold;">开始时间</label>
-					<label >2017-09-07 09:19:00.0</label>
+					<label>${order.createDate?string("yyyy-MM-dd HH:mm:ss")}</label>
 				</span>
 				<hr/>
-				<span >
+				<span>
 					<label style="font-weight:bold;">结束时间</label>
-					<label >
+					<label>
 					</label>
 				</span>
-				<hr/>
-				<span >
+				<!--<span>
 					<label style="font-weight:bold;">服务人员</label>
 					<label >待定</label>
-				</span>
+				</span>-->
 			</div>
 			<div class="parts">
 				<span class="service-content">
 					服务内容
 				</span>
 				<table cellpadding="2" cellspacing="0" style="width:100%;background:#ffffff;">
+					[#list order.orderItems as orderItem]
 					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
+						<td>${abbreviate(orderItem.name, 50, "...")}</td>
+						<td>${currency(orderItem.price, true)}</td>
+						<td>${orderItem.quantity}</td>
+						<td>${currency(orderItem.subtotal, true)}</td>
 					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
-					<tr>
-						<td>灯具清洗</td>
-						<td width="90px" >￥ 1.0/看灯报价</td>
-						<td width="70px" >1.0看灯报价</td>
-					</tr>
+					[/#list]
 				</table>
 			</div>
 			<div class="pgdarea">
 				<span style="position:relative;">
 					<label style="font-weight:bold;">费用合计</label>
 					<label style="color:red;position:absolute;right:30px;">
-						1.0
+						${currency(order.amount, true)}
 					</label>
 				</span>
 			</div>
         </div>
-	   [#include "/mobile/include/footer.ftl" /]
+	   [#include "/mobile/include/footer_2.ftl" /]
 	</div>
 </body>
 </html>

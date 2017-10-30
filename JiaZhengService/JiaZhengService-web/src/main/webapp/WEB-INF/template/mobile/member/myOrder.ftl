@@ -18,7 +18,7 @@ $().ready(function() {
 	$(".header_2 .cart_area").remove();
 	$(".header_2 .home_area").remove();
 	
-	//setCheckCate(document.getElementById('noend'),'noend');
+	setCheckCate(document.getElementById('noend'),'noend');
 });
 </script>
 </head>
@@ -26,7 +26,6 @@ $().ready(function() {
 	<div id="container">
 		[#include "/mobile/include/header_2.ftl" /]
 		<div id="bigcates">
-			<input type="hidden" id="currid" name="currid" value="">
 			<table cellpadding="0" cellspacing="0">
 				<tr>
 					<td class="nocheckCate checkCate" id="noend" onClick="setCheckCate(this,'noend')">未完成订单</td>
@@ -36,60 +35,6 @@ $().ready(function() {
 		</div>
 		<div class="order-list">
 			<div id="smallcates">
-				<div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-							<td align="center" class="pgdnum">111111</td>
-							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
-						</tr>
-					</table>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-						<tr><td class="pgddetail">服务项目：1111</td></tr>
-					    <tr><td class="pgddetail">服务地址：11111</td></tr>
-						<tr><td class="pgddetail">开始时间：1111</td></tr>
-					 </table>
-					 <span class="rightArrow"></span>
-			     </div>
-				 <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
-				 	 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-							<td align="center" class="pgdnum">111111</td>
-							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
-						</tr>
-					  </table>
-					  <table width="100%" border="0" cellspacing="0" cellpadding="0" >
-							<tr><td class="pgddetail">服务项目：1111</td></tr>
-					    	<tr><td class="pgddetail">服务地址：11111</td></tr>
-							<tr><td class="pgddetail">开始时间：1111</td></tr>
-					  </table>
-					  <span class="rightArrow"></span>
-				  </div>
-				  <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-							<td align="center" class="pgdnum">111111</td>
-							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
-						</tr>
-					</table>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-						<tr><td class="pgddetail">服务项目：1111</td></tr>
-					    <tr><td class="pgddetail">服务地址：11111</td></tr>
-						<tr><td class="pgddetail">开始时间：1111</td></tr>
-					 </table><span class="rightArrow"></span>
-				  </div>
-				  <div class="pgdarea" onclick="window.location='${base}/mobile/member/orderDetails.jhtml'">
-					<table width="100%" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-							<td align="center" class="pgdnum">111111</td>
-							<td align="right" class="pgdstatus"><span style="color:#FF4000" >取消</span></td>
-						</tr>
-					</table>
-					<table width="100%" border="0" cellspacing="0" cellpadding="0" >
-						<tr><td class="pgddetail">服务项目：1111</td></tr>
-					    <tr><td class="pgddetail">服务地址：11111</td></tr>
-						<tr><td class="pgddetail">开始时间：1111</td></tr>
-					 </table><span class="rightArrow"></span>
-				  </div>
 			</div>
 		</div>
 		<script type="text/javascript">
@@ -98,7 +43,6 @@ $().ready(function() {
 				var width = $(obj).outerWidth(false);//返回元素的宽度（包括元素宽度、内边距和边框，不包括外边距）参数为true，包括外边距
 				var dis = (container_clientwidth-width)/2;//滚动后元素距左侧距离
 				var offleft = obj.offsetLeft ;//$(obj).position().left;//相对于容器左边距离
-				//$('#bigcates').scrollLeft(offleft-dis);
 				$('#bigcates').animate({ scrollLeft: offleft-dis }, 300);
 		
 				if($('#bigcates .checkCate').length>0){
@@ -106,39 +50,47 @@ $().ready(function() {
 				}
 				$(obj).addClass('checkCate');
 				$('#currid').val(bigcate);
-				if(bigcate=='DQ'){
-					getDQ();
-				}else{
-					getsmallcates(bigcate);
-				}
+				getsmallcates(bigcate);
 			}
 			function getsmallcates(bigcate){
-				$.loader.show('加载中...');
 				$.ajax({  
 					type:'post',   
 					async:true,
-					url:'http://meiaijie.wx.toohuu.com:80/wx/jzbj/json/paigongdan.jsp?pgdstatus='+bigcate,
-					complete:function(data){
-						$.loader.hide();
-						eval ('huiyuan_danci = '+data.responseText); 
-						list_json = huiyuan_danci['huiyuan'];
-						//console.log(list_json);
-						var currid = $('#currid').val();
+					dataType: "json",
+					url:'${base}/mobile/member/myOrderList.jhtml?orderStatus='+bigcate,
+					success:function(data){
+						var orders = data.orders; 
 						var html = "";
-						for(inx in list_json){
-							new_json = list_json[inx];
-							html += '<div class="pgdarea" onclick="gotourl(\'http://meiaijie.wx.toohuu.com:80/wx/jzbj/tpgd_show.jsp?pgdid='+new_json.tid120416182220667+'&currid='+currid+'\')">'
-								  + '<table width="100%" border="0" cellspacing="0" cellpadding="0">'
-								  + '<tr>'
-									+ '<td align="center" class="pgdnum">'+new_json.c120416182510645+'</td>'
-									+ '<td align="right" class="pgdstatus"><span style="color:#FF4000" >'+new_json.c120417141759268+'</span></td>'
-								  + '</tr>'
-								  + '</table>'
-								  + '<table width="100%" border="0" cellspacing="0" cellpadding="0" >'
-								  + '<tr><td class="pgddetail">服务项目：'+(new_json.c140805163445556||new_json.c140805163445556)+'</td></tr>'	
-								  +	'<tr><td class="pgddetail">服务地址：'+new_json.c12041618311183+'</td></tr>'
-								  +	'<tr><td class="pgddetail">开始时间：'+(new_json.c120416182856132==null?'':new_json.c120416182856132)+'</td></tr>'
-								  + '</table><span class="rightArrow"></span></div>';
+						var length = orders.length;
+						if(length > 0){
+							for(var index = 0;  index < length; index ++){
+								var orderItem = orders[index];
+								var orderId = orderItem.id;
+								var order_status = orderItem.orderStatus;
+								var payment_status = orderItem.paymentStatus;
+								var shipping_status = orderItem.shippingStatus;
+								var status = message(("Order.OrderStatus."+order_status))+","+message(("Order.PaymentStatus."+payment_status))+","+message(("Order.ShippingStatus."+shipping_status));
+								var sn = orderItem.sn;
+								var orderName = orderItem.name;
+								var areaName = orderItem.areaName;
+								var address = orderItem.address;
+								var createTime = timeStamp2String(orderItem.createDate);
+								html += '<div class="pgdarea" onclick="window.location=\'${base}/mobile/member/orderDetails.jhtml?id='+orderId+'\'">'
+									  + '<table width="100%" border="0" cellspacing="0" cellpadding="0">'
+									  + '<tr>'
+										+ '<td align="center" class="pgdnum">'+sn+'</td>'
+										+ '<td align="right" class="pgdstatus"><span style="color:#FF4000" >'+status+'</span></td>'
+									  + '</tr>'
+									  + '</table>'
+									  + '<table width="100%" border="0" cellspacing="0" cellpadding="0" >'
+									  + '<tr><td class="pgddetail">服务项目：'+orderName+'</td></tr>'	
+									  +	'<tr><td class="pgddetail">服务地址：'+(areaName+address)+'</td><td align="right"><span class="rightArrow"></span></td></tr>'
+									  +	'<tr><td class="pgddetail">开始时间：'+(createTime)+'</td></tr>'
+									  + '</table></div>';
+							}
+						}
+						else{
+							html = '<p style="text-align: center;">暂无订单</p>';
 						}
 						$('#smallcates').html(html);
 					}

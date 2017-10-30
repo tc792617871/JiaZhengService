@@ -59,7 +59,8 @@ public class RegisterController extends AbstractController {
 			// 随机生成6位验证码
 			Double d = Math.random();
 			int validateCodeInt = (int) (d * 900000 + 100000);
-			String validateCode = String.valueOf(validateCodeInt);
+			// String validateCode = String.valueOf(validateCodeInt);
+			String validateCode = "666666";
 			String msg = validateCode + SpringUtils.getMessage("admin.validate.sms.info");
 			Setting setting = SettingUtils.get();
 			String safeKey = UUID.randomUUID().toString() + DigestUtils.md5Hex(RandomStringUtils.randomAlphabetic(30));
