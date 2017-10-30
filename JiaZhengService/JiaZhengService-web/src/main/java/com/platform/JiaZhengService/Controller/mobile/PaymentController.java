@@ -123,6 +123,7 @@ public class PaymentController extends AbstractController {
 			payment.setExpire(paymentPlugin.getTimeout() != null
 					? DateUtils.addMinutes(new Date(), paymentPlugin.getTimeout()) : null);
 			payment.setOrders(order.getId());
+			payment.setMember(member.getId());
 			paymentService.savePayment(payment);
 
 		} else {

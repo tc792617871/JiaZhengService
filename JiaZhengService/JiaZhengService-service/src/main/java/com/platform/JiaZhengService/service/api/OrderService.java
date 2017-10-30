@@ -95,4 +95,14 @@ public interface OrderService extends BaseService {
 	 */
 	List<TOrder> queryOrderList(Criteria c);
 
+	/**
+	 * 订单发货
+	 * 
+	 * @param order
+	 *            订单
+	 * @param operator
+	 *            操作员
+	 */
+	void shipping(TOrder order, TAdmin operator);
+
 }

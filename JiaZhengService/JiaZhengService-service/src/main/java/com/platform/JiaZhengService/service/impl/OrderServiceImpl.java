@@ -111,6 +111,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 				TProduct product = cartItem.getTproduct();
 				TSpecification specification = cartItem.gettSpecification();
 				TOrderItem orderItem = new TOrderItem();
+				orderItem.setSn(product.getSn());
 				orderItem.setName(specification.getName());
 				orderItem.setPrice(cartItem.getPrice()); // 计算优惠券需要注意下
 				orderItem.setThumbnail(product.getImage());
@@ -265,7 +266,8 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	@Override
 	public TOrder findById(Long orderId) {
 		if (orderId != null) {
-			return orderMapper.selectByPrimaryKey(orderId);
+			TOrder order = orderMapper.selectByPrimaryKey(orderId);
+			return order;
 		}
 		return null;
 	}
@@ -331,13 +333,15 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	public void cancel(TOrder order, TAdmin operator) {
 		Date date = new Date();
 		TMember member = memberMapper.selectByPrimaryKey(order.getMember());
-		TCouponCode couponCode = couponCodeMapper.selectByPrimaryKey(order.getCouponCode());
-		if (couponCode != null) {
-			couponCode.setIsUsed(false);
-			couponCode.setUsedDate(null);
-			couponCodeMapper.updateByPrimaryKeySelective(couponCode);
+		if (order.getCouponCode() != null) {
+			TCouponCode couponCode = couponCodeMapper.selectByPrimaryKey(order.getCouponCode());
+			if (couponCode != null) {
+				couponCode.setIsUsed(false);
+				couponCode.setUsedDate(null);
+				couponCodeMapper.updateByPrimaryKeySelective(couponCode);
+			}
+			order.setCouponCode(null);
 		}
-		order.setCouponCode(null);
 		order.setOrderStatus(OrderStatus.cancelled.getCode());
 		order.setExpire(null);
 		order.setModifyDate(date);
@@ -379,6 +383,24 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 			}
 		}
 		return orders;
+	}
+
+	@Override
+	public void shipping(TOrder order, TAdmin operator) {
+		Date date = new Date();
+		order.setShippingStatus(ShippingStatus.shipped.getCode());
+		order.setExpire(null);
+		order.setModifyDate(date);
+		orderMapper.updateByPrimaryKeySelective(order);
+
+		TOrderLog orderLog = new TOrderLog();
+		orderLog.setType(Type.shipping.getCode());
+		orderLog.setOperator(operator != null ? operator.getUsername() : null);
+		orderLog.setOrders(order.getId());
+		orderLog.setCreateDate(date);
+		orderLog.setModifyDate(date);
+		orderLogMapper.insertSelective(orderLog);
+
 	}
 
 }

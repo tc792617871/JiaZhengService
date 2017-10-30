@@ -25,10 +25,12 @@ import com.platform.JiaZhengService.dao.Criteria.Condition;
 import com.platform.JiaZhengService.dao.Pageable;
 import com.platform.JiaZhengService.dao.constants.TTOrder;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
+import com.platform.JiaZhengService.dao.entity.TArea;
 import com.platform.JiaZhengService.dao.entity.TMember;
 import com.platform.JiaZhengService.dao.entity.TOrder;
 import com.platform.JiaZhengService.dao.entity.TOrder.OrderStatus;
 import com.platform.JiaZhengService.dao.entity.TOrder.PaymentStatus;
+import com.platform.JiaZhengService.dao.entity.TOrder.ShippingStatus;
 import com.platform.JiaZhengService.dao.entity.TOrderItem;
 import com.platform.JiaZhengService.dao.entity.TOrderLog;
 import com.platform.JiaZhengService.dao.entity.TPayment;
@@ -142,6 +144,10 @@ public class OrderController extends AbstractController {
 		order.setPayments(payments);
 		List<TOrderItem> orderItems = orderItemService.findOrderItemsByOrderId(order.getId());
 		order.setOrderItems(orderItems);
+		TMember member = memberService.find(order.getMember());
+		order.settMember(member);
+		TArea area = areaService.find(order.getArea());
+		order.settArea(area);
 		List<TOrderLog> orderLogs = orderLogService.findOrderLogsByOrderId(order.getId());
 		model.addAttribute("orderLogs", orderLogs);
 		model.addAttribute("order", order);
@@ -205,6 +211,8 @@ public class OrderController extends AbstractController {
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String payment(Long orderId, Long paymentMethodId, TPayment payment, RedirectAttributes redirectAttributes) {
 		TOrder order = orderService.findById(orderId);
+		List<TOrderItem> orderItems = orderItemService.findOrderItemsByOrderId(orderId);
+		order.setOrderItems(orderItems);
 		payment.setOrder(order);
 		TPaymentMethod paymentMethod = paymentMethodService.find(paymentMethodId);
 		payment.setPaymentMethod(paymentMethod != null ? paymentMethod.getName() : null);
@@ -240,7 +248,34 @@ public class OrderController extends AbstractController {
 		payment.setPaymentPluginId(null);
 		payment.setExpire(null);
 		payment.setMember(null);
+		payment.setOrders(order.getId());
+		paymentService.savePayment(payment);
 		orderService.payment(order, payment, admin);
+		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
+		return "redirect:view.jhtml?id=" + orderId;
+	}
+
+	/**
+	 * 发货
+	 */
+	@RequestMapping(value = "/shipping", method = RequestMethod.POST)
+	public String shipping(Long orderId, RedirectAttributes redirectAttributes) {
+		TOrder order = orderService.findById(orderId);
+		if (order == null) {
+			return ERROR_VIEW;
+		}
+		if (order.isExpired() || order.getOrderStatus() != OrderStatus.confirmed.getCode()) {
+			return ERROR_VIEW;
+		}
+		if (order.getShippingStatus() != ShippingStatus.unshipped.getCode()
+				&& order.getShippingStatus() != ShippingStatus.partialShipment.getCode()) {
+			return ERROR_VIEW;
+		}
+		TAdmin admin = adminService.getCurrent();
+		if (order.isLocked(admin)) {
+			return ERROR_VIEW;
+		}
+		orderService.shipping(order, admin);
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:view.jhtml?id=" + orderId;
 	}

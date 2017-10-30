@@ -57,7 +57,10 @@ public class PaymentMethodServiceImpl extends BaseServiceImpl implements Payment
 
 	@Override
 	public TPaymentMethod find(Long id) {
-		return paymentMethodMapper.selectByPrimaryKey(id);
+		if (id != null) {
+			return paymentMethodMapper.selectByPrimaryKey(id);
+		}
+		return null;
 	}
 
 }

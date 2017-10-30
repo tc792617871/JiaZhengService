@@ -139,20 +139,6 @@ $().ready(function() {
 							<\/tr>
 							<tr>
 								<th>
-									${message("Payment.bank")}:
-								<\/th>
-								<td>
-									<input type="text" name="bank" class="text" maxlength="200" \/>
-								<\/td>
-								<th>
-									${message("Payment.account")}:
-								<\/th>
-								<td>
-									<input type="text" name="account" class="text" maxlength="200" \/>
-								<\/td>
-							<\/tr>
-							<tr>
-								<th>
 									${message("Payment.amount")}:
 								<\/th>
 								<td>
@@ -172,7 +158,7 @@ $().ready(function() {
 								<td>
 									<select id="method" name="method">
 										[#list methods as method]
-											<option value="${method}">${message("Payment.Method." + method)}<\/option>
+											<option value="${method.code}">${message("Payment.Method." + method)}<\/option>
 										[/#list]
 									<\/select>
 								<\/td>
@@ -209,13 +195,6 @@ $().ready(function() {
 				ok: "${message("admin.dialog.ok")}",
 				cancel: "${message("admin.dialog.cancel")}",
 				onShow: function() {
-					var $method = $("#method");
-					$.validator.addMethod("balance", 
-						function(value, element, param) {
-							return this.optional(element) || $method.val() != "deposit" || parseFloat(value) <= parseFloat(param);
-						},
-						"${message("admin.order.insufficientBalance")}"
-					);
 					$("#paymentForm").validate({
 						rules: {
 							amount: {
@@ -225,8 +204,10 @@ $().ready(function() {
 								decimal: {
 									integer: 12,
 									fraction: ${setting.priceScale}
-								},
-								balance: ${order.member.balance}
+								}
+							},
+							paymentMethodId: {
+								required: true
 							}
 						}
 					});
@@ -398,7 +379,7 @@ $().ready(function() {
 					<form id="shippingForm" action="shipping.jhtml" method="post">
 						<input type="hidden" name="token" value="${token}" \/>
 						<input type="hidden" name="orderId" value="${order.id}" \/>
-						<div style="height: 380px; overflow-x: hidden; overflow-y: auto;">
+						<div style="overflow-x: hidden; overflow-y: auto;">
 							<table class="input" style="margin-bottom: 30px;">
 								<tr>
 									<th>
@@ -412,43 +393,6 @@ $().ready(function() {
 									<\/th>
 									<td>
 										${order.createDate?string("yyyy-MM-dd HH:mm:ss")}
-									<\/td>
-								<\/tr>
-								<tr>
-									<th>
-										${message("Shipping.shippingMethod")}:
-									<\/th>
-									<td>
-										<select name="shippingMethodId">
-											<option value="">${message("admin.common.choose")}<\/option>
-											[#list shippingMethods as shippingMethod]
-												<option value="${shippingMethod.id}"[#if shippingMethod == order.shippingMethod] selected="selected"[/#if]>${shippingMethod.name}<\/option>
-											[/#list]
-										<\/select>
-									<\/td>
-									<th>
-										${message("Shipping.deliveryCorp")}:
-									<\/th>
-									<td>
-										<select name="deliveryCorpId">
-											[#list deliveryCorps as deliveryCorp]
-												<option value="${deliveryCorp.id}"[#if order.shippingMethod?? && deliveryCorp == order.shippingMethod.defaultDeliveryCorp] selected="selected"[/#if]>${deliveryCorp.name}<\/option>
-											[/#list]
-										<\/select>
-									<\/td>
-								<\/tr>
-								<tr>
-									<th>
-										${message("Shipping.trackingNo")}:
-									<\/th>
-									<td>
-										<input type="text" name="trackingNo" class="text" maxlength="200" \/>
-									<\/td>
-									<th>
-										${message("Shipping.freight")}:
-									<\/th>
-									<td>
-										<input type="text" name="freight" class="text" maxlength="16" \/>
 									<\/td>
 								<\/tr>
 								<tr>
@@ -471,7 +415,7 @@ $().ready(function() {
 									<\/th>
 									<td>
 										<span class="fieldSet">
-											<input type="hidden" id="areaId" name="areaId" value="${(order.area.id)!}" treePath="${(order.area.treePath)!}" \/>
+											<input type="hidden" id="areaId" name="areaId" value="${(order.area)!}" treePath="${(order.tArea.treePath)!}" \/>
 										<\/span>
 									<\/td>
 									<th>
@@ -495,82 +439,6 @@ $().ready(function() {
 										<input type="text" name="memo" class="text" maxlength="200" \/>
 									<\/td>
 								<\/tr>
-								<tr>
-									<th>
-										${message("Shipping.store")}:
-									<\/th>
-									<td>
-										<select name="shopStoreId">
-											<option value="">${message("admin.common.choose")}<\/option>
-											[#list shopStoreList as shopStore]
-												<option value="${shopStore.id}">${shopStore.storeName}<\/option>
-											[/#list]
-										<\/select>
-									<\/td>
-								<\/tr>
-							<\/table>
-							<table class="input">
-								<tr class="title">
-									<th>
-										${message("ShippingItem.sn")}
-									<\/th>
-									<th>
-										${message("ShippingItem.name")}
-									<\/th>
-									<th>
-										${message("admin.order.productStock")}
-									<\/th>
-									<th>
-										${message("admin.order.productQuantity")}
-									<\/th>
-									<th>
-										${message("OrderItem.shippedQuantity")}
-									<\/th>
-									<th>
-										${message("admin.order.shippingQuantity")}
-									<\/th>
-								<\/tr>
-								[#list order.orderItems as orderItem]
-									<tr>
-										<td>
-											<input type="hidden" name="shippingItems[${orderItem_index}].sn" value="${orderItem.sn}" \/>
-											${orderItem.sn}
-										<\/td>
-										<td width="300">
-											<span title="${orderItem.fullName}">${abbreviate(orderItem.fullName, 50, "...")}<\/span>
-											[#if orderItem.isGift]
-												<span class="red">[${message("admin.order.gift")}]<\/span>
-											[/#if]
-										<\/td>
-										<td>
-											${(orderItem.product.stock)!"-"}
-										<\/td>
-										<td>
-											${orderItem.quantity}
-										<\/td>
-										<td>
-											${orderItem.shippedQuantity}
-										<\/td>
-										<td>
-											[#if orderItem.product?? && orderItem.product.stock??]
-												[#if orderItem.product.stock <= 0 || orderItem.quantity - orderItem.shippedQuantity <= 0]
-													<input type="text" name="shippingItems[${orderItem_index}].quantity" class="text" value="0" style="width: 30px;" disabled="disabled" \/>
-												[#elseif orderItem.product.stock < orderItem.quantity - orderItem.shippedQuantity]
-													<input type="text" name="shippingItems[${orderItem_index}].quantity" class="text shippingItemsQuantity" value="${orderItem.product.stock}" maxlength="9" style="width: 30px;" max="${orderItem.product.stock}" \/>
-												[#else]
-													<input type="text" name="shippingItems[${orderItem_index}].quantity" class="text shippingItemsQuantity" value="${orderItem.quantity - orderItem.shippedQuantity}" maxlength="9" style="width: 30px;" max="${orderItem.quantity - orderItem.shippedQuantity}" \/>
-												[/#if]
-											[#else]
-												<input type="text" name="shippingItems[${orderItem_index}].quantity" class="text shippingItemsQuantity" value="${orderItem.quantity - orderItem.shippedQuantity}" maxlength="9" style="width: 30px;" max="${orderItem.quantity - orderItem.shippedQuantity}" \/>
-											[/#if]
-										<\/td>
-									<\/tr>
-								[/#list]
-								<tr>
-									<td colspan="6" style="border-bottom: none;">
-										&nbsp;
-									<\/td>
-								<\/tr>
 							<\/table>
 						<\/div>
 					<\/form>',
@@ -581,25 +449,10 @@ $().ready(function() {
 				cancel: "${message("admin.dialog.cancel")}",
 				onShow: function() {
 					$("#areaId").lSelect({
-						url: "${base}/common/area.jhtml"
-					});
-					$.validator.addClassRules({
-						shippingItemsQuantity: {
-							required: true,
-							digits: true
-						}
+						url: "${base}/mobile/common/area.jhtml"
 					});
 					$("#shippingForm").validate({
 						rules: {
-							shippingMethodId: "required",
-							deliveryCorpId: "required",
-							freight: {
-								min: 0,
-								decimal: {
-									integer: 12,
-									fraction: ${setting.priceScale}
-								}
-							},
 							consignee: "required",
 							zipCode: "required",
 							areaId: "required",
@@ -609,18 +462,7 @@ $().ready(function() {
 					});
 				},
 				onOk: function() {
-					var total = 0;
-					$("#shippingForm input.shippingItemsQuantity").each(function() {
-						var quantity = $(this).val();
-						if ($.isNumeric(quantity)) {
-							total += parseInt(quantity);
-						}
-					});
-					if (total <= 0) {
-						$.message("warn", "${message("admin.order.shippingQuantityPositive")}");
-					} else {
-						$("#shippingForm").submit();
-					}
+					$("#shippingForm").submit();
 					return false;
 				}
 			});
@@ -881,16 +723,16 @@ $().ready(function() {
 			</td>
 			<td>
 				[@shiro.hasPermission name = "admin:order_button_confirmButton"]
-				<input type="button" id="confirmButton" class="button" value="${message("admin.order.confirm")}"[#if order.expired || order.orderStatus != "unconfirmed"] disabled="disabled"[/#if] />
+				<input type="button" id="confirmButton" class="button" value="${message("admin.order.confirm")}"[#if order.expired || order.orderStatus != "1"] disabled="disabled"[/#if] />
 				[/@shiro.hasPermission]
 				[@shiro.hasPermission name = "admin:order_button_paymentButton"]
-				<input type="button" id="paymentButton" class="button" value="${message("admin.order.payment")}"[#if order.expired || order.orderStatus != "confirmed" || (order.paymentStatus != "unpaid" && order.paymentStatus != "partialPayment")] disabled="disabled"[/#if] />
+				<input type="button" id="paymentButton" class="button" value="${message("admin.order.payment")}"[#if order.expired || order.orderStatus != "2" || (order.paymentStatus != "1" && order.paymentStatus != "2")] disabled="disabled"[/#if] />
 				[/@shiro.hasPermission]
 				[@shiro.hasPermission name = "admin:order_button_shippingButton"]
-				<input type="button" id="shippingButton" class="button" value="${message("admin.order.shipping")}"[#if order.expired || order.orderStatus != "confirmed" || (order.shippingStatus != "unshipped" && order.shippingStatus != "partialShipment")] disabled="disabled"[/#if] />
+				<input type="button" id="shippingButton" class="button" value="${message("admin.order.shipping")}"[#if order.expired || order.orderStatus != "2" || (order.shippingStatus != "1" && order.shippingStatus != "2")] disabled="disabled"[/#if] />
 				[/@shiro.hasPermission]
 				[@shiro.hasPermission name = "admin:order_button_completeButton"]
-				<input type="button" id="completeButton" class="button" value="${message("admin.order.complete")}"[#if order.expired || (order.orderStatus != "confirmed" && order.orderStatus != "receipt")] disabled="disabled"[/#if] />
+				<input type="button" id="completeButton" class="button" value="${message("admin.order.complete")}"[#if order.expired || (order.orderStatus != "2" && order.orderStatus != "5")] disabled="disabled"[/#if] />
 				[/@shiro.hasPermission]
 			</td>
 			<td>
@@ -898,7 +740,7 @@ $().ready(function() {
 			</td>
 			<td>
 				[@shiro.hasPermission name = "admin:order_button_cancelButton"]
-				<input type="button" id="cancelButton" class="button" value="${message("admin.order.cancel")}"[#if order.expired || order.orderStatus != "unconfirmed"] disabled="disabled"[/#if] />
+				<input type="button" id="cancelButton" class="button" value="${message("admin.order.cancel")}"[#if order.expired || order.orderStatus != "1"] disabled="disabled"[/#if] />
 				[/@shiro.hasPermission]
 			</td>
 		</tr>
@@ -925,7 +767,7 @@ $().ready(function() {
 				[#if order.expired]
 					<span title="${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")}">(${message("admin.order.hasExpired")})</span>
 				[#elseif order.expire??]
-					<span title="${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")}">(${message("Order.expire")}: ${order.expire})</span>
+					<span title="${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")}">(${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")})</span>
 				[/#if]
 			</td>
 			<th>
@@ -946,7 +788,7 @@ $().ready(function() {
 				${message("Member.username")}:
 			</th>
 			<td>
-				${order.member.username}
+				${order.tMember.username}
 			</td>
 		</tr>
 		<tr>
@@ -985,11 +827,11 @@ $().ready(function() {
 				${order.paymentMethodName} [${paymentPluginAttribute}]
 			</td>
 			<th>
-				${message("Payment.businessSn")}:
+				${message("支付单号")}:
 			</th>
 			<td colspan="3">
 				[#list order.payments as payment]
-				    [#if payment.status == 'success']
+				    [#if payment.status == '2']
 				        [${payment.sn}]
 				    [/#if]
 				[/#list]
@@ -1130,7 +972,7 @@ $().ready(function() {
 				</td>
 				<td>
 					[#if payment.paymentDate??]
-						<span title="${payment.paymentDate?string("yyyy-MM-dd HH:mm:ss")}">${payment.paymentDate}</span>
+						<span title="${payment.paymentDate?string("yyyy-MM-dd HH:mm:ss")}">${payment.paymentDate?string("yyyy-MM-dd HH:mm:ss")}</span>
 					[#else]
 						-
 					[/#if]

@@ -414,6 +414,8 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 
 	private List<TPayment> payments = new ArrayList<TPayment>();
 
+	private TArea tArea;
+
 	/**
 	 * @return t_order.id : 返回
 	 */
@@ -1302,5 +1304,13 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 
 	public void setPayments(List<TPayment> payments) {
 		this.payments = payments;
+	}
+
+	public TArea gettArea() {
+		return tArea;
+	}
+
+	public void settArea(TArea tArea) {
+		this.tArea = tArea;
 	}
 }
