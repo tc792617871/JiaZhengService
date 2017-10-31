@@ -286,7 +286,14 @@ public class OrderController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public String edit(Long id, ModelMap model) {
 		model.addAttribute("paymentMethods", paymentMethodService.queryPaymentMethodList(new Criteria()));
-		model.addAttribute("order", orderService.findById(id));
+		TOrder order = orderService.findById(id);
+		List<TOrderItem> orderItems = orderItemService.findOrderItemsByOrderId(order.getId());
+		order.setOrderItems(orderItems);
+		TMember member = memberService.find(order.getMember());
+		order.settMember(member);
+		TArea area = areaService.find(order.getArea());
+		order.settArea(area);
+		model.addAttribute("order", order);
 		return "/admin/order/edit";
 	}
 

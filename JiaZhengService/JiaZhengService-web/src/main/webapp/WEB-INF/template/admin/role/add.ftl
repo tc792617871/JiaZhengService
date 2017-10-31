@@ -279,7 +279,7 @@ $().ready(function() {
 			
 			<!-- start 订单管理 -> 订单管理 -->
 			<tr class="orderGroup">
-				<th rowspan="3">
+				<th rowspan="2">
 					<input type="button" class="btn btn-primary btn-xs" id="orderGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
@@ -297,24 +297,12 @@ $().ready(function() {
 						<li>
 							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
 						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderExport"  value="admin:order_button_exportButton"/>
-							<label for="orderExport">
-								${message("admin.common.export")}
-							</label>
-						</li>
-						<li>
+						<!--<li>
 							<input type="checkbox" name="authorities" id="orderEdit" value="admin:order_a_edit" />
 							<label for="orderEdit">
 								${message("admin.common.edit")}
 							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderMark"  value="admin:order_a_mark"/>
-							<label for="orderMark">
-								${message("admin.common.mark")}
-							</label>
-						</li>
+						</li>-->
 						<li>
 							<input type="checkbox" name="authorities" id="orderConfirm" value="admin:order_button_confirmButton"/>
 							<label for="orderConfirm">
@@ -340,57 +328,9 @@ $().ready(function() {
 							</label>
 						</li>
 						<li>
-							<input type="checkbox" name="authorities" id="orderRefunds" value="admin:order_button_refundsButton"/>
-							<label for="orderRefunds">
-								${message("admin.order.refunds")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderReturns" value="admin:order_button_returnsButton"/>
-							<label for="orderReturns">
-								${message("admin.order.returns")}
-							</label>
-						</li>
-						<li>
 							<input type="checkbox" name="authorities" id="orderCancel" value="admin:order_button_cancelButton"/>
 							<label for="orderCancel">
 								${message("admin.order.cancel")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderReturns_a" value="admin:order_returns_a_edit"/>
-							<label for="orderReturns_a">
-								${message("admin.order.returns.edit")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderAgree" value="admin:order_returns_button_agreeButton"/>
-							<label for="orderAgree">
-								${message("admin.common.agree")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderReject" value="admin:order_returns_button_rejectButton"/>
-							<label for="orderReject">
-								${message("admin.common.reject")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderAgreeRefund" value="admin:order_returns_button_agreeRefundButton"/>
-							<label for="orderAgreeRefund">
-								${message("admin.returns.agreedRefund")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderExportProductSale" value="admin:order_button_exportProductSaleButton"/>
-							<label for="orderExportProductSale">
-								${message("admin.order.productSale")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="orderEditorder" value="admin:order_button_editorderButton"/>
-							<label for="orderEditorder">
-								${message("admin.order.editorder")}
 							</label>
 						</li>
 					</ul>
@@ -426,57 +366,6 @@ $().ready(function() {
 			</tr>
 			<!-- end 订单管理 -> 收款管理 -->
 			
-			<!-- start 订单管理 -> 店铺数据字典管理 -->
-			<tr class="orderGroup">
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleBrand" name="authorities" value="admin:shopStore" />
-							<label for="consoleBrand">
-								${message("admin.role.shopStore")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					<ul class="authorities">
-						<li>
-							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="shopStoreAdd"  value="admin:shopStore_icon_addIcon"/>
-							<label for="shopStoreAdd">
-								${message("admin.common.add")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="shopStoreListCompany" value="admin:shopStore_button_listCompanyButton" />
-							<label for="shopStoreListCompany">
-								${message("admin.shopCompany.list")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="shopStoreSyncStoreInfo"  value="admin:shopStore_button_syncStoreInfoButton"/>
-							<label for="shopStoreSyncStoreInfo">
-								${message("admin.shopStore.syncStoreInfo")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="shopStoreDelete" value="admin:shopStore_button_deleteButton" />
-							<label for="shopStoreDelete">
-								${message("admin.common.delete")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="shopStoreEdit"  value="admin:shopStore_a_edit"/>
-							<label for="shopStoreEdit">
-								${message("admin.common.edit")}
-							</label>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<!-- end 订单管理 -> 店铺数据字典管理 -->
 			<!-- end 订单管理 -->
 			
 			<!-- start 会员管理 -->
@@ -525,12 +414,6 @@ $().ready(function() {
 							</label>
 						</li>
 						<li>
-							<input type="checkbox" name="authorities" id="memberExport"  value="admin:member_button_exportButton"/>
-							<label for="memberExport">
-								${message("admin.common.export")}
-							</label>
-						</li>
-						<li>
 							<input type="checkbox" name="authorities" id="memberEdit" value="admin:member_a_edit"/>
 							<label for="memberEdit">
 								${message("admin.common.edit")}
@@ -555,39 +438,11 @@ $().ready(function() {
 				</td>
 			</tr>
 			
-			<!-- start 内容管理 -> 模板管理 -->
-			<tr class="contentGroup">
-				<th rowspan="4">
-					<input type="button" class="btn btn-primary btn-xs" id="contentGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
-				</th>
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleTemplate" name="authorities" value="admin:template" />
-							<label for="consoleTemplate">
-								${message("admin.role.template")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					<ul class="authorities">
-						<li>
-							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="templateEdit"  value="admin:template_a_edit"/>
-							<label for="templateEdit">
-								${message("admin.common.edit")}
-							</label>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<!-- end 内容管理 -> 模板管理 -->
-			
 			<!-- start 内容管理 -> 标签管理 -->
 			<tr class="contentGroup">
+				<th rowspan="1">
+					<input type="button" class="btn btn-primary btn-xs" id="memberGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
+				</th>
 				<td>
 					<ul>
 						<li>
@@ -619,42 +474,6 @@ $().ready(function() {
 				</td>
 			</tr>
 			<!-- end 内容管理 -> 标签管理 -->
-			
-			<!-- start 内容管理 -> 缓存管理 -->
-			<tr class="contentGroup">
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleCache" name="authorities" value="admin:cache" />
-							<label for="consoleCache">
-								${message("admin.role.cache")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					
-				</td>
-			</tr>
-			<!-- end 内容管理 -> 缓存管理 -->
-			
-			<!-- start 内容管理 -> 静态化管理 -->
-			<tr class="contentGroup">
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleStatic" name="authorities" value="admin:static" />
-							<label for="consoleStatic">
-								${message("admin.role.static")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					
-				</td>
-			</tr>
-			<!-- end 内容管理 -> 静态化管理 -->
 			<!-- end 内容管理 -->
 			
 			<!-- start 营销管理 -->
@@ -735,7 +554,7 @@ $().ready(function() {
 			
 			<!-- start 系统设置 -> 系统设置 -->
 			<tr class="systemGroup">
-				<th  rowspan="10">
+				<th  rowspan="7">
 					<input type="button" class="btn btn-primary btn-xs" id="systemGroupSelectAll" value="${message("admin.common.selectAllOrNot")}">
 				</th>
 				<td>
@@ -971,108 +790,6 @@ $().ready(function() {
 				</td>
 			</tr>
 			<!-- end 系统设置 -> 角色管理 -->
-			
-			<!-- start 系统设置 -> 消息管理 -->
-			<tr class="systemGroup">
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleMessage" name="authorities" value="admin:message" />
-							<label for="consoleMessage">
-								${message("admin.role.message")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					<ul class="authorities">
-						<li>
-							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="messageDelete"  value="admin:message_button_deleteButton"/>
-							<label for="messageDelete">
-								${message("admin.common.delete")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="messageSend" value="admin:message_button_sendButton" />
-							<label for="messageSend">
-								${message("admin.message.send")}
-							</label>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<!-- end 系统设置 -> 消息管理 -->
-			
-			<!-- start 系统设置 -> 邮件消息管理 -->
-			<tr class="systemGroup">
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleMailMessage" name="authorities" value="admin:mailMessage" />
-							<label for="consoleMailMessage">
-								${message("admin.role.mailMessage")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					<ul class="authorities">
-						<li>
-							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="mailMessageDelete"  value="admin:mailMessage_button_deleteButton"/>
-							<label for="mailMessageDelete">
-								${message("admin.common.delete")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="mailMessageSend" value="admin:mailMessage_button_sendButton" />
-							<label for="mailMessageSend">
-								${message("admin.message.mailSend")}
-							</label>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<!-- end 系统设置 -> 邮件消息管理 -->
-			
-			<!-- start 系统设置 -> 日志管理 -->
-			<tr class="systemGroup">
-				<td>
-					<ul>
-						<li>
-							<input type="checkbox" id="consoleLog" name="authorities" value="admin:log" />
-							<label for="consoleLog">
-								${message("admin.role.log")}
-							</label>
-						</li>
-					</ul>
-				</td>
-				<td>
-					<ul class="authorities">
-						<li>
-							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="logClear"  value="admin:log_button_clearButton"/>
-							<label for="logClear">
-								${message("admin.common.clear")}
-							</label>
-						</li>
-						<li>
-							<input type="checkbox" name="authorities" id="logDelete" value="admin:log_button_deleteButton" />
-							<label for="logDelete">
-								${message("admin.common.delete")}
-							</label>
-						</li>
-					</ul>
-				</td>
-			</tr>
-			<!-- end 系统设置 -> 日志管理 -->
 			<!-- end 系统设置 -->
 			
 		</table>

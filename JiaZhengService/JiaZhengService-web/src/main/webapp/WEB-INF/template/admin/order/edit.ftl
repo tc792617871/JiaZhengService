@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>${message("admin.order.edit")} - MO&Co.</title>
-<meta name="author" content="广州爱帛服饰有限公司 Team" />
-<meta name="copyright" content="广州爱帛服饰有限公司" />
+<title>${message("admin.order.edit")} - 家政服务管理平台</title>
+<meta name="author" content="xxx有限公司 Team" />
+<meta name="copyright" content="xxx有限公司" />
 <link href="${base}/resources/admin/css/common.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/admin/js/jquery.js"></script>
 <script type="text/javascript" src="${base}/resources/admin/js/jquery.tools.js"></script>
@@ -307,7 +307,7 @@ $().ready(function() {
 				<td>
 					${message("Order.OrderStatus." + order.orderStatus)}
 					[#if order.expire??]
-						<span title="${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")}">(${message("Order.expire")}: ${order.expire})</span>
+						<span title="${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")}">(${message("Order.expire")}: ${order.expire?string("yyyy-MM-dd HH:mm:ss")})</span>
 					[/#if]
 				</td>
 				<th>
@@ -328,7 +328,7 @@ $().ready(function() {
 					${message("Member.username")}:
 				</th>
 				<td>
-					<a href="../member/view.jhtml?id=${order.member.id}">${order.member.username}</a>
+					${order.tMember.username}
 				</td>
 			</tr>
 			<tr>
@@ -347,12 +347,6 @@ $().ready(function() {
 			</tr>
 			<tr>
 				<th>
-					${message("Order.weight")}:
-				</th>
-				<td>
-					<span id="weight">${order.weight}</span>
-				</td>
-				<th>
 					${message("Order.quantity")}:
 				</th>
 				<td>
@@ -361,24 +355,10 @@ $().ready(function() {
 			</tr>
 			<tr>
 				<th>
-					${message("Order.promotion")}:
-				</th>
-				<td>
-					${(order.promotion)!"-"}
-				</td>
-				<th>
 					${message("admin.order.coupon")}:
 				</th>
 				<td>
 					${(order.couponCode.coupon.name)!"-"}
-				</td>
-			</tr>
-			<tr>
-				<th>
-					${message("Order.promotionDiscount")}:
-				</th>
-				<td>
-					${currency(order.promotionDiscount, true)}
 				</td>
 				<th>
 					${message("Order.couponDiscount")}:
@@ -389,93 +369,17 @@ $().ready(function() {
 			</tr>
 			<tr>
 				<th>
-					${message("Order.offsetAmount")}:
-				</th>
-				<td>
-					<input type="text" name="offsetAmount" class="text" value="${order.offsetAmount}" maxlength="16" />
-				</td>
-				<th>
-					${message("Order.point")}:
-				</th>
-				<td>
-					<input type="text" name="point" class="text" value="${order.point}" maxlength="9" />
-				</td>
-			</tr>
-			<tr>
-				<th></th>
-				<td>
-                    <em>${message("Order.offsetAmount.desc")}</em>	
-				</td>
-				
-				
-			</tr>
-			<tr>
-				<th>
-					${message("Order.freight")}:
-				</th>
-				<td>
-					<input type="text" name="freight" class="text" value="${order.freight}" maxlength="16" />
-				</td>
-				<th>
-					${message("Order.fee")}:
-				</th>
-				<td>
-					${currency(order.fee, true)}
-				</td>
-			</tr>
-			<tr>
-				<th>
 					${message("Order.paymentMethod")}:
 				</th>
 				<td>
 					<select name="paymentMethodId">
 						<option value="">${message("admin.common.choose")}</option>
 						[#list paymentMethods as paymentMethod]
-							<option value="${paymentMethod.id}"[#if paymentMethod == order.paymentMethod] selected="selected"[/#if]>${paymentMethod.name}</option>
+							<option value="${paymentMethod.id}"[#if paymentMethod.id == order.paymentMethod] selected="selected"[/#if]>${paymentMethod.name}</option>
 						[/#list]
 					</select>
 				</td>
-				<th>
-					${message("Order.shippingMethod")}:
-				</th>
-				<td>
-					<select name="shippingMethodId">
-						<option value="">${message("admin.common.choose")}</option>
-						[#list shippingMethods as shippingMethod]
-							<option value="${shippingMethod.id}"[#if shippingMethod == order.shippingMethod] selected="selected"[/#if]>${shippingMethod.name}</option>
-						[/#list]
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th>
-					${message("Order.invoiceTitle")}:
-				</th>
-				<td>
-					<span class="fieldSet">
-						<input type="text" id="invoiceTitle" name="invoiceTitle" class="text" value="${order.invoiceTitle}" maxlength="200"[#if !order.isInvoice] disabled="disabled"[/#if] />
-						<label>
-							<input type="checkbox" id="isInvoice" name="isInvoice" value="true"[#if order.isInvoice] checked="checked"[/#if] />${message("Order.isInvoice")}
-							<input type="hidden" name="_isInvoice" value="false" />
-						</label>
-					</span>
-				</td>
-				<th>
-					${message("Order.tax")}:
-				</th>
-				<td>
-					<input type="text" id="tax" name="tax" class="text" value="${order.tax}" maxlength="16"[#if !order.isInvoice] disabled="disabled"[/#if] />
-				</td>
-			</tr>
-			<tr>
-				<th>
-					${message("Order.invoiceType.invoiceTypeName")}:
-				</th>
-				<td colspan="3">
-					<span class="fieldSet">
-						<input type="text" id="invoiceTypeName" name="invoiceTypeName" class="text" value="${order.invoiceType.invoiceTypeName}" maxlength="200"[#if !order.isInvoice] disabled="disabled"[/#if] />
-					</span>
-				</td>
+				
 			</tr>
 			<tr>
 				<th>
@@ -489,7 +393,7 @@ $().ready(function() {
 				</th>
 				<td>
 					<span class="fieldSet">
-						<input type="hidden" id="areaId" name="areaId" value="${(order.area.id)!}" treePath="${(order.area.treePath)!}" />
+						<input type="hidden" id="areaId" name="areaId" value="${(order.area)!}" treePath="${(order.tArea.treePath)!}" />
 					</span>
 				</td>
 			</tr>

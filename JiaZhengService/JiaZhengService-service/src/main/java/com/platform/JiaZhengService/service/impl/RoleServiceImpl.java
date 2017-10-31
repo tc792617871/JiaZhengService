@@ -86,6 +86,9 @@ public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
 	@Transactional
 	@CacheEvict(value = "authorization", allEntries = true)
 	public void delete(Long id) {
+		Criteria c = new Criteria();
+		c.createConditon().andEqualTo(TTRoleAuthority.ROLE, id);
+		roleAuthorityMapper.deleteByExample(c);
 		roleMapper.deleteByPrimaryKey(id);
 	}
 

@@ -91,6 +91,8 @@ public class TAdmin extends StringAndEqualsPojo implements Serializable {
 	/** 角色 */
 	private Set<TRole> roles = new HashSet<TRole>();
 
+	private Long[] roleIds = null;
+
 	/**
 	 * @return t_admin.id : 返回
 	 */
@@ -307,5 +309,21 @@ public class TAdmin extends StringAndEqualsPojo implements Serializable {
 
 	public void setRoles(Set<TRole> roles) {
 		this.roles = roles;
+	}
+
+	public Long[] getRoleIds() {
+		if (roles != null && roles.size() > 0) {
+			roleIds = new Long[roles.size()];
+			int index = 0;
+			for (TRole role : roles) {
+				roleIds[index] = role.getId();
+				index++;
+			}
+		}
+		return roleIds;
+	}
+
+	public void setRoleIds(Long[] roleIds) {
+		this.roleIds = roleIds;
 	}
 }

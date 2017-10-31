@@ -179,6 +179,9 @@ public class AdminServiceImpl extends BaseServiceImpl implements AdminService {
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
+				Criteria c = new Criteria();
+				c.createConditon().andEqualTo(TTAdminRole.ADMINS, id);
+				adminRoleMapper.deleteByExample(c);
 				adminMapper.deleteByPrimaryKey(id);
 			}
 		}

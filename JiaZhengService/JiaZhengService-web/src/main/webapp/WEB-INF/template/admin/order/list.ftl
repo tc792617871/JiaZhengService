@@ -399,13 +399,13 @@ $().ready(function() {
 						</ul>
 					</div>
 				</div>
-			[@shiro.hasPermission name = "admin:order_button_editorderButton"]
+			<!--[@shiro.hasPermission name = "admin:order_button_editorderButton"]
 			<div class="menuWrap">
 					<a href="javascript:;" id="editorderButton" class="iconButton">
 						<span class="editorderIcon">&nbsp;</span>${message("admin.order.editorder")}<span class="arrowNoSelect">&nbsp;</span>
 					</a>
 			</div>
-			[/@shiro.hasPermission]
+			[/@shiro.hasPermission]-->
 			</div>
 			<div class="menuWrap">
 				<div class="search">
@@ -519,13 +519,13 @@ $().ready(function() {
 					<td>
 						<div>
 							<a href="view.jhtml?id=${order.id}&paymentPluginId=${order.paymentPluginId}">[${message("admin.common.view")}]</a>
-						[@shiro.hasPermission name = "admin:order_a_edit"]
+						<!--[@shiro.hasPermission name = "admin:order_a_edit"]
 							[#if !order.expired && order.orderStatus == "1"]
 								<a href="edit.jhtml?id=${order.id}">[${message("admin.common.edit")}]</a>
 							[#else]
 								<span title="${message("admin.order.editNotAllowed")}">[${message("admin.common.edit")}]</span>
 							[/#if]
-						[/@shiro.hasPermission]
+						[/@shiro.hasPermission]-->
 						</div>
 					</td>
 				</tr>
