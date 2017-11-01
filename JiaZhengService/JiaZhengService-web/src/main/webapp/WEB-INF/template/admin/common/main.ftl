@@ -140,7 +140,7 @@ $().ready(function() {
 					[/@shiro.hasPermission]
 				</dl>
 				<dl id="order">
-						[#list ["admin:order"] as permission]
+						[#list ["admin:order", "admin:payment"] as permission]
 							[@shiro.hasPermission name = permission]
 								<dt>${message("admin.main.orderGroup")}</dt>
 								[#break /]
@@ -149,6 +149,11 @@ $().ready(function() {
 					[@shiro.hasPermission name="admin:order"]
 						<dd>
 							<a href="../order/list.jhtml" target="iframe">${message("admin.main.order")}</a>
+						</dd>
+					[/@shiro.hasPermission]
+					[@shiro.hasPermission name="admin:payment"]
+						<dd>
+							<a href="../payment/list.jhtml" target="iframe">${message("admin.main.payment")}</a>
 						</dd>
 					[/@shiro.hasPermission]
 				</dl>

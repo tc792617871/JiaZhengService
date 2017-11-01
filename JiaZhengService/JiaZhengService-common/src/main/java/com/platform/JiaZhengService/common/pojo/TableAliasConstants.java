@@ -9,4 +9,6 @@ public class TableAliasConstants {
 	public static final String ALIAS_T_ORDER = "o.";
 
 	public static final String ALIAS_T_MEMBER = "m.";
+
+	public static final String ALIAS_T_PAYMNET = "pay.";
 }

@@ -100,4 +100,29 @@ public class PaymentServiceImpl extends BaseServiceImpl implements PaymentServic
 		return null;
 	}
 
+	@Override
+	public List<TPayment> queryPaymentList(Criteria c) {
+		List<TPayment> payments = paymentMapper.selectMulTablesByExample(c);
+		if (payments != null && payments.size() > 0) {
+			for (TPayment payment : payments) {
+				if (payment.getMember() != null) {
+					payment.setTmember(memberMapper.selectByPrimaryKey(payment.getMember()));
+				}
+				if (payment.getOrders() != null) {
+					payment.setOrder(orderMapper.selectByPrimaryKey(payment.getOrders()));
+				}
+			}
+		}
+		return payments;
+	}
+
+	@Override
+	public void delete(Long[] ids) {
+		if (ids != null && ids.length > 0) {
+			for (Long id : ids) {
+				paymentMapper.deleteByPrimaryKey(id);
+			}
+		}
+	}
+
 }

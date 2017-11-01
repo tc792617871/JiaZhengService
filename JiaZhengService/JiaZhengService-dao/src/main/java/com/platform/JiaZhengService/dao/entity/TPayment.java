@@ -528,4 +528,8 @@ public class TPayment extends StringAndEqualsPojo implements Serializable {
 	public void setTmember(TMember tmember) {
 		this.tmember = tmember;
 	}
+
+	public boolean hasExpired() {
+		return getExpire() != null && new Date().after(getExpire());
+	}
 }

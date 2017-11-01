@@ -437,9 +437,8 @@ $().ready(function() {
 				<th>
 					<span>${message("Order.amount")}</span>
 				</th>
-				
 				<th>
-					<a href="javascript:;" class="sort" name="member">${message("Order.member")}</a>
+					<span>${message("Order.member")}</span>
 				</th>
 				<th>
 					<a href="javascript:;" class="sort" name="consignee">${message("Order.consignee")}</a>
@@ -448,16 +447,16 @@ $().ready(function() {
 					<a href="javascript:;" class="sort" name="phone">${message("Order.phone")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="orderStatus">${message("Order.orderStatus")}</a>
+					<span>${message("Order.orderStatus")}</span>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="paymentStatus">${message("Order.paymentStatus")}</a>
+					<span>${message("Order.paymentStatus")}</span>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="shippingStatus">${message("Order.shippingStatus")}</a>
+					<span>${message("Order.shippingStatus")}</span>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="createDate">${message("admin.common.createDate")}</a>
+					<a href="javascript:;" class="sort" name="create_date">${message("admin.common.createDate")}</a>
 				</th>
 				<th>
 					<span>${message("Order.payTime")}</span>

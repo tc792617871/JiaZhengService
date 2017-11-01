@@ -388,7 +388,7 @@ $().ready(function() {
 					<a href="javascript:;" class="sort" name="name">${message("Product.name")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="" name="productCategory">${message("Product.productCategory")}</a>
+					<span>${message("Product.productCategory")}</span>
 				</th>
 				<th>
 					<a href="javascript:;" class="sort" name="is_marketable">${message("Product.isMarketable")}</a>

@@ -33,6 +33,13 @@
 		member,
 		orders
 	</sql>
+	<sql id="pay_Column_List">
+		pay.id, pay.create_date, pay.modify_date, pay.account, pay.amount, pay.bank, pay.expire, pay.fee, pay.memo,
+		pay.method, pay.operator,
+		pay.payer, pay.payment_date, pay.payment_method, pay.payment_plugin_id, pay.sn, pay.status, pay.type,
+		pay.member,
+		pay.orders
+	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
 		select
@@ -398,4 +405,16 @@
 		orders = #{orders,jdbcType=BIGINT}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+	<select id="selectMulTablesByExample" resultMap="BaseResultMap"
+		parameterType="com.platform.JiaZhengService.dao.Criteria">
+		select
+			distinct
+		<include refid="pay_Column_List" />
+		from t_payment pay
+		left join t_order o
+		on pay.orders = o.id
+		<if test="_parameter != null">
+			<include refid="common.Example_Where_Clause" />
+		</if>
+	</select>
 </mapper>
