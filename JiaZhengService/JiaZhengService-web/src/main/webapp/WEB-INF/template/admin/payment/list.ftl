@@ -107,7 +107,7 @@ $().ready(function() {
 				<div class="search">
 					<span id="searchPropertySelectValue" class="value">${message("Page.searchPropertyValue")}</span>
 					<span id="searchPropertySelect" class="arrow">&nbsp;</span>
-					<input type="text" id="searchValue" name="searchValue" value="${page.searchValue}" maxlength="200" />
+					<input type="text" id="searchValue" name="searchValue" value="${pageable.searchValue}" maxlength="200" />
 					<button type="submit">&nbsp;</button>
 				</div>
 				<div class="popupMenu">

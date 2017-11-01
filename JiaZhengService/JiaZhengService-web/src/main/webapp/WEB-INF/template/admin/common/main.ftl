@@ -253,6 +253,11 @@ $().ready(function() {
 							<a href="../role/list.jhtml" target="iframe">${message("admin.main.role")}</a>
 						</dd>
 					[/@shiro.hasPermission]
+					[@shiro.hasPermission name="admin:log"]
+						<dd>
+							<a href="../log/list.jhtml" target="iframe">${message("admin.main.log")}</a>
+						</dd>
+					[/@shiro.hasPermission]
 					<!--[@shiro.hasPermission name="admin:message"]
 						<dd>
 							<a href="../message/list.jhtml" target="iframe">${message("admin.main.message")}</a>
@@ -263,11 +268,7 @@ $().ready(function() {
 							<a href="../message/draft.jhtml" target="iframe">${message("admin.main.draft")}</a>
 						</dd>
 					[/@shiro.hasPermission]
-					[@shiro.hasPermission name="admin:log"]
-						<dd>
-							<a href="../log/list.jhtml" target="iframe">${message("admin.main.log")}</a>
-						</dd>
-					[/@shiro.hasPermission]-->
+					-->
 				</dl>
 			</td>
 			<td>

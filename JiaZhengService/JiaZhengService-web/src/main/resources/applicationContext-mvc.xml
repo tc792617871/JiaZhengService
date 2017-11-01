@@ -43,6 +43,10 @@
 			<bean id="executeTimeInterceptor"
 				class="com.platform.JiaZhengService.interceptor.ExecuteTimeInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<bean id="logInterceptor" class="com.platform.JiaZhengService.interceptor.LogInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 	<bean id="validator"

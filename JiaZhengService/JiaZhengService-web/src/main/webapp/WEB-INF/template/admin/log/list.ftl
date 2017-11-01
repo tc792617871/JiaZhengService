@@ -3,82 +3,61 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>${message("admin.member.list")} - 家政服务管理平台</title>
+<title>${message("admin.log.list")} - 家政服务管理平台</title>
 <meta name="author" content="xxx有限公司 Team" />
 <meta name="copyright" content="xxx有限公司" />
 <link href="${base}/resources/admin/css/common.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="${base}/resources/admin/js/jquery.js"></script>
 <script type="text/javascript" src="${base}/resources/admin/js/common.js"></script>
 <script type="text/javascript" src="${base}/resources/admin/js/list.js"></script>
-<style type="text/css">
-.moreTable th {
-	width: 80px;
-	line-height: 25px;
-	padding: 5px 10px 5px 0px;
-	text-align: right;
-	font-weight: normal;
-	color: #333333;
-	background-color: #f8fbff;
-}
-
-.moreTable td {
-	line-height: 25px;
-	padding: 5px;
-	color: #666666;
-}
-</style>
 <script type="text/javascript">
 $().ready(function() {
-
-    var $listForm = $("#listForm");
-	var $filterSelect = $("#filterSelect");
-	var $filterOption = $("#filterOption a");
-	var $selectAll = $("#selectAll");
+	
+	var $clearButton = $("#clearButton");
+	var $resultRow = $("#listTable tr:gt(0)");
 	
 	[@flash_message /]
-
-	$filterSelect.mouseover(function() {
-		var $this = $(this);
-		var offset = $this.offset();
-		var $menuWrap = $this.closest("div.menuWrap");
-		var $popupMenu = $menuWrap.children("div.popupMenu");
-		$popupMenu.css({left: offset.left, top: offset.top + $this.height() + 2}).show();
-		$menuWrap.mouseleave(function() {
-			$popupMenu.hide();
-		});
-	});
 	
-	// 筛选选项
-	$filterOption.click(function() {
+	$clearButton.click(function() {
 		var $this = $(this);
-		var $dest = $("#" + $this.attr("name"));
-		if ($this.hasClass("checked")) {
-			$dest.val("");
-		} else {
-			$dest.val($this.attr("val"));
-		}
-		$listForm.submit();
+		$.dialog({
+			type: "warn",
+			content: "${message("admin.dialog.clearConfirm")}",
+			onOk: function() {
+				$.ajax({
+					url: "clear.jhtml",
+					type: "POST",
+					dataType: "json",
+					cache: false,
+					success: function(message) {
+						if (message.type == "success") {
+							$resultRow.remove();
+						}
+						$.message(message);
+					}
+				});
+			}
+		});
 		return false;
 	});
-	
 });
 </script>
 </head>
 <body>
 	<div class="path">
-		<a href="${base}/admin/common/index.jhtml">${message("admin.path.index")}</a> &raquo; ${message("admin.member.list")} <span>(${message("admin.page.total", page.count)})</span>
+		<a href="${base}/admin/common/index.jhtml">${message("admin.path.index")}</a> &raquo; ${message("admin.log.list")} <span>(${message("admin.page.total", page.count)})</span>
 	</div>
 	<form id="listForm" action="list.jhtml" method="get">
 		<div class="bar">
-		[@shiro.hasPermission name = "admin:member_icon_addIcon"]
-			<a href="add.jhtml" class="iconButton">
-				<span class="addIcon">&nbsp;</span>${message("admin.common.add")}
-			</a>
-		[/@shiro.hasPermission]
 			<div class="buttonWrap">
-			[@shiro.hasPermission name = "admin:member_button_deleteButton"]
+			[@shiro.hasPermission name = "admin:log_button_deleteButton"]
 				<a href="javascript:;" id="deleteButton" class="iconButton disabled">
 					<span class="deleteIcon">&nbsp;</span>${message("admin.common.delete")}
+				</a>
+			[/@shiro.hasPermission]
+			[@shiro.hasPermission name = "admin:log_button_clearButton"]
+				<a href="javascript:;" id="clearButton" class="iconButton">
+					<span class="clearIcon">&nbsp;</span>${message("admin.common.clear")}
 				</a>
 			[/@shiro.hasPermission]
 				<a href="javascript:;" id="refreshButton" class="iconButton">
@@ -116,10 +95,10 @@ $().ready(function() {
 				<div class="popupMenu">
 					<ul id="searchPropertyOption">
 						<li>
-							<a href="javascript:;"[#if pageable.searchProperty == "username"] class="current"[/#if] val="username">${message("Member.username")}</a>
+							<a href="javascript:;"[#if pageable.searchProperty == "operation"] class="current"[/#if] val="operation">${message("Log.operation")}</a>
 						</li>
 						<li>
-							<a href="javascript:;"[#if pageable.searchProperty == "mobile"] class="current"[/#if] val="mobile">${message("Member.mobile")}</a>
+							<a href="javascript:;"[#if pageable.searchProperty == "operator"] class="current"[/#if] val="operator">${message("Log.operator")}</a>
 						</li>
 					</ul>
 				</div>
@@ -131,44 +110,48 @@ $().ready(function() {
 					<input type="checkbox" id="selectAll" />
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="username">${message("Member.username")}</a>
+					<a href="javascript:;" class="sort" name="operation">${message("Log.operation")}</a>
 				</th>
 				<th>
-					<a href="javascript:;" class="sort" name="createDate">${message("admin.common.createDate")}</a>
+					<a href="javascript:;" class="sort" name="operator">${message("Log.operator")}</a>
 				</th>
 				<th>
-					<span>${message("admin.member.status")}</span>
+					<a href="javascript:;" class="sort" name="ip">${message("Log.ip")}</a>
+				</th>
+				<th>
+					<a href="javascript:;" class="sort" name="content">${message("Log.content")}</a>
+				</th>
+				<th>
+					<a href="javascript:;" class="sort" name="create_date">${message("admin.common.createDate")}</a>
 				</th>
 				<th>
 					<span>${message("admin.common.handle")}</span>
 				</th>
 			</tr>
-			[#list content as member]
+			[#list content as log]
 				<tr>
 					<td>
-						<input type="checkbox" name="ids" value="${member.id}" />
+						<input type="checkbox" name="ids" value="${log.id}" />
 					</td>
 					<td>
-						${member.username}
+						${log.operation}
 					</td>
 					<td>
-						<span title="${member.createDate?string("yyyy-MM-dd HH:mm:ss")}">${member.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+						${log.operator}
 					</td>
-					<input type="hidden" id="hiddenMemberLabel" name="hiddenMemberLabel" value="${member.memberLabel}"/>
 					<td>
-						[#if !member.isEnabled]
-							<span class="red">${message("admin.member.disabled")}</span>
-						[#elseif member.isLocked]
-							<span class="red"> ${message("admin.member.locked")} </span>
-						[#else]
-							<span class="green">${message("admin.member.normal")}</span>
+						${log.ip}
+					</td>
+					<td>
+						[#if log.content??]
+							<span title="${log.content}">${abbreviate(log.content, 50, "...")}</span>
 						[/#if]
 					</td>
 					<td>
-						<a href="view.jhtml?id=${member.id}">[${message("admin.common.view")}]</a>
-					[@shiro.hasPermission name = "admin:member_a_edit"]
-						<a href="edit.jhtml?id=${member.id}">[${message("admin.common.edit")}]</a>
-					[/@shiro.hasPermission]
+						<span title="${log.createDate?string("yyyy-MM-dd HH:mm:ss")}">${log.createDate?string("yyyy-MM-dd HH:mm:ss")}</span>
+					</td>
+					<td>
+						<a href="view.jhtml?id=${log.id}">[${message("admin.common.view")}]</a>
 					</td>
 				</tr>
 			[/#list]

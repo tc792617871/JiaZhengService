@@ -99,6 +99,26 @@
 	<setting name="cnzzSiteId" value="1250991229"/>  
 	<setting name="cnzzPassword" value="6014779044"/> 
 	
+	<logConfig operation="系统设置" urlPattern="/admin/setting/update.jhtml"/>  
+	<logConfig operation="添加管理员" urlPattern="/admin/admin/save.jhtml"/>  
+	<logConfig operation="编辑管理员" urlPattern="/admin/admin/update.jhtml"/>  
+	<logConfig operation="删除管理员" urlPattern="/admin/admin/delete.jhtml"/>  
+	<logConfig operation="添加会员" urlPattern="/admin/member/save.jhtml"/>  
+	<logConfig operation="编辑会员" urlPattern="/admin/member/update.jhtml"/>  
+	<logConfig operation="删除会员" urlPattern="/admin/member/delete.jhtml"/>  
+	<logConfig operation="添加商品" urlPattern="/admin/product/save.jhtml"/>  
+	<logConfig operation="编辑商品" urlPattern="/admin/product/update.jhtml"/>  
+	<logConfig operation="删除商品" urlPattern="/admin/product/delete.jhtml"/>  
+	<logConfig operation="添加文章" urlPattern="/admin/article/save.jhtml"/>  
+	<logConfig operation="编辑文章" urlPattern="/admin/article/update.jhtml"/>  
+	<logConfig operation="删除文章" urlPattern="/admin/article/delete.jhtml"/>  
+	<logConfig operation="编辑订单" urlPattern="/admin/order/update.jhtml"/>  
+	<logConfig operation="删除订单" urlPattern="/admin/order/delete.jhtml"/>  
+	<logConfig operation="订单确认" urlPattern="/admin/order/confirm.jhtml"/>  
+	<logConfig operation="订单完成" urlPattern="/admin/order/complete.jhtml"/>  
+	<logConfig operation="订单取消" urlPattern="/admin/order/cancel.jhtml"/>  
+	<logConfig operation="订单支付" urlPattern="/admin/order/payment.jhtml"/> 
+	
 	<template id="adminCommonJs" type="page" name="admin_common_js" templatePath="/admin/js/common.ftl" staticPath="/resources/admin/js/common.js"/>
 	<template id="mobileCommonJs" type="page" name="mobile_common_js" templatePath="/mobile/js/common.ftl" staticPath="/resources/mobile/js/common.js"/>
 	

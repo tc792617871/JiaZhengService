@@ -789,6 +789,40 @@ $().ready(function() {
 				</td>
 			</tr>
 			<!-- end 系统设置 -> 角色管理 -->
+			
+			<!-- start 系统设置 -> 日志管理 -->
+			<tr class="systemGroup">
+				<td>
+					<ul>
+						<li>
+							<input type="checkbox" id="consoleLog" name="authorities" value="admin:log"  [#if role.authorities?seq_contains("admin:log")] checked="checked"[/#if] />
+							<label for="consoleLog">
+								${message("admin.role.log")}
+							</label>
+						</li>
+					</ul>
+				</td>
+				<td>
+					<ul class="authorities">
+						<li>
+							<input type="button" class="btn btn-primary btn-xs selectAll" class="selectAll" value="${message("admin.common.selectAllOrNot")}">
+						</li>
+						<li>
+							<input type="checkbox" name="authorities" id="logClear"  value="admin:log_button_clearButton" [#if role.authorities?seq_contains("admin:log_button_clearButton")] checked="checked"[/#if] />
+							<label for="logClear">
+								${message("admin.common.clear")}
+							</label>
+						</li>
+						<li>
+							<input type="checkbox" name="authorities" id="logDelete" value="admin:log_button_deleteButton"  [#if role.authorities?seq_contains("admin:log_button_deleteButton")] checked="checked"[/#if] />
+							<label for="logDelete">
+								${message("admin.common.delete")}
+							</label>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			<!-- end 系统设置 -> 日志管理 -->
 			<!-- end 系统设置 -->
 		</table>
 		<table class="input">
