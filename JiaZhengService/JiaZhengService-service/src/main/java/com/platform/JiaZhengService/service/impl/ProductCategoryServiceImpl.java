@@ -83,6 +83,7 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl implements Produ
 	}
 
 	@Override
+	@Transactional
 	public void save(TProductCategory productCategory) {
 		productCategory.setCreateDate(new Date());
 		productCategory.setModifyDate(new Date());

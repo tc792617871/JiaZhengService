@@ -2,7 +2,9 @@ package com.platform.JiaZhengService.Controller.mobile.member;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +23,7 @@ import com.platform.JiaZhengService.common.pojo.ServiceTime;
 import com.platform.JiaZhengService.common.util.JiaZhengServiceUtil;
 import com.platform.JiaZhengService.dao.entity.TCart;
 import com.platform.JiaZhengService.dao.entity.TCartItem;
+import com.platform.JiaZhengService.dao.entity.TCouponCode;
 import com.platform.JiaZhengService.dao.entity.TMember;
 import com.platform.JiaZhengService.dao.entity.TOrder;
 import com.platform.JiaZhengService.dao.entity.TOrder.PaymentStatus;
@@ -30,6 +33,7 @@ import com.platform.JiaZhengService.dao.entity.TReceiver;
 import com.platform.JiaZhengService.pluginService.PaymentPlugin;
 import com.platform.JiaZhengService.service.api.CartItemService;
 import com.platform.JiaZhengService.service.api.CartService;
+import com.platform.JiaZhengService.service.api.CouponCodeService;
 import com.platform.JiaZhengService.service.api.MemberService;
 import com.platform.JiaZhengService.service.api.OrderService;
 import com.platform.JiaZhengService.service.api.PaymentMethodService;
@@ -68,6 +72,9 @@ public class OrderController extends AbstractController {
 
 	@Resource(name = "pluginConfigServiceImpl")
 	private PluginConfigService pluginConfigService;
+
+	@Resource(name = "couponCodeServiceImpl")
+	private CouponCodeService couponCodeService;
 
 	/**
 	 * 订单锁定
@@ -163,6 +170,43 @@ public class OrderController extends AbstractController {
 	}
 
 	/**
+	 * 计算
+	 */
+	@RequestMapping(value = "/calculate", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> calculate(String cartItemIds, Long productId, Long specificationId,
+			Double quantity, String code, String memo) {
+		Map<String, Object> data = new HashMap<String, Object>();
+		TMember member = memberService.getCurrent();
+		TCart cart = cartService.findByMember(member.getId());
+		List<TCartItem> cartItems = new ArrayList<>();
+		if (StringUtils.isEmpty(cartItemIds)) {
+			TCartItem cartItem = cartItemService.findByParams(cart.getId(), productId, specificationId);
+			if (cartItem != null) {
+				cartItem.setQuantity(quantity);
+				cartItems.add(cartItem);
+			}
+		} else {
+			String[] cartItemIdsArr = cartItemIds.split("-");
+			for (String id : cartItemIdsArr) {
+				TCartItem cartItem = cartItemService.find(Long.valueOf(id));
+				if (cartItem != null) {
+					cartItems.add(cartItem);
+				}
+			}
+		}
+		cart.setCartItems(cartItems);
+		TCouponCode couponCode = null;
+		if (code != null) {
+			couponCode = this.couponCodeService.findByCode(code);
+		}
+		TOrder order = orderService.build(cart, null, "", null, couponCode, false, null);
+		data.put("message", SUCCESS_MESSAGE);
+		data.put("couponDiscount", order.getCouponDiscount());
+		data.put("amountPayable", order.getAmountPayable());
+		return data;
+	}
+
+	/**
 	 * 订单完成创建操作
 	 * 
 	 * @return
@@ -204,7 +248,11 @@ public class OrderController extends AbstractController {
 		if (paymentMethod == null) {
 			return Message.error("shop.order.paymentMethodNotExsit");
 		}
-		TOrder order = orderService.create(cart, receiver, paymentPluginId, paymentMethod, null, false, weekdays,
+		TCouponCode couponCode = null;
+		if (code != null) {
+			couponCode = this.couponCodeService.findByCode(code);
+		}
+		TOrder order = orderService.create(cart, receiver, paymentPluginId, paymentMethod, couponCode, false, weekdays,
 				timearea, time, areaSquare, memo);
 		return Message.success(order.getSn());
 	}

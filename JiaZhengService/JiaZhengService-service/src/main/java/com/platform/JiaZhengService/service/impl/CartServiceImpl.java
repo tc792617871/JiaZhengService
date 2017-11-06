@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.constants.TTCart;
@@ -64,6 +65,7 @@ public class CartServiceImpl extends BaseServiceImpl implements CartService {
 	}
 
 	@Override
+	@Transactional
 	public void saveCart(TCart cart) {
 		cart.setCreateDate(new Date());
 		cart.setModifyDate(new Date());
@@ -71,6 +73,7 @@ public class CartServiceImpl extends BaseServiceImpl implements CartService {
 	}
 
 	@Override
+	@Transactional
 	public void mergeCart(TCart cart) {
 		List<TCartItem> cartItems = cart.getCartItems();
 		if (cartItems != null && cartItems.size() > 0) {

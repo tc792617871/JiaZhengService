@@ -1201,6 +1201,9 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 		if (getOffsetAmount() != null) {
 			amount += getOffsetAmount();
 		}
+		if (getCouponDiscount() != null) {
+			amount = amount - getCouponDiscount();
+		}
 		return amount.compareTo(new Double(0)) > 0 ? amount : new Double(0);
 	}
 

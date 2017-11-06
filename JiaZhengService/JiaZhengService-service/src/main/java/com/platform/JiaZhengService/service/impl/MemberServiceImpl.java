@@ -87,6 +87,7 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 	}
 
 	@Override
+	@Transactional
 	public boolean addMember(TMember member) {
 		Date dt = new Date();
 		member.setCreateDate(dt);
@@ -106,6 +107,7 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 	}
 
 	@Override
+	@Transactional
 	public boolean checkLockedStatus(TMember member, Setting setting) {
 		if (!member.getIsLocked()) {
 			return false;
@@ -136,12 +138,14 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 	}
 
 	@Override
+	@Transactional
 	public boolean updateMember(TMember member) {
 		member.setModifyDate(new Date());
 		return memberMapper.updateByPrimaryKeySelective(member) > 0 ? true : false;
 	}
 
 	@Override
+	@Transactional
 	public void updateLoginStatus(HttpServletRequest request, TMember member) {
 		member.setLoginIp(JiaZhengServiceUtil.getAddr(request));
 		member.setLoginDate(new Date());
@@ -181,6 +185,7 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
@@ -195,6 +200,7 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 	}
 
 	@Override
+	@Transactional
 	public void saveMember(TMember member) {
 		member.setCreateDate(new Date());
 		member.setModifyDate(new Date());

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.entity.TPaymentMethod;
@@ -34,6 +35,7 @@ public class PaymentMethodServiceImpl extends BaseServiceImpl implements Payment
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
@@ -43,12 +45,14 @@ public class PaymentMethodServiceImpl extends BaseServiceImpl implements Payment
 	}
 
 	@Override
+	@Transactional
 	public void update(TPaymentMethod paymentMethod) {
 		paymentMethod.setModifyDate(new Date());
 		paymentMethodMapper.updateByPrimaryKeySelective(paymentMethod);
 	}
 
 	@Override
+	@Transactional
 	public void save(TPaymentMethod paymentMethod) {
 		paymentMethod.setCreateDate(new Date());
 		paymentMethod.setModifyDate(new Date());

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.platform.JiaZhengService.common.pojo.Setting;
 import com.platform.JiaZhengService.common.util.SettingUtils;
@@ -69,6 +70,7 @@ public class PaymentServiceImpl extends BaseServiceImpl implements PaymentServic
 	}
 
 	@Override
+	@Transactional
 	public void handle(TPayment payment) {
 		if (payment != null && payment.getStatus() == Status.wait.getCode()) {
 			TOrder order = orderMapper.selectByPrimaryKey(payment.getOrders());
@@ -117,6 +119,7 @@ public class PaymentServiceImpl extends BaseServiceImpl implements PaymentServic
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {

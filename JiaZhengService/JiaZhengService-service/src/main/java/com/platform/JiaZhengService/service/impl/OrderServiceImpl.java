@@ -20,6 +20,7 @@ import com.platform.JiaZhengService.dao.constants.TTPayment;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
 import com.platform.JiaZhengService.dao.entity.TCart;
 import com.platform.JiaZhengService.dao.entity.TCartItem;
+import com.platform.JiaZhengService.dao.entity.TCoupon;
 import com.platform.JiaZhengService.dao.entity.TCouponCode;
 import com.platform.JiaZhengService.dao.entity.TMember;
 import com.platform.JiaZhengService.dao.entity.TOrder;
@@ -37,6 +38,7 @@ import com.platform.JiaZhengService.dao.entity.TReceiver;
 import com.platform.JiaZhengService.dao.entity.TSpecification;
 import com.platform.JiaZhengService.dao.mapper.TCartMapper;
 import com.platform.JiaZhengService.dao.mapper.TCouponCodeMapper;
+import com.platform.JiaZhengService.dao.mapper.TCouponMapper;
 import com.platform.JiaZhengService.dao.mapper.TMemberMapper;
 import com.platform.JiaZhengService.dao.mapper.TOrderItemMapper;
 import com.platform.JiaZhengService.dao.mapper.TOrderLogMapper;
@@ -63,6 +65,9 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 
 	@Resource
 	private TCartMapper cartMapper;
+
+	@Resource
+	private TCouponMapper couponMapper;
 
 	@Resource
 	private TCouponCodeMapper couponCodeMapper;
@@ -102,8 +107,21 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		order.setPaymentPluginId(paymentPluginId);
 		order.setPaymentMethod(paymentMethod != null ? paymentMethod.getId() : null);
 
-		// 优惠券平分到每个商品上价格列表数据
-		// TODO
+		// 计算优惠券折扣
+		if (couponCode != null) {
+			TCoupon coupon = null;
+			if (couponCode.getCoupon() != null) {
+				coupon = couponMapper.selectByPrimaryKey(couponCode.getCoupon());
+			}
+			if (!couponCode.getIsUsed() && coupon != null && cart.isValid(coupon)) {
+				Double couponDiscount = cart.getEffectivePrice()
+						- coupon.calculatePrice(cart.getQuantity(), cart.getEffectivePrice());
+				couponDiscount = couponDiscount.compareTo(new Double(0)) > 0 ? couponDiscount : new Double(0);
+				couponCode.setMember(cart.getMember());
+				order.setCouponDiscount(couponDiscount);
+				order.setCouponCode(couponCode.getId());
+			}
+		}
 
 		List<TOrderItem> orderItems = order.getOrderItems();
 		for (TCartItem cartItem : cart.getCartItems()) {
@@ -177,14 +195,14 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		if (paymentMethod.getMethod() == TPaymentMethod.Method.online.getCode()) {
 			order.setLockExpire(DateUtils.addSeconds(new Date(), 20));
 		}
-
+		orderMapper.insertSelective(order);
 		if (order.getCouponCode() != null) {
 			couponCode.setIsUsed(true);
 			couponCode.setUsedDate(new Date());
 			couponCode.setMember(cart.getMember());
-			// couponCodeDao.merge(couponCode);
+			couponCode.setOrders(order.getId());
+			couponCodeMapper.updateByPrimaryKeySelective(couponCode);
 		}
-		orderMapper.insertSelective(order);
 
 		List<TOrderItem> orderItems = order.getOrderItems();
 		if (orderItems != null && orderItems.size() > 0) {
@@ -233,12 +251,14 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional
 	public void updateOrder(TOrder order) {
 		order.setModifyDate(new Date());
 		orderMapper.updateByPrimaryKeySelective(order);
 	}
 
 	@Override
+	@Transactional
 	public void payment(TOrder order, TPayment payment, TAdmin operator) {
 		Date date = new Date();
 		order.setAmountPaid(order.getAmountPaid() + payment.getAmount());
@@ -273,6 +293,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
@@ -282,6 +303,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional
 	public void confirm(TOrder order, TAdmin admin) {
 		Date date = new Date();
 		order.setOrderStatus(OrderStatus.confirmed.getCode());
@@ -298,6 +320,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional
 	public void complete(TOrder order, TAdmin operator) {
 		Date date = new Date();
 		TMember member = memberMapper.selectByPrimaryKey(order.getMember());
@@ -330,6 +353,8 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		orderLogMapper.insertSelective(orderLog);
 	}
 
+	@Override
+	@Transactional
 	public void cancel(TOrder order, TAdmin operator) {
 		Date date = new Date();
 		TMember member = memberMapper.selectByPrimaryKey(order.getMember());
@@ -386,6 +411,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional
 	public void shipping(TOrder order, TAdmin operator) {
 		Date date = new Date();
 		order.setShippingStatus(ShippingStatus.shipped.getCode());

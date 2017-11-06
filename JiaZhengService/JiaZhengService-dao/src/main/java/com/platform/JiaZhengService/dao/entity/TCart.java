@@ -154,8 +154,8 @@ public class TCart extends StringAndEqualsPojo implements Serializable {
 		return null;
 	}
 
-	public double getQuantity() {
-		double quantity = 0;
+	public Double getQuantity() {
+		Double quantity = new Double(0);
 		if (getCartItems() != null && getCartItems().size() > 0) {
 			for (TCartItem cartItem : getCartItems()) {
 				if (cartItem != null && cartItem.getQuantity() != null) {
@@ -176,5 +176,63 @@ public class TCart extends StringAndEqualsPojo implements Serializable {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 获取有效商品价格
+	 * 
+	 * @return 有效商品价格
+	 */
+	public Double getEffectivePrice() {
+		Double effectivePrice = getPrice() - getDiscount();
+		return effectivePrice.compareTo(new Double(0)) > 0 ? effectivePrice : new Double(0);
+	}
+
+	/**
+	 * 获取折扣
+	 * 
+	 * @return 折扣
+	 */
+	public Double getDiscount() {
+		return new Double(0);
+	}
+
+	/**
+	 * 获取商品价格
+	 * 
+	 * @return 商品价格
+	 */
+	public Double getPrice() {
+		Double price = new Double(0);
+		if (getCartItems() != null) {
+			for (TCartItem cartItem : getCartItems()) {
+				if (cartItem != null && cartItem.getSubtotal() != null) {
+					price = price + cartItem.getSubtotal();
+				}
+			}
+		}
+		return price;
+	}
+
+	/**
+	 * 判断优惠券是否有效
+	 * 
+	 * @param coupon
+	 *            优惠券
+	 * @return 优惠券是否有效
+	 */
+	public boolean isValid(TCoupon coupon) {
+		if (coupon == null || !coupon.getIsEnabled() || !coupon.hasBegun() || coupon.hasExpired()) {
+			return false;
+		}
+		if ((coupon.getMinimumQuantity() != null && coupon.getMinimumQuantity() > getQuantity())
+				|| (coupon.getMaximumQuantity() != null && coupon.getMaximumQuantity() < getQuantity())) {
+			return false;
+		}
+		if ((coupon.getMinimumPrice() != null && coupon.getMinimumPrice().compareTo(getEffectivePrice()) > 0)
+				|| (coupon.getMaximumPrice() != null && coupon.getMaximumPrice().compareTo(getEffectivePrice()) < 0)) {
+			return false;
+		}
+		return true;
 	}
 }

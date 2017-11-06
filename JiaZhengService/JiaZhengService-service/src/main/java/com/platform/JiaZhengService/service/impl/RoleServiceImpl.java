@@ -109,6 +109,7 @@ public class RoleServiceImpl extends BaseServiceImpl implements RoleService {
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {

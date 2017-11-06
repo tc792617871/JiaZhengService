@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.constants.TTCartItem;
@@ -41,6 +42,7 @@ public class CartItemServiceImpl extends BaseServiceImpl implements CartItemServ
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
@@ -50,12 +52,14 @@ public class CartItemServiceImpl extends BaseServiceImpl implements CartItemServ
 	}
 
 	@Override
+	@Transactional
 	public void updateCartItem(TCartItem cartItem) {
 		cartItem.setModifyDate(new Date());
 		cartItemMapper.updateByPrimaryKeySelective(cartItem);
 	}
 
 	@Override
+	@Transactional
 	public void saveCartItem(TCartItem cartItem) {
 		cartItem.setModifyDate(new Date());
 		cartItem.setCreateDate(new Date());
@@ -63,6 +67,7 @@ public class CartItemServiceImpl extends BaseServiceImpl implements CartItemServ
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long id) {
 		if (id != null) {
 			cartItemMapper.deleteByPrimaryKey(id);

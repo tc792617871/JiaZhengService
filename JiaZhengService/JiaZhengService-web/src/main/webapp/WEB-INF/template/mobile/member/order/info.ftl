@@ -332,6 +332,12 @@ function addNewAddress(){
 						    </tr>
 						    <tr>
 						        <td style="text-align: right;" colspan="2" >
+						            <label for="beEconomical">节省:</label>
+							        <span id="beEconomical">${currency(order.promotionDiscount, true, false)}</span>
+						        </td>
+						    </tr>
+						    <tr>
+						        <td style="text-align: right;" colspan="2" >
 						            <label for="effectivePrice">实付款:</label>
 							        <span id="effectivePrice">${currency(order.amountPayable, true, false)}</span>
 						        </td>

@@ -171,11 +171,13 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 	}
 
 	@Override
+	@Transactional
 	public boolean updateByProductSelective(TProductWithBLOBs p) {
 		return productMapper.updateByPrimaryKeySelective(p) > 0 ? true : false;
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {

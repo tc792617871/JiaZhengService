@@ -207,6 +207,6 @@ public class PaymentController extends AbstractController {
 			}
 			model.addAttribute("payment", payment);
 		}
-		return "shop/payment/mobileNotify";
+		return "mobile/payment/mobileNotify";
 	}
 }

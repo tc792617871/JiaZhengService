@@ -6,10 +6,13 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.constants.TTReceiver;
+import com.platform.JiaZhengService.dao.entity.TMember;
 import com.platform.JiaZhengService.dao.entity.TReceiver;
+import com.platform.JiaZhengService.dao.mapper.TMemberMapper;
 import com.platform.JiaZhengService.dao.mapper.TReceiverMapper;
 import com.platform.JiaZhengService.service.api.ReceiverService;
 
@@ -18,6 +21,9 @@ public class ReceiverServiceImpl extends BaseServiceImpl implements ReceiverServ
 
 	@Resource
 	private TReceiverMapper receiverMapper;
+
+	@Resource
+	private TMemberMapper memberMapper;
 
 	@Override
 	public List<TReceiver> findReceiversByMemberID(Long id) {
@@ -43,6 +49,7 @@ public class ReceiverServiceImpl extends BaseServiceImpl implements ReceiverServ
 	}
 
 	@Override
+	@Transactional
 	public void saveReceiver(TReceiver receiver) {
 		Date date = new Date();
 		receiver.setCreateDate(date);
@@ -62,6 +69,15 @@ public class ReceiverServiceImpl extends BaseServiceImpl implements ReceiverServ
 			receiver.setIsDefault(false);
 		}
 		receiverMapper.insertSelective(receiver);
+		if (receiver.getIsDefault() != null) {
+			if (receiver.getIsDefault()) {
+				TMember member = new TMember();
+				member.setId(receiver.getMember());
+				member.setArea(receiver.getId());
+				member.setAddress(receiver.getAreaName() + receiver.getAddress());
+				memberMapper.updateByPrimaryKeySelective(member);
+			}
+		}
 	}
 
 	@Override
@@ -73,6 +89,7 @@ public class ReceiverServiceImpl extends BaseServiceImpl implements ReceiverServ
 	}
 
 	@Override
+	@Transactional
 	public void deleteReceiver(Long id) {
 		if (id != null) {
 			receiverMapper.deleteByPrimaryKey(id);
@@ -80,6 +97,7 @@ public class ReceiverServiceImpl extends BaseServiceImpl implements ReceiverServ
 	}
 
 	@Override
+	@Transactional
 	public void updateReceiver(TReceiver receiver) {
 		receiver.setModifyDate(new Date());
 		// 设置为默认
@@ -97,6 +115,15 @@ public class ReceiverServiceImpl extends BaseServiceImpl implements ReceiverServ
 			receiver.setIsDefault(false);
 		}
 		receiverMapper.updateByPrimaryKeySelective(receiver);
+		if (receiver.getIsDefault() != null) {
+			if (receiver.getIsDefault()) {
+				TMember member = new TMember();
+				member.setId(receiver.getMember());
+				member.setArea(receiver.getId());
+				member.setAddress(receiver.getAreaName() + receiver.getAddress());
+				memberMapper.updateByPrimaryKeySelective(member);
+			}
+		}
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.entity.TLogWithBLOBs;
@@ -19,6 +20,7 @@ public class LogServiceImpl extends BaseServiceImpl implements LogService {
 	private TLogMapper logMapper;
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
@@ -29,6 +31,7 @@ public class LogServiceImpl extends BaseServiceImpl implements LogService {
 	}
 
 	@Override
+	@Transactional
 	public void saveLog(TLogWithBLOBs log) {
 		Date dt = new Date();
 		log.setCreateDate(dt);
@@ -45,6 +48,7 @@ public class LogServiceImpl extends BaseServiceImpl implements LogService {
 	}
 
 	@Override
+	@Transactional
 	public void clear() {
 		logMapper.deleteByExample(new Criteria());
 	}

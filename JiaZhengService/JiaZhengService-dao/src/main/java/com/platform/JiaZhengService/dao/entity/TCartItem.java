@@ -192,4 +192,18 @@ public class TCartItem extends StringAndEqualsPojo implements Serializable {
 			return new Double(0);
 		}
 	}
+
+	/**
+	 * 获取小计
+	 * 
+	 * @return 小计
+	 */
+	public Double getSubtotal() {
+		if (getQuantity() != null) {
+			Double subtotal = getPrice() * new Double(getQuantity());
+			return subtotal;
+		} else {
+			return new Double(0);
+		}
+	}
 }

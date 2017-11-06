@@ -87,6 +87,7 @@ public class TagServiceImpl extends BaseServiceImpl implements TagService {
 	}
 
 	@Override
+	@Transactional
 	public void save(TTag tag) {
 		tag.setCreateDate(new Date());
 		tag.setModifyDate(new Date());
@@ -94,12 +95,14 @@ public class TagServiceImpl extends BaseServiceImpl implements TagService {
 	}
 
 	@Override
+	@Transactional
 	public void update(TTag tag) {
 		tag.setModifyDate(new Date());
 		tagMapper.updateByPrimaryKeySelective(tag);
 	}
 
 	@Override
+	@Transactional
 	public void delete(Long[] ids) {
 		if (ids != null && ids.length > 0) {
 			for (Long id : ids) {
