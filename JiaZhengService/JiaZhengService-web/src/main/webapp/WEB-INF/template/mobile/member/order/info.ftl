@@ -15,13 +15,13 @@
 <script type="text/javascript" src="${base}/resources/mobile/js/mobile.js"></script>
 <script type="text/javascript">
 $().ready(function() {
-	var $code = $("#code");
 	var $orderForm = $("#orderForm");
 	var $receiverId = $("#receiverId");
 	var $consignee = $("#consignee");
 	var $phone = $("#phone");
 	var $address = $("#address");
 	var $zipCode = $("#zipCode");
+	var $code = $("#code");
 
 	m$.header.titleContent.setTitle("处理订单");
 	$(".header_2 .cart_area").remove();
@@ -490,6 +490,7 @@ function addNewAddress(){
 							<li dataid="${couponCode.code}" dataval="${couponCode.couponName}">
 							    <a href="javascript:;">
 							        <img src="${base}/resources/mobile/images/coupon.png" />
+							        <p>${couponCode.couponName}</p>
 							    </a>
 							    <i></i>
 							</li>
