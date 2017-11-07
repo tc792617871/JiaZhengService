@@ -1316,4 +1316,21 @@ public class TOrder extends StringAndEqualsPojo implements Serializable {
 	public void settArea(TArea tArea) {
 		this.tArea = tArea;
 	}
+
+	/**
+	 * 获取商品获取销售价格的总额
+	 * 
+	 * @return 商品价格
+	 */
+	public Double getSellingPrice() {
+		Double price = new Double(0);
+		if (getOrderItems() != null) {
+			for (TOrderItem orderItem : getOrderItems()) {
+				if (orderItem != null && orderItem.getSubtotal() != null) {
+					price = price + orderItem.getSubtotal();
+				}
+			}
+		}
+		return price;
+	}
 }

@@ -15,7 +15,7 @@
 <script type="text/javascript" src="${base}/resources/mobile/js/mobile.js"></script>
 <script type="text/javascript">
 $().ready(function() {
-
+	var $code = $("#code");
 	var $orderForm = $("#orderForm");
 	var $receiverId = $("#receiverId");
 	var $consignee = $("#consignee");
@@ -49,25 +49,29 @@ $().ready(function() {
 		})
 	});
 	
-	/**微信选择*/
-	$("#paymentPluginModal").each(function(){
+	/**优惠券选择*/
+	$("#couponsModal").each(function(){
 		var i=$(this);
-		var $paymentPluginText = $("#paymentPluginText")
 		var p=i.find("ul>li");
 		p.click(function(){
 			if(!!$(this).hasClass("selected")){
 				$(this).removeClass("selected");
 			}else{
 				$(this).addClass("selected").siblings("li").removeClass("selected");
-				$paymentPluginId.val($(this).attr("dataid"));
-				$paymentPluginText.html($(this).attr("dataval"));
+				$code.val($(this).attr("dataid"));
 			}
-		})
+			calculate();
+		});
 	});
 });
 
 // 计算
 function calculate() {
+	var $orderForm = $("#orderForm");
+	var $couponDiscount = $("#couponDiscount");
+	var $beEconomical = $("#beEconomical");
+	var $amountPayable = $("#amountPayable");
+	var $effectivePrice = $("#effectivePrice");
 	$.ajax({
 		url: "calculate.jhtml",
 		type: "POST",
@@ -78,11 +82,13 @@ function calculate() {
 			if (data.message.type == "success") {
 				if (data.couponDiscount > 0) {
 					$couponDiscount.text(currency(data.couponDiscount, true));
+					$beEconomical.text(currency(data.couponDiscount, true));
 					$couponDiscount.parent().parent().show();
 				} else {
 					$couponDiscount.parent().parent().hide();
 				}
 				$amountPayable.text(currency(data.amountPayable, true, false));
+				$effectivePrice.text(currency(data.amountPayable, true, false));
 			} else {
 				$.message(data.message);
 				setTimeout(function() {
@@ -114,6 +120,7 @@ function addNewAddress(){
 				
 				<!--<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="alipayWapPlugin" />-->
 				<input type="hidden" id="paymentPluginId" name="paymentPluginId" value="wxJsPlugin" />
+				<input type="hidden" name="code" id="code" value=""/>
 				<div class="orderInfoContent">
 					<div>
 						<ul>
@@ -124,7 +131,7 @@ function addNewAddress(){
 						                	<div class="order-items-brief">
 							                    <img src="${base}/resources/mobile/icons/default_order_item_pic.jpg">
 												<span class="description">${order.quantity}件产品</span>
-												<span class="price">实付金额:${currency(order.amountPayable, true, false)}</span>
+												<span class="price">实付金额:<span id="amountPayable">${currency(order.amountPayable, true, false)}</span></span>
 											</div>
 						                </td>
 						                 <td>
@@ -210,7 +217,7 @@ function addNewAddress(){
 						    </li>
 						    [/#if]
 						    <!--
-						    <li  class="md-trigger" data-modal="paymentPluginModal">
+						    <li class="md-trigger" data-modal="paymentPluginModal">
 						         <table>
 						            <tr>
 						                <th>
@@ -237,30 +244,25 @@ function addNewAddress(){
 						            </tr>
 						         </table>
 						    </li>
-						    <!--<li>
+						    <li class="md-trigger" data-modal="couponsModal">
 						         <table>
 						            <tr>
-						                <th>
-						                   	优惠券
-						                </th>
-						            </tr>
-						            <tr>
-					                	<td>
-					                	    <input type="hidden" id="code" name="code" maxlength="200" />
-						                	<input type="text" class="box_input" placeholder="优惠码" id="couponCode" name="couponCode" style="width:76%;border-right:none;float:left;"/>
-						                	<button  type="button"  class="couponButton" id="confirmBut">${message("shop.order.codeConfirm")}</button>
-					                	</td>
-					                   
+						                <td>
+						                    <img src="${base}/resources/mobile/icons/money.png" class="imgIcon">
+						                    <span class="tableSpan">优惠券</span>
+						                </td>
+						                <td>
+						                   <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="rightArrow"/>
 						                </td>
 						            </tr>
-						              <tr style="display:none">
+						            <tr style="display:none">
 						                <td>
 						                    <label for="couponDiscount">优惠金额:</label>
 						                    <span id="couponDiscount">${currency(order.couponDiscount, true, false)}</span>
 						                </td>
 						            </tr>
 						         </table>
-						    </li>-->
+						     </li>
 						    <li>
 						    </li>
 						</ul>
@@ -333,7 +335,7 @@ function addNewAddress(){
 						    <tr>
 						        <td style="text-align: right;" colspan="2" >
 						            <label for="beEconomical">节省:</label>
-							        <span id="beEconomical">${currency(order.promotionDiscount, true, false)}</span>
+							        <span id="beEconomical">${currency(order.couponDiscount, true, false)}</span>
 						        </td>
 						    </tr>
 						    <tr>
@@ -351,7 +353,6 @@ function addNewAddress(){
 			</div>
 		</div>
 		<!-- end 产品信息 -->
-		
 		
 		<!-- start 收货信息 -->
 		<div class="md-modal md-receiverModal" id="receiverModal">
@@ -478,6 +479,30 @@ function addNewAddress(){
 			</div>
 		</div>
 		<!-- end 支付方式选择 -->
+		
+		<!-- start 优惠券选择 -->
+		<div class="md-modal md-couponsModal" id="couponsModal">
+			<div class="md-content">
+				<div>
+					<ul class="couponsEntry">
+						[#if couponCodes ?? && (couponCodes?size>0)]
+							[#list couponCodes as couponCode]
+							<li dataid="${couponCode.code}" dataval="${couponCode.couponName}">
+							    <a href="javascript:;">
+							        <img src="${base}/resources/mobile/images/coupon.png" />
+							    </a>
+							    <i></i>
+							</li>
+							[/#list]
+						[#else]
+							<p style="text-align: center;font-size: 16px;">暂无优惠券</p>
+						[/#if]
+					</ul>
+					<button class="md-close">确定</button>
+				</div>
+			</div>
+		</div>
+		<!-- end 优惠券选择 -->
 		
 		<!-- start 服务时间选择 -->
 		<div class="md-modal md-orderServiceTimeModal" id="orderServiceTimeModal">

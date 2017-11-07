@@ -131,7 +131,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 				TOrderItem orderItem = new TOrderItem();
 				orderItem.setSn(product.getSn());
 				orderItem.setName(specification.getName());
-				orderItem.setPrice(cartItem.getPrice()); // 计算优惠券需要注意下
+				orderItem.setPrice(cartItem.getPrice());
 				orderItem.setThumbnail(product.getImage());
 				orderItem.setQuantity(cartItem.getQuantity());
 				orderItem.setShippedQuantity(new Double(0));

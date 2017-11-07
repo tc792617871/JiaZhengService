@@ -156,6 +156,8 @@ public class OrderController extends AbstractController {
 		TReceiver defaultReceiver = receiverService.findDefault(member.getId());
 		List<TReceiver> receivers = receiverService.findReceiversByMemberID(member.getId());
 		List<ServiceTime> times = JiaZhengServiceUtil.formLastServiceTimes(7);
+		List<TCouponCode> couponCodes = couponCodeService.findCouponCodes(cart, member.getId(), false);
+		model.addAttribute("couponCodes", couponCodes);
 		model.addAttribute("times", times);
 		model.addAttribute("cartItemIds", cartItemIds);
 		model.addAttribute("productId", productId);

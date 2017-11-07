@@ -1,8 +1,9 @@
 package com.platform.JiaZhengService.dao.entity;
 
-import com.platform.JiaZhengService.common.pojo.StringAndEqualsPojo;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.platform.JiaZhengService.common.pojo.StringAndEqualsPojo;
 
 /**
  * @ClassName: TOrderItem
@@ -387,6 +388,28 @@ public class TOrderItem extends StringAndEqualsPojo implements Serializable {
 	public Double getSubtotal() {
 		if (getPrice() != null && getQuantity() != null) {
 			return getPrice() * getQuantity();
+		} else {
+			return new Double(0);
+		}
+	}
+
+	/**
+	 * 获取销售价格的
+	 * 
+	 * @return 价格
+	 */
+	public Double getSellingPrice() {
+		return getPrice();
+	}
+
+	/**
+	 * 获取销售价格小计
+	 * 
+	 * @return 小计
+	 */
+	public Double getSellingSubtotal() {
+		if (getQuantity() != null) {
+			return getSellingPrice() * (new Double(getQuantity()));
 		} else {
 			return new Double(0);
 		}

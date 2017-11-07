@@ -107,7 +107,7 @@ $().ready(function() {
 						<span class="requiredField">*</span>${message("Coupon.name")}:
 					</th>
 					<td>
-						<input type="text" name="name" class="text" value="${coupon.name}" maxlength="200" />
+						<input type="text" name="name" class="text" value="${coupon.name}" maxlength="20" />
 					</td>
 				</tr>
 				<tr style="display: none;">

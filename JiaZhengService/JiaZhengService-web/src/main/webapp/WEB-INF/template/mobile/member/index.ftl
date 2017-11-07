@@ -57,19 +57,6 @@ $().ready(function() {
 			            </tr>
 			        </table>
 			    </li>
-			    <li onclick="window.location='${base}/mobile/member/couponCenter.jhtml'">
-			        <table>
-			            <tr>
-			            	<td>
-			                    <img src="${base}/resources/mobile/icons/money.png" class="personal-icon"/>
-			                    <span class="tableSpan">领券中心</span>
-			                </td>
-			                 <td>
-			                    <img src="${base}/resources/mobile/images/icon_rightarrow.png" class="personal-right-arrow"/>
-			                </td>
-			            </tr>
-			        </table>
-			    </li>
 		    </ul>
 		    <ul class="personalInfo">
 			    <li onclick="window.location='${base}/mobile/member/sendAddress.jhtml'">

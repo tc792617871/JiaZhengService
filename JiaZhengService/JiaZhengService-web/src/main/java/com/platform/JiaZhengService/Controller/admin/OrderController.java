@@ -26,6 +26,7 @@ import com.platform.JiaZhengService.dao.Pageable;
 import com.platform.JiaZhengService.dao.constants.TTOrder;
 import com.platform.JiaZhengService.dao.entity.TAdmin;
 import com.platform.JiaZhengService.dao.entity.TArea;
+import com.platform.JiaZhengService.dao.entity.TCouponCode;
 import com.platform.JiaZhengService.dao.entity.TMember;
 import com.platform.JiaZhengService.dao.entity.TOrder;
 import com.platform.JiaZhengService.dao.entity.TOrder.OrderStatus;
@@ -40,6 +41,7 @@ import com.platform.JiaZhengService.dao.entity.TPaymentMethod;
 import com.platform.JiaZhengService.dao.entity.TPluginConfig;
 import com.platform.JiaZhengService.service.api.AdminService;
 import com.platform.JiaZhengService.service.api.AreaService;
+import com.platform.JiaZhengService.service.api.CouponCodeService;
 import com.platform.JiaZhengService.service.api.MemberService;
 import com.platform.JiaZhengService.service.api.OrderItemService;
 import com.platform.JiaZhengService.service.api.OrderLogService;
@@ -100,6 +102,9 @@ public class OrderController extends AbstractController {
 	@Resource(name = "smsMqListServiceImpl")
 	private SmsMqListService smsMqListService;
 
+	@Resource(name = "couponCodeServiceImpl")
+	private CouponCodeService couponCodeService;
+
 	/**
 	 * 检查锁定
 	 */
@@ -150,6 +155,8 @@ public class OrderController extends AbstractController {
 		order.settArea(area);
 		List<TOrderLog> orderLogs = orderLogService.findOrderLogsByOrderId(order.getId());
 		model.addAttribute("orderLogs", orderLogs);
+		TCouponCode couponCode = couponCodeService.findByID(order.getCouponCode());
+		model.addAttribute("couponCode", couponCode);
 		model.addAttribute("order", order);
 		return "/admin/order/view";
 	}

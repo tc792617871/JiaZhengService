@@ -2,6 +2,7 @@ package com.platform.JiaZhengService.service.api;
 
 import java.util.List;
 
+import com.platform.JiaZhengService.dao.entity.TCart;
 import com.platform.JiaZhengService.dao.entity.TCoupon;
 import com.platform.JiaZhengService.dao.entity.TCouponCode;
 import com.platform.JiaZhengService.dao.entity.TMember;
@@ -44,5 +45,23 @@ public interface CouponCodeService extends BaseService {
 	 * @return
 	 */
 	TCouponCode findByCode(String code);
+
+	/**
+	 * 查找个人优惠券码列表
+	 * 
+	 * @param cart
+	 * @param memberID
+	 * @param isUsed
+	 * @return
+	 */
+	List<TCouponCode> findCouponCodes(TCart cart, Long memberID, Boolean isUsed);
+
+	/**
+	 * 根据ID查询优惠券码
+	 * 
+	 * @param couponCode
+	 * @return
+	 */
+	TCouponCode findByID(Long couponCode);
 
 }

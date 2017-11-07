@@ -24,11 +24,13 @@ import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.Criteria.Condition;
 import com.platform.JiaZhengService.dao.constants.TTOrder;
 import com.platform.JiaZhengService.dao.entity.TArea;
+import com.platform.JiaZhengService.dao.entity.TCouponCode;
 import com.platform.JiaZhengService.dao.entity.TMember;
 import com.platform.JiaZhengService.dao.entity.TOrder;
 import com.platform.JiaZhengService.dao.entity.TOrderItem;
 import com.platform.JiaZhengService.dao.entity.TReceiver;
 import com.platform.JiaZhengService.service.api.AreaService;
+import com.platform.JiaZhengService.service.api.CouponCodeService;
 import com.platform.JiaZhengService.service.api.MemberService;
 import com.platform.JiaZhengService.service.api.OrderItemService;
 import com.platform.JiaZhengService.service.api.OrderService;
@@ -52,6 +54,9 @@ public class MemberController extends AbstractController {
 
 	@Resource(name = "orderItemServiceImpl")
 	private OrderItemService orderItemService;
+
+	@Resource(name = "couponCodeServiceImpl")
+	private CouponCodeService couponCodeService;
 
 	private static String ORDER_STATUS_NOEND = "noend";
 
@@ -112,6 +117,9 @@ public class MemberController extends AbstractController {
 	 */
 	@RequestMapping(value = "/myCoupons", method = RequestMethod.GET)
 	public String myCoupons(ModelMap model) {
+		TMember member = memberService.getCurrent();
+		List<TCouponCode> couponCodes = couponCodeService.findCouponCodes(null, member.getId(), false);
+		model.addAttribute("couponCodes", couponCodes);
 		return "/mobile/member/myCoupons";
 	}
 

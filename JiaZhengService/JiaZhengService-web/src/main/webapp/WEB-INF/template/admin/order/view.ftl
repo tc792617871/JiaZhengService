@@ -810,7 +810,7 @@ $().ready(function() {
 				${message("admin.order.coupon")}:
 			</th>
 			<td>
-				${(order.couponCode.coupon.name)!"-"}
+				${(couponCode.couponName)!"-"}
 			</td>
 			<th>
 				${message("Order.couponDiscount")}:

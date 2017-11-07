@@ -13,10 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.platform.JiaZhengService.dao.Criteria;
 import com.platform.JiaZhengService.dao.Criteria.Condition;
 import com.platform.JiaZhengService.dao.constants.TTCouponCode;
+import com.platform.JiaZhengService.dao.entity.TCart;
 import com.platform.JiaZhengService.dao.entity.TCoupon;
 import com.platform.JiaZhengService.dao.entity.TCouponCode;
 import com.platform.JiaZhengService.dao.entity.TMember;
 import com.platform.JiaZhengService.dao.mapper.TCouponCodeMapper;
+import com.platform.JiaZhengService.dao.mapper.TCouponMapper;
 import com.platform.JiaZhengService.service.api.CouponCodeService;
 
 @Service("couponCodeServiceImpl")
@@ -24,6 +26,9 @@ public class CouponCodeServiceImpl extends BaseServiceImpl implements CouponCode
 
 	@Resource
 	private TCouponCodeMapper couponCodeMapper;
+
+	@Resource
+	private TCouponMapper couponMapper;
 
 	@Override
 	public Long count(Long couponID, Long memberID, Boolean isUsed) {
@@ -91,6 +96,53 @@ public class CouponCodeServiceImpl extends BaseServiceImpl implements CouponCode
 		List<TCouponCode> codes = couponCodeMapper.selectByExample(c);
 		if (codes != null && codes.size() > 0) {
 			return codes.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public List<TCouponCode> findCouponCodes(TCart cart, Long memberID, Boolean isUsed) {
+		Criteria c = new Criteria();
+		Condition con = c.createConditon();
+		if (memberID != null) {
+			con.andEqualTo(TTCouponCode.MEMBER, memberID);
+		}
+		if (isUsed != null) {
+			con.andEqualTo(TTCouponCode.IS_USED, isUsed);
+		}
+		List<TCouponCode> codes = couponCodeMapper.selectByExample(c);
+		List<TCouponCode> resultCodes = new ArrayList<>();
+		if (codes != null && codes.size() > 0) {
+			for (TCouponCode code : codes) {
+				TCoupon coupon = couponMapper.selectByPrimaryKey(code.getCoupon());
+				if (!coupon.getIsEnabled() || !coupon.hasBegun() || coupon.hasExpired()
+						|| (cart != null && !cart.isValid(coupon))) {
+					continue;
+				}
+				if (coupon != null) {
+					code.setCouponName(coupon.getName());
+					code.setCouponBeginDate(coupon.getBeginDate());
+					code.setCouponEndDate(coupon.getEndDate());
+				}
+				resultCodes.add(code);
+			}
+		}
+		return resultCodes;
+	}
+
+	@Override
+	public TCouponCode findByID(Long couponCode) {
+		if (couponCode != null) {
+			TCouponCode code = couponCodeMapper.selectByPrimaryKey(couponCode);
+			if (code != null) {
+				TCoupon coupon = couponMapper.selectByPrimaryKey(code.getCoupon());
+				if (coupon != null) {
+					code.setCouponName(coupon.getName());
+					code.setCouponBeginDate(coupon.getBeginDate());
+					code.setCouponEndDate(coupon.getEndDate());
+				}
+				return code;
+			}
 		}
 		return null;
 	}
