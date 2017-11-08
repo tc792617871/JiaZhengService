@@ -118,8 +118,8 @@
 	</bean>
 
 	<!-- Spring中引入其他配置文件 -->
-	<import resource="classpath*:/spring-mybatis.xml" />
-	<import resource="classpath*:/applicationContext-shiro.xml" />
-	<import resource="classpath*:/applicationContext-rest.xml" />
+<!-- 	<import resource="classpath*:/spring-mybatis.xml" /> -->
+<!-- 	<import resource="classpath*:/applicationContext-shiro.xml" /> -->
+<!-- 	<import resource="classpath*:/applicationContext-rest.xml" /> -->
 
 </beans>

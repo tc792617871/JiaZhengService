@@ -30,11 +30,9 @@ $().ready(function() {
 			</a>
 		[/@shiro.hasPermission]
 			<div class="buttonWrap">
-				<!--
-				    <a href="javascript:;" id="deleteButton" class="iconButton disabled">
-					    <span class="deleteIcon">&nbsp;</span>${message("admin.common.delete")}
-				    </a>
-				-->
+			    <a href="javascript:;" id="deleteButton" class="iconButton disabled">
+				    <span class="deleteIcon">&nbsp;</span>${message("admin.common.delete")}
+			    </a>
 				<a href="javascript:;" id="refreshButton" class="iconButton">
 					<span class="refreshIcon">&nbsp;</span>${message("admin.common.refresh")}
 				</a>

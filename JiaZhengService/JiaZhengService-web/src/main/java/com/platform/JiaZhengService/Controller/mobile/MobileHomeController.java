@@ -44,6 +44,7 @@ public class MobileHomeController extends AbstractController {
 		model.addAttribute("productCategories", productCategories);
 
 		Criteria c = new Criteria();
+		c.createConditon().andEqualTo(TTTag.IS_ENABLED, true);
 		c.setOrderByClause(TTTag.ORDERS + JiaZhengServiceConstants.SORT_ASC);
 		List<TTag> tags = tagService.queryTagList(c);
 		if (tags != null && tags.size() > 0) {
