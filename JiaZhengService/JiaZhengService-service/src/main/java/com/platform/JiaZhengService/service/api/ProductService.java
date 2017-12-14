@@ -29,4 +29,6 @@ public interface ProductService extends BaseService {
 
 	boolean snUnique(String previousSn, String sn);
 
+	Long count(Boolean isMarketable, Boolean isTop);
+
 }

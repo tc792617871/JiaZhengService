@@ -225,4 +225,10 @@ public class MemberServiceImpl extends BaseServiceImpl implements MemberService 
 		return orderMapper.selectByExample(c);
 	}
 
+	@Override
+	public Long count() {
+		Integer count = memberMapper.countByExample(new Criteria());
+		return Long.valueOf(count);
+	}
+
 }

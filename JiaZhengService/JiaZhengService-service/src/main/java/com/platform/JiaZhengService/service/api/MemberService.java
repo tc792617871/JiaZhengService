@@ -143,4 +143,6 @@ public interface MemberService extends BaseService {
 	 */
 	List<TOrder> findOrdersByCriteria(Criteria c);
 
+	Long count();
+
 }

@@ -277,7 +277,6 @@ function addNewAddress(){
 		<!-- the overlay element -->
 		<div class="md-overlay"></div>
 		
-		<!-- start 产品信息 -->
 		<div class="md-modal md-orderProductInfoModal" id="orderProductInfoModal">
 			<div class="md-content">
 				<div>

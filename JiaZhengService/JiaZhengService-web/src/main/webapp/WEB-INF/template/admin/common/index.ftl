@@ -45,13 +45,13 @@
 				${message("admin.index.marketableProductCount")}:
 			</th>
 			<td>
-				0
+				${marketableProductCount}
 			</td>
 			<th>
-                ${message("admin.index.outOfStockProductCount")}:
-            </th>
+				${message("admin.index.memberCount")}:
+			</th>
             <td>
-                0
+                ${memberCount}
             </td>
 		</tr>
 		<tr>
@@ -59,27 +59,13 @@
 				${message("admin.index.waitingPaymentOrderCount")}:
 			</th>
 			<td>
-				0
+				${waitingPaymentOrderCount}
 			</td>
 			<th>
 				${message("admin.index.waitingShippingOrderCount")}:
 			</th>
 			<td>
-				0
-			</td>
-		</tr>
-		<tr>
-			<th>
-				${message("admin.index.memberCount")}:
-			</th>
-			<td>
-				0
-			</td>
-			<th>
-				${message("admin.index.unreadMessageCount")}:
-			</th>
-			<td>
-				0
+				${waitingShippingOrderCount}
 			</td>
 		</tr>
 		<tr>

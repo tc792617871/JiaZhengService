@@ -1,5 +1,6 @@
 package com.platform.JiaZhengService.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -427,6 +428,35 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		orderLog.setModifyDate(date);
 		orderLogMapper.insertSelective(orderLog);
 
+	}
+
+	@Override
+	public Long waitingPaymentCount() {
+		Criteria c = new Criteria();
+		List<Object> paymentStatuss = new ArrayList<>();
+		paymentStatuss.add(PaymentStatus.partialPayment.getCode());
+		paymentStatuss.add(PaymentStatus.unpaid.getCode());
+		List<Object> orderStatuss = new ArrayList<>();
+		orderStatuss.add(OrderStatus.completed.getCode());
+		orderStatuss.add(OrderStatus.cancelled.getCode());
+		c.createConditon().andIn(TTOrder.PAYMENT_STATUS, paymentStatuss).andNotIn(TTOrder.ORDER_STATUS, orderStatuss)
+				.andGreaterThanOrEqualTo(TTOrder.EXPIRE, new Date());
+		Integer count = orderMapper.countByExample(c);
+		return Long.valueOf(count);
+	}
+
+	@Override
+	public Long waitingShippingCount() {
+		Criteria c = new Criteria();
+		List<Object> orderStatuss = new ArrayList<>();
+		orderStatuss.add(OrderStatus.completed.getCode());
+		orderStatuss.add(OrderStatus.cancelled.getCode());
+		c.createConditon().andEqualTo(TTOrder.PAYMENT_STATUS, PaymentStatus.paid.getCode())
+				.andNotIn(TTOrder.ORDER_STATUS, orderStatuss)
+				.andEqualTo(TTOrder.SHIPPING_STATUS, ShippingStatus.unshipped.getCode())
+				.andGreaterThanOrEqualTo(TTOrder.EXPIRE, new Date());
+		Integer count = orderMapper.countByExample(c);
+		return Long.valueOf(count);
 	}
 
 }

@@ -21,6 +21,9 @@ import org.springframework.web.context.ServletContextAware;
 
 import com.platform.JiaZhengService.service.api.AdminService;
 import com.platform.JiaZhengService.service.api.CaptchaService;
+import com.platform.JiaZhengService.service.api.MemberService;
+import com.platform.JiaZhengService.service.api.OrderService;
+import com.platform.JiaZhengService.service.api.ProductService;
 
 /**
  * Controller - 共用
@@ -47,6 +50,15 @@ public class CommonController implements ServletContextAware {
 	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
 
+	@Resource(name = "orderServiceImpl")
+	private OrderService orderService;
+
+	@Resource(name = "memberServiceImpl")
+	private MemberService memberService;
+
+	@Resource(name = "productServiceImpl")
+	private ProductService productService;
+
 	/** servletContext */
 	private ServletContext servletContext;
 
@@ -67,6 +79,10 @@ public class CommonController implements ServletContextAware {
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpServletRequest request) {
+		model.addAttribute("marketableProductCount", productService.count(true, null));
+		model.addAttribute("memberCount", memberService.count());
+		model.addAttribute("waitingPaymentOrderCount", orderService.waitingPaymentCount());
+		model.addAttribute("waitingShippingOrderCount", orderService.waitingShippingCount());
 		return "/admin/common/index";
 	}
 

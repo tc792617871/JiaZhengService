@@ -219,4 +219,18 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		}
 	}
 
+	@Override
+	public Long count(Boolean isMarketable, Boolean isTop) {
+		Criteria criteria = new Criteria();
+		Condition condition = criteria.createConditon();
+		if (isMarketable != null) {
+			condition.andEqualTo(TTProduct.IS_MARKETABLE, isMarketable);
+		}
+		if (isMarketable != null) {
+			condition.andEqualTo(TTProduct.IS_TOP, isTop);
+		}
+		Integer count = productMapper.countByExample(criteria);
+		return Long.valueOf(count);
+	}
+
 }

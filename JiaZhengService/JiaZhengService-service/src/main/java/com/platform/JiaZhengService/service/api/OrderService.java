@@ -105,4 +105,8 @@ public interface OrderService extends BaseService {
 	 */
 	void shipping(TOrder order, TAdmin operator);
 
+	Long waitingPaymentCount();
+
+	Long waitingShippingCount();
+
 }
