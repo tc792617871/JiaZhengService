@@ -14,7 +14,8 @@
 		<result column="orders" property="orders" jdbcType="BIGINT" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, code, is_used, used_date, coupon, member,
+		id, create_date, modify_date, code, is_used, used_date,
+		coupon, member,
 		orders
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
@@ -37,7 +38,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_coupon_code
+		delete from
+		t_coupon_code
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -52,11 +54,14 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_coupon_code (create_date, modify_date, code,
-		is_used, used_date, coupon,
+		is_used,
+		used_date, coupon,
 		member, orders)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values
+		(#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
 		#{code,jdbcType=VARCHAR},
-		#{isUsed,jdbcType=BIT}, #{usedDate,jdbcType=TIMESTAMP}, #{coupon,jdbcType=BIGINT},
+		#{isUsed,jdbcType=BIT},
+		#{usedDate,jdbcType=TIMESTAMP}, #{coupon,jdbcType=BIGINT},
 		#{member,jdbcType=BIGINT}, #{orders,jdbcType=BIGINT})
 	</insert>
 	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TCouponCode">
@@ -163,14 +168,22 @@
 	<update id="updateByExample" parameterType="map">
 		update t_coupon_code
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		code = #{record.code,jdbcType=VARCHAR},
-		is_used = #{record.isUsed,jdbcType=BIT},
-		used_date = #{record.usedDate,jdbcType=TIMESTAMP},
-		coupon = #{record.coupon,jdbcType=BIGINT},
-		member = #{record.member,jdbcType=BIGINT},
-		orders = #{record.orders,jdbcType=BIGINT}
+		create_date
+		= #{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		code =
+		#{record.code,jdbcType=VARCHAR},
+		is_used =
+		#{record.isUsed,jdbcType=BIT},
+		used_date =
+		#{record.usedDate,jdbcType=TIMESTAMP},
+		coupon =
+		#{record.coupon,jdbcType=BIGINT},
+		member =
+		#{record.member,jdbcType=BIGINT},
+		orders =
+		#{record.orders,jdbcType=BIGINT}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -206,12 +219,15 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TCouponCode">
-		update t_coupon_code
+		update
+		t_coupon_code
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
 		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		code = #{code,jdbcType=VARCHAR},
+		code =
+		#{code,jdbcType=VARCHAR},
 		is_used = #{isUsed,jdbcType=BIT},
-		used_date = #{usedDate,jdbcType=TIMESTAMP},
+		used_date =
+		#{usedDate,jdbcType=TIMESTAMP},
 		coupon = #{coupon,jdbcType=BIGINT},
 		member = #{member,jdbcType=BIGINT},
 		orders = #{orders,jdbcType=BIGINT}

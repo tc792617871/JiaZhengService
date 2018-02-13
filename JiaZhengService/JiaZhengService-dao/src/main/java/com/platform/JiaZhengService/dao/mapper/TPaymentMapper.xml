@@ -27,16 +27,21 @@
 		<result column="orders" property="orders" jdbcType="BIGINT" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, account, amount, bank, expire, fee, memo,
+		id, create_date, modify_date, account, amount, bank,
+		expire, fee, memo,
 		method, operator,
-		payer, payment_date, payment_method, payment_plugin_id, sn, status, type,
+		payer, payment_date,
+		payment_method, payment_plugin_id, sn, status, type,
 		member,
 		orders
 	</sql>
 	<sql id="pay_Column_List">
-		pay.id, pay.create_date, pay.modify_date, pay.account, pay.amount, pay.bank, pay.expire, pay.fee, pay.memo,
-		pay.method, pay.operator,
-		pay.payer, pay.payment_date, pay.payment_method, pay.payment_plugin_id, pay.sn, pay.status, pay.type,
+		pay.id, pay.create_date, pay.modify_date, pay.account,
+		pay.amount, pay.bank, pay.expire, pay.fee, pay.memo,
+		pay.method,
+		pay.operator,
+		pay.payer, pay.payment_date, pay.payment_method,
+		pay.payment_plugin_id, pay.sn, pay.status, pay.type,
 		pay.member,
 		pay.orders
 	</sql>
@@ -60,7 +65,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_payment
+		delete from
+		t_payment
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -75,18 +81,23 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_payment (create_date, modify_date, account,
-		amount, bank, expire,
+		amount, bank,
+		expire,
 		fee, memo, method,
 		operator, payer, payment_date,
 		payment_method, payment_plugin_id, sn,
 		status, type, member,
 		orders)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values (#{createDate,jdbcType=TIMESTAMP},
+		#{modifyDate,jdbcType=TIMESTAMP},
 		#{account,jdbcType=VARCHAR},
-		#{amount,jdbcType=DECIMAL}, #{bank,jdbcType=VARCHAR}, #{expire,jdbcType=TIMESTAMP},
-		#{fee,jdbcType=DECIMAL}, #{memo,jdbcType=VARCHAR},
+		#{amount,jdbcType=DECIMAL}, #{bank,jdbcType=VARCHAR},
+		#{expire,jdbcType=TIMESTAMP},
+		#{fee,jdbcType=DECIMAL},
+		#{memo,jdbcType=VARCHAR},
 		#{method,jdbcType=INTEGER},
-		#{operator,jdbcType=VARCHAR}, #{payer,jdbcType=VARCHAR}, #{paymentDate,jdbcType=TIMESTAMP},
+		#{operator,jdbcType=VARCHAR}, #{payer,jdbcType=VARCHAR},
+		#{paymentDate,jdbcType=TIMESTAMP},
 		#{paymentMethod,jdbcType=VARCHAR},
 		#{paymentPluginId,jdbcType=VARCHAR}, #{sn,jdbcType=VARCHAR},
 		#{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
@@ -268,10 +279,12 @@
 				payment_date = #{record.paymentDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="record.paymentMethod != null">
-				payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
+				payment_method =
+				#{record.paymentMethod,jdbcType=VARCHAR},
 			</if>
 			<if test="record.paymentPluginId != null">
-				payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
+				payment_plugin_id =
+				#{record.paymentPluginId,jdbcType=VARCHAR},
 			</if>
 			<if test="record.sn != null">
 				sn = #{record.sn,jdbcType=VARCHAR},
@@ -296,25 +309,42 @@
 	<update id="updateByExample" parameterType="map">
 		update t_payment
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		account = #{record.account,jdbcType=VARCHAR},
-		amount = #{record.amount,jdbcType=DECIMAL},
-		bank = #{record.bank,jdbcType=VARCHAR},
-		expire = #{record.expire,jdbcType=TIMESTAMP},
-		fee = #{record.fee,jdbcType=DECIMAL},
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		account =
+		#{record.account,jdbcType=VARCHAR},
+		amount =
+		#{record.amount,jdbcType=DECIMAL},
+		bank =
+		#{record.bank,jdbcType=VARCHAR},
+		expire =
+		#{record.expire,jdbcType=TIMESTAMP},
+		fee =
+		#{record.fee,jdbcType=DECIMAL},
 		memo = #{record.memo,jdbcType=VARCHAR},
 		method = #{record.method,jdbcType=INTEGER},
-		operator = #{record.operator,jdbcType=VARCHAR},
-		payer = #{record.payer,jdbcType=VARCHAR},
-		payment_date = #{record.paymentDate,jdbcType=TIMESTAMP},
-		payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
-		payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
-		sn = #{record.sn,jdbcType=VARCHAR},
-		status = #{record.status,jdbcType=INTEGER},
-		type = #{record.type,jdbcType=INTEGER},
-		member = #{record.member,jdbcType=BIGINT},
-		orders = #{record.orders,jdbcType=BIGINT}
+		operator =
+		#{record.operator,jdbcType=VARCHAR},
+		payer =
+		#{record.payer,jdbcType=VARCHAR},
+		payment_date =
+		#{record.paymentDate,jdbcType=TIMESTAMP},
+		payment_method =
+		#{record.paymentMethod,jdbcType=VARCHAR},
+		payment_plugin_id =
+		#{record.paymentPluginId,jdbcType=VARCHAR},
+		sn =
+		#{record.sn,jdbcType=VARCHAR},
+		status =
+		#{record.status,jdbcType=INTEGER},
+		type =
+		#{record.type,jdbcType=INTEGER},
+		member =
+		#{record.member,jdbcType=BIGINT},
+		orders =
+		#{record.orders,jdbcType=BIGINT}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -385,19 +415,27 @@
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TPayment">
 		update t_payment
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		account = #{account,jdbcType=VARCHAR},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
+		account =
+		#{account,jdbcType=VARCHAR},
 		amount = #{amount,jdbcType=DECIMAL},
-		bank = #{bank,jdbcType=VARCHAR},
+		bank =
+		#{bank,jdbcType=VARCHAR},
 		expire = #{expire,jdbcType=TIMESTAMP},
-		fee = #{fee,jdbcType=DECIMAL},
+		fee =
+		#{fee,jdbcType=DECIMAL},
 		memo = #{memo,jdbcType=VARCHAR},
-		method = #{method,jdbcType=INTEGER},
+		method =
+		#{method,jdbcType=INTEGER},
 		operator = #{operator,jdbcType=VARCHAR},
 		payer = #{payer,jdbcType=VARCHAR},
-		payment_date = #{paymentDate,jdbcType=TIMESTAMP},
-		payment_method = #{paymentMethod,jdbcType=VARCHAR},
-		payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
+		payment_date =
+		#{paymentDate,jdbcType=TIMESTAMP},
+		payment_method =
+		#{paymentMethod,jdbcType=VARCHAR},
+		payment_plugin_id =
+		#{paymentPluginId,jdbcType=VARCHAR},
 		sn = #{sn,jdbcType=VARCHAR},
 		status = #{status,jdbcType=INTEGER},
 		type = #{type,jdbcType=INTEGER},
@@ -408,7 +446,7 @@
 	<select id="selectMulTablesByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
 		select
-			distinct
+		distinct
 		<include refid="pay_Column_List" />
 		from t_payment pay
 		left join t_order o

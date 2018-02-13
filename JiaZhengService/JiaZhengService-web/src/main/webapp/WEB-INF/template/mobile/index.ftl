@@ -52,7 +52,7 @@
 					<div class="content-container">
 						<span class="title">${product.name}</span>
 						<span class="description">${product.memo}</span>
-						<img src="${product.image}">
+						<img src="${product.pluImage}">
 					</div>
 				</li>
 				[/#list]

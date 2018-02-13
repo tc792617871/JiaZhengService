@@ -19,7 +19,8 @@
 		<result column="code" property="code" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, orders, icon, memo, name, type,
+		id, create_date, modify_date, orders, icon, memo, name,
+		type,
 		mobile_cover, ed_mobile_cover,
 		mo_mobile_cover, is_enabled, code
 	</sql>
@@ -58,15 +59,20 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_tag (create_date, modify_date, orders,
-		icon, memo, name, type,
+		icon, memo, name,
+		type,
 		mobile_cover, ed_mobile_cover, mo_mobile_cover,
 		is_enabled, code)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values (#{createDate,jdbcType=TIMESTAMP},
+		#{modifyDate,jdbcType=TIMESTAMP},
 		#{orders,jdbcType=INTEGER},
-		#{icon,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{icon,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
 		#{type,jdbcType=INTEGER},
-		#{mobileCover,jdbcType=VARCHAR}, #{edMobileCover,jdbcType=VARCHAR}, #{moMobileCover,jdbcType=VARCHAR},
-		#{isEnabled,jdbcType=BIT}, #{code,jdbcType=VARCHAR})
+		#{mobileCover,jdbcType=VARCHAR}, #{edMobileCover,jdbcType=VARCHAR},
+		#{moMobileCover,jdbcType=VARCHAR},
+		#{isEnabled,jdbcType=BIT},
+		#{code,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TTag">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
@@ -189,10 +195,12 @@
 				mobile_cover = #{record.mobileCover,jdbcType=VARCHAR},
 			</if>
 			<if test="record.edMobileCover != null">
-				ed_mobile_cover = #{record.edMobileCover,jdbcType=VARCHAR},
+				ed_mobile_cover =
+				#{record.edMobileCover,jdbcType=VARCHAR},
 			</if>
 			<if test="record.moMobileCover != null">
-				mo_mobile_cover = #{record.moMobileCover,jdbcType=VARCHAR},
+				mo_mobile_cover =
+				#{record.moMobileCover,jdbcType=VARCHAR},
 			</if>
 			<if test="record.isEnabled != null">
 				is_enabled = #{record.isEnabled,jdbcType=BIT},
@@ -208,18 +216,30 @@
 	<update id="updateByExample" parameterType="map">
 		update t_tag
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		orders = #{record.orders,jdbcType=INTEGER},
-		icon = #{record.icon,jdbcType=VARCHAR},
-		memo = #{record.memo,jdbcType=VARCHAR},
-		name = #{record.name,jdbcType=VARCHAR},
-		type = #{record.type,jdbcType=INTEGER},
-		mobile_cover = #{record.mobileCover,jdbcType=VARCHAR},
-		ed_mobile_cover = #{record.edMobileCover,jdbcType=VARCHAR},
-		mo_mobile_cover = #{record.moMobileCover,jdbcType=VARCHAR},
-		is_enabled = #{record.isEnabled,jdbcType=BIT},
-		code = #{record.code,jdbcType=VARCHAR}
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		orders =
+		#{record.orders,jdbcType=INTEGER},
+		icon =
+		#{record.icon,jdbcType=VARCHAR},
+		memo =
+		#{record.memo,jdbcType=VARCHAR},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		type =
+		#{record.type,jdbcType=INTEGER},
+		mobile_cover =
+		#{record.mobileCover,jdbcType=VARCHAR},
+		ed_mobile_cover =
+		#{record.edMobileCover,jdbcType=VARCHAR},
+		mo_mobile_cover =
+		#{record.moMobileCover,jdbcType=VARCHAR},
+		is_enabled =
+		#{record.isEnabled,jdbcType=BIT},
+		code =
+		#{record.code,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -268,18 +288,26 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TTag">
 		update t_tag
-		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		set
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
 		orders = #{orders,jdbcType=INTEGER},
 		icon = #{icon,jdbcType=VARCHAR},
 		memo = #{memo,jdbcType=VARCHAR},
-		name = #{name,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
 		type = #{type,jdbcType=INTEGER},
-		mobile_cover = #{mobileCover,jdbcType=VARCHAR},
-		ed_mobile_cover = #{edMobileCover,jdbcType=VARCHAR},
-		mo_mobile_cover = #{moMobileCover,jdbcType=VARCHAR},
-		is_enabled = #{isEnabled,jdbcType=BIT},
+		mobile_cover
+		= #{mobileCover,jdbcType=VARCHAR},
+		ed_mobile_cover =
+		#{edMobileCover,jdbcType=VARCHAR},
+		mo_mobile_cover =
+		#{moMobileCover,jdbcType=VARCHAR},
+		is_enabled =
+		#{isEnabled,jdbcType=BIT},
 		code = #{code,jdbcType=VARCHAR}
-		where id = #{id,jdbcType=BIGINT}
+		where id =
+		#{id,jdbcType=BIGINT}
 	</update>
 </mapper>

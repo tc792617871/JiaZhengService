@@ -72,17 +72,23 @@
 			jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, address, amount, attribute_value0,
+		id, create_date, modify_date, address, amount,
+		attribute_value0,
 		attribute_value1,
-		attribute_value2, attribute_value3, attribute_value4, attribute_value5,
+		attribute_value2, attribute_value3,
+		attribute_value4, attribute_value5,
 		attribute_value6,
-		attribute_value7, attribute_value8, attribute_value9, balance, birth, email, gender,
+		attribute_value7,
+		attribute_value8, attribute_value9, balance, birth, email, gender,
 		is_enabled, is_locked, locked_date, login_date, login_failure_count,
 		login_ip, mobile,
-		name, password, vip_code, vip_number, phone, point, register_ip,
+		name, password, vip_code, vip_number, phone, point,
+		register_ip,
 		safe_key_expire,
-		safe_key_value, username, zip_code, area, member_rank, validate_code, card_number,
-		country, language_preference, height, weight, bust, hip, waist,
+		safe_key_value, username, zip_code, area,
+		member_rank, validate_code, card_number,
+		country, language_preference,
+		height, weight, bust, hip, waist,
 		occupation, member_label,
 		we_chat_open_id
 	</sql>
@@ -106,7 +112,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_member
+		delete from
+		t_member
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -121,23 +128,30 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_member (create_date, modify_date, address,
-		amount, attribute_value0, attribute_value1,
-		attribute_value2, attribute_value3, attribute_value4,
+		amount,
+		attribute_value0, attribute_value1,
+		attribute_value2, attribute_value3,
+		attribute_value4,
 		attribute_value5, attribute_value6, attribute_value7,
 		attribute_value8, attribute_value9, balance,
 		birth, email, gender,
 		is_enabled, is_locked, locked_date,
-		login_date, login_failure_count, login_ip,
+		login_date, login_failure_count,
+		login_ip,
 		mobile, name, password,
 		vip_code, vip_number, phone,
-		point, register_ip, safe_key_expire,
+		point,
+		register_ip, safe_key_expire,
 		safe_key_value, username, zip_code,
-		area, member_rank, validate_code,
+		area,
+		member_rank, validate_code,
 		card_number, country, language_preference,
 		height, weight, bust,
 		hip, waist, occupation,
-		member_label, we_chat_open_id)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		member_label,
+		we_chat_open_id)
+		values (#{createDate,jdbcType=TIMESTAMP},
+		#{modifyDate,jdbcType=TIMESTAMP},
 		#{address,jdbcType=VARCHAR},
 		#{amount,jdbcType=DOUBLE}, #{attributeValue0,jdbcType=VARCHAR},
 		#{attributeValue1,jdbcType=VARCHAR},
@@ -151,21 +165,26 @@
 		#{attributeValue9,jdbcType=VARCHAR}, #{balance,jdbcType=DOUBLE},
 		#{birth,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR},
 		#{gender,jdbcType=INTEGER},
-		#{isEnabled,jdbcType=BIT}, #{isLocked,jdbcType=BIT}, #{lockedDate,jdbcType=TIMESTAMP},
+		#{isEnabled,jdbcType=BIT},
+		#{isLocked,jdbcType=BIT}, #{lockedDate,jdbcType=TIMESTAMP},
 		#{loginDate,jdbcType=TIMESTAMP},
 		#{loginFailureCount,jdbcType=INTEGER}, #{loginIp,jdbcType=VARCHAR},
 		#{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
-		#{vipCode,jdbcType=VARCHAR}, #{vipNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+		#{vipCode,jdbcType=VARCHAR},
+		#{vipNumber,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
 		#{point,jdbcType=BIGINT}, #{registerIp,jdbcType=VARCHAR},
 		#{safeKeyExpire,jdbcType=TIMESTAMP},
-		#{safeKeyValue,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR},
+		#{safeKeyValue,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR},
 		#{area,jdbcType=BIGINT}, #{memberRank,jdbcType=BIGINT},
 		#{validateCode,jdbcType=VARCHAR},
-		#{cardNumber,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{languagePreference,jdbcType=BIGINT},
+		#{cardNumber,jdbcType=VARCHAR},
+		#{country,jdbcType=VARCHAR}, #{languagePreference,jdbcType=BIGINT},
 		#{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE},
 		#{bust,jdbcType=DOUBLE},
-		#{hip,jdbcType=DOUBLE}, #{waist,jdbcType=DOUBLE}, #{occupation,jdbcType=BIGINT},
+		#{hip,jdbcType=DOUBLE},
+		#{waist,jdbcType=DOUBLE}, #{occupation,jdbcType=BIGINT},
 		#{memberLabel,jdbcType=VARCHAR}, #{weChatOpenId,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TMember">
@@ -505,34 +524,44 @@
 				amount = #{record.amount,jdbcType=DOUBLE},
 			</if>
 			<if test="record.attributeValue0 != null">
-				attribute_value0 = #{record.attributeValue0,jdbcType=VARCHAR},
+				attribute_value0 =
+				#{record.attributeValue0,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue1 != null">
-				attribute_value1 = #{record.attributeValue1,jdbcType=VARCHAR},
+				attribute_value1 =
+				#{record.attributeValue1,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue2 != null">
-				attribute_value2 = #{record.attributeValue2,jdbcType=VARCHAR},
+				attribute_value2 =
+				#{record.attributeValue2,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue3 != null">
-				attribute_value3 = #{record.attributeValue3,jdbcType=VARCHAR},
+				attribute_value3 =
+				#{record.attributeValue3,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue4 != null">
-				attribute_value4 = #{record.attributeValue4,jdbcType=VARCHAR},
+				attribute_value4 =
+				#{record.attributeValue4,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue5 != null">
-				attribute_value5 = #{record.attributeValue5,jdbcType=VARCHAR},
+				attribute_value5 =
+				#{record.attributeValue5,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue6 != null">
-				attribute_value6 = #{record.attributeValue6,jdbcType=VARCHAR},
+				attribute_value6 =
+				#{record.attributeValue6,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue7 != null">
-				attribute_value7 = #{record.attributeValue7,jdbcType=VARCHAR},
+				attribute_value7 =
+				#{record.attributeValue7,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue8 != null">
-				attribute_value8 = #{record.attributeValue8,jdbcType=VARCHAR},
+				attribute_value8 =
+				#{record.attributeValue8,jdbcType=VARCHAR},
 			</if>
 			<if test="record.attributeValue9 != null">
-				attribute_value9 = #{record.attributeValue9,jdbcType=VARCHAR},
+				attribute_value9 =
+				#{record.attributeValue9,jdbcType=VARCHAR},
 			</if>
 			<if test="record.balance != null">
 				balance = #{record.balance,jdbcType=DOUBLE},
@@ -559,7 +588,8 @@
 				login_date = #{record.loginDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="record.loginFailureCount != null">
-				login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
+				login_failure_count =
+				#{record.loginFailureCount,jdbcType=INTEGER},
 			</if>
 			<if test="record.loginIp != null">
 				login_ip = #{record.loginIp,jdbcType=VARCHAR},
@@ -589,7 +619,8 @@
 				register_ip = #{record.registerIp,jdbcType=VARCHAR},
 			</if>
 			<if test="record.safeKeyExpire != null">
-				safe_key_expire = #{record.safeKeyExpire,jdbcType=TIMESTAMP},
+				safe_key_expire =
+				#{record.safeKeyExpire,jdbcType=TIMESTAMP},
 			</if>
 			<if test="record.safeKeyValue != null">
 				safe_key_value = #{record.safeKeyValue,jdbcType=VARCHAR},
@@ -616,7 +647,8 @@
 				country = #{record.country,jdbcType=VARCHAR},
 			</if>
 			<if test="record.languagePreference != null">
-				language_preference = #{record.languagePreference,jdbcType=BIGINT},
+				language_preference =
+				#{record.languagePreference,jdbcType=BIGINT},
 			</if>
 			<if test="record.height != null">
 				height = #{record.height,jdbcType=DOUBLE},
@@ -640,7 +672,8 @@
 				member_label = #{record.memberLabel,jdbcType=VARCHAR},
 			</if>
 			<if test="record.weChatOpenId != null">
-				we_chat_open_id = #{record.weChatOpenId,jdbcType=VARCHAR},
+				we_chat_open_id =
+				#{record.weChatOpenId,jdbcType=VARCHAR},
 			</if>
 		</set>
 		<if test="_parameter != null">
@@ -650,56 +683,104 @@
 	<update id="updateByExample" parameterType="map">
 		update t_member
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		address = #{record.address,jdbcType=VARCHAR},
-		amount = #{record.amount,jdbcType=DOUBLE},
-		attribute_value0 = #{record.attributeValue0,jdbcType=VARCHAR},
-		attribute_value1 = #{record.attributeValue1,jdbcType=VARCHAR},
-		attribute_value2 = #{record.attributeValue2,jdbcType=VARCHAR},
-		attribute_value3 = #{record.attributeValue3,jdbcType=VARCHAR},
-		attribute_value4 = #{record.attributeValue4,jdbcType=VARCHAR},
-		attribute_value5 = #{record.attributeValue5,jdbcType=VARCHAR},
-		attribute_value6 = #{record.attributeValue6,jdbcType=VARCHAR},
-		attribute_value7 = #{record.attributeValue7,jdbcType=VARCHAR},
-		attribute_value8 = #{record.attributeValue8,jdbcType=VARCHAR},
-		attribute_value9 = #{record.attributeValue9,jdbcType=VARCHAR},
-		balance = #{record.balance,jdbcType=DOUBLE},
-		birth = #{record.birth,jdbcType=TIMESTAMP},
-		email = #{record.email,jdbcType=VARCHAR},
-		gender = #{record.gender,jdbcType=INTEGER},
-		is_enabled = #{record.isEnabled,jdbcType=BIT},
-		is_locked = #{record.isLocked,jdbcType=BIT},
-		locked_date = #{record.lockedDate,jdbcType=TIMESTAMP},
-		login_date = #{record.loginDate,jdbcType=TIMESTAMP},
-		login_failure_count = #{record.loginFailureCount,jdbcType=INTEGER},
-		login_ip = #{record.loginIp,jdbcType=VARCHAR},
-		mobile = #{record.mobile,jdbcType=VARCHAR},
-		name = #{record.name,jdbcType=VARCHAR},
-		password = #{record.password,jdbcType=VARCHAR},
-		vip_code = #{record.vipCode,jdbcType=VARCHAR},
-		vip_number = #{record.vipNumber,jdbcType=VARCHAR},
-		phone = #{record.phone,jdbcType=VARCHAR},
-		point = #{record.point,jdbcType=BIGINT},
-		register_ip = #{record.registerIp,jdbcType=VARCHAR},
-		safe_key_expire = #{record.safeKeyExpire,jdbcType=TIMESTAMP},
-		safe_key_value = #{record.safeKeyValue,jdbcType=VARCHAR},
-		username = #{record.username,jdbcType=VARCHAR},
-		zip_code = #{record.zipCode,jdbcType=VARCHAR},
-		area = #{record.area,jdbcType=BIGINT},
-		member_rank = #{record.memberRank,jdbcType=BIGINT},
-		validate_code = #{record.validateCode,jdbcType=VARCHAR},
-		card_number = #{record.cardNumber,jdbcType=VARCHAR},
-		country = #{record.country,jdbcType=VARCHAR},
-		language_preference = #{record.languagePreference,jdbcType=BIGINT},
-		height = #{record.height,jdbcType=DOUBLE},
-		weight = #{record.weight,jdbcType=DOUBLE},
-		bust = #{record.bust,jdbcType=DOUBLE},
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		address =
+		#{record.address,jdbcType=VARCHAR},
+		amount =
+		#{record.amount,jdbcType=DOUBLE},
+		attribute_value0 =
+		#{record.attributeValue0,jdbcType=VARCHAR},
+		attribute_value1 =
+		#{record.attributeValue1,jdbcType=VARCHAR},
+		attribute_value2 =
+		#{record.attributeValue2,jdbcType=VARCHAR},
+		attribute_value3 =
+		#{record.attributeValue3,jdbcType=VARCHAR},
+		attribute_value4 =
+		#{record.attributeValue4,jdbcType=VARCHAR},
+		attribute_value5 =
+		#{record.attributeValue5,jdbcType=VARCHAR},
+		attribute_value6 =
+		#{record.attributeValue6,jdbcType=VARCHAR},
+		attribute_value7 =
+		#{record.attributeValue7,jdbcType=VARCHAR},
+		attribute_value8 =
+		#{record.attributeValue8,jdbcType=VARCHAR},
+		attribute_value9 =
+		#{record.attributeValue9,jdbcType=VARCHAR},
+		balance =
+		#{record.balance,jdbcType=DOUBLE},
+		birth =
+		#{record.birth,jdbcType=TIMESTAMP},
+		email =
+		#{record.email,jdbcType=VARCHAR},
+		gender =
+		#{record.gender,jdbcType=INTEGER},
+		is_enabled =
+		#{record.isEnabled,jdbcType=BIT},
+		is_locked =
+		#{record.isLocked,jdbcType=BIT},
+		locked_date =
+		#{record.lockedDate,jdbcType=TIMESTAMP},
+		login_date =
+		#{record.loginDate,jdbcType=TIMESTAMP},
+		login_failure_count =
+		#{record.loginFailureCount,jdbcType=INTEGER},
+		login_ip =
+		#{record.loginIp,jdbcType=VARCHAR},
+		mobile =
+		#{record.mobile,jdbcType=VARCHAR},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		password =
+		#{record.password,jdbcType=VARCHAR},
+		vip_code =
+		#{record.vipCode,jdbcType=VARCHAR},
+		vip_number =
+		#{record.vipNumber,jdbcType=VARCHAR},
+		phone =
+		#{record.phone,jdbcType=VARCHAR},
+		point =
+		#{record.point,jdbcType=BIGINT},
+		register_ip =
+		#{record.registerIp,jdbcType=VARCHAR},
+		safe_key_expire =
+		#{record.safeKeyExpire,jdbcType=TIMESTAMP},
+		safe_key_value =
+		#{record.safeKeyValue,jdbcType=VARCHAR},
+		username =
+		#{record.username,jdbcType=VARCHAR},
+		zip_code =
+		#{record.zipCode,jdbcType=VARCHAR},
+		area =
+		#{record.area,jdbcType=BIGINT},
+		member_rank =
+		#{record.memberRank,jdbcType=BIGINT},
+		validate_code =
+		#{record.validateCode,jdbcType=VARCHAR},
+		card_number =
+		#{record.cardNumber,jdbcType=VARCHAR},
+		country =
+		#{record.country,jdbcType=VARCHAR},
+		language_preference =
+		#{record.languagePreference,jdbcType=BIGINT},
+		height =
+		#{record.height,jdbcType=DOUBLE},
+		weight =
+		#{record.weight,jdbcType=DOUBLE},
+		bust =
+		#{record.bust,jdbcType=DOUBLE},
 		hip = #{record.hip,jdbcType=DOUBLE},
 		waist = #{record.waist,jdbcType=DOUBLE},
-		occupation = #{record.occupation,jdbcType=BIGINT},
-		member_label = #{record.memberLabel,jdbcType=VARCHAR},
-		we_chat_open_id = #{record.weChatOpenId,jdbcType=VARCHAR}
+		occupation =
+		#{record.occupation,jdbcType=BIGINT},
+		member_label =
+		#{record.memberLabel,jdbcType=VARCHAR},
+		we_chat_open_id =
+		#{record.weChatOpenId,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -774,7 +855,8 @@
 				login_date = #{loginDate,jdbcType=TIMESTAMP},
 			</if>
 			<if test="loginFailureCount != null">
-				login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
+				login_failure_count =
+				#{loginFailureCount,jdbcType=INTEGER},
 			</if>
 			<if test="loginIp != null">
 				login_ip = #{loginIp,jdbcType=VARCHAR},
@@ -831,7 +913,8 @@
 				country = #{country,jdbcType=VARCHAR},
 			</if>
 			<if test="languagePreference != null">
-				language_preference = #{languagePreference,jdbcType=BIGINT},
+				language_preference =
+				#{languagePreference,jdbcType=BIGINT},
 			</if>
 			<if test="height != null">
 				height = #{height,jdbcType=DOUBLE},
@@ -863,8 +946,10 @@
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TMember">
 		update t_member
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		address = #{address,jdbcType=VARCHAR},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
+		address =
+		#{address,jdbcType=VARCHAR},
 		amount = #{amount,jdbcType=DOUBLE},
 		attribute_value0 = #{attributeValue0,jdbcType=VARCHAR},
 		attribute_value1 = #{attributeValue1,jdbcType=VARCHAR},
@@ -876,42 +961,63 @@
 		attribute_value7 = #{attributeValue7,jdbcType=VARCHAR},
 		attribute_value8 = #{attributeValue8,jdbcType=VARCHAR},
 		attribute_value9 = #{attributeValue9,jdbcType=VARCHAR},
-		balance = #{balance,jdbcType=DOUBLE},
+		balance =
+		#{balance,jdbcType=DOUBLE},
 		birth = #{birth,jdbcType=TIMESTAMP},
-		email = #{email,jdbcType=VARCHAR},
+		email =
+		#{email,jdbcType=VARCHAR},
 		gender = #{gender,jdbcType=INTEGER},
 		is_enabled = #{isEnabled,jdbcType=BIT},
-		is_locked = #{isLocked,jdbcType=BIT},
-		locked_date = #{lockedDate,jdbcType=TIMESTAMP},
-		login_date = #{loginDate,jdbcType=TIMESTAMP},
-		login_failure_count = #{loginFailureCount,jdbcType=INTEGER},
-		login_ip = #{loginIp,jdbcType=VARCHAR},
+		is_locked =
+		#{isLocked,jdbcType=BIT},
+		locked_date =
+		#{lockedDate,jdbcType=TIMESTAMP},
+		login_date =
+		#{loginDate,jdbcType=TIMESTAMP},
+		login_failure_count =
+		#{loginFailureCount,jdbcType=INTEGER},
+		login_ip =
+		#{loginIp,jdbcType=VARCHAR},
 		mobile = #{mobile,jdbcType=VARCHAR},
-		name = #{name,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
 		password = #{password,jdbcType=VARCHAR},
 		vip_code = #{vipCode,jdbcType=VARCHAR},
-		vip_number = #{vipNumber,jdbcType=VARCHAR},
+		vip_number =
+		#{vipNumber,jdbcType=VARCHAR},
 		phone = #{phone,jdbcType=VARCHAR},
-		point = #{point,jdbcType=BIGINT},
-		register_ip = #{registerIp,jdbcType=VARCHAR},
-		safe_key_expire = #{safeKeyExpire,jdbcType=TIMESTAMP},
-		safe_key_value = #{safeKeyValue,jdbcType=VARCHAR},
-		username = #{username,jdbcType=VARCHAR},
+		point
+		= #{point,jdbcType=BIGINT},
+		register_ip =
+		#{registerIp,jdbcType=VARCHAR},
+		safe_key_expire =
+		#{safeKeyExpire,jdbcType=TIMESTAMP},
+		safe_key_value =
+		#{safeKeyValue,jdbcType=VARCHAR},
+		username =
+		#{username,jdbcType=VARCHAR},
 		zip_code = #{zipCode,jdbcType=VARCHAR},
 		area = #{area,jdbcType=BIGINT},
-		member_rank = #{memberRank,jdbcType=BIGINT},
-		validate_code = #{validateCode,jdbcType=VARCHAR},
-		card_number = #{cardNumber,jdbcType=VARCHAR},
+		member_rank =
+		#{memberRank,jdbcType=BIGINT},
+		validate_code =
+		#{validateCode,jdbcType=VARCHAR},
+		card_number =
+		#{cardNumber,jdbcType=VARCHAR},
 		country = #{country,jdbcType=VARCHAR},
 		language_preference = #{languagePreference,jdbcType=BIGINT},
-		height = #{height,jdbcType=DOUBLE},
+		height =
+		#{height,jdbcType=DOUBLE},
 		weight = #{weight,jdbcType=DOUBLE},
-		bust = #{bust,jdbcType=DOUBLE},
+		bust =
+		#{bust,jdbcType=DOUBLE},
 		hip = #{hip,jdbcType=DOUBLE},
-		waist = #{waist,jdbcType=DOUBLE},
+		waist =
+		#{waist,jdbcType=DOUBLE},
 		occupation = #{occupation,jdbcType=BIGINT},
 		member_label = #{memberLabel,jdbcType=VARCHAR},
-		we_chat_open_id = #{weChatOpenId,jdbcType=VARCHAR}
+		we_chat_open_id =
+		#{weChatOpenId,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

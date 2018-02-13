@@ -20,9 +20,11 @@
 		<result column="province" property="province" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, address, area_name, consignee, is_default,
+		id, create_date, modify_date, address, area_name,
+		consignee, is_default,
 		phone, zip_code,
-		area, member, address2, city, country_code, province
+		area, member, address2, city,
+		country_code, province
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -44,7 +46,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_receiver
+		delete from
+		t_receiver
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -59,17 +62,23 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_receiver (create_date, modify_date, address,
-		area_name, consignee, is_default,
+		area_name,
+		consignee, is_default,
 		phone, zip_code, area,
 		member, address2, city,
 		country_code, province)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values (#{createDate,jdbcType=TIMESTAMP},
+		#{modifyDate,jdbcType=TIMESTAMP},
 		#{address,jdbcType=VARCHAR},
-		#{areaName,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT},
-		#{phone,jdbcType=VARCHAR}, #{zipCode,jdbcType=VARCHAR},
+		#{areaName,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR},
+		#{isDefault,jdbcType=BIT},
+		#{phone,jdbcType=VARCHAR},
+		#{zipCode,jdbcType=VARCHAR},
 		#{area,jdbcType=BIGINT},
-		#{member,jdbcType=BIGINT}, #{address2,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
-		#{countryCode,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR})
+		#{member,jdbcType=BIGINT}, #{address2,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR},
+		#{countryCode,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TReceiver">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
@@ -229,20 +238,34 @@
 	<update id="updateByExample" parameterType="map">
 		update t_receiver
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		address = #{record.address,jdbcType=VARCHAR},
-		area_name = #{record.areaName,jdbcType=VARCHAR},
-		consignee = #{record.consignee,jdbcType=VARCHAR},
-		is_default = #{record.isDefault,jdbcType=BIT},
-		phone = #{record.phone,jdbcType=VARCHAR},
-		zip_code = #{record.zipCode,jdbcType=VARCHAR},
-		area = #{record.area,jdbcType=BIGINT},
-		member = #{record.member,jdbcType=BIGINT},
-		address2 = #{record.address2,jdbcType=VARCHAR},
-		city = #{record.city,jdbcType=VARCHAR},
-		country_code = #{record.countryCode,jdbcType=VARCHAR},
-		province = #{record.province,jdbcType=VARCHAR}
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		address =
+		#{record.address,jdbcType=VARCHAR},
+		area_name =
+		#{record.areaName,jdbcType=VARCHAR},
+		consignee =
+		#{record.consignee,jdbcType=VARCHAR},
+		is_default =
+		#{record.isDefault,jdbcType=BIT},
+		phone =
+		#{record.phone,jdbcType=VARCHAR},
+		zip_code =
+		#{record.zipCode,jdbcType=VARCHAR},
+		area =
+		#{record.area,jdbcType=BIGINT},
+		member =
+		#{record.member,jdbcType=BIGINT},
+		address2 =
+		#{record.address2,jdbcType=VARCHAR},
+		city =
+		#{record.city,jdbcType=VARCHAR},
+		country_code =
+		#{record.countryCode,jdbcType=VARCHAR},
+		province =
+		#{record.province,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -298,19 +321,26 @@
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TReceiver">
 		update t_receiver
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		address = #{address,jdbcType=VARCHAR},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
+		address =
+		#{address,jdbcType=VARCHAR},
 		area_name = #{areaName,jdbcType=VARCHAR},
 		consignee = #{consignee,jdbcType=VARCHAR},
-		is_default = #{isDefault,jdbcType=BIT},
+		is_default =
+		#{isDefault,jdbcType=BIT},
 		phone = #{phone,jdbcType=VARCHAR},
-		zip_code = #{zipCode,jdbcType=VARCHAR},
+		zip_code =
+		#{zipCode,jdbcType=VARCHAR},
 		area = #{area,jdbcType=BIGINT},
-		member = #{member,jdbcType=BIGINT},
+		member =
+		#{member,jdbcType=BIGINT},
 		address2 = #{address2,jdbcType=VARCHAR},
 		city = #{city,jdbcType=VARCHAR},
-		country_code = #{countryCode,jdbcType=VARCHAR},
-		province = #{province,jdbcType=VARCHAR}
+		country_code =
+		#{countryCode,jdbcType=VARCHAR},
+		province =
+		#{province,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

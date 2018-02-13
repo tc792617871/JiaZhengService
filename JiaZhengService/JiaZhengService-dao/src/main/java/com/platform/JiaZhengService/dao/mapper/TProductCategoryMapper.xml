@@ -19,9 +19,11 @@
 		<result column="logo_image" property="logoImage" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, orders, grade, name_zh, seo_description,
+		id, create_date, modify_date, orders, grade, name_zh,
+		seo_description,
 		seo_keywords,
-		seo_title, tree_path, parent, name_en, logo_image
+		seo_title, tree_path, parent, name_en,
+		logo_image
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -43,7 +45,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_product_category
+		delete from
+		t_product_category
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -63,12 +66,16 @@
 		seo_keywords, seo_title, tree_path,
 		parent, name_en, logo_image
 		)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values (#{createDate,jdbcType=TIMESTAMP},
+		#{modifyDate,jdbcType=TIMESTAMP},
 		#{orders,jdbcType=INTEGER},
-		#{grade,jdbcType=INTEGER}, #{nameZh,jdbcType=VARCHAR}, #{seoDescription,jdbcType=VARCHAR},
-		#{seoKeywords,jdbcType=VARCHAR}, #{seoTitle,jdbcType=VARCHAR},
+		#{grade,jdbcType=INTEGER}, #{nameZh,jdbcType=VARCHAR},
+		#{seoDescription,jdbcType=VARCHAR},
+		#{seoKeywords,jdbcType=VARCHAR},
+		#{seoTitle,jdbcType=VARCHAR},
 		#{treePath,jdbcType=VARCHAR},
-		#{parent,jdbcType=BIGINT}, #{nameEn,jdbcType=VARCHAR}, #{logoImage,jdbcType=VARCHAR}
+		#{parent,jdbcType=BIGINT}, #{nameEn,jdbcType=VARCHAR},
+		#{logoImage,jdbcType=VARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective"
@@ -184,7 +191,8 @@
 				name_zh = #{record.nameZh,jdbcType=VARCHAR},
 			</if>
 			<if test="record.seoDescription != null">
-				seo_description = #{record.seoDescription,jdbcType=VARCHAR},
+				seo_description =
+				#{record.seoDescription,jdbcType=VARCHAR},
 			</if>
 			<if test="record.seoKeywords != null">
 				seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
@@ -213,17 +221,28 @@
 		update t_product_category
 		set id = #{record.id,jdbcType=BIGINT},
 		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		orders = #{record.orders,jdbcType=INTEGER},
-		grade = #{record.grade,jdbcType=INTEGER},
-		name_zh = #{record.nameZh,jdbcType=VARCHAR},
-		seo_description = #{record.seoDescription,jdbcType=VARCHAR},
-		seo_keywords = #{record.seoKeywords,jdbcType=VARCHAR},
-		seo_title = #{record.seoTitle,jdbcType=VARCHAR},
-		tree_path = #{record.treePath,jdbcType=VARCHAR},
-		parent = #{record.parent,jdbcType=BIGINT},
-		name_en = #{record.nameEn,jdbcType=VARCHAR},
-		logo_image = #{record.logoImage,jdbcType=VARCHAR}
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		orders =
+		#{record.orders,jdbcType=INTEGER},
+		grade =
+		#{record.grade,jdbcType=INTEGER},
+		name_zh =
+		#{record.nameZh,jdbcType=VARCHAR},
+		seo_description =
+		#{record.seoDescription,jdbcType=VARCHAR},
+		seo_keywords =
+		#{record.seoKeywords,jdbcType=VARCHAR},
+		seo_title =
+		#{record.seoTitle,jdbcType=VARCHAR},
+		tree_path =
+		#{record.treePath,jdbcType=VARCHAR},
+		parent =
+		#{record.parent,jdbcType=BIGINT},
+		name_en =
+		#{record.nameEn,jdbcType=VARCHAR},
+		logo_image =
+		#{record.logoImage,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -274,17 +293,24 @@
 	<update id="updateByPrimaryKey"
 		parameterType="com.platform.JiaZhengService.dao.entity.TProductCategory">
 		update t_product_category
-		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+		set create_date =
+		#{createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
 		orders = #{orders,jdbcType=INTEGER},
 		grade = #{grade,jdbcType=INTEGER},
-		name_zh = #{nameZh,jdbcType=VARCHAR},
-		seo_description = #{seoDescription,jdbcType=VARCHAR},
-		seo_keywords = #{seoKeywords,jdbcType=VARCHAR},
-		seo_title = #{seoTitle,jdbcType=VARCHAR},
+		name_zh =
+		#{nameZh,jdbcType=VARCHAR},
+		seo_description =
+		#{seoDescription,jdbcType=VARCHAR},
+		seo_keywords =
+		#{seoKeywords,jdbcType=VARCHAR},
+		seo_title =
+		#{seoTitle,jdbcType=VARCHAR},
 		tree_path = #{treePath,jdbcType=VARCHAR},
 		parent = #{parent,jdbcType=BIGINT},
-		name_en = #{nameEn,jdbcType=VARCHAR},
+		name_en =
+		#{nameEn,jdbcType=VARCHAR},
 		logo_image = #{logoImage,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>

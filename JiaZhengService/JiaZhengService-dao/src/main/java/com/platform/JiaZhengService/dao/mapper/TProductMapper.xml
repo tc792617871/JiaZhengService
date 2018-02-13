@@ -146,7 +146,7 @@
 		p.id, p.create_date, p.modify_date, p.is_marketable,
 		p.name, p.sn, p.image, p.memo,
 		p.product_category, p.is_square,
-		p.archived
+		p.archived, p.plu_image
 	</sql>
 	<sql id="Blob_Column_List">
 		introduction, component, matters_needing_attention

@@ -28,9 +28,11 @@
 			jdbcType="BIGINT" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, full_name, is_gift, name, price, quantity,
+		id, create_date, modify_date, full_name, is_gift, name,
+		price, quantity,
 		return_quantity,
-		shipped_quantity, sn, thumbnail, weight, orders, product, agree_return_quantity,
+		shipped_quantity, sn, thumbnail,
+		weight, orders, product, agree_return_quantity,
 		confirm_receipt_quantity, specification
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
@@ -53,7 +55,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_order_item
+		delete from
+		t_order_item
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -71,16 +74,21 @@
 		is_gift, name, price, quantity,
 		return_quantity, shipped_quantity, sn,
 		thumbnail, weight, orders,
-		product, agree_return_quantity, confirm_receipt_quantity,
+		product, agree_return_quantity,
+		confirm_receipt_quantity,
 		specification)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values
+		(#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
 		#{fullName,jdbcType=VARCHAR},
-		#{isGift,jdbcType=BIT}, #{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},
+		#{isGift,jdbcType=BIT},
+		#{name,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE},
 		#{quantity,jdbcType=DOUBLE},
-		#{returnQuantity,jdbcType=DOUBLE}, #{shippedQuantity,jdbcType=DOUBLE}, #{sn,jdbcType=VARCHAR},
+		#{returnQuantity,jdbcType=DOUBLE},
+		#{shippedQuantity,jdbcType=DOUBLE}, #{sn,jdbcType=VARCHAR},
 		#{thumbnail,jdbcType=VARCHAR}, #{weight,jdbcType=INTEGER},
 		#{orders,jdbcType=BIGINT},
-		#{product,jdbcType=BIGINT}, #{agreeReturnQuantity,jdbcType=INTEGER},
+		#{product,jdbcType=BIGINT},
+		#{agreeReturnQuantity,jdbcType=INTEGER},
 		#{confirmReceiptQuantity,jdbcType=INTEGER},
 		#{specification,jdbcType=BIGINT})
 	</insert>
@@ -232,10 +240,12 @@
 				quantity = #{record.quantity,jdbcType=DOUBLE},
 			</if>
 			<if test="record.returnQuantity != null">
-				return_quantity = #{record.returnQuantity,jdbcType=DOUBLE},
+				return_quantity =
+				#{record.returnQuantity,jdbcType=DOUBLE},
 			</if>
 			<if test="record.shippedQuantity != null">
-				shipped_quantity = #{record.shippedQuantity,jdbcType=DOUBLE},
+				shipped_quantity =
+				#{record.shippedQuantity,jdbcType=DOUBLE},
 			</if>
 			<if test="record.sn != null">
 				sn = #{record.sn,jdbcType=VARCHAR},
@@ -271,24 +281,38 @@
 	<update id="updateByExample" parameterType="map">
 		update t_order_item
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		full_name = #{record.fullName,jdbcType=VARCHAR},
-		is_gift = #{record.isGift,jdbcType=BIT},
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		full_name =
+		#{record.fullName,jdbcType=VARCHAR},
+		is_gift =
+		#{record.isGift,jdbcType=BIT},
 		name = #{record.name,jdbcType=VARCHAR},
 		price = #{record.price,jdbcType=DOUBLE},
-		quantity = #{record.quantity,jdbcType=DOUBLE},
-		return_quantity = #{record.returnQuantity,jdbcType=DOUBLE},
-		shipped_quantity = #{record.shippedQuantity,jdbcType=DOUBLE},
-		sn = #{record.sn,jdbcType=VARCHAR},
-		thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
-		weight = #{record.weight,jdbcType=INTEGER},
-		orders = #{record.orders,jdbcType=BIGINT},
-		product = #{record.product,jdbcType=BIGINT},
-		agree_return_quantity = #{record.agreeReturnQuantity,jdbcType=INTEGER},
+		quantity =
+		#{record.quantity,jdbcType=DOUBLE},
+		return_quantity =
+		#{record.returnQuantity,jdbcType=DOUBLE},
+		shipped_quantity =
+		#{record.shippedQuantity,jdbcType=DOUBLE},
+		sn =
+		#{record.sn,jdbcType=VARCHAR},
+		thumbnail =
+		#{record.thumbnail,jdbcType=VARCHAR},
+		weight =
+		#{record.weight,jdbcType=INTEGER},
+		orders =
+		#{record.orders,jdbcType=BIGINT},
+		product =
+		#{record.product,jdbcType=BIGINT},
+		agree_return_quantity =
+		#{record.agreeReturnQuantity,jdbcType=INTEGER},
 		confirm_receipt_quantity =
 		#{record.confirmReceiptQuantity,jdbcType=INTEGER},
-		specification = #{record.specification,jdbcType=BIGINT}
+		specification =
+		#{record.specification,jdbcType=BIGINT}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -339,7 +363,8 @@
 				product = #{product,jdbcType=BIGINT},
 			</if>
 			<if test="agreeReturnQuantity != null">
-				agree_return_quantity = #{agreeReturnQuantity,jdbcType=INTEGER},
+				agree_return_quantity =
+				#{agreeReturnQuantity,jdbcType=INTEGER},
 			</if>
 			<if test="confirmReceiptQuantity != null">
 				confirm_receipt_quantity =
@@ -352,24 +377,35 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TOrderItem">
-		update t_order_item
+		update
+		t_order_item
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
 		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		full_name = #{fullName,jdbcType=VARCHAR},
+		full_name =
+		#{fullName,jdbcType=VARCHAR},
 		is_gift = #{isGift,jdbcType=BIT},
-		name = #{name,jdbcType=VARCHAR},
+		name =
+		#{name,jdbcType=VARCHAR},
 		price = #{price,jdbcType=DOUBLE},
-		quantity = #{quantity,jdbcType=DOUBLE},
-		return_quantity = #{returnQuantity,jdbcType=DOUBLE},
-		shipped_quantity = #{shippedQuantity,jdbcType=DOUBLE},
+		quantity =
+		#{quantity,jdbcType=DOUBLE},
+		return_quantity =
+		#{returnQuantity,jdbcType=DOUBLE},
+		shipped_quantity =
+		#{shippedQuantity,jdbcType=DOUBLE},
 		sn = #{sn,jdbcType=VARCHAR},
 		thumbnail = #{thumbnail,jdbcType=VARCHAR},
-		weight = #{weight,jdbcType=INTEGER},
+		weight =
+		#{weight,jdbcType=INTEGER},
 		orders = #{orders,jdbcType=BIGINT},
-		product = #{product,jdbcType=BIGINT},
-		agree_return_quantity = #{agreeReturnQuantity,jdbcType=INTEGER},
-		confirm_receipt_quantity = #{confirmReceiptQuantity,jdbcType=INTEGER},
-		specification = #{specification,jdbcType=BIGINT}
+		product
+		= #{product,jdbcType=BIGINT},
+		agree_return_quantity =
+		#{agreeReturnQuantity,jdbcType=INTEGER},
+		confirm_receipt_quantity =
+		#{confirmReceiptQuantity,jdbcType=INTEGER},
+		specification =
+		#{specification,jdbcType=BIGINT}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

@@ -69,36 +69,52 @@
 		<result column="area_square" property="areaSquare" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, address, amount_paid, area_name, consignee,
+		id, create_date, modify_date, address, amount_paid,
+		area_name, consignee,
 		coupon_discount,
-		expire, fee, freight, invoice_title, is_allocated_stock, is_invoice,
+		expire, fee, freight,
+		invoice_title, is_allocated_stock, is_invoice,
 		lock_expire,
-		memo, offset_amount, order_status, payment_method_name, payment_status,
+		memo,
+		offset_amount, order_status, payment_method_name, payment_status,
 		phone, point,
-		promotion, promotion_discount, shipping_method_name, shipping_status, sn, tax,
+		promotion, promotion_discount, shipping_method_name,
+		shipping_status, sn, tax,
 		zip_code,
-		area, coupon_code, member, operator, payment_method, shipping_method,
+		area, coupon_code, member, operator,
+		payment_method, shipping_method,
 		agree_return,
-		invoice_type, payment_plugin_id, confirm_delivery_time, memo_flag, seller_memo,
+		invoice_type,
+		payment_plugin_id, confirm_delivery_time, memo_flag, seller_memo,
 		bank_code,
-		bank_name, order_source, system_type, system_version, week_days, time_area,
+		bank_name, order_source, system_type, system_version,
+		week_days, time_area,
 		time,
 		area_square
 	</sql>
 	<sql id="o_Column_List">
-		o.id, o.create_date, o.modify_date, o.address, o.amount_paid, o.area_name,
+		o.id, o.create_date, o.modify_date, o.address,
+		o.amount_paid, o.area_name,
 		o.consignee, o.coupon_discount,
-		o.expire, o.fee, o.freight, o.invoice_title, o.is_allocated_stock,
-		o.is_invoice, o.lock_expire,
-		o.memo, o.offset_amount, o.order_status, o.payment_method_name,
+		o.expire,
+		o.fee, o.freight, o.invoice_title, o.is_allocated_stock,
+		o.is_invoice,
+		o.lock_expire,
+		o.memo, o.offset_amount, o.order_status,
+		o.payment_method_name,
 		o.payment_status, o.phone, o.point,
-		o.promotion, o.promotion_discount, o.shipping_method_name, o.shipping_status,
-		o.sn, o.tax, o.zip_code,
-		o.area, o.coupon_code, o.member, o.operator, o.payment_method,
+		o.promotion,
+		o.promotion_discount, o.shipping_method_name, o.shipping_status,
+		o.sn,
+		o.tax, o.zip_code,
+		o.area, o.coupon_code, o.member, o.operator,
+		o.payment_method,
 		o.shipping_method, o.agree_return,
-		o.invoice_type, o.payment_plugin_id, o.confirm_delivery_time, o.memo_flag,
+		o.invoice_type,
+		o.payment_plugin_id, o.confirm_delivery_time, o.memo_flag,
 		o.seller_memo, o.bank_code,
-		o.bank_name, o.order_source, o.system_type, o.system_version, o.week_days,
+		o.bank_name, o.order_source, o.system_type,
+		o.system_version, o.week_days,
 		o.time_area, o.time,
 		o.area_square
 	</sql>
@@ -122,7 +138,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_order
+		delete from
+		t_order
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -137,50 +154,65 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_order (create_date, modify_date, address,
-		amount_paid, area_name, consignee,
+		amount_paid,
+		area_name, consignee,
 		coupon_discount, expire, fee,
-		freight, invoice_title, is_allocated_stock,
+		freight,
+		invoice_title, is_allocated_stock,
 		is_invoice, lock_expire, memo,
 		offset_amount, order_status, payment_method_name,
-		payment_status, phone, point,
+		payment_status,
+		phone, point,
 		promotion, promotion_discount, shipping_method_name,
 		shipping_status, sn, tax,
 		zip_code, area, coupon_code,
-		member, operator, payment_method,
+		member, operator,
+		payment_method,
 		shipping_method, agree_return, invoice_type,
 		payment_plugin_id, confirm_delivery_time,
-		memo_flag, seller_memo, bank_code,
+		memo_flag, seller_memo,
+		bank_code,
 		bank_name, order_source, system_type,
-		system_version, week_days, time_area,
+		system_version,
+		week_days, time_area,
 		time, area_square)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values
+		(#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
 		#{address,jdbcType=VARCHAR},
-		#{amountPaid,jdbcType=DOUBLE}, #{areaName,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR},
+		#{amountPaid,jdbcType=DOUBLE},
+		#{areaName,jdbcType=VARCHAR}, #{consignee,jdbcType=VARCHAR},
 		#{couponDiscount,jdbcType=DOUBLE}, #{expire,jdbcType=TIMESTAMP},
 		#{fee,jdbcType=DOUBLE},
-		#{freight,jdbcType=DOUBLE}, #{invoiceTitle,jdbcType=VARCHAR}, #{isAllocatedStock,jdbcType=BIT},
+		#{freight,jdbcType=DOUBLE},
+		#{invoiceTitle,jdbcType=VARCHAR}, #{isAllocatedStock,jdbcType=BIT},
 		#{isInvoice,jdbcType=BIT}, #{lockExpire,jdbcType=TIMESTAMP},
 		#{memo,jdbcType=VARCHAR},
-		#{offsetAmount,jdbcType=DOUBLE}, #{orderStatus,jdbcType=INTEGER},
+		#{offsetAmount,jdbcType=DOUBLE},
+		#{orderStatus,jdbcType=INTEGER},
 		#{paymentMethodName,jdbcType=VARCHAR},
 		#{paymentStatus,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR},
 		#{point,jdbcType=BIGINT},
-		#{promotion,jdbcType=VARCHAR}, #{promotionDiscount,jdbcType=DOUBLE},
+		#{promotion,jdbcType=VARCHAR},
+		#{promotionDiscount,jdbcType=DOUBLE},
 		#{shippingMethodName,jdbcType=VARCHAR},
 		#{shippingStatus,jdbcType=INTEGER}, #{sn,jdbcType=VARCHAR},
 		#{tax,jdbcType=DOUBLE},
-		#{zipCode,jdbcType=VARCHAR}, #{area,jdbcType=BIGINT}, #{couponCode,jdbcType=BIGINT},
+		#{zipCode,jdbcType=VARCHAR},
+		#{area,jdbcType=BIGINT}, #{couponCode,jdbcType=BIGINT},
 		#{member,jdbcType=BIGINT}, #{operator,jdbcType=BIGINT},
 		#{paymentMethod,jdbcType=BIGINT},
-		#{shippingMethod,jdbcType=BIGINT}, #{agreeReturn,jdbcType=INTEGER}, #{invoiceType,jdbcType=VARCHAR},
+		#{shippingMethod,jdbcType=BIGINT},
+		#{agreeReturn,jdbcType=INTEGER}, #{invoiceType,jdbcType=VARCHAR},
 		#{paymentPluginId,jdbcType=VARCHAR},
 		#{confirmDeliveryTime,jdbcType=TIMESTAMP},
 		#{memoFlag,jdbcType=INTEGER}, #{sellerMemo,jdbcType=VARCHAR},
 		#{bankCode,jdbcType=VARCHAR},
-		#{bankName,jdbcType=VARCHAR}, #{orderSource,jdbcType=VARCHAR}, #{systemType,jdbcType=VARCHAR},
+		#{bankName,jdbcType=VARCHAR},
+		#{orderSource,jdbcType=VARCHAR}, #{systemType,jdbcType=VARCHAR},
 		#{systemVersion,jdbcType=VARCHAR}, #{weekDays,jdbcType=VARCHAR},
 		#{timeArea,jdbcType=VARCHAR},
-		#{time,jdbcType=VARCHAR}, #{areaSquare,jdbcType=VARCHAR})
+		#{time,jdbcType=VARCHAR},
+		#{areaSquare,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TOrder">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
@@ -519,7 +551,8 @@
 				consignee = #{record.consignee,jdbcType=VARCHAR},
 			</if>
 			<if test="record.couponDiscount != null">
-				coupon_discount = #{record.couponDiscount,jdbcType=DOUBLE},
+				coupon_discount =
+				#{record.couponDiscount,jdbcType=DOUBLE},
 			</if>
 			<if test="record.expire != null">
 				expire = #{record.expire,jdbcType=TIMESTAMP},
@@ -534,7 +567,8 @@
 				invoice_title = #{record.invoiceTitle,jdbcType=VARCHAR},
 			</if>
 			<if test="record.isAllocatedStock != null">
-				is_allocated_stock = #{record.isAllocatedStock,jdbcType=BIT},
+				is_allocated_stock =
+				#{record.isAllocatedStock,jdbcType=BIT},
 			</if>
 			<if test="record.isInvoice != null">
 				is_invoice = #{record.isInvoice,jdbcType=BIT},
@@ -552,10 +586,12 @@
 				order_status = #{record.orderStatus,jdbcType=INTEGER},
 			</if>
 			<if test="record.paymentMethodName != null">
-				payment_method_name = #{record.paymentMethodName,jdbcType=VARCHAR},
+				payment_method_name =
+				#{record.paymentMethodName,jdbcType=VARCHAR},
 			</if>
 			<if test="record.paymentStatus != null">
-				payment_status = #{record.paymentStatus,jdbcType=INTEGER},
+				payment_status =
+				#{record.paymentStatus,jdbcType=INTEGER},
 			</if>
 			<if test="record.phone != null">
 				phone = #{record.phone,jdbcType=VARCHAR},
@@ -567,13 +603,16 @@
 				promotion = #{record.promotion,jdbcType=VARCHAR},
 			</if>
 			<if test="record.promotionDiscount != null">
-				promotion_discount = #{record.promotionDiscount,jdbcType=DOUBLE},
+				promotion_discount =
+				#{record.promotionDiscount,jdbcType=DOUBLE},
 			</if>
 			<if test="record.shippingMethodName != null">
-				shipping_method_name = #{record.shippingMethodName,jdbcType=VARCHAR},
+				shipping_method_name =
+				#{record.shippingMethodName,jdbcType=VARCHAR},
 			</if>
 			<if test="record.shippingStatus != null">
-				shipping_status = #{record.shippingStatus,jdbcType=INTEGER},
+				shipping_status =
+				#{record.shippingStatus,jdbcType=INTEGER},
 			</if>
 			<if test="record.sn != null">
 				sn = #{record.sn,jdbcType=VARCHAR},
@@ -600,7 +639,8 @@
 				payment_method = #{record.paymentMethod,jdbcType=BIGINT},
 			</if>
 			<if test="record.shippingMethod != null">
-				shipping_method = #{record.shippingMethod,jdbcType=BIGINT},
+				shipping_method =
+				#{record.shippingMethod,jdbcType=BIGINT},
 			</if>
 			<if test="record.agreeReturn != null">
 				agree_return = #{record.agreeReturn,jdbcType=INTEGER},
@@ -609,7 +649,8 @@
 				invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
 			</if>
 			<if test="record.paymentPluginId != null">
-				payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
+				payment_plugin_id =
+				#{record.paymentPluginId,jdbcType=VARCHAR},
 			</if>
 			<if test="record.confirmDeliveryTime != null">
 				confirm_delivery_time =
@@ -634,7 +675,8 @@
 				system_type = #{record.systemType,jdbcType=VARCHAR},
 			</if>
 			<if test="record.systemVersion != null">
-				system_version = #{record.systemVersion,jdbcType=VARCHAR},
+				system_version =
+				#{record.systemVersion,jdbcType=VARCHAR},
 			</if>
 			<if test="record.weekDays != null">
 				week_days = #{record.weekDays,jdbcType=VARCHAR},
@@ -656,55 +698,102 @@
 	<update id="updateByExample" parameterType="map">
 		update t_order
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		address = #{record.address,jdbcType=VARCHAR},
-		amount_paid = #{record.amountPaid,jdbcType=DOUBLE},
-		area_name = #{record.areaName,jdbcType=VARCHAR},
-		consignee = #{record.consignee,jdbcType=VARCHAR},
-		coupon_discount = #{record.couponDiscount,jdbcType=DOUBLE},
-		expire = #{record.expire,jdbcType=TIMESTAMP},
-		fee = #{record.fee,jdbcType=DOUBLE},
-		freight = #{record.freight,jdbcType=DOUBLE},
-		invoice_title = #{record.invoiceTitle,jdbcType=VARCHAR},
-		is_allocated_stock = #{record.isAllocatedStock,jdbcType=BIT},
-		is_invoice = #{record.isInvoice,jdbcType=BIT},
-		lock_expire = #{record.lockExpire,jdbcType=TIMESTAMP},
-		memo = #{record.memo,jdbcType=VARCHAR},
-		offset_amount = #{record.offsetAmount,jdbcType=DOUBLE},
-		order_status = #{record.orderStatus,jdbcType=INTEGER},
-		payment_method_name = #{record.paymentMethodName,jdbcType=VARCHAR},
-		payment_status = #{record.paymentStatus,jdbcType=INTEGER},
-		phone = #{record.phone,jdbcType=VARCHAR},
-		point = #{record.point,jdbcType=BIGINT},
-		promotion = #{record.promotion,jdbcType=VARCHAR},
-		promotion_discount = #{record.promotionDiscount,jdbcType=DOUBLE},
-		shipping_method_name = #{record.shippingMethodName,jdbcType=VARCHAR},
-		shipping_status = #{record.shippingStatus,jdbcType=INTEGER},
-		sn = #{record.sn,jdbcType=VARCHAR},
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		address =
+		#{record.address,jdbcType=VARCHAR},
+		amount_paid =
+		#{record.amountPaid,jdbcType=DOUBLE},
+		area_name =
+		#{record.areaName,jdbcType=VARCHAR},
+		consignee =
+		#{record.consignee,jdbcType=VARCHAR},
+		coupon_discount =
+		#{record.couponDiscount,jdbcType=DOUBLE},
+		expire =
+		#{record.expire,jdbcType=TIMESTAMP},
+		fee =
+		#{record.fee,jdbcType=DOUBLE},
+		freight =
+		#{record.freight,jdbcType=DOUBLE},
+		invoice_title =
+		#{record.invoiceTitle,jdbcType=VARCHAR},
+		is_allocated_stock =
+		#{record.isAllocatedStock,jdbcType=BIT},
+		is_invoice =
+		#{record.isInvoice,jdbcType=BIT},
+		lock_expire =
+		#{record.lockExpire,jdbcType=TIMESTAMP},
+		memo =
+		#{record.memo,jdbcType=VARCHAR},
+		offset_amount =
+		#{record.offsetAmount,jdbcType=DOUBLE},
+		order_status =
+		#{record.orderStatus,jdbcType=INTEGER},
+		payment_method_name =
+		#{record.paymentMethodName,jdbcType=VARCHAR},
+		payment_status =
+		#{record.paymentStatus,jdbcType=INTEGER},
+		phone =
+		#{record.phone,jdbcType=VARCHAR},
+		point =
+		#{record.point,jdbcType=BIGINT},
+		promotion =
+		#{record.promotion,jdbcType=VARCHAR},
+		promotion_discount =
+		#{record.promotionDiscount,jdbcType=DOUBLE},
+		shipping_method_name =
+		#{record.shippingMethodName,jdbcType=VARCHAR},
+		shipping_status =
+		#{record.shippingStatus,jdbcType=INTEGER},
+		sn =
+		#{record.sn,jdbcType=VARCHAR},
 		tax = #{record.tax,jdbcType=DOUBLE},
 		zip_code = #{record.zipCode,jdbcType=VARCHAR},
-		area = #{record.area,jdbcType=BIGINT},
-		coupon_code = #{record.couponCode,jdbcType=BIGINT},
-		member = #{record.member,jdbcType=BIGINT},
-		operator = #{record.operator,jdbcType=BIGINT},
-		payment_method = #{record.paymentMethod,jdbcType=BIGINT},
-		shipping_method = #{record.shippingMethod,jdbcType=BIGINT},
-		agree_return = #{record.agreeReturn,jdbcType=INTEGER},
-		invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
-		payment_plugin_id = #{record.paymentPluginId,jdbcType=VARCHAR},
-		confirm_delivery_time = #{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
-		memo_flag = #{record.memoFlag,jdbcType=INTEGER},
-		seller_memo = #{record.sellerMemo,jdbcType=VARCHAR},
-		bank_code = #{record.bankCode,jdbcType=VARCHAR},
-		bank_name = #{record.bankName,jdbcType=VARCHAR},
-		order_source = #{record.orderSource,jdbcType=VARCHAR},
-		system_type = #{record.systemType,jdbcType=VARCHAR},
-		system_version = #{record.systemVersion,jdbcType=VARCHAR},
-		week_days = #{record.weekDays,jdbcType=VARCHAR},
-		time_area = #{record.timeArea,jdbcType=VARCHAR},
-		time = #{record.time,jdbcType=VARCHAR},
-		area_square = #{record.areaSquare,jdbcType=VARCHAR}
+		area =
+		#{record.area,jdbcType=BIGINT},
+		coupon_code =
+		#{record.couponCode,jdbcType=BIGINT},
+		member =
+		#{record.member,jdbcType=BIGINT},
+		operator =
+		#{record.operator,jdbcType=BIGINT},
+		payment_method =
+		#{record.paymentMethod,jdbcType=BIGINT},
+		shipping_method =
+		#{record.shippingMethod,jdbcType=BIGINT},
+		agree_return =
+		#{record.agreeReturn,jdbcType=INTEGER},
+		invoice_type =
+		#{record.invoiceType,jdbcType=VARCHAR},
+		payment_plugin_id =
+		#{record.paymentPluginId,jdbcType=VARCHAR},
+		confirm_delivery_time =
+		#{record.confirmDeliveryTime,jdbcType=TIMESTAMP},
+		memo_flag =
+		#{record.memoFlag,jdbcType=INTEGER},
+		seller_memo =
+		#{record.sellerMemo,jdbcType=VARCHAR},
+		bank_code =
+		#{record.bankCode,jdbcType=VARCHAR},
+		bank_name =
+		#{record.bankName,jdbcType=VARCHAR},
+		order_source =
+		#{record.orderSource,jdbcType=VARCHAR},
+		system_type =
+		#{record.systemType,jdbcType=VARCHAR},
+		system_version =
+		#{record.systemVersion,jdbcType=VARCHAR},
+		week_days =
+		#{record.weekDays,jdbcType=VARCHAR},
+		time_area =
+		#{record.timeArea,jdbcType=VARCHAR},
+		time =
+		#{record.time,jdbcType=VARCHAR},
+		area_square =
+		#{record.areaSquare,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -764,7 +853,8 @@
 				order_status = #{orderStatus,jdbcType=INTEGER},
 			</if>
 			<if test="paymentMethodName != null">
-				payment_method_name = #{paymentMethodName,jdbcType=VARCHAR},
+				payment_method_name =
+				#{paymentMethodName,jdbcType=VARCHAR},
 			</if>
 			<if test="paymentStatus != null">
 				payment_status = #{paymentStatus,jdbcType=INTEGER},
@@ -779,10 +869,12 @@
 				promotion = #{promotion,jdbcType=VARCHAR},
 			</if>
 			<if test="promotionDiscount != null">
-				promotion_discount = #{promotionDiscount,jdbcType=DOUBLE},
+				promotion_discount =
+				#{promotionDiscount,jdbcType=DOUBLE},
 			</if>
 			<if test="shippingMethodName != null">
-				shipping_method_name = #{shippingMethodName,jdbcType=VARCHAR},
+				shipping_method_name =
+				#{shippingMethodName,jdbcType=VARCHAR},
 			</if>
 			<if test="shippingStatus != null">
 				shipping_status = #{shippingStatus,jdbcType=INTEGER},
@@ -824,7 +916,8 @@
 				payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
 			</if>
 			<if test="confirmDeliveryTime != null">
-				confirm_delivery_time = #{confirmDeliveryTime,jdbcType=TIMESTAMP},
+				confirm_delivery_time =
+				#{confirmDeliveryTime,jdbcType=TIMESTAMP},
 			</if>
 			<if test="memoFlag != null">
 				memo_flag = #{memoFlag,jdbcType=INTEGER},
@@ -864,55 +957,91 @@
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TOrder">
 		update t_order
-		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		address = #{address,jdbcType=VARCHAR},
-		amount_paid = #{amountPaid,jdbcType=DOUBLE},
-		area_name = #{areaName,jdbcType=VARCHAR},
-		consignee = #{consignee,jdbcType=VARCHAR},
-		coupon_discount = #{couponDiscount,jdbcType=DOUBLE},
-		expire = #{expire,jdbcType=TIMESTAMP},
+		set
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
+		address =
+		#{address,jdbcType=VARCHAR},
+		amount_paid =
+		#{amountPaid,jdbcType=DOUBLE},
+		area_name =
+		#{areaName,jdbcType=VARCHAR},
+		consignee =
+		#{consignee,jdbcType=VARCHAR},
+		coupon_discount =
+		#{couponDiscount,jdbcType=DOUBLE},
+		expire =
+		#{expire,jdbcType=TIMESTAMP},
 		fee = #{fee,jdbcType=DOUBLE},
-		freight = #{freight,jdbcType=DOUBLE},
-		invoice_title = #{invoiceTitle,jdbcType=VARCHAR},
-		is_allocated_stock = #{isAllocatedStock,jdbcType=BIT},
-		is_invoice = #{isInvoice,jdbcType=BIT},
-		lock_expire = #{lockExpire,jdbcType=TIMESTAMP},
+		freight =
+		#{freight,jdbcType=DOUBLE},
+		invoice_title =
+		#{invoiceTitle,jdbcType=VARCHAR},
+		is_allocated_stock =
+		#{isAllocatedStock,jdbcType=BIT},
+		is_invoice =
+		#{isInvoice,jdbcType=BIT},
+		lock_expire =
+		#{lockExpire,jdbcType=TIMESTAMP},
 		memo = #{memo,jdbcType=VARCHAR},
 		offset_amount = #{offsetAmount,jdbcType=DOUBLE},
-		order_status = #{orderStatus,jdbcType=INTEGER},
-		payment_method_name = #{paymentMethodName,jdbcType=VARCHAR},
-		payment_status = #{paymentStatus,jdbcType=INTEGER},
+		order_status =
+		#{orderStatus,jdbcType=INTEGER},
+		payment_method_name =
+		#{paymentMethodName,jdbcType=VARCHAR},
+		payment_status =
+		#{paymentStatus,jdbcType=INTEGER},
 		phone = #{phone,jdbcType=VARCHAR},
 		point = #{point,jdbcType=BIGINT},
-		promotion = #{promotion,jdbcType=VARCHAR},
-		promotion_discount = #{promotionDiscount,jdbcType=DOUBLE},
-		shipping_method_name = #{shippingMethodName,jdbcType=VARCHAR},
-		shipping_status = #{shippingStatus,jdbcType=INTEGER},
+		promotion =
+		#{promotion,jdbcType=VARCHAR},
+		promotion_discount =
+		#{promotionDiscount,jdbcType=DOUBLE},
+		shipping_method_name =
+		#{shippingMethodName,jdbcType=VARCHAR},
+		shipping_status =
+		#{shippingStatus,jdbcType=INTEGER},
 		sn = #{sn,jdbcType=VARCHAR},
-		tax = #{tax,jdbcType=DOUBLE},
+		tax =
+		#{tax,jdbcType=DOUBLE},
 		zip_code = #{zipCode,jdbcType=VARCHAR},
-		area = #{area,jdbcType=BIGINT},
+		area =
+		#{area,jdbcType=BIGINT},
 		coupon_code = #{couponCode,jdbcType=BIGINT},
 		member = #{member,jdbcType=BIGINT},
-		operator = #{operator,jdbcType=BIGINT},
-		payment_method = #{paymentMethod,jdbcType=BIGINT},
-		shipping_method = #{shippingMethod,jdbcType=BIGINT},
-		agree_return = #{agreeReturn,jdbcType=INTEGER},
-		invoice_type = #{invoiceType,jdbcType=VARCHAR},
-		payment_plugin_id = #{paymentPluginId,jdbcType=VARCHAR},
-		confirm_delivery_time = #{confirmDeliveryTime,jdbcType=TIMESTAMP},
-		memo_flag = #{memoFlag,jdbcType=INTEGER},
-		seller_memo = #{sellerMemo,jdbcType=VARCHAR},
-		bank_code = #{bankCode,jdbcType=VARCHAR},
+		operator =
+		#{operator,jdbcType=BIGINT},
+		payment_method =
+		#{paymentMethod,jdbcType=BIGINT},
+		shipping_method =
+		#{shippingMethod,jdbcType=BIGINT},
+		agree_return =
+		#{agreeReturn,jdbcType=INTEGER},
+		invoice_type =
+		#{invoiceType,jdbcType=VARCHAR},
+		payment_plugin_id =
+		#{paymentPluginId,jdbcType=VARCHAR},
+		confirm_delivery_time =
+		#{confirmDeliveryTime,jdbcType=TIMESTAMP},
+		memo_flag =
+		#{memoFlag,jdbcType=INTEGER},
+		seller_memo =
+		#{sellerMemo,jdbcType=VARCHAR},
+		bank_code =
+		#{bankCode,jdbcType=VARCHAR},
 		bank_name = #{bankName,jdbcType=VARCHAR},
 		order_source = #{orderSource,jdbcType=VARCHAR},
-		system_type = #{systemType,jdbcType=VARCHAR},
-		system_version = #{systemVersion,jdbcType=VARCHAR},
-		week_days = #{weekDays,jdbcType=VARCHAR},
+		system_type =
+		#{systemType,jdbcType=VARCHAR},
+		system_version =
+		#{systemVersion,jdbcType=VARCHAR},
+		week_days =
+		#{weekDays,jdbcType=VARCHAR},
 		time_area = #{timeArea,jdbcType=VARCHAR},
 		time = #{time,jdbcType=VARCHAR},
-		area_square = #{areaSquare,jdbcType=VARCHAR}
+		area_square =
+		#{areaSquare,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<select id="selectMutilTableByExample" resultMap="BaseResultMap"

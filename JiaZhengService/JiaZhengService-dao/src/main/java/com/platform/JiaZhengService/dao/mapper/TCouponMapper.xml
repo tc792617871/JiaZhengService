@@ -33,11 +33,14 @@
 		<result column="introduction" property="introduction" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, begin_date, end_date, is_enabled,
+		id, create_date, modify_date, begin_date, end_date,
+		is_enabled,
 		is_exchange, maximum_price,
-		maximum_quantity, minimum_price, minimum_quantity, name, point, prefix,
+		maximum_quantity, minimum_price,
+		minimum_quantity, name, point, prefix,
 		price_expression,
-		circulation, limited, is_market_price
+		circulation,
+		limited, is_market_price
 	</sql>
 	<sql id="Blob_Column_List">
 		introduction
@@ -78,7 +81,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_coupon
+		delete from
+		t_coupon
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -93,21 +97,28 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_coupon (create_date, modify_date, begin_date,
-		end_date, is_enabled, is_exchange,
-		maximum_price, maximum_quantity, minimum_price,
+		end_date,
+		is_enabled, is_exchange,
+		maximum_price, maximum_quantity,
+		minimum_price,
 		minimum_quantity, name, point,
-		prefix, price_expression, circulation,
+		prefix, price_expression,
+		circulation,
 		limited, is_market_price, introduction
 		)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values
+		(#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
 		#{beginDate,jdbcType=TIMESTAMP},
-		#{endDate,jdbcType=TIMESTAMP}, #{isEnabled,jdbcType=BIT}, #{isExchange,jdbcType=BIT},
+		#{endDate,jdbcType=TIMESTAMP},
+		#{isEnabled,jdbcType=BIT}, #{isExchange,jdbcType=BIT},
 		#{maximumPrice,jdbcType=DOUBLE}, #{maximumQuantity,jdbcType=INTEGER},
 		#{minimumPrice,jdbcType=DOUBLE},
-		#{minimumQuantity,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{point,jdbcType=BIGINT},
+		#{minimumQuantity,jdbcType=INTEGER},
+		#{name,jdbcType=VARCHAR}, #{point,jdbcType=BIGINT},
 		#{prefix,jdbcType=VARCHAR}, #{priceExpression,jdbcType=VARCHAR},
 		#{circulation,jdbcType=BIGINT},
-		#{limited,jdbcType=BIGINT}, #{isMarketPrice,jdbcType=BIT}, #{introduction,jdbcType=LONGVARCHAR}
+		#{limited,jdbcType=BIGINT},
+		#{isMarketPrice,jdbcType=BIT}, #{introduction,jdbcType=LONGVARCHAR}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TCoupon">
@@ -264,13 +275,15 @@
 				maximum_price = #{record.maximumPrice,jdbcType=DOUBLE},
 			</if>
 			<if test="record.maximumQuantity != null">
-				maximum_quantity = #{record.maximumQuantity,jdbcType=INTEGER},
+				maximum_quantity =
+				#{record.maximumQuantity,jdbcType=INTEGER},
 			</if>
 			<if test="record.minimumPrice != null">
 				minimum_price = #{record.minimumPrice,jdbcType=DOUBLE},
 			</if>
 			<if test="record.minimumQuantity != null">
-				minimum_quantity = #{record.minimumQuantity,jdbcType=INTEGER},
+				minimum_quantity =
+				#{record.minimumQuantity,jdbcType=INTEGER},
 			</if>
 			<if test="record.name != null">
 				name = #{record.name,jdbcType=VARCHAR},
@@ -282,7 +295,8 @@
 				prefix = #{record.prefix,jdbcType=VARCHAR},
 			</if>
 			<if test="record.priceExpression != null">
-				price_expression = #{record.priceExpression,jdbcType=VARCHAR},
+				price_expression =
+				#{record.priceExpression,jdbcType=VARCHAR},
 			</if>
 			<if test="record.circulation != null">
 				circulation = #{record.circulation,jdbcType=BIGINT},
@@ -294,7 +308,8 @@
 				is_market_price = #{record.isMarketPrice,jdbcType=BIT},
 			</if>
 			<if test="record.introduction != null">
-				introduction = #{record.introduction,jdbcType=LONGVARCHAR},
+				introduction =
+				#{record.introduction,jdbcType=LONGVARCHAR},
 			</if>
 		</set>
 		<if test="_parameter != null">
@@ -304,24 +319,42 @@
 	<update id="updateByExampleWithBLOBs" parameterType="map">
 		update t_coupon
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
-		end_date = #{record.endDate,jdbcType=TIMESTAMP},
-		is_enabled = #{record.isEnabled,jdbcType=BIT},
-		is_exchange = #{record.isExchange,jdbcType=BIT},
-		maximum_price = #{record.maximumPrice,jdbcType=DOUBLE},
-		maximum_quantity = #{record.maximumQuantity,jdbcType=INTEGER},
-		minimum_price = #{record.minimumPrice,jdbcType=DOUBLE},
-		minimum_quantity = #{record.minimumQuantity,jdbcType=INTEGER},
-		name = #{record.name,jdbcType=VARCHAR},
-		point = #{record.point,jdbcType=BIGINT},
-		prefix = #{record.prefix,jdbcType=VARCHAR},
-		price_expression = #{record.priceExpression,jdbcType=VARCHAR},
-		circulation = #{record.circulation,jdbcType=BIGINT},
-		limited = #{record.limited,jdbcType=BIGINT},
-		is_market_price = #{record.isMarketPrice,jdbcType=BIT},
-		introduction = #{record.introduction,jdbcType=LONGVARCHAR}
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		begin_date =
+		#{record.beginDate,jdbcType=TIMESTAMP},
+		end_date =
+		#{record.endDate,jdbcType=TIMESTAMP},
+		is_enabled =
+		#{record.isEnabled,jdbcType=BIT},
+		is_exchange =
+		#{record.isExchange,jdbcType=BIT},
+		maximum_price =
+		#{record.maximumPrice,jdbcType=DOUBLE},
+		maximum_quantity =
+		#{record.maximumQuantity,jdbcType=INTEGER},
+		minimum_price =
+		#{record.minimumPrice,jdbcType=DOUBLE},
+		minimum_quantity =
+		#{record.minimumQuantity,jdbcType=INTEGER},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		point =
+		#{record.point,jdbcType=BIGINT},
+		prefix =
+		#{record.prefix,jdbcType=VARCHAR},
+		price_expression =
+		#{record.priceExpression,jdbcType=VARCHAR},
+		circulation =
+		#{record.circulation,jdbcType=BIGINT},
+		limited =
+		#{record.limited,jdbcType=BIGINT},
+		is_market_price =
+		#{record.isMarketPrice,jdbcType=BIT},
+		introduction =
+		#{record.introduction,jdbcType=LONGVARCHAR}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -329,23 +362,40 @@
 	<update id="updateByExample" parameterType="map">
 		update t_coupon
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		begin_date = #{record.beginDate,jdbcType=TIMESTAMP},
-		end_date = #{record.endDate,jdbcType=TIMESTAMP},
-		is_enabled = #{record.isEnabled,jdbcType=BIT},
-		is_exchange = #{record.isExchange,jdbcType=BIT},
-		maximum_price = #{record.maximumPrice,jdbcType=DOUBLE},
-		maximum_quantity = #{record.maximumQuantity,jdbcType=INTEGER},
-		minimum_price = #{record.minimumPrice,jdbcType=DOUBLE},
-		minimum_quantity = #{record.minimumQuantity,jdbcType=INTEGER},
-		name = #{record.name,jdbcType=VARCHAR},
-		point = #{record.point,jdbcType=BIGINT},
-		prefix = #{record.prefix,jdbcType=VARCHAR},
-		price_expression = #{record.priceExpression,jdbcType=VARCHAR},
-		circulation = #{record.circulation,jdbcType=BIGINT},
-		limited = #{record.limited,jdbcType=BIGINT},
-		is_market_price = #{record.isMarketPrice,jdbcType=BIT}
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		begin_date =
+		#{record.beginDate,jdbcType=TIMESTAMP},
+		end_date =
+		#{record.endDate,jdbcType=TIMESTAMP},
+		is_enabled =
+		#{record.isEnabled,jdbcType=BIT},
+		is_exchange =
+		#{record.isExchange,jdbcType=BIT},
+		maximum_price =
+		#{record.maximumPrice,jdbcType=DOUBLE},
+		maximum_quantity =
+		#{record.maximumQuantity,jdbcType=INTEGER},
+		minimum_price =
+		#{record.minimumPrice,jdbcType=DOUBLE},
+		minimum_quantity =
+		#{record.minimumQuantity,jdbcType=INTEGER},
+		name =
+		#{record.name,jdbcType=VARCHAR},
+		point =
+		#{record.point,jdbcType=BIGINT},
+		prefix =
+		#{record.prefix,jdbcType=VARCHAR},
+		price_expression =
+		#{record.priceExpression,jdbcType=VARCHAR},
+		circulation =
+		#{record.circulation,jdbcType=BIGINT},
+		limited =
+		#{record.limited,jdbcType=BIGINT},
+		is_market_price =
+		#{record.isMarketPrice,jdbcType=BIT}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -411,46 +461,64 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.platform.JiaZhengService.dao.entity.TCoupon">
-		update t_coupon
+		update
+		t_coupon
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
 		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		begin_date = #{beginDate,jdbcType=TIMESTAMP},
-		end_date = #{endDate,jdbcType=TIMESTAMP},
+		begin_date =
+		#{beginDate,jdbcType=TIMESTAMP},
+		end_date =
+		#{endDate,jdbcType=TIMESTAMP},
 		is_enabled = #{isEnabled,jdbcType=BIT},
 		is_exchange = #{isExchange,jdbcType=BIT},
-		maximum_price = #{maximumPrice,jdbcType=DOUBLE},
-		maximum_quantity = #{maximumQuantity,jdbcType=INTEGER},
-		minimum_price = #{minimumPrice,jdbcType=DOUBLE},
-		minimum_quantity = #{minimumQuantity,jdbcType=INTEGER},
+		maximum_price =
+		#{maximumPrice,jdbcType=DOUBLE},
+		maximum_quantity =
+		#{maximumQuantity,jdbcType=INTEGER},
+		minimum_price =
+		#{minimumPrice,jdbcType=DOUBLE},
+		minimum_quantity =
+		#{minimumQuantity,jdbcType=INTEGER},
 		name = #{name,jdbcType=VARCHAR},
 		point = #{point,jdbcType=BIGINT},
 		prefix = #{prefix,jdbcType=VARCHAR},
 		price_expression = #{priceExpression,jdbcType=VARCHAR},
-		circulation = #{circulation,jdbcType=BIGINT},
+		circulation =
+		#{circulation,jdbcType=BIGINT},
 		limited = #{limited,jdbcType=BIGINT},
 		is_market_price = #{isMarketPrice,jdbcType=BIT},
-		introduction = #{introduction,jdbcType=LONGVARCHAR}
+		introduction =
+		#{introduction,jdbcType=LONGVARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TCoupon">
 		update t_coupon
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		begin_date = #{beginDate,jdbcType=TIMESTAMP},
-		end_date = #{endDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
+		begin_date =
+		#{beginDate,jdbcType=TIMESTAMP},
+		end_date =
+		#{endDate,jdbcType=TIMESTAMP},
 		is_enabled = #{isEnabled,jdbcType=BIT},
 		is_exchange = #{isExchange,jdbcType=BIT},
-		maximum_price = #{maximumPrice,jdbcType=DOUBLE},
-		maximum_quantity = #{maximumQuantity,jdbcType=INTEGER},
-		minimum_price = #{minimumPrice,jdbcType=DOUBLE},
-		minimum_quantity = #{minimumQuantity,jdbcType=INTEGER},
+		maximum_price =
+		#{maximumPrice,jdbcType=DOUBLE},
+		maximum_quantity =
+		#{maximumQuantity,jdbcType=INTEGER},
+		minimum_price =
+		#{minimumPrice,jdbcType=DOUBLE},
+		minimum_quantity =
+		#{minimumQuantity,jdbcType=INTEGER},
 		name = #{name,jdbcType=VARCHAR},
 		point = #{point,jdbcType=BIGINT},
 		prefix = #{prefix,jdbcType=VARCHAR},
 		price_expression = #{priceExpression,jdbcType=VARCHAR},
-		circulation = #{circulation,jdbcType=BIGINT},
+		circulation =
+		#{circulation,jdbcType=BIGINT},
 		limited = #{limited,jdbcType=BIGINT},
 		is_market_price = #{isMarketPrice,jdbcType=BIT}
-		where id = #{id,jdbcType=BIGINT}
+		where id =
+		#{id,jdbcType=BIGINT}
 	</update>
 </mapper>

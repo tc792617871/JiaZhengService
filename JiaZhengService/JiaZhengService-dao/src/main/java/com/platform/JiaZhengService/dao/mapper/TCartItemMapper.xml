@@ -13,7 +13,8 @@
 			jdbcType="BIGINT" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, quantity, cart, product, specification
+		id, create_date, modify_date, quantity, cart, product,
+		specification
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -35,7 +36,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_cart_item
+		delete from
+		t_cart_item
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -50,11 +52,14 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_cart_item (create_date, modify_date, quantity,
-		cart, product, specification
+		cart,
+		product, specification
 		)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values (#{createDate,jdbcType=TIMESTAMP},
+		#{modifyDate,jdbcType=TIMESTAMP},
 		#{quantity,jdbcType=DOUBLE},
-		#{cart,jdbcType=BIGINT}, #{product,jdbcType=BIGINT}, #{specification,jdbcType=BIGINT}
+		#{cart,jdbcType=BIGINT}, #{product,jdbcType=BIGINT},
+		#{specification,jdbcType=BIGINT}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem">
@@ -143,12 +148,18 @@
 	<update id="updateByExample" parameterType="map">
 		update t_cart_item
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		quantity = #{record.quantity,jdbcType=DOUBLE},
-		cart = #{record.cart,jdbcType=BIGINT},
-		product = #{record.product,jdbcType=BIGINT},
-		specification = #{record.specification,jdbcType=BIGINT}
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		quantity =
+		#{record.quantity,jdbcType=DOUBLE},
+		cart =
+		#{record.cart,jdbcType=BIGINT},
+		product =
+		#{record.product,jdbcType=BIGINT},
+		specification =
+		#{record.specification,jdbcType=BIGINT}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -180,11 +191,15 @@
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TCartItem">
 		update t_cart_item
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		quantity = #{quantity,jdbcType=DOUBLE},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
+		quantity =
+		#{quantity,jdbcType=DOUBLE},
 		cart = #{cart,jdbcType=BIGINT},
-		product = #{product,jdbcType=BIGINT},
-		specification = #{specification,jdbcType=BIGINT}
+		product =
+		#{product,jdbcType=BIGINT},
+		specification =
+		#{specification,jdbcType=BIGINT}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 </mapper>

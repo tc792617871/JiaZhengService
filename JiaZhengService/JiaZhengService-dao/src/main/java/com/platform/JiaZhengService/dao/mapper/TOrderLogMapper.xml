@@ -12,7 +12,8 @@
 		<result column="orders" property="orders" jdbcType="BIGINT" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, create_date, modify_date, content, operator, type, orders
+		id, create_date, modify_date, content, operator, type,
+		orders
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -34,7 +35,8 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_order_log
+		delete from
+		t_order_log
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.platform.JiaZhengService.dao.Criteria">
@@ -49,11 +51,14 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into t_order_log (create_date, modify_date, content,
-		operator, type, orders
+		operator,
+		type, orders
 		)
-		values (#{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP},
+		values (#{createDate,jdbcType=TIMESTAMP},
+		#{modifyDate,jdbcType=TIMESTAMP},
 		#{content,jdbcType=VARCHAR},
-		#{operator,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{orders,jdbcType=BIGINT}
+		#{operator,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+		#{orders,jdbcType=BIGINT}
 		)
 	</insert>
 	<insert id="insertSelective" parameterType="com.platform.JiaZhengService.dao.entity.TOrderLog">
@@ -142,12 +147,18 @@
 	<update id="updateByExample" parameterType="map">
 		update t_order_log
 		set id = #{record.id,jdbcType=BIGINT},
-		create_date = #{record.createDate,jdbcType=TIMESTAMP},
-		modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
-		content = #{record.content,jdbcType=VARCHAR},
-		operator = #{record.operator,jdbcType=VARCHAR},
-		type = #{record.type,jdbcType=INTEGER},
-		orders = #{record.orders,jdbcType=BIGINT}
+		create_date =
+		#{record.createDate,jdbcType=TIMESTAMP},
+		modify_date =
+		#{record.modifyDate,jdbcType=TIMESTAMP},
+		content =
+		#{record.content,jdbcType=VARCHAR},
+		operator =
+		#{record.operator,jdbcType=VARCHAR},
+		type =
+		#{record.type,jdbcType=INTEGER},
+		orders =
+		#{record.orders,jdbcType=BIGINT}
 		<if test="_parameter != null">
 			<include refid="common.Update_By_Example_Where_Clause" />
 		</if>
@@ -179,8 +190,10 @@
 	<update id="updateByPrimaryKey" parameterType="com.platform.JiaZhengService.dao.entity.TOrderLog">
 		update t_order_log
 		set create_date = #{createDate,jdbcType=TIMESTAMP},
-		modify_date = #{modifyDate,jdbcType=TIMESTAMP},
-		content = #{content,jdbcType=VARCHAR},
+		modify_date =
+		#{modifyDate,jdbcType=TIMESTAMP},
+		content =
+		#{content,jdbcType=VARCHAR},
 		operator = #{operator,jdbcType=VARCHAR},
 		type = #{type,jdbcType=INTEGER},
 		orders = #{orders,jdbcType=BIGINT}
