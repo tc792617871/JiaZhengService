@@ -47,13 +47,19 @@ public class ProductController extends AbstractController {
 	public String productCategory(Long productCategoryId, HttpServletRequest request, ModelMap model) {
 		model.addAttribute("productCategoryId", productCategoryId);
 		Criteria c = new Criteria();
+		c.createConditon().andEqualTo(TTProductCategory.GRADE, 0).andIsNull(TTProductCategory.PARENT);
 		c.setOrderByClause(TTProductCategory.ORDERS + JiaZhengServiceConstants.SORT_ASC);
 		List<TProductCategory> productCategories = productCategoryService.findList(c);
 		if (productCategories != null && productCategories.size() > 0) {
 			for (TProductCategory productCategory : productCategories) {
-				List<TProduct> products = productService.queryProductListByProductCategroyID(productCategory.getId(),
-						true, false);
-				productCategory.setProducts(products);
+				List<TProductCategory> childProductCategories = productCategoryService
+						.findRoots(productCategory.getId(), null);
+				for (TProductCategory pc : childProductCategories) {
+					List<TProduct> products = productService.queryProductListByProductCategroyID(pc.getId(), true,
+							false);
+					pc.setProducts(products);
+				}
+				productCategory.setChildCategories(childProductCategories);
 			}
 		}
 		model.addAttribute("productCategories", productCategories);

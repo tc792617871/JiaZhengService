@@ -106,6 +106,10 @@
 	padding: 50px 0 55px 0;
 }
 
+.product_content img{
+	width: 100%;
+}
+
 .buy_footer {
 	color: white;
 	font-size: 20px;

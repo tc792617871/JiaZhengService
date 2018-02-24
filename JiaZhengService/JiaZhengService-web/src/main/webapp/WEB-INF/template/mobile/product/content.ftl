@@ -31,8 +31,8 @@
 		${product.introduction}
 	</div>
 	<div id="cartOrbuy_area" class="buy_footer">
-		<div class="add_cart" onclick="addCart_show();">加入购物车</div>
-		<div class="buy_show" onclick="buy_show();">立即购买</div>
+		<div class="add_cart" onclick="addCart_show();">加入清单</div>
+		<div class="buy_show" onclick="buy_show();">立即下单</div>
 	</div>
 	<div id="attrSets_area">
 		<span class="attr_hide" onclick="attrHide()">×</span>

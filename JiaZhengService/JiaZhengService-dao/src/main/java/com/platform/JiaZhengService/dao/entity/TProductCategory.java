@@ -81,6 +81,8 @@ public class TProductCategory extends StringAndEqualsPojo implements Serializabl
 	 */
 	private String logoImage;
 
+	private List<TProductCategory> childCategories;
+
 	private List<TProduct> products;
 
 	/**
@@ -284,5 +286,13 @@ public class TProductCategory extends StringAndEqualsPojo implements Serializabl
 
 	public void setProducts(List<TProduct> products) {
 		this.products = products;
+	}
+
+	public List<TProductCategory> getChildCategories() {
+		return childCategories;
+	}
+
+	public void setChildCategories(List<TProductCategory> childCategories) {
+		this.childCategories = childCategories;
 	}
 }

@@ -24,8 +24,6 @@
 		    <li><a href=""><img src="../resources/mobile/images/1.jpg"></a></li>
 			<li><a href=""><img src="../resources/mobile/images/2.jpg">测试标题一</a></li>
 			<li><a href=""><img src="../resources/mobile/images/3.jpg">测试标题一</a></li>
-			<li><a href=""><img src="../resources/mobile/images/4.jpg">测试标题一</a></li>
-			<li><a href=""><img src="../resources/mobile/images/5.jpg">测试标题一</a></li>
 		  </ul>
 		</div>
 		[#if productCategories ??]

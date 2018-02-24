@@ -14,7 +14,7 @@
 				</div>
 			</td>
 			<td align="center">
-				<div style="margin:0 auto;" onclick="window.location.href='tel:4009981555'">
+				<div style="margin:0 auto;" onclick="window.location.href='tel:0523-84911111'">
 					<div class="service-page"></div>
 					客服
 				</div>

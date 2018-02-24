@@ -41,14 +41,18 @@
 						<div id="allproducts" onscroll="myscroller()">
 							[#list productCategories as productCategory]
 							<div class="p_area" id="${productCategory.id}">
-								<label>${productCategory.nameZh}</label>
-								[#if productCategory.products ??]
-									[#list productCategory.products as product]
-									<div class="product_item" onclick="window.location.href='${base}/mobile/product/content.jhtml?productId=${product.id}'">
-										<img src="${product.image}">
-										<span class="title">${product.name}</span>
-										<span class="description">${product.memo}</span>
-									</div>
+								[#if productCategory.childCategories ??]
+									[#list productCategory.childCategories as childCategory]
+										<label>${childCategory.nameZh}</label>
+										[#if childCategory.products ??]
+											[#list childCategory.products as product]
+											<div class="product_item" onclick="window.location.href='${base}/mobile/product/content.jhtml?productId=${product.id}'">
+												<img src="${product.image}">
+												<span class="title">${product.name}</span>
+												<span class="description">${product.memo}</span>
+											</div>
+											[/#list]
+										[/#if]
 									[/#list]
 								[/#if]
 							</div>

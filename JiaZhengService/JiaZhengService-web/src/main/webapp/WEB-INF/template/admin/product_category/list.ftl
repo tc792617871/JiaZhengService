@@ -156,10 +156,10 @@ $().ready(function() {
 			<th>
 				<span>${message("ProductCategory.name")}(En)</span>
 			</th>
-			<th>
+			<th style="display:none;">
 				<span>${message("admin.common.order")}</span>
 			</th>
-			<th>
+			<th style="display:none;">
 				<span></span>
 			</th>
 			<th>
@@ -178,12 +178,12 @@ $().ready(function() {
 						${productCategory.nameEn}
 					</span>
 				</td>
-				<td>
+				<td style="display:none;">
 				  <!-- <span style="margin-left;" id = "orderNum_${productCategory.id}">${productCategory.order}</span> -->
 				    <a href="#"class="iconButton upIcon" procuctCatOrder="${productCategory.id}" style="float: none;"><span class="upIcon"></span></a>
 				    <a href="#"class="iconButton downIcon" procuctCatOrder="${productCategory.id}" style="float: none;"><span class="downIcon"></span></a>
 				</td>
-				<td>
+				<td style="display:none;">
 				    <a href="#"class="iconButton top"  orders="${productCategory.id}" style="float: none;"><span class="top">置顶</span></a>
 				</td>
 				<td>

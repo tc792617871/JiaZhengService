@@ -39,6 +39,7 @@ public class MobileHomeController extends AbstractController {
 	@RequestMapping(value = "/mobileIndex", method = RequestMethod.GET)
 	public String mobileIndex(ModelMap model, HttpServletRequest request, HttpServletResponse response) {
 		Criteria criteria = new Criteria();
+		criteria.createConditon().andEqualTo(TTProductCategory.GRADE, 0);
 		criteria.setOrderByClause(TTProductCategory.ORDERS + JiaZhengServiceConstants.SORT_ASC);
 		List<TProductCategory> productCategories = productCategoryService.findList(criteria);
 		model.addAttribute("productCategories", productCategories);
