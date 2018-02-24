@@ -32,7 +32,7 @@
 				<div class="category-item" onclick="window.location.href='${base}/mobile/product/productCategory.jhtml?productCategoryId=${productCategory.id}'">
 					<img src="${productCategory.logoImage}">
 					<span class="title">${productCategory.nameZh}</span>
-					<span class="description">${productCategory.seoDescription}</span>
+					<p class="description">${productCategory.seoDescription}</p>
 				</div>
 			[/#list]
 		</div>
