@@ -28,8 +28,8 @@ $().ready(function(){
 		<div id="article_area">
 			<p>感谢您的使用，有任何问题可联系客服，我们将竭诚为您服务。</p>
 			<p align=center>客服电话：
-				<a href="tel:400-9981-000">
-					<font color=#0066cc>400-9981-555</font>
+				<a href="tel:0523-84911111">
+					<font color=#0066cc>0523-84911111</font>
 				</a>
 			</p>
 		</div>	

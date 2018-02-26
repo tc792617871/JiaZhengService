@@ -35,9 +35,16 @@ public class ProductCategoryController extends AbstractController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(ModelMap model) {
 		Criteria c = new Criteria();
-		// c.createConditon().andEqualTo(TTProductCategory.GRADE, 0); // 顶级分类
+		c.createConditon().andEqualTo(TTProductCategory.GRADE, 0); // 顶级分类
 		c.setOrderByClause(TTProductCategory.ORDERS + JiaZhengServiceConstants.SORT_ASC);
-		model.addAttribute("productCategoryTree", productCategoryService.findList(c));
+		List<TProductCategory> productCategoryTree = productCategoryService.findList(c);
+		if (productCategoryTree != null && productCategoryTree.size() > 0) {
+			for (TProductCategory pc : productCategoryTree) {
+				List<TProductCategory> childProductCategories = productCategoryService.findRoots(pc.getId(), null);
+				pc.setChildCategories(childProductCategories);
+			}
+		}
+		model.addAttribute("productCategoryTree", productCategoryTree);
 		return "/admin/product_category/list";
 	}
 

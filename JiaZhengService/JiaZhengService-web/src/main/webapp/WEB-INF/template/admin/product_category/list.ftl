@@ -195,6 +195,38 @@ $().ready(function() {
 					[/@shiro.hasPermission]
 				</td>
 			</tr>
+			[#if productCategory.childCategories ??]
+				[#list productCategory.childCategories as childProductCategory]
+					<tr>
+						<td>
+							<span style="margin-left: ${childProductCategory.grade * 20}px;[#if childProductCategory.grade == 0] color: #000000;[/#if]">
+								${childProductCategory.nameZh}
+							</span>
+						</td>
+						<td>
+							<span style="margin-left: ${childProductCategory.grade * 20}px;[#if childProductCategory.grade == 0] color: #000000;[/#if]">
+								${childProductCategory.nameEn}
+							</span>
+						</td>
+						<td style="display:none;">
+						  <!-- <span style="margin-left;" id = "orderNum_${childProductCategory.id}">${childProductCategory.order}</span> -->
+						    <a href="#"class="iconButton upIcon" procuctCatOrder="${childProductCategory.id}" style="float: none;"><span class="upIcon"></span></a>
+						    <a href="#"class="iconButton downIcon" procuctCatOrder="${childProductCategory.id}" style="float: none;"><span class="downIcon"></span></a>
+						</td>
+						<td style="display:none;">
+						    <a href="#"class="iconButton top"  orders="${childProductCategory.id}" style="float: none;"><span class="top">置顶</span></a>
+						</td>
+						<td>
+							[@shiro.hasPermission name = "admin:productCategory_a_edit"]
+								<a href="edit.jhtml?id=${childProductCategory.id}">[${message("admin.common.edit")}]</a>
+							[/@shiro.hasPermission]
+							[@shiro.hasPermission name = "admin:productCategory_a_delete"]
+								<a href="javascript:;" class="delete" val="${childProductCategory.id}">[${message("admin.common.delete")}]</a>
+							[/@shiro.hasPermission]
+						</td>
+					</tr>
+				[/#list]
+			[/#if]
 		[/#list]
 	</table>
 </body>

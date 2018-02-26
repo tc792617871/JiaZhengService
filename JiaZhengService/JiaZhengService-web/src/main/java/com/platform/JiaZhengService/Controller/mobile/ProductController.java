@@ -52,14 +52,20 @@ public class ProductController extends AbstractController {
 		List<TProductCategory> productCategories = productCategoryService.findList(c);
 		if (productCategories != null && productCategories.size() > 0) {
 			for (TProductCategory productCategory : productCategories) {
-				List<TProductCategory> childProductCategories = productCategoryService
-						.findRoots(productCategory.getId(), null);
-				for (TProductCategory pc : childProductCategories) {
-					List<TProduct> products = productService.queryProductListByProductCategroyID(pc.getId(), true,
-							false);
-					pc.setProducts(products);
-				}
-				productCategory.setChildCategories(childProductCategories);
+				// List<TProductCategory> childProductCategories =
+				// productCategoryService
+				// .findRoots(productCategory.getId(), null);
+				// for (TProductCategory pc : childProductCategories) {
+				// List<TProduct> products =
+				// productService.queryProductListByProductCategroyID(pc.getId(),
+				// true,
+				// false);
+				// pc.setProducts(products);
+				// }
+				// productCategory.setChildCategories(childProductCategories);
+				List<TProduct> products = productService.queryProductListByProductCategroyID(productCategory.getId(),
+						true, false);
+				productCategory.setProducts(products);
 			}
 		}
 		model.addAttribute("productCategories", productCategories);

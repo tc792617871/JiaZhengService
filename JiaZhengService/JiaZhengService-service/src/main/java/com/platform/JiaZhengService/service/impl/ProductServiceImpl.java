@@ -122,11 +122,11 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 				}
 			}
 		}
+		Criteria ptc = new Criteria();
+		ptc.createConditon().andEqualTo(TTProductTag.PRODUCTS, product.getId());
+		productTagMapper.deleteByExample(ptc);
 		Long[] tagIds = product.getTagIds();
 		if (tagIds != null && tagIds.length > 0) {
-			Criteria ptc = new Criteria();
-			ptc.createConditon().andEqualTo(TTProductTag.PRODUCTS, product.getId());
-			productTagMapper.deleteByExample(ptc);
 			for (Long id : tagIds) {
 				TProductTagKey ptk = new TProductTagKey();
 				ptk.setProducts(product.getId());

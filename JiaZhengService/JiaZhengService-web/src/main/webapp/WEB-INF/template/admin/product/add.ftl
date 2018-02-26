@@ -350,7 +350,7 @@ $().ready(function() {
 		</table>
 		<table class="input tabContent" id="specificationProductTable">
 			<tr class="title">
-				<td colspan="9">
+				<td colspan="10">
 					<a href="javascript:;" id="addSpecificationProduct" class="button">${message("admin.product.addSpecificationProduct")}</a>
 				</td>
 			</tr>
