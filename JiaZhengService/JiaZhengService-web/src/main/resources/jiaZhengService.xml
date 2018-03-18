@@ -92,8 +92,8 @@
 	<setting name="smsPassword" value="=="/>
 	
 	<!-- 微信appId和Secret配置 -->
-	<setting name="appId" value="wx222cbd523cae37f0"/>
-	<setting name="appSecret" value="5812234b67f9ce3d1d9cf2226b3f5a54"/>
+	<setting name="appId" value="wx02f3c4cd0ccb1545"/>
+	<setting name="appSecret" value="06eece8b8453599a5d2add0ec1172e33"/>
 		
 	<setting name="isCnzzEnabled" value="true"/>  
 	<setting name="cnzzSiteId" value="1250991229"/>  

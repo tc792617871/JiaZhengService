@@ -91,7 +91,7 @@ public class PaymentController extends AbstractController {
 					model.addAttribute("content", Message.warn("shop.order.orderIsExpired"));
 					return ERROR_VIEW;
 				}
-				if (order == null || !member.equals(order.getMember()) || order.isLocked(null)) {
+				if (order == null || order.isLocked(null)) {
 					model.addAttribute("content", Message.warn("shop.order.orderNotFound"));
 					return ERROR_VIEW;
 				}
@@ -147,7 +147,7 @@ public class PaymentController extends AbstractController {
 	 */
 	@RequestMapping(value = "/wxJsApiPay", method = RequestMethod.POST)
 	public String wxJsApiPay(HttpServletRequest request, HttpServletResponse response, ModelMap model,
-			RedirectAttributes redirectAttributes) {
+			RedirectAttributes redirectAttributes, String showwxpaytitle) {
 		String appid = request.getParameter("appid");
 		String nonceStr = request.getParameter("nonceStr");
 		String packageValue = request.getParameter("packageValue");

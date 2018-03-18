@@ -126,6 +126,8 @@ public class WxJsPlugin extends PaymentPlugin {
 		String spbillCreateIp = JiaZhengServiceUtil.getAddr(request);
 		String tradeType = "JSAPI";
 		String openId = member.getWeChatOpenId();
+		// String openId = "oFakY1OLmCkwBdZOHhP-6zWHgoIE";
+		logger.info("openID = " + openId);
 		Map<String, Object> parameterMap = new HashMap<String, Object>();
 
 		// 设置package订单参数
@@ -143,7 +145,7 @@ public class WxJsPlugin extends PaymentPlugin {
 
 		packageParams.put("trade_type", tradeType);
 		if (!StringUtils.isEmpty(openId)) {
-			packageParams.put("openid", new String(Base64Util.decode(openId)));
+			packageParams.put("openid", openId);
 		} else {
 			packageParams.put("openid", "");
 		}
@@ -160,8 +162,8 @@ public class WxJsPlugin extends PaymentPlugin {
 				+ "]]></out_trade_no>" + "<attach><![CDATA[" + attach + "]]></attach>" + "<total_fee><![CDATA["
 				+ totalFee + "]]></total_fee>" + "<spbill_create_ip><![CDATA[" + spbillCreateIp
 				+ "]]></spbill_create_ip>" + "<notify_url><![CDATA[" + notifyUrl + "]]></notify_url>"
-				+ "<trade_type><![CDATA[" + tradeType + "]]></trade_type>" + "<openid><![CDATA["
-				+ new String(Base64Util.decode(openId)) + "]]></openid>" + "</xml>";
+				+ "<trade_type><![CDATA[" + tradeType + "]]></trade_type>" + "<openid><![CDATA[" + openId
+				+ "]]></openid>" + "</xml>";
 		// logger.error(xml);
 		String prepayId = "";
 		prepayId = getPayNo(getCreateOrderURL(), xml);

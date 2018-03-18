@@ -708,7 +708,7 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 		if (payment != null && payment.getMember() != null) {
 			payment.setTmember(memberService.find(payment.getMember()));
 		}
-		return paymentService.findBySn(sn);
+		return payment;
 	}
 
 }

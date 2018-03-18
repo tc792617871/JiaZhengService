@@ -1,5 +1,7 @@
 package com.platform.JiaZhengService.Controller.mobile;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -23,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.platform.JiaZhengService.common.pojo.Message;
 import com.platform.JiaZhengService.common.pojo.Principal;
 import com.platform.JiaZhengService.common.pojo.Setting;
 import com.platform.JiaZhengService.common.pojo.Setting.AccountLockType;
+import com.platform.JiaZhengService.common.util.HttpGetUtil;
+import com.platform.JiaZhengService.common.util.JiaZhengServiceUtil;
 import com.platform.JiaZhengService.common.util.SettingUtils;
 import com.platform.JiaZhengService.common.util.SpringUtils;
 import com.platform.JiaZhengService.common.util.WebUtils;
@@ -47,12 +52,38 @@ public class LoginController extends AbstractController {
 	@Resource(name = "rsaServiceImpl")
 	private RSAService rsaService;
 
+	private static final String authorize = "https://open.weixin.qq.com/connect/oauth2/authorize?";
+
+	private static final String access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+
 	/**
 	 * 登录页面
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(String redirectUrl, HttpServletRequest request, ModelMap model) {
 		Setting setting = SettingUtils.get();
+		String code = request.getParameter("code");
+		System.out.println("code =============" + code);
+		String redirect_url = "";
+		try {
+			redirect_url = URLEncoder.encode(setting.getSiteUrl() + "/mobile/login/index.jhtml", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String redirect = authorize + "appid=" + setting.getAppId() + "&redirect_uri=" + redirect_url
+				+ "&response_type=code&scope=snsapi_base";
+		if (JiaZhengServiceUtil.isEmpty(code) && JiaZhengServiceUtil.getIsWeChatBrowser(request)) {
+			return "redirect:" + redirect;
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("secret", setting.getAppSecret());
+		params.put("appid", setting.getAppId());
+		params.put("grant_type", "authorization_code");
+		params.put("code", code);
+		String result = HttpGetUtil.httpRequestToString(access_token_url, params);
+		JSONObject jsonObject = JSONObject.parseObject(result);
+		String openId = jsonObject.get("openid").toString();
+		System.out.println("得到的openid为:" + openId);
 		TMember member = memberService.getCurrent();
 		if (member != null) {
 			return "redirect:/mobile/member/index.jhtml";
@@ -62,6 +93,7 @@ public class LoginController extends AbstractController {
 				&& !redirectUrl.startsWith(setting.getSiteUrl() + "/")) {
 			redirectUrl = null;
 		}
+		model.addAttribute("openId", openId);
 		model.addAttribute("redirectUrl", redirectUrl);
 		return "/mobile/login/index";
 	}
@@ -104,6 +136,7 @@ public class LoginController extends AbstractController {
 				return Message.error("shop.login.incorrectCredentials");
 			}
 		}
+		logger.info("login submit！openId = " + openId);
 		member.setWeChatOpenId(openId);
 		memberService.updateLoginStatus(request, member);
 		syncCart(request, response, session, member);

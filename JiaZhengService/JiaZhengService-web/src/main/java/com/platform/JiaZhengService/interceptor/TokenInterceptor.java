@@ -35,6 +35,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		logger.info(getClass() + "---> preHandle");
 		String token = WebUtils.getCookie(request, TOKEN_COOKIE_NAME);
+		logger.info("token : " + token);
 		if (request.getMethod().equalsIgnoreCase("POST")) {
 			String requestType = request.getHeader("X-Requested-With");
 			if (requestType != null && requestType.equalsIgnoreCase("XMLHttpRequest")) {
