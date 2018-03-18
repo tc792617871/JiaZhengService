@@ -27,7 +27,6 @@ public class ExecuteTimeInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info(getClass() + "---> preHandle");
 		Long startTime = (Long) request.getAttribute(START_TIME_ATTRIBUTE_NAME);
 		if (startTime == null) {
 			startTime = System.currentTimeMillis();
@@ -39,7 +38,6 @@ public class ExecuteTimeInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		logger.info(getClass() + "---> postHandle");
 		Long executeTime = (Long) request.getAttribute(EXECUTE_TIME_ATTRIBUTE_NAME);
 		if (executeTime == null) {
 			Long startTime = (Long) request.getAttribute(START_TIME_ATTRIBUTE_NAME);

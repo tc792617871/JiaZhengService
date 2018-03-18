@@ -164,10 +164,10 @@ public class WxJsPlugin extends PaymentPlugin {
 				+ "]]></spbill_create_ip>" + "<notify_url><![CDATA[" + notifyUrl + "]]></notify_url>"
 				+ "<trade_type><![CDATA[" + tradeType + "]]></trade_type>" + "<openid><![CDATA[" + openId
 				+ "]]></openid>" + "</xml>";
-		// logger.error(xml);
+		logger.info(xml);
 		String prepayId = "";
 		prepayId = getPayNo(getCreateOrderURL(), xml);
-		// logger.error(prepayId);
+		logger.info(prepayId);
 		String timestamp = JiaZhengServiceUtil.getTimeStamp();
 		String packages = "prepay_id=" + prepayId;
 

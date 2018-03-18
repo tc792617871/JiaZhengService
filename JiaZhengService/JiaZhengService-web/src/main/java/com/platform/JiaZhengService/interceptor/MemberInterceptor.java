@@ -52,7 +52,6 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info(getClass() + "---> preHandle");
 		HttpSession session = request.getSession();
 		Principal principal = (Principal) session.getAttribute(TMember.PRINCIPAL_ATTRIBUTE_NAME);
 		if (HttpRequestDeviceUtils.isMobileDevice(request)) {
@@ -85,7 +84,6 @@ public class MemberInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		logger.info(getClass() + "---> postHandle");
 		if (modelAndView != null) {
 			String viewName = modelAndView.getViewName();
 			if (!StringUtils.startsWith(viewName, REDIRECT_VIEW_NAME_PREFIX)) {

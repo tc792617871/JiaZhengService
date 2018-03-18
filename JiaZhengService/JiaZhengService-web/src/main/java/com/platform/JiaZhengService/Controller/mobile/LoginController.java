@@ -63,7 +63,7 @@ public class LoginController extends AbstractController {
 	public String index(String redirectUrl, HttpServletRequest request, ModelMap model) {
 		Setting setting = SettingUtils.get();
 		String code = request.getParameter("code");
-		System.out.println("code =============" + code);
+		System.out.println("登录页面 code =============" + code);
 		String redirect_url = "";
 		try {
 			redirect_url = URLEncoder.encode(setting.getSiteUrl() + "/mobile/login/index.jhtml", "UTF-8");
@@ -83,7 +83,7 @@ public class LoginController extends AbstractController {
 		String result = HttpGetUtil.httpRequestToString(access_token_url, params);
 		JSONObject jsonObject = JSONObject.parseObject(result);
 		String openId = jsonObject.get("openid").toString();
-		System.out.println("得到的openid为:" + openId);
+		System.out.println("登录页面得到的openid为:" + openId);
 		TMember member = memberService.getCurrent();
 		if (member != null) {
 			return "redirect:/mobile/member/index.jhtml";

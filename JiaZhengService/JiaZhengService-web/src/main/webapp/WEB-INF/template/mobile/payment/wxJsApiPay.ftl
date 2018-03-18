@@ -20,7 +20,7 @@ function onBridgeReady(){
        },
        function(res){
            if(res.err_msg == "get_brand_wcpay_request:ok"){
-              window.location.href = "${base}/payment/wxJsApiNotify/sync/${paymentSn}.jhtml";
+              window.location.href = "${base}/mobile/payment/wxJsApiNotify/sync/${paymentSn}.jhtml";
            }
            if(res.err_msg == "get_brand_wcpay_request:cancel"){
                window.location.href = "${base}/mobile/member/order/payment.jhtml?sn=${orderSn}";

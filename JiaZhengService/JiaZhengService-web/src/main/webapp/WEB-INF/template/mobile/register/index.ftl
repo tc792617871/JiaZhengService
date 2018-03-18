@@ -36,6 +36,7 @@ $().ready(function() {
 		[#include "/mobile/include/header_2.ftl" /]
 		<form id="registerForm" action="${base}/mobile/register/registSubmit.jhtml" method="get" >
 			<div class="moMobileContent">
+				<input type="hidden" id="openId" name="openId" value="${openId}"/>
 				<div class="box" style="margin-top: 10px;">
 					<input type="number" id="mobile" name="mobile" placeholder="手机号码" class="box_input" style="width:100%;"/>
 				</div>
