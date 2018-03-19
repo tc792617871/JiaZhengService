@@ -114,7 +114,7 @@ public class AmountUtils {
 		// long a = 0;
 		// System.out.println(a);
 
-		System.out.println(changeY2Cent("0.01"));
+		System.out.println(changeY2Cent("￥0.01"));
 
 	}
 }

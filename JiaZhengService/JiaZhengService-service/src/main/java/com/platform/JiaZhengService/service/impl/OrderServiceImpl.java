@@ -264,7 +264,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		Date date = new Date();
 		order.setAmountPaid(order.getAmountPaid() + payment.getAmount());
 		order.setFee(payment.getFee());
-		order.setExpire(null);
+		order.setExpire(DateUtil.string2Date("9999-12-31"));
 		order.setModifyDate(date);
 		if (order.getAmountPaid().compareTo(order.getAmount()) >= 0) {
 			order.setOrderStatus(OrderStatus.confirmed.getCode());
@@ -341,7 +341,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 		memberMapper.updateByPrimaryKeySelective(member);
 
 		order.setOrderStatus(OrderStatus.completed.getCode());
-		order.setExpire(null);
+		order.setExpire(DateUtil.string2Date("9999-12-31"));
 		order.setModifyDate(date);
 		orderMapper.updateByPrimaryKeySelective(order);
 
@@ -369,7 +369,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 			order.setCouponCode(null);
 		}
 		order.setOrderStatus(OrderStatus.cancelled.getCode());
-		order.setExpire(null);
+		order.setExpire(DateUtil.string2Date("9999-12-31"));
 		order.setModifyDate(date);
 		orderMapper.updateByPrimaryKeySelective(order);
 
@@ -416,7 +416,7 @@ public class OrderServiceImpl extends BaseServiceImpl implements OrderService {
 	public void shipping(TOrder order, TAdmin operator) {
 		Date date = new Date();
 		order.setShippingStatus(ShippingStatus.shipped.getCode());
-		order.setExpire(null);
+		order.setExpire(DateUtil.string2Date("9999-12-31"));
 		order.setModifyDate(date);
 		orderMapper.updateByPrimaryKeySelective(order);
 

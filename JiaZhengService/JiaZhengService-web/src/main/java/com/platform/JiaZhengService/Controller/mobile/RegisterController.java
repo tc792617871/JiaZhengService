@@ -1,5 +1,7 @@
 package com.platform.JiaZhengService.Controller.mobile;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.platform.JiaZhengService.common.pojo.Message;
 import com.platform.JiaZhengService.common.pojo.Principal;
 import com.platform.JiaZhengService.common.pojo.Setting;
+import com.platform.JiaZhengService.common.util.HttpGetUtil;
 import com.platform.JiaZhengService.common.util.JiaZhengServiceUtil;
 import com.platform.JiaZhengService.common.util.RegUtils;
 import com.platform.JiaZhengService.common.util.SettingUtils;
@@ -41,11 +45,46 @@ public class RegisterController extends AbstractController {
 	@Resource(name = "memberServiceImpl")
 	private MemberService memberService;
 
+	private static final String authorize = "https://open.weixin.qq.com/connect/oauth2/authorize?";
+
+	private static final String access_token_url = "https://api.weixin.qq.com/sns/oauth2/access_token";
+
 	/**
 	 * 注册页面
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String loginIndex(ModelMap model) {
+	public String loginIndex(HttpServletRequest request, ModelMap model) {
+		Setting setting = SettingUtils.get();
+		String code = request.getParameter("code");
+		logger.info("注册页面 code =============" + code);
+		String redirect_url = "";
+		try {
+			redirect_url = URLEncoder.encode(setting.getSiteUrl() + "/mobile/register/index.jhtml", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String redirect = authorize + "appid=" + setting.getAppId() + "&redirect_uri=" + redirect_url
+				+ "&response_type=code&scope=snsapi_base";
+		if (JiaZhengServiceUtil.isEmpty(code) && JiaZhengServiceUtil.getIsWeChatBrowser(request)) {
+			return "redirect:" + redirect;
+		}
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("secret", setting.getAppSecret());
+		params.put("appid", setting.getAppId());
+		params.put("grant_type", "authorization_code");
+		params.put("code", code);
+		String result = HttpGetUtil.httpRequestToString(access_token_url, params);
+		logger.info("access_token_url返回结果：" + result);
+		String openId = "";
+		if (!JiaZhengServiceUtil.isEmpty(result)) {
+			JSONObject jsonObject = JSONObject.parseObject(result);
+			Object o = jsonObject.get("openid");
+			if (o != null) {
+				openId = o.toString();
+			}
+		}
+		logger.info("注册页面得到的openid为" + openId);
+		model.addAttribute("openId", openId);
 		return "/mobile/register/index";
 	}
 
@@ -92,8 +131,8 @@ public class RegisterController extends AbstractController {
 	 * 注册提交
 	 */
 	@RequestMapping(value = "/registSubmit", method = RequestMethod.POST)
-	public @ResponseBody Message registSubmit(String password, String email, String name, String address, String mobile,
-			Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public @ResponseBody Message registSubmit(String openId, String password, String email, String name, String address,
+			String mobile, Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		String username = mobile;
 		Setting setting = SettingUtils.get();
@@ -129,6 +168,7 @@ public class RegisterController extends AbstractController {
 		member.setLoginDate(new Date());
 		member.setAddress(address);
 		member.setMobile(mobile);
+		member.setWeChatOpenId(openId);
 		memberService.addMember(member);
 
 		Map<String, Object> attributes = new HashMap<String, Object>();

@@ -63,7 +63,9 @@ public class MybatisSqlLogPlugin implements Interceptor {
 		long end = System.currentTimeMillis();
 		long time = (end - start);
 		String sql = getSql(configuration, boundSql, sqlId, time);
-		LOGGER.info("执行SQL：" + sql);
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug("执行SQL：" + sql);
+		}
 		return returnValue;
 	}
 

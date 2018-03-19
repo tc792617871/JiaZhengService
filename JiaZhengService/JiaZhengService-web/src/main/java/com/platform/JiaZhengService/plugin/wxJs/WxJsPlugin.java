@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.platform.JiaZhengService.common.util.AmountUtils;
-import com.platform.JiaZhengService.common.util.Base64Util;
 import com.platform.JiaZhengService.common.util.JiaZhengServiceUtil;
 import com.platform.JiaZhengService.common.util.MD5;
 import com.platform.JiaZhengService.dao.entity.TMember;
@@ -120,6 +119,7 @@ public class WxJsPlugin extends PaymentPlugin {
 		String partnerId = pluginConfig.getAttribute("partnerId");
 		String nonceStr = JiaZhengServiceUtil.getNonceStr();
 		String body = StringUtils.abbreviate(description.replaceAll("[^0-9a-zA-Z\\u4e00-\\u9fa5 ]", ""), 20);
+		logger.info("payment.getAmount() = " + payment.getAmount());
 		String totalFee = AmountUtils.changeY2Cent(payment.getAmount().toString());
 		String notifyUrl = getNotifyUrl(sn, NotifyMethod.async);
 		String attach = "JSAPI";
@@ -164,7 +164,7 @@ public class WxJsPlugin extends PaymentPlugin {
 				+ "]]></spbill_create_ip>" + "<notify_url><![CDATA[" + notifyUrl + "]]></notify_url>"
 				+ "<trade_type><![CDATA[" + tradeType + "]]></trade_type>" + "<openid><![CDATA[" + openId
 				+ "]]></openid>" + "</xml>";
-		logger.info(xml);
+		logger.info("wxjsapi : order.getSn(): " + order.getSn() + ", xml ->>>" + xml);
 		String prepayId = "";
 		prepayId = getPayNo(getCreateOrderURL(), xml);
 		logger.info(prepayId);

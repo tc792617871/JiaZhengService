@@ -67,7 +67,9 @@ public abstract class PaginationBasePlugin implements Interceptor {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object intercept(Invocation invocation) throws Throwable {
-		log.info("进入sql分页拦截器.....");
+		if (log.isDebugEnabled()) {
+			log.debug("进入sql分页拦截器.....");
+		}
 		final MappedStatement mappedStatement = this.getMappedStatement(invocation);
 		final Object parameter = this.getParameter(invocation);
 		final RowBounds rowBounds = getRowBounds(invocation);
@@ -153,7 +155,9 @@ public abstract class PaginationBasePlugin implements Interceptor {
 			long start = System.currentTimeMillis();
 			rs = pStatement.executeQuery();
 			long time = System.currentTimeMillis() - start;
-			log.info("分页语句执行耗时(ms): " + time);
+			if (log.isDebugEnabled()) {
+				log.debug("分页语句执行耗时(ms): " + time);
+			}
 			// if (rs.next()) {
 			// return rs.getInt(1);
 			// }
