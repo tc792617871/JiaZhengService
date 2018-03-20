@@ -2,7 +2,6 @@ package com.platform.JiaZhengService.pluginService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -383,7 +382,7 @@ public abstract class PaymentPlugin implements Comparable<PaymentPlugin> {
 	 */
 	public Double calculateAmount(Double amount) {
 		Double result = amount + calculateFee(amount);
-		return new BigDecimal(result).setScale(2, RoundingMode.UP).doubleValue();
+		return result;
 	}
 
 	/**
