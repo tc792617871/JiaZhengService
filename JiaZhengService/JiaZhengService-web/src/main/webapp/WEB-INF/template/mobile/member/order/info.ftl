@@ -32,21 +32,34 @@ $().ready(function() {
 	});
 	
 	/**收货地址选择*/
-	$(".receiverList").each(function(){
-		var i=$(this);
-		var p=i.find("ul>li");
-		p.click(function(){
-			if(!!$(this).hasClass("selected")){
-				$(this).removeClass("selected");
-			}else{
-				$(this).addClass("selected").siblings("li").removeClass("selected");
-				$receiverId.val($(this).attr("dataid"));
-				$consignee.html($(this).find("#receiverConsignee").html());
-				$phone.html($(this).find("#receiverPhone").html());
-				$address.html($(this).find("#receiverAddress").html());
-				$zipCode.html($(this).find("#receiverZipCode").html());
-			}
-		})
+	$(document).on("click", ".receiverList ul>li", function(event) {
+		var $consigneeTR = $("#consigneeTR");
+		var $phoneTR = $("#phoneTR");
+		var $addressTR = $("#addressTR");
+		var $zipCodeTR = $("#zipCodeTR");
+		var $addBtn = $("#addBtn");
+		if(!!$(this).hasClass("selected")){
+			$(this).removeClass("selected");
+			$consigneeTR.hide();
+			$phoneTR.hide();
+			$addressTR.hide();
+			$zipCodeTR.hide();
+			$receiverId.val("");
+			$addBtn.show();
+		}else{
+			$(this).addClass("selected").siblings("li").removeClass("selected");
+			$receiverId.val($(this).attr("dataid"));
+			$consignee.html($(this).find("#receiverConsignee").html());
+			$phone.html($(this).find("#receiverPhone").html());
+			$address.html($(this).find("#receiverAddress").html());
+			$zipCode.html($(this).find("#receiverZipCode").html());
+			$consigneeTR.show();
+			$phoneTR.show();
+			$addressTR.show();
+			$zipCodeTR.show();
+			$addBtn.hide();
+			$("#receiverModal").find("button.md-close").click();
+		}
 	});
 	
 	/**优惠券选择*/
@@ -179,9 +192,35 @@ function addNewAddress(){
 							                </td>
 							            </tr>
 							         [#else]
-							             <tr>
+							             <tr id="addBtn">
 							                <td>
 							                    点击新增收货地址
+							                </td>
+							            </tr>
+							            <tr id="consigneeTR" style="display:none;">
+							                <td>
+							                    <label for="consignee">收件人:</label>
+							                    <span id="consignee">${defaultReceiver.consignee}</span>
+							                </td>
+							            </tr>
+							            <tr id="phoneTR" style="display:none;">
+							                <td>
+							                    <label for="phone">手机号码:</label>
+							                    <span id="phone">${defaultReceiver.phone}</span>
+							                </td>
+							            </tr>
+							            <tr id="addressTR" style="display:none;">
+							                <td>
+							                    <label for="address">地址:</label>
+							                    <span id="address">
+												  ${defaultReceiver.areaName}${defaultReceiver.address}
+							                    </span>
+							                </td>
+							            </tr>
+							            <tr id="zipCodeTR" style="display:none;">
+							                <td>
+							                    <label for="zipCode">邮编:</label>
+							                    <span id="zipCode">${defaultReceiver.zipCode}</span>
 							                </td>
 							            </tr>
 						             [/#if]
@@ -357,7 +396,7 @@ function addNewAddress(){
 		<div class="md-modal md-receiverModal" id="receiverModal">
 			<div class="md-content">
 				<div>
-					[#if defaultReceiver?? ]
+					[#if receivers?? ]
 					<dl class="clearfix receiverList" >
 						<dd>
 							<ul class="receiverEntry">
@@ -403,19 +442,9 @@ function addNewAddress(){
 							</ul>
 						</dd>
 					</dl>
-					<button class="md-close">确定</button>
-					[#else]
-					<table style="width: 100%;">
-					    <tr>
-						    <td>
-						        <button id="addReceiver" class="md-trigger" data-modal="addReceiverModal">新增</button>
-						    </td>
-						    <td>
-						        <button class="md-close">关闭</button>
-						    </td>
-					    </tr>
-					</table>
 					[/#if]
+			        <button id="addReceiver" class="md-trigger" data-modal="addReceiverModal" style="margin-bottom: 10px;">新增</button>
+					<button class="md-close">关闭</button>
 				</div>
 			</div>
 		</div>
@@ -425,7 +454,7 @@ function addNewAddress(){
 		<div class="md-modal md-addReceiverModal" id="addReceiverModal">
 			<div class="md-content">
 				<div>
-				    <form id="receiverFormAdd" action="${base}/mobile/member/submitNewAddress.jhtml" method="post" novalidate="novalidate">
+				    <form id="receiverFormAdd" method="post" novalidate="novalidate">
 				    	<div class="box">
 							<span class="fieldSet" id="receiverModifyAreaSpan">
 								<input type="hidden" id="modify_orderAreaId" name="modify_orderAreaId" treePath="${receiver.area.treePath}"/>

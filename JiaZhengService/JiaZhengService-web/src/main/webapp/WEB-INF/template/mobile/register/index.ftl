@@ -40,14 +40,14 @@ $().ready(function() {
 				<div class="box" style="margin-top: 10px;">
 					<input type="number" id="mobile" name="mobile" placeholder="手机号码" class="box_input" style="width:100%;"/>
 				</div>
-				<div class="box">
+				<!--<div class="box">
             		<div style="width:58%;float:left;">
             			<input type="text" id="validateCode" name="validateCode" placeholder="验证码" class="box_input" style="width:100%;"/>
             		</div>
             		<div style="width:42%;float:left;">
             			<button type="button" onclick="m$.register.registerUser.getRegisterValidateCode(60)" id="getValidateCode">获取验证码</button>
         			</div>
-				</div>
+				</div>-->
 				<div class="box">
 					<input type="password" id="password" name="password" placeholder="密码" class="box_input" style="width:100%;"/>
 				</div>

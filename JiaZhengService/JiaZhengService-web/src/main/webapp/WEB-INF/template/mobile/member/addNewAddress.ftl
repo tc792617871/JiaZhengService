@@ -33,7 +33,7 @@ function addNewAddress(){
 	<div class="fullscreen" id="fullscreen">
 		[#include "/mobile/include/header_2.ftl" /]
 		<div class="moMobileContent">
-		    <form id="receiverFormModify" action="${base}/mobile/member/submitNewAddress.jhtml" method="post" novalidate="novalidate">
+		    <form id="receiverFormModify" method="post">
 		    	<div class="box">
 					<span class="fieldSet" id="receiverModifyAreaSpan">
 						<input type="hidden" id="modify_orderAreaId" name="modify_orderAreaId" treePath="${receiver.area.treePath}"/>
@@ -57,7 +57,7 @@ function addNewAddress(){
 				</div>
 				<div class="address-btn">
 					<!--<input type="button" name="btn-confirm" value="确认" class="box-button" onClick="addNewAddress()"/>-->
-					<button onClick="addNewAddress();">确认</button>
+					<button type="button" onClick="addNewAddress();">确认</button>
 				</div>
 		    </form>	
 		</div>

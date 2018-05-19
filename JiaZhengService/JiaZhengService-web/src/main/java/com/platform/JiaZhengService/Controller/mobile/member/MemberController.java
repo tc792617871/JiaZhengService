@@ -147,6 +147,18 @@ public class MemberController extends AbstractController {
 	}
 
 	/**
+	 * 我的寄送地址
+	 */
+	@RequestMapping(value = "/myReceiverList", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> myReceiverList(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> data = new HashMap<String, Object>();
+		TMember member = memberService.getCurrent();
+		List<TReceiver> receivers = receiverService.findReceiversByMemberID(member.getId());
+		data.put("receivers", receivers);
+		return data;
+	}
+
+	/**
 	 * 删除寄送地址
 	 */
 	@RequestMapping(value = "/deletesendAddress", method = RequestMethod.POST)
