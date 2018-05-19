@@ -575,7 +575,53 @@ function contains(array, values) {
 				async : false,
 				success : function(message) {
 					if (message.type == "success") {
-						location.reload();
+						$.ajax({
+							url : jiazhengservice.base + "/mobile/member/myReceiverList.jhtml",
+							type : "post",
+							dataType : "json",
+							cache : false,
+							async : false,
+							success : function(data) {
+								var templateHtml = '<li dataid="$RECEIVERID">'
+									+'<a href="javascript:;">'
+										+'<table>'
+				            				+'<tr>'
+				                				+'<td>'
+				                    				+'<label for="receiverConsignee">收件人:</label>'
+														+'<span id="receiverConsignee">$RECEIVERCONSIGNEE</span>'
+				                				+'</td>'
+				            				+'</tr>'
+				            				+'<tr>'
+				                				+'<td>'
+				                    				+'<label for="receiverPhone">手机号码:</label>'
+				                    					+'<span id="receiverPhone">$RECEIVERPHONE</span>'
+												+'</td>'
+			            					+'</tr>'
+				            				+'<tr>'
+				                				+'<td>'
+				                    				+'<label for="receiverAddress">地址:</label>'
+				                    					+'<span id="receiverAddress">$RECEIVERADDRESS</span>'
+				                				+'</td>'
+				            				+'</tr>'
+			            					+'<tr>'
+				                				+'<td>'
+				                    				+'<label for="receiverZipCode">邮编:</label>'
+														+'<span id="receiverZipCode">$RECEIVERZIPCODE</span>'
+				                				+'</td>'
+				            				+'</tr>'
+				         				+'</table>'
+									+'</a>'
+									+'<i></i>'
+								+'</li>';
+								var receivers = data.receivers;
+								var html = '';
+								receivers.forEach(function(receiver){  
+									var item = templateHtml.replace("$RECEIVERID",receiver.id).replace("$RECEIVERCONSIGNEE",receiver.consignee).replace("$RECEIVERPHONE",receiver.phone).replace("$RECEIVERADDRESS",receiver.areaName + receiver.address).replace("$RECEIVERZIPCODE",receiver.zipCode);
+									html += item;  
+								});
+								$("ul.receiverEntry").html(html);
+							}
+						});
 					} else {
 						m$.ui.dialog.dialogShow({
 							'title' : '提示',
@@ -584,6 +630,7 @@ function contains(array, values) {
 							'text' : '确定'
 						} ]);
 					}
+					$("#addReceiverModal").find("button.md-close").click();
 				}
 			});
 		},
@@ -1403,8 +1450,9 @@ m$.myAccount = {};
 				async : false,
 				success : function(message) {
 					if (message.type == "success") {
-						window.location.href = jiazhengservice.base
-								+ "/mobile/member/sendAddress.jhtml";
+						setTimeout(function() {
+							window.location = jiazhengservice.base + "/mobile/member/sendAddress.jhtml";
+						}, 1000);
 					} else {
 						m$.ui.dialog.dialogShow({
 							'title' : '提示',
@@ -1831,6 +1879,7 @@ m$.register = {};
 			var $mobile = $("#mobile");
 			var mobileRegular = /1[3-8]+\d{9}/;
 			var $validateCode = $("#validateCode");
+			var openid = $("#openId").val();
 
 			if (!$mobile.val()) {
 				m$.ui.dialog.dialogShow({
@@ -1850,7 +1899,7 @@ m$.register = {};
 				} ]);
 				return false;
 			}
-			if (!$validateCode.val()) {
+			/*if (!$validateCode.val()) {
 				m$.ui.dialog.dialogShow({
 					'title' : '提示',
 					'content' : '请填写验证码'
@@ -1858,7 +1907,7 @@ m$.register = {};
 					'text' : '确定'
 				} ]);
 				return false;
-			}
+			}*/
 			if (!$password.val()) {
 				m$.ui.dialog.dialogShow({
 					'title' : '提示',
@@ -1895,7 +1944,7 @@ m$.register = {};
 				} ]);
 				return false;
 			}
-			var orgsafeKeyExpireTime = cookie('safeKeyExpireTime');
+			/*var orgsafeKeyExpireTime = cookie('safeKeyExpireTime');
 			var today = new Date();
 			if (orgsafeKeyExpireTime < today.getTime()) {
 				m$.ui.dialog.dialogShow({
@@ -1915,7 +1964,7 @@ m$.register = {};
 					'text' : '确定'
 				} ]);
 				return false;
-			}
+			}*/
 			$.ajax({
 				url : jiazhengservice.base + "/mobile/common/public_key.jhtml",
 				type : "GET",
@@ -1933,7 +1982,8 @@ m$.register = {};
 							email : $email.val(),
 							name : $name.val(),
 							address : $address.val(),
-							mobile : $mobile.val()
+							mobile : $mobile.val(),
+							openId : openid
 						},
 						dataType : "json",
 						cache : false,
